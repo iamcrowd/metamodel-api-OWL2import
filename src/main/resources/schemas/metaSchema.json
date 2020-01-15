@@ -1,0 +1,98 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "gilia.metamodel.metamodel",
+    "title": "Metamodel JSON",
+    "description": "This JSON represents the abstraction of a model in a language X into the Metamodel according to the Metamodel formalization [Fillottrani-Keet]",
+    "type": "object",
+    "properties": {
+        "Entity type": {
+          "description": "",
+          "type": "object",
+          "properties": {
+                "Object type": {
+                    "description": "",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+              },
+                "Data type": {
+                    "description": "",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+              },
+                "Value property": {
+                    "description": "",
+                    "type": "array",
+                    "items": true
+              }
+          }
+        },
+        "Role": {
+            "description": "",
+            "type": "array",
+            "items": true
+        },
+        "Relationship": {
+            "description": "",
+            "type": "object",
+            "properties": {
+                "Subsumption": {
+                    "description": "",
+                    "type": "array",
+                    "items": true
+                },
+                "Relationship": {
+                    "description": "",
+                    "type": "array",
+                    "items": true
+                },
+                "Attributive Property": {
+                    "description": "",
+                    "type": "array",
+                    "items": true
+                }
+            }
+        },
+        "Disjointness constraints": {
+            "description": "",
+            "type": "object",
+            "properties": {
+                "Disjoint object type": {
+                    "description": "",
+                    "type": "array",
+                    "items": true
+                },
+                "Disjoint role": {
+                    "description": "",
+                    "type": "array",
+                    "items": true
+                }
+            }
+        },
+        "Completeness constraints": {
+            "description": "",
+            "type": "array",
+            "items": true
+        },
+        "Cardinality constraints": {
+            "description": "",
+            "type": "object",
+            "properties": {
+                "Object type cardinality": {
+                    "description": "",
+                    "type": "array",
+                    "items": true
+                },
+                "Attibutive property cardinality": {
+                    "description": "",
+                    "type": "array",
+                    "items": true
+                }
+            }
+        }
+      },
+      "required": []
+}

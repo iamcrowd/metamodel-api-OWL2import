@@ -1,0 +1,49 @@
+{
+  "entities": [
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Entity",
+      "ref": "",
+      "id": 60,
+      "type": "entity",
+      "position": {
+        "x": 250,
+        "y": 195
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Entity",
+      "ref": "",
+      "id": 74,
+      "type": "entity",
+      "position": {
+        "x": 585,
+        "y": 200
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#role_name",
+      "inverseReading": false,
+      "entities": [
+        "http://crowd.fi.uncoma.edu.ar#undefined",
+        "http://crowd.fi.uncoma.edu.ar#Entity",
+        "http://crowd.fi.uncoma.edu.ar#undefined",
+        "http://crowd.fi.uncoma.edu.ar#Entity"
+      ],
+      "uniquenessConstraints": [
+        "0..1",
+        "0..1"
+      ],
+      "mandatory": [],
+      "type": "binaryFactType",
+      "position": {
+        "x": 430,
+        "y": 210
+      }
+    }
+  ],
+  "attributes": [],
+  "inheritances": [],
+  "connectors": []
+}

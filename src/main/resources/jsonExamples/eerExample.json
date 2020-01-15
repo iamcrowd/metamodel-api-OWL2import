@@ -1,0 +1,84 @@
+{
+  "entities": [
+    {
+      "name": "Entity",
+      "id": "c51",
+      "timestamp": "",
+      "position": {
+        "x": 380,
+        "y": 340
+      }
+    },
+    {
+      "name": "Entity",
+      "id": "c63",
+      "timestamp": "",
+      "position": {
+        "x": 740,
+        "y": 340
+      }
+    },
+    {
+      "name": "Entity",
+      "id": "c163",
+      "timestamp": "",
+      "position": {
+        "x": 683,
+        "y": 509
+      }
+    },
+    {
+      "name": "Entity",
+      "id": "c175",
+      "timestamp": "",
+      "position": {
+        "x": 817,
+        "y": 504
+      }
+    }
+  ],
+  "attributes": [],
+  "relationships": [
+    {
+      "name": "R",
+      "id": "c75",
+      "timestamp": "",
+      "position": {
+        "x": 570,
+        "y": 330
+      }
+    }
+  ],
+  "links": [
+    {
+      "name": "c187",
+      "parent": "undefined",
+      "entities": [
+        "Entity",
+        "Entity",
+        "Entity"
+      ],
+      "type": "isa",
+      "constraint": [
+        "exclusive"
+      ]
+    },
+    {
+      "name": "R",
+      "id": "c75",
+      "entities": [
+        "Entity",
+        "Entity"
+      ],
+      "cardinality": [
+        "1..1",
+        "1..1"
+      ],
+      "roles": [
+        "entity",
+        "entity"
+      ],
+      "type": "relationship"
+    }
+  ]
+}

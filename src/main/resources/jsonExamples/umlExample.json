@@ -1,0 +1,107 @@
+{
+  "namespaces": {
+    "ontologyIRI": [
+      {
+        "prefix": "crowd",
+        "value": "http://crowd.fi.uncoma.edu.ar#"
+      }
+    ],
+    "defaultIRIs": [
+      {
+        "prefix": "rdf",
+        "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      },
+      {
+        "prefix": "rdfs",
+        "value": "http://www.w3.org/2000/01/rdf-schema#"
+      },
+      {
+        "prefix": "xsd",
+        "value": "http://www.w3.org/2001/XMLSchema#"
+      },
+      {
+        "prefix": "owl",
+        "value": "http://www.w3.org/2002/07/owl#"
+      }
+    ],
+    "IRIs": []
+  },
+  "classes": [
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Class1",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 433,
+        "y": 179
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Class2",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 822,
+        "y": 181
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Class3",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 724,
+        "y": 353
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Class4",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 935,
+        "y": 350
+      }
+    }
+  ],
+  "links": [
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Rel1",
+      "classes": [
+        "http://crowd.fi.uncoma.edu.ar#Class1",
+        "http://crowd.fi.uncoma.edu.ar#Class2"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://crowd.fi.uncoma.edu.ar#role1",
+        "http://crowd.fi.uncoma.edu.ar#role2"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#s1",
+      "parent": "http://crowd.fi.uncoma.edu.ar#Class2",
+      "classes": [
+        "http://crowd.fi.uncoma.edu.ar#Class4",
+        "http://crowd.fi.uncoma.edu.ar#Class3"
+      ],
+      "multiplicity": null,
+      "roles": null,
+      "type": "generalization",
+      "constraint": [
+        "disjoint",
+        "covering"
+      ],
+      "position": {
+        "x": 866,
+        "y": 310
+      }
+    }
+  ],
+  "owllink": [
+    ""
+  ]
+}
