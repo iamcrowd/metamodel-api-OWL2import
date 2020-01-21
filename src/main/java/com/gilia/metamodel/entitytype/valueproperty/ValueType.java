@@ -5,4 +5,10 @@ package com.gilia.metamodel.entitytype.valueproperty;
  */
 public class ValueType extends ValueProperty {
 
+    /**
+     * @param name
+     */
+    public ValueType(String name) {
+        super(name);
+    }
 }

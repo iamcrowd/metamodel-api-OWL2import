@@ -1,4 +1,6 @@
 package com.gilia.metamodel.constraint.cardinality;
 
-public class CardinalityConstraint {
+import com.gilia.metamodel.constraint.Constraint;
+
+public class CardinalityConstraint extends Constraint {
 }

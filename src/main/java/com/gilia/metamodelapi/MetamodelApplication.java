@@ -1,4 +1,4 @@
-package com.gilia.MetamodelAPI;
+package com.gilia.metamodelapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

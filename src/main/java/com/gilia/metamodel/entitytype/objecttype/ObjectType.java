@@ -1,29 +1,39 @@
 package com.gilia.metamodel.entitytype.objecttype;
 
 import com.gilia.metamodel.entitytype.EntityType;
-import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
- *
  * @author Emiliano Rios Gavagnin
  */
 public class ObjectType extends EntityType { // TODO: 1:1 Mapping
 
-    /**
-     *
-     * @param objectTypeName
-     */
-    public ObjectType(String objectTypeName) {
-        this.name = objectTypeName;
+    public ObjectType() {
+        super();
     }
 
     /**
-     *
+     * @param name
+     */
+    public ObjectType(String name) {
+        super(name);
+    }
+
+    /**
      * @return
      */
-    public JSONArray toJSONArray(){
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.add(name);
-        return jsonArray;
+    public String toString() {
+        return "ObjectType{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    /**
+     * @return
+     */
+    public JSONObject toJSONObject() {
+        // TODO: Implement
+        return new JSONObject();
     }
 }

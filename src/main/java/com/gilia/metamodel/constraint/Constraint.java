@@ -1,9 +1,11 @@
-package com.gilia.metamodel.contraint;
+package com.gilia.metamodel.constraint;
+
+import com.gilia.metamodel.Entity;
 
 /**
  *
  * @author Emiliano Rios Gavagnin
  */
-public class Constraint {
+public class Constraint extends Entity {
     
 }

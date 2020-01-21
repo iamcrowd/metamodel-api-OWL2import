@@ -88,6 +88,56 @@ public class Metamodel {
     }
 
     /**
+     * @param entity
+     */
+    public void addEntity(EntityType entity) {
+        this.entities.add(entity);
+    }
+
+    /**
+     * @param entities
+     */
+    public void addEntities(ArrayList<EntityType> entities) {
+        this.entities.addAll(entities);
+    }
+
+    /**
+     * @param relationship
+     */
+    public void addRelationship(Relationship relationship) {
+        this.relationships.add(relationship);
+    }
+
+    /**
+     * @param relationships
+     */
+    public void addRelationships(ArrayList<Relationship> relationships) {
+        this.relationships.addAll(relationships);
+    }
+
+    /**
+     * @param role
+     */
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
+
+    /**
+     * @param roles
+     */
+    public void addRoles(ArrayList<Role> roles) {
+        this.roles.addAll(roles);
+    }
+
+    /**
+     * @param constraint
+     */
+    public void addConstraint(Constraint constraint) {
+        this.constraints.add(constraint);
+    }
+
+
+    /**
      * @param obj
      * @return
      */
