@@ -9,12 +9,4 @@ import org.json.simple.JSONObject;
 public class MetaToUml extends Metastrategy{
 
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public JSONObject createModel() {
-        return super.createModel();
-    }
 }

@@ -7,12 +7,4 @@ import org.json.simple.JSONObject;
  */
 public class MetaToOrm extends Metastrategy {
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public JSONObject createModel() {
-        return super.createModel();
-    }
 }
