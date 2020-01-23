@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
  *
  * @author emiliano
  */
+@Deprecated
 public abstract class Metastrategy {
 
     protected Metamodel model;

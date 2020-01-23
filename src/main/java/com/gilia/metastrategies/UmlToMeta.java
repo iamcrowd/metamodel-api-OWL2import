@@ -16,6 +16,7 @@ import java.util.ArrayList;
 /**
  * @author Emiliano Rios Gavagnin
  */
+@Deprecated
 public class UmlToMeta extends Metastrategy {
 
     /**

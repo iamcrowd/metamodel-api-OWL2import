@@ -9,6 +9,7 @@ package com.gilia.metastrategies;
  *
  * @author emiliano
  */
+@Deprecated
 public class MetaToEer extends Metastrategy{
     
 }
