@@ -1,10 +1,11 @@
 package com.gilia.builder.jsontranslator;
 
 import com.gilia.exceptions.EntityNotValidException;
+import com.gilia.exceptions.InconsistentModelInformationException;
+import com.gilia.exceptions.InformationNotFoundException;
 import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.Metamodel;
-import com.gilia.metamodel.constraint.Constraint;
-import com.gilia.metamodel.entitytype.EntityType;
+import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
@@ -27,7 +28,9 @@ public class UMLTranslator implements JSONTranslator {
 
     @Override
     public Metamodel createMetamodel(JSONObject json) {
-        Metamodel newMetamodel = new Metamodel();
+        String ontologyIRI = (String) ((JSONObject) ((JSONObject) json.get(KEY_NAMESPACES)).get(KEY_ONTOLOGY_IRI)).get(KEY_VALUE);
+
+        Metamodel newMetamodel = new Metamodel(ontologyIRI);
         JSONArray jsonClasses = (JSONArray) json.get(KEY_CLASSES);
         JSONArray jsonLinks = (JSONArray) json.get(KEY_LINKS);
 
@@ -47,13 +50,17 @@ public class UMLTranslator implements JSONTranslator {
     private void identifyObjectTypes(Metamodel model, JSONArray jsonClasses) {
         // TODO: Existence check
         ArrayList newObjectsType = new ArrayList();
-        for (Object umlClass : jsonClasses) {
-            String entityName = (String) ((JSONObject) umlClass).get(KEY_NAME);
-            ObjectType newObjectType = new ObjectType(entityName);
-            newObjectsType.add(newObjectType);
-        }
+        if (jsonClasses != null) {
+            for (Object umlClass : jsonClasses) {
+                String entityName = (String) ((JSONObject) umlClass).get(KEY_NAME);
+                ObjectType newObjectType = new ObjectType(entityName);
+                newObjectsType.add(newObjectType);
+            }
 
-        model.addEntities(newObjectsType);
+            model.addEntities(newObjectsType);
+        } else {
+            throw new InformationNotFoundException(ENTITIES_INFORMATION_NOT_FOUND_ERROR);
+        }
     }
 
     /**
@@ -67,57 +74,86 @@ public class UMLTranslator implements JSONTranslator {
         // Identify roles -> Check it does not exist -> By definition it can exist for another relationship
         ArrayList newRelationships = new ArrayList();
         ArrayList newRoles = new ArrayList();
-        for (Object umlLink : jsonLinks) {
-            String type = (String) ((JSONObject) umlLink).get(KEY_TYPE);
-            if (type.equals(KEY_ASSOCIATION)) {
-                JSONObject association = (JSONObject) umlLink;
-                String associationName = (String) association.get(KEY_NAME);
+        ArrayList newCardinalitiesConstraints = new ArrayList();
+        if (jsonLinks != null) {
+            for (Object umlLink : jsonLinks) {
+                String type = (String) ((JSONObject) umlLink).get(KEY_TYPE);
+                if (type.equals(KEY_ASSOCIATION)) {
+                    JSONObject association = (JSONObject) umlLink;
+                    String associationName = (String) association.get(KEY_NAME);
 
-                // Check the existence of the entities involved and add the entities not present in the metamodel
-                JSONArray classes = (JSONArray) association.get(KEY_CLASSES); // TODO: Check size of classes
-                ArrayList objectsType = new ArrayList();
-                for (Object jsonClass : classes) {
-                    String className = (String) jsonClass;
-                    Entity entityFound = checkEntityExistence(model, className);
-                    if (entityFound != null) {
-                        if (entityFound.getClass().equals(ObjectType.class)) {
-                            objectsType.add(entityFound);
+                    // Check the existence of the entities involved and add the entities not present in the metamodel
+                    JSONArray classes = (JSONArray) association.get(KEY_CLASSES); // TODO: Check size of classes
+                    ArrayList objectsType = new ArrayList();
+                    for (Object jsonClass : classes) {
+                        String className = (String) jsonClass;
+                        Entity entityFound = model.checkEntityExistence(className);
+                        if (entityFound != null) {
+                            if (entityFound.getClass().equals(ObjectType.class)) {
+                                objectsType.add(entityFound);
+                            } else {
+                                throw new EntityNotValidException("Entity " + className + " not valid for association " + associationName); // TODO: Modify exception to use constants and parametrized messages
+                            }
                         } else {
-                            throw new EntityNotValidException("Entity " + className + " not valid for association " + associationName); // TODO: Modify exception to use constants and parametrized messages
-                        }
-                    } else {
-                        ObjectType newObjectType = new ObjectType(className);
+                            // TODO: The non existence of the entity is an exception or should be created?
+                        /*ObjectType newObjectType = new ObjectType(className);
                         objectsType.add(newObjectType);
-                        model.addEntity(newObjectType);
+                        model.addEntity(newObjectType);*/
+                            throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                        }
                     }
+
+                    Relationship newRelationship = new Relationship(associationName, objectsType);
+                    model.addRelationship(newRelationship);
+                    newRoles = identifyRoles(model, association);
                 }
-
-                JSONArray jsonRoles = (JSONArray) association.get(KEY_ROLES); // TODO: Check size of roles
-                newRoles = identifyRoles(jsonRoles);
-
-                // JSONArray multiplicity = (JSONArray) association.get("multiplicity"); // TODO: Include multiplicity constraint
-
-                Relationship newRelationship = new Relationship(associationName, objectsType, newRoles);
-                newRelationships.add(newRelationship);
             }
+            model.addRoles(newRoles);
+        } else {
+            throw new InformationNotFoundException(RELATIONSHIPS_INFORMATION_NOT_FOUND_ERROR);
         }
-        model.addRoles(newRoles);
-        model.addRelationships(newRelationships);
     }
 
     /**
      * Identifies each role from a JSONArray of roles obtained from the UML JSON and generates every role as a Role object.
      *
-     * @param roles JSONArray with the objects that represents each role from a relationship.
-     *
+     * @param model
+     * @param association
      * @return An ArrayList of Role objects equivalent to the roles given in the JSONArray
      */
-    private ArrayList identifyRoles(JSONArray roles) {
+    private ArrayList identifyRoles(Metamodel model, JSONObject association) throws EntityNotValidException {
         ArrayList newRoles = new ArrayList();
-        for (Object umlRole : roles) {
-            String roleName = (String) umlRole;
-            Role newRole = new Role(roleName);
-            newRoles.add(newRole);
+        String associationName = (String) association.get(KEY_NAME);
+        JSONArray jsonClasses = (JSONArray) association.get(KEY_CLASSES);
+        JSONArray jsonRoles = (JSONArray) association.get(KEY_ROLES);
+        JSONArray jsonCardinalities = (JSONArray) association.get(KEY_MULTIPLICITY);
+        if (jsonRoles.size() == jsonCardinalities.size()) {
+            for (int i = 0; i < jsonRoles.size(); i++) {
+                String entityName = (String) jsonClasses.get(i);
+                String roleName = (String) jsonRoles.get(i);
+                String cardinality = (String) jsonCardinalities.get(i);
+
+                // Get the entity related to this new role. It should exist already
+                ObjectType entity = (ObjectType) model.getEntity(entityName);
+                if (entity.isNameless()) { // If the entity returned is nameless, then it does not exist or is not valid.
+                    throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                }
+
+                // Get the relationship related to this new role. It should exist already
+                Relationship relationship = model.getRelationship(associationName);
+                if (relationship.isNameless()) { // If the relationship returned is nameless, then it does not exist or is not valid.
+                    throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                }
+
+                // Generate the cardinality constraint associated to the new role
+                ObjectTypeCardinality newCardinalityConstraint = new ObjectTypeCardinality(model.getOntologyIRI() + "card" + (model.getConstraints().size() + 1), cardinality);
+                model.addConstraint(newCardinalityConstraint);
+
+                Role newRole = new Role(roleName, entity, relationship, newCardinalityConstraint);
+                newRoles.add(newRole);
+            }
+        } else {
+            throw new InconsistentModelInformationException(INCONSISTENT_ROLES_WITH_CARDINALITIES_ERROR);
         }
 
         return newRoles;
@@ -142,7 +178,7 @@ public class UMLTranslator implements JSONTranslator {
                 // Check the existence of the parent in the generalization
                 ObjectType parent;
                 String parentName = (String) subclass.get(KEY_PARENT);
-                Entity entityFound = checkEntityExistence(model, parentName);
+                Entity entityFound = model.checkEntityExistence(parentName);
                 if (entityFound != null) {
                     if (entityFound.getClass().equals(ObjectType.class)) {
                         parent = (ObjectType) entityFound;
@@ -160,7 +196,7 @@ public class UMLTranslator implements JSONTranslator {
                 ArrayList objectsType = new ArrayList();
                 for (Object jsonClass : classes) {
                     String className = (String) jsonClass;
-                    entityFound = checkEntityExistence(model, className);
+                    entityFound = model.checkEntityExistence(className);
                     if (entityFound != null) {
                         if (entityFound.getClass().equals(ObjectType.class)) {
                             objectsType.add(entityFound);
@@ -182,41 +218,4 @@ public class UMLTranslator implements JSONTranslator {
         model.addRelationships(newSubsumptions);
     }
 
-    /**
-     * Checks if a given entity name is already present within the metamodel given.
-     * If the entity exists, then it returns the object of that entity.
-     * Otherwise, it returns null.
-     *
-     * @param metamodel A Metamodel instance where to look for the entity
-     * @param entityName An entity name to be looked for
-     * @return An EntityType, Relationship, Role or Constraint object of the given entityName if it exists in the metamodel. Otherwise returns null.
-     */
-    private Entity checkEntityExistence(Metamodel metamodel, String entityName) {
-        for (EntityType entity : metamodel.getEntities()) {
-            if (entity.getName().equals(entityName)) {
-                return entity;
-            }
-        }
-
-        for (Relationship relationship : metamodel.getRelationships()) {
-            if (relationship.getName().equals(entityName)) {
-                return relationship;
-            }
-        }
-
-        for (Role role : metamodel.getRoles()) {
-            if (role.getName().equals(entityName)) {
-                return role;
-            }
-        }
-
-        for (Constraint constraint : metamodel.getConstraints()) {
-            if (constraint.getName().equals(entityName)) {
-                return constraint;
-            }
-        }
-
-        return null;
-
-    }
 }

@@ -2,6 +2,7 @@ package com.gilia.metamodel;
 
 import com.gilia.metamodel.constraint.Constraint;
 import com.gilia.metamodel.entitytype.EntityType;
+import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.role.Role;
 import org.json.simple.JSONObject;
@@ -16,6 +17,7 @@ import java.util.Objects;
  */
 public class Metamodel {
 
+    private String ontologyIRI;
     private ArrayList<EntityType> entities;
     private ArrayList<Relationship> relationships;
     private ArrayList<Role> roles;
@@ -25,10 +27,31 @@ public class Metamodel {
      *
      */
     public Metamodel() {
+        this.ontologyIRI = "";
         this.entities = new ArrayList();
         this.relationships = new ArrayList();
         this.roles = new ArrayList();
         this.constraints = new ArrayList();
+    }
+
+    /**
+     *
+     */
+    public Metamodel(String ontologyIRI) {
+        this.ontologyIRI = ontologyIRI;
+        this.entities = new ArrayList();
+        this.relationships = new ArrayList();
+        this.roles = new ArrayList();
+        this.constraints = new ArrayList();
+    }
+
+
+    public String getOntologyIRI() {
+        return ontologyIRI;
+    }
+
+    public void setOntologyIRI(String ontologyIRI) {
+        this.ontologyIRI = ontologyIRI;
     }
 
     /**
@@ -134,6 +157,60 @@ public class Metamodel {
      */
     public void addConstraint(Constraint constraint) {
         this.constraints.add(constraint);
+    }
+
+    public EntityType getEntity(String name) {
+        for (EntityType entity : entities) {
+            if (entity.getName().equals(name)) {
+                return entity;
+            }
+        }
+        return new ObjectType();
+    }
+
+    public Relationship getRelationship(String name) {
+        for (Relationship relationship : relationships) {
+            if (relationship.getName().equals(name)) {
+                return relationship;
+            }
+        }
+        return new Relationship();
+    }
+
+    /**
+     * Checks if a given entity name is already present within the metamodel given.
+     * If the entity exists, then it returns the object of that entity.
+     * Otherwise, it returns null.
+     *
+     * @param entityName An entity name to be looked for
+     * @return An EntityType, Relationship, Role or Constraint object of the given entityName if it exists in the metamodel. Otherwise returns null.
+     */
+    public Entity checkEntityExistence(String entityName) {
+        for (EntityType entity : entities) {
+            if (entity.getName().equals(entityName)) {
+                return entity;
+            }
+        }
+
+        for (Relationship relationship : relationships) {
+            if (relationship.getName().equals(entityName)) {
+                return relationship;
+            }
+        }
+
+        for (Role role : roles) {
+            if (role.getName().equals(entityName)) {
+                return role;
+            }
+        }
+
+        for (Constraint constraint : constraints) {
+            if (constraint.getName().equals(entityName)) {
+                return constraint;
+            }
+        }
+
+        return null;
     }
 
 

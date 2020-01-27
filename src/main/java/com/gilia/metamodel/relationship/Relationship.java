@@ -1,7 +1,10 @@
 package com.gilia.metamodel.relationship;
 
 import com.gilia.metamodel.Entity;
+import com.gilia.metamodel.entitytype.EntityType;
+import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.role.Role;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -12,8 +15,14 @@ import java.util.Objects;
  */
 public class Relationship extends Entity { // TODO: 1:1 Mapping
     // TODO: Study more about Relationships formalization (KF metamodel formalization - Page 8)
-    protected ArrayList<String> entities;
+    protected ArrayList<ObjectType> entities;
     protected ArrayList<Role> roles;
+
+    public Relationship(){
+        super();
+        this.entities = new ArrayList();
+        this.roles = new ArrayList();
+    }
 
     /**
      *
@@ -25,13 +34,19 @@ public class Relationship extends Entity { // TODO: 1:1 Mapping
         this.roles = new ArrayList();
     }
 
+    public Relationship(String name, ArrayList<ObjectType> entities){
+        super(name);
+        this.entities = entities;
+        this.roles = new ArrayList();;
+    }
+
     /**
      *
      * @param name
      * @param entities
      * @param roles
      */
-    public Relationship(String name, ArrayList entities, ArrayList roles) {
+    public Relationship(String name, ArrayList<ObjectType> entities, ArrayList<Role> roles) {
         super(name);
         this.entities = entities;
         this.roles = roles;
@@ -41,7 +56,7 @@ public class Relationship extends Entity { // TODO: 1:1 Mapping
      *
      * @return
      */
-    public ArrayList<String> getEntities() {
+    public ArrayList<ObjectType> getEntities() {
         return entities;
     }
 
@@ -49,7 +64,7 @@ public class Relationship extends Entity { // TODO: 1:1 Mapping
      *
      * @param entities
      */
-    public void setEntities(ArrayList<String> entities) {
+    public void setEntities(ArrayList<ObjectType> entities) {
         this.entities = entities;
     }
 
@@ -112,7 +127,15 @@ public class Relationship extends Entity { // TODO: 1:1 Mapping
      * @return
      */
     public JSONObject toJSONObject() {
-        // TODO: Implement
-        return new JSONObject();
+        JSONObject relationship = new JSONObject();
+        JSONArray entitiesJSON = new JSONArray();
+
+        for (Object entity : entities){
+            entitiesJSON.add(((ObjectType) entity).getName());
+        }
+
+        relationship.put("name", name);
+        relationship.put("entities", entitiesJSON);
+        return relationship;
     }
 }

@@ -46,4 +46,8 @@ public abstract class Entity {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
+    public boolean isNameless() { // Used mainly for checking existence. It is a way to avoid checking/returning nulls
+        return name.equals("");
+    }
 }

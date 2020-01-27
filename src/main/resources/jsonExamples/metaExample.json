@@ -15,112 +15,112 @@
         ],
         "value type": "http://crowd.fi.uncoma.edu.ar/kb1#Name"
       }
-    ],
-    "Role": [
+    ]
+  },
+  "Role": [
+    {
+      "rolename": "http://crowd.fi.uncoma.edu.ar/kb1#person",
+      "relationship": "http://crowd.fi.uncoma.edu.ar/kb1#belongs",
+      "entity type": "http://crowd.fi.uncoma.edu.ar/kb1#Person",
+      "object type cardinality": [
+        "http://crowd.fi.uncoma.edu.ar/kb1#card2"
+      ]
+    },
+    {
+      "rolename": "http://crowd.fi.uncoma.edu.ar/kb1#dog",
+      "relationship": "http://crowd.fi.uncoma.edu.ar/kb1#belongs",
+      "entity type": "http://crowd.fi.uncoma.edu.ar/kb1#Dog",
+      "object type cardinality": [
+        "http://crowd.fi.uncoma.edu.ar/kb1#card1"
+      ]
+    }
+  ],
+  "Relationship": {
+    "Subsumption": [
       {
-        "rolename": "http://crowd.fi.uncoma.edu.ar/kb1#person",
-        "relationship": "http://crowd.fi.uncoma.edu.ar/kb1#belongs",
-        "entity type": "http://crowd.fi.uncoma.edu.ar/kb1#Person",
-        "object type cardinality": [
-          "http://crowd.fi.uncoma.edu.ar/kb1#card2"
-        ]
+        "name": "http://crowd.fi.uncoma.edu.ar/kb1#s1",
+        "entity parent": "http://crowd.fi.uncoma.edu.ar/kb1#Person",
+        "entity children": "http://crowd.fi.uncoma.edu.ar/kb1#Dog",
+        "disjointness constraints": "http://crowd.fi.uncoma.edu.ar/kb1#dc1",
+        "completeness constraints": "http://crowd.fi.uncoma.edu.ar/kb1#cc1"
       },
       {
-        "rolename": "http://crowd.fi.uncoma.edu.ar/kb1#dog",
-        "relationship": "http://crowd.fi.uncoma.edu.ar/kb1#belongs",
-        "entity type": "http://crowd.fi.uncoma.edu.ar/kb1#Dog",
-        "object type cardinality": [
-          "http://crowd.fi.uncoma.edu.ar/kb1#card1"
+        "name": "http://crowd.fi.uncoma.edu.ar/kb1#s1",
+        "entity parent": "http://crowd.fi.uncoma.edu.ar/kb1#Person",
+        "entity children": "http://crowd.fi.uncoma.edu.ar/kb1#Dog",
+        "disjointness constraints": "http://crowd.fi.uncoma.edu.ar/kb1#dc1",
+        "completeness constraints": "http://crowd.fi.uncoma.edu.ar/kb1#cc1"
+      }
+    ],
+    "Relationship": [
+      {
+        "name": "http://crowd.fi.uncoma.edu.ar/kb1#belongs",
+        "entities": [
+          "http://crowd.fi.uncoma.edu.ar/kb1#Person",
+          "http://crowd.fi.uncoma.edu.ar/kb1#Dog"
         ]
       }
     ],
-    "Relationship": {
-      "Subsumption": [
+    "Attributive Property": [
+      {
+        "name": "http://crowd.fi.uncoma.edu.ar/kb1#Name",
+        "domain": [
+          {
+            "or": [
+              "http://crowd.fi.uncoma.edu.ar/kb1#Person"
+            ]
+          }
+        ],
+        "range": [
+          "http://www.w3.org/2001/XMLSchema-instance#String"
+        ]
+      }
+    ]
+  },
+  "Constraint": {
+    "Disjointness constraints": {
+      "Disjoint object type": [
         {
-          "name": "http://crowd.fi.uncoma.edu.ar/kb1#s1",
-          "entity parent": "http://crowd.fi.uncoma.edu.ar/kb1#Person",
-          "entity children": "http://crowd.fi.uncoma.edu.ar/kb1#Dog",
-          "disjointness constraints": "http://crowd.fi.uncoma.edu.ar/kb1#dc1",
-          "completeness constraints": "http://crowd.fi.uncoma.edu.ar/kb1#cc1"
-        },
-        {
-          "name": "http://crowd.fi.uncoma.edu.ar/kb1#s1",
-          "entity parent": "http://crowd.fi.uncoma.edu.ar/kb1#Person",
-          "entity children": "http://crowd.fi.uncoma.edu.ar/kb1#Dog",
-          "disjointness constraints": "http://crowd.fi.uncoma.edu.ar/kb1#dc1",
-          "completeness constraints": "http://crowd.fi.uncoma.edu.ar/kb1#cc1"
-        }
-      ],
-      "Relationship": [
-        {
-          "name": "http://crowd.fi.uncoma.edu.ar/kb1#belongs",
+          "name": "http://crowd.fi.uncoma.edu.ar/kb1#dc1",
           "entities": [
             "http://crowd.fi.uncoma.edu.ar/kb1#Person",
             "http://crowd.fi.uncoma.edu.ar/kb1#Dog"
           ]
         }
       ],
-      "Attributive Property": [
+      "Disjoint role": [
         {
-          "name": "http://crowd.fi.uncoma.edu.ar/kb1#Name",
-          "domain": [
-            {
-              "or": [
-                "http://crowd.fi.uncoma.edu.ar/kb1#Person"
-              ]
-            }
-          ],
-          "range": [
-            "http://www.w3.org/2001/XMLSchema-instance#String"
+          "name": "http://crowd.fi.uncoma.edu.ar/kb1#dr1",
+          "entities": [
+            "http://crowd.fi.uncoma.edu.ar/kb1#person",
+            "http://crowd.fi.uncoma.edu.ar/kb1#dog"
           ]
+        }
+      ]
+    },
+    "Completeness constraints": [
+      {
+        "name": "http://crowd.fi.uncoma.edu.ar/kb1#cc1",
+        "entities": [
+          "http://crowd.fi.uncoma.edu.ar/kb1#Person",
+          "http://crowd.fi.uncoma.edu.ar/kb1#Dog"
+        ]
+      }
+    ],
+    "Cardinality constraints": {
+      "Object type cardinality": [
+        {
+          "name": "http://crowd.fi.uncoma.edu.ar/kb1#card1",
+          "minimum": "1",
+          "maximum": "2"
+        },
+        {
+          "name": "http://crowd.fi.uncoma.edu.ar/kb1#card2",
+          "minimum": "0",
+          "maximum": "N"
         }
       ],
-      "Constraint": {
-        "Disjointness constraints": {
-          "Disjoint object type": [
-            {
-              "name": "http://crowd.fi.uncoma.edu.ar/kb1#dc1",
-              "entities": [
-                "http://crowd.fi.uncoma.edu.ar/kb1#Person",
-                "http://crowd.fi.uncoma.edu.ar/kb1#Dog"
-              ]
-            }
-          ],
-          "Disjoint role": [
-            {
-              "name": "http://crowd.fi.uncoma.edu.ar/kb1#dr1",
-              "entities": [
-                "http://crowd.fi.uncoma.edu.ar/kb1#person",
-                "http://crowd.fi.uncoma.edu.ar/kb1#dog"
-              ]
-            }
-          ]
-        },
-        "Completeness constraints": [
-          {
-            "name": "http://crowd.fi.uncoma.edu.ar/kb1#cc1",
-            "entities": [
-              "http://crowd.fi.uncoma.edu.ar/kb1#Person",
-              "http://crowd.fi.uncoma.edu.ar/kb1#Dog"
-            ]
-          }
-        ],
-        "Cardinality constraints": {
-          "Object type cardinality": [
-            {
-              "name": "http://crowd.fi.uncoma.edu.ar/kb1#card1",
-              "minimum": "1",
-              "maximum": "2"
-            },
-            {
-              "name": "http://crowd.fi.uncoma.edu.ar/kb1#card2",
-              "minimum": "0",
-              "maximum": "N"
-            }
-          ],
-          "Attibutive property cardinality": []
-        }
-      }
+      "Attibutive property cardinality": []
     }
   }
 }

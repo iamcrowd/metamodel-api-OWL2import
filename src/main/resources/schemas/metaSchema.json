@@ -87,7 +87,10 @@
                 "type": "string"
               },
               "entity children": {
-                "type": "string"
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "disjointness constraints": {
                 "type": "string"

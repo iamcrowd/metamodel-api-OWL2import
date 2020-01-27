@@ -21,7 +21,7 @@ public class MetaDirector {
     private MetaBuilder builder;
 
     public MetaDirector() {
-        this.metamodel = new Metamodel();
+        this.metamodel = null;
         this.translator = null;
         this.builder = null;
     }
@@ -58,7 +58,7 @@ public class MetaDirector {
         this.metamodel = translator.createMetamodel(json);
     }
 
-    public JSONObject generateUML() {
+    public JSONObject generateUML() throws NoMetamodelCreatedException {
         if (metamodel != null) {
             builder = new UMLConverter();
             return builder.generateJSON(metamodel);
@@ -67,7 +67,7 @@ public class MetaDirector {
         }
     }
 
-    public JSONObject generateEER() {
+    public JSONObject generateEER() throws NoMetamodelCreatedException {
         if (metamodel != null) {
             builder = new EERConverter();
             return builder.generateJSON(metamodel);
@@ -76,7 +76,7 @@ public class MetaDirector {
         }
     }
 
-    public JSONObject generateORM() {
+    public JSONObject generateORM() throws NoMetamodelCreatedException {
         if (metamodel != null) {
             builder = new ORMConverter();
             return builder.generateJSON(metamodel);
@@ -85,7 +85,7 @@ public class MetaDirector {
         }
     }
 
-    public JSONObject generateMeta() {
+    public JSONObject generateMeta() throws NoMetamodelCreatedException {
         if (metamodel != null) {
             builder = new MetaConverter();
             return builder.generateJSON(metamodel);
