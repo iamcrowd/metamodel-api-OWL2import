@@ -1,36 +1,34 @@
 package com.gilia.utils;
 
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.everit.json.schema.Schema;
+import org.everit.json.schema.ValidationException;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import org.json.simple.JSONArray;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+/**
+ * Class use for utility methods that can be used anywhere in the application. The methods inside this class
+ * are public and static, and will facilitate coding complex methods/functions
+ */
 public class Utils {
 
     /**
-     * Concatenates multiple JSONArrays
+     * Validates the given jsonString against a JSON Schema already defined in a file. The path to this file
+     * must be provided as a parameter. The method will execute successfully (no exceptions will be thrown)
+     * if the jsonString is valid according to the JSON Schema. If the jsonString is not valid, then it will
+     * throw a ValidationException.
      *
-     * @param arrs
-     * @return
+     * @param jsonString JSON String that contains an stringify JSON Object
+     * @param schemaPath The path to a file that contains a JSON Schema definition
+     * @throws FileNotFoundException
+     * @throws ValidationException
      */
-    public JSONArray concatArray(JSONArray... arrs) { // TODO: Test
-        JSONArray result = new JSONArray();
-        for (JSONArray arr : arrs) {
-            for (int i = 0; i < arr.size(); i++) {
-                result.add(arr.get(i));
-            }
-        }
-        return result;
-    }
-
-    public static void validateJSON(String jsonString, String schemaPath) throws FileNotFoundException {
+    public static void validateJSON(String jsonString, String schemaPath) throws FileNotFoundException, ValidationException {
         File schemaFile = new File(schemaPath);
         InputStream targetStream = new FileInputStream(schemaFile);
 
@@ -40,6 +38,5 @@ public class Utils {
         Schema schema = SchemaLoader.load(jsonSchema);
         schema.validate(jsonSubject);
     }
-
 
 }

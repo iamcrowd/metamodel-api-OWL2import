@@ -1,6 +1,10 @@
 package com.gilia.utils;
 
 /**
+ * It encapsulates every constant use in the application.
+ * The only purpose of this class is to organize the constants (specially string constants)
+ * the constants used throughout the application.
+ *
  * @author Emiliano Rios Gavagnin
  */
 public class Constants {
@@ -67,6 +71,10 @@ public class Constants {
 
     // Error Messages
 
+    public static final String ALREADY_EXIST_ENTITY_ERROR = "The given entitiy already exists in the metamodel";
+
+    public static final String ALREADY_EXIST_RELATIONSHIP_ERROR = "The given relationship already exists in the metamodel";
+
     public static final String CARDINALITY_SYNTAX_ERROR = "Cardinality syntax error creating";
 
     public static final String INCONSISTENT_ROLES_WITH_CARDINALITIES_ERROR = "The number of roles is inconsistent with the number of cardinalities";
@@ -80,7 +88,6 @@ public class Constants {
     public static final String ROLES_INFORMATION_NOT_FOUND_ERROR = "Information about the roles was not found";
 
     public static final String CONSTRAINTS_INFORMATION_NOT_FOUND_ERROR = "Information about the constraints was not found";
-
 
 
 }
