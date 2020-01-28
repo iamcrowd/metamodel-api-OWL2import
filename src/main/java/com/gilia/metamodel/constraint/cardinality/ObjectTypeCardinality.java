@@ -8,6 +8,11 @@ import java.util.Objects;
 
 import static com.gilia.utils.Constants.*;
 
+/**
+ * Representation of the ObjectTypeCardinality class from the KF Metamodel
+ *
+ * @author Emiliano Rios Gavagnin
+ */
 public class ObjectTypeCardinality extends CardinalityConstraint {
 
     private String minCardinality;

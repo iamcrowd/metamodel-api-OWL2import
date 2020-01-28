@@ -15,6 +15,10 @@ import java.io.FileNotFoundException;
 import static com.gilia.utils.Constants.*;
 import static com.gilia.utils.Utils.validateJSON;
 
+/**
+ * Controller of the UML_TO_META_ROUTE endpoint. This controller is in charge of receiving an UML JSON, creating the Metamodel
+ * instance and returning a Metamodel JSON.
+ */
 @RestController
 public class UmlToMetaController {
 
@@ -32,6 +36,12 @@ public class UmlToMetaController {
             response = director.generateMeta();
         } catch (ParseException | MetamodelException | FileNotFoundException e) {
             response.put(ERROR_STRING, e.getMessage());
+        } catch (ValidationException e) {
+            StringBuilder stringBuilder = new StringBuilder();
+            e.getCausingExceptions().stream()
+                    .map(ValidationException::getMessage)
+                    .forEach(stringBuilder::append);
+            response.put(ERROR_STRING, stringBuilder.toString());
         }
 
         return response;

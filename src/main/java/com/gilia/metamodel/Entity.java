@@ -4,6 +4,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
+ * Representation of the Entity class from the KF Metamodel
+ *
  * @author Emiliano Rios Gavagnin
  */
 public abstract class Entity {
