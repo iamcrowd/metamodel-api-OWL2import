@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 /**
  * @author Emiliano Rios Gavagnin
  */
-public class ObjectType extends EntityType { // TODO: 1:1 Mapping
+public class ObjectType extends EntityType {
 
     public ObjectType() {
         super();

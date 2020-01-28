@@ -10,7 +10,7 @@ import org.json.simple.JSONObject;
 /**
  * @author Emiliano Rios Gavagnin
  */
-public class Role extends Entity { // TODO: 1:1 Mapping
+public class Role extends Entity {
 
     private EntityType entity;
     private Relationship relationship;
@@ -75,7 +75,7 @@ public class Role extends Entity { // TODO: 1:1 Mapping
     public JSONObject toJSONObject() {
         JSONObject role = new JSONObject();
 
-        role.put("name", name);
+        role.put("rolename", name);
         role.put("relationship", relationship.getName());
         role.put("entity type", entity.getName());
         role.put("object type cardinality", cardinalityConstraint.getName());

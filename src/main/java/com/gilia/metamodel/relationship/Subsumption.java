@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * @author Emiliano Rios Gavagnin
  */
-public class Subsumption extends Relationship {  // TODO: 1:1 Mapping
+public class Subsumption extends Relationship {
 
     protected ObjectType parent;
 

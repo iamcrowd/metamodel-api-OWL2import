@@ -9,6 +9,14 @@ package com.gilia.utils;
  */
 public class Constants {
 
+    // Endpoints
+
+    public static final String UML_TO_META_ROUTE = "/umltometa";
+
+    public static final String EER_TO_META_ROUTE = "/eertometa";
+
+    public static final String ORM_TO_META_ROUTE = "/ormtometa";
+
     // Schemas
 
     public static final String UML_SCHEMA_PATH = "src/main/resources/schemas/umlSchema.json";
@@ -36,6 +44,8 @@ public class Constants {
     public static final String SUBSUMPTION_STRING = "subsumption";
 
     public static final String ROLE_STRING = "role";
+
+    public static final String ERROR_STRING = "error";
 
     // JSON Keys
 
@@ -88,6 +98,10 @@ public class Constants {
     public static final String ROLES_INFORMATION_NOT_FOUND_ERROR = "Information about the roles was not found";
 
     public static final String CONSTRAINTS_INFORMATION_NOT_FOUND_ERROR = "Information about the constraints was not found";
+
+    // Exception Names
+
+    public static final String VALIDATION_EXCEPTION_NAME = "ValidationException";
 
 
 }

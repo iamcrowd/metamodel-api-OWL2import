@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import static com.gilia.utils.Constants.*;
 
-public class ObjectTypeCardinality extends CardinalityConstraint { // TODO: 1:1 Mapping
+public class ObjectTypeCardinality extends CardinalityConstraint {
 
     private String minCardinality;
     private String maxCardinality;

@@ -254,7 +254,7 @@ public class Metamodel {
      * @return
      */
     public JSONObject toJSONObject() {
-        // TODO: Implement
+        // TODO: Implement? This is already done by MetaConverter/generateJSON
         return new JSONObject();
     }
 }

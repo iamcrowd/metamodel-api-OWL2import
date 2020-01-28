@@ -11,6 +11,6 @@ public class AssociativeObjectType extends ObjectType{
      */
     public AssociativeObjectType(String name) {
         super(name);
-    } // TODO: 1:1 Mapping
+    }
     
 }

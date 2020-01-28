@@ -13,8 +13,7 @@ import java.util.Objects;
 /**
  * @author Emiliano Rios Gavagnin
  */
-public class Relationship extends Entity { // TODO: 1:1 Mapping
-    // TODO: Study more about Relationships formalization (KF metamodel formalization - Page 8)
+public class Relationship extends Entity {
     protected ArrayList<ObjectType> entities;
     protected ArrayList<Role> roles;
 
