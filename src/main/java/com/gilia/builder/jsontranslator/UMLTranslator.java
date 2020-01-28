@@ -116,8 +116,8 @@ public class UMLTranslator implements JSONTranslator {
                     } else {
                         throw new AlreadyExistException(ALREADY_EXIST_RELATIONSHIP_ERROR);
                     }
+                    model.addRoles(newRoles);
                 }
-                model.addRoles(newRoles);
             }
         } else {
             throw new InformationNotFoundException(RELATIONSHIPS_INFORMATION_NOT_FOUND_ERROR);
