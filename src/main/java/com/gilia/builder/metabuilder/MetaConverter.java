@@ -1,7 +1,9 @@
 package com.gilia.builder.metabuilder;
 
 import com.gilia.metamodel.Metamodel;
+import com.gilia.metamodel.constraint.CompletenessConstraint;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
+import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
 import com.gilia.metamodel.entitytype.DataType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.entitytype.valueproperty.ValueProperty;
@@ -98,8 +100,31 @@ public class MetaConverter implements MetaBuilder {
 
         cardinalityConstraints.put("Object type cardinality", objectTypeCardinalitiesJSONArray);
         cardinalityConstraints.put("Attibutive property cardinality", new JSONArray());
-
         jsonConstraints.put("Cardinality constraints", cardinalityConstraints);
+
+        // Get Disjointness constraints
+        JSONArray disjointnessConstraintsJSONArray = new JSONArray();
+        for (Object constraint : constraints) {
+            if (DisjointObjectType.class.equals(constraint.getClass())) {
+                disjointnessConstraintsJSONArray.add(((DisjointObjectType) constraint).toJSONObject());
+            }
+        }
+
+        disjointnessConstraints.put("Disjoint object type" ,disjointnessConstraintsJSONArray);
+        disjointnessConstraints.put("Disjoint role" ,new JSONArray());
+        jsonConstraints.put("Disjointness constraints", disjointnessConstraints);
+
+
+        // Get Completeness constraints
+        JSONArray completenessConstraintsJSONArray = new JSONArray();
+        for (Object constraint : constraints) {
+            if (CompletenessConstraint.class.equals(constraint.getClass())) {
+                completenessConstraintsJSONArray.add(((CompletenessConstraint) constraint).toJSONObject());
+            }
+        }
+
+        jsonConstraints.put("Completeness constraints", completenessConstraintsJSONArray);
+
 
         jsonMetamodel.put("Constraint", jsonConstraints);
 

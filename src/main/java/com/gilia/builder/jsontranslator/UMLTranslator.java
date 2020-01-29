@@ -6,7 +6,9 @@ import com.gilia.exceptions.InconsistentModelInformationException;
 import com.gilia.exceptions.InformationNotFoundException;
 import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.Metamodel;
+import com.gilia.metamodel.constraint.CompletenessConstraint;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
+import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
@@ -29,7 +31,12 @@ public class UMLTranslator implements JSONTranslator {
 
     @Override
     public Metamodel createMetamodel(JSONObject json) {
-        String ontologyIRI = (String) ((JSONObject) ((JSONObject) json.get(KEY_NAMESPACES)).get(KEY_ONTOLOGY_IRI)).get(KEY_VALUE);
+        String ontologyIRI = "";
+        try {
+            ontologyIRI = (String) ((JSONObject) ((JSONObject) json.get(KEY_NAMESPACES)).get(KEY_ONTOLOGY_IRI)).get(KEY_VALUE);
+        } catch (ClassCastException e) {
+            System.out.println("WARNING: ontologyIRI was not obtained");
+        }
 
         Metamodel newMetamodel = new Metamodel(ontologyIRI);
         JSONArray jsonClasses = (JSONArray) json.get(KEY_CLASSES);
@@ -191,6 +198,7 @@ public class UMLTranslator implements JSONTranslator {
             if (type.equals(KEY_GENERALIZATION)) {
                 JSONObject subclass = (JSONObject) umlLink;
                 String subclassRelationshipName = (String) subclass.get(KEY_NAME);
+                JSONArray constraints = (JSONArray) subclass.get(KEY_CONSTRAINT);
 
                 // Check the existence of the parent in the generalization
                 ObjectType parent;
@@ -228,6 +236,17 @@ public class UMLTranslator implements JSONTranslator {
                         objectsType.add(newObjectType);
                         model.addEntity(newObjectType);*/
                         throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                    }
+                }
+
+                for (Object o : constraints) {
+                    String constraint = (String) o;
+                    if(constraint.equals(DISJOINT_STRING)){
+                        DisjointObjectType disjointObjectType = new DisjointObjectType(model.getOntologyIRI() + (model.getConstraints().size() + 1), objectsType);
+                        model.addConstraint(disjointObjectType);
+                    }else if(constraint.equals(COVERING_STRING)){
+                        CompletenessConstraint completenessConstraint = new CompletenessConstraint(model.getOntologyIRI() + (model.getConstraints().size() + 1), objectsType);
+                        model.addConstraint(completenessConstraint);
                     }
                 }
 

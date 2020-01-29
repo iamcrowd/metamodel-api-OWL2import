@@ -9,6 +9,9 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static com.gilia.utils.Constants.KEY_ENTITIES;
+import static com.gilia.utils.Constants.KEY_NAME;
+
 /**
  * Representation of the Relationship class from the KF Metamodel
  *
@@ -128,8 +131,8 @@ public class Relationship extends Entity {
             entitiesJSON.add(((ObjectType) entity).getName());
         }
 
-        relationship.put("name", name);
-        relationship.put("entities", entitiesJSON);
+        relationship.put(KEY_NAME, name);
+        relationship.put(KEY_ENTITIES, entitiesJSON);
         return relationship;
     }
 }

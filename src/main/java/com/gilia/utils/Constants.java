@@ -47,6 +47,10 @@ public class Constants {
 
     public static final String ERROR_STRING = "error";
 
+    public static final String DISJOINT_STRING = "disjoint";
+
+    public static final String COVERING_STRING = "covering";
+
     // JSON Keys
 
     public static final String KEY_NAMESPACES = "namespaces";
@@ -72,6 +76,24 @@ public class Constants {
     public static final String KEY_PARENT = "parent";
 
     public static final String KEY_MULTIPLICITY = "multiplicity";
+
+    public static final String KEY_ENTITIES = "entities";
+
+    public static final String KEY_ROLENAME = "rolename";
+
+    public static final String KEY_ENTITY_TYPE = "entity type";
+
+    public static final String KEY_OBJECT_TYPE_CARDINALITY = "object type cardinality";
+
+    public static final String KEY_ENTITY_PARENT = "entity parent";
+
+    public static final String KEY_ENTITY_CHILDREN = "entity children";
+
+    public static final String KEY_MINIMUM = "minimum";
+
+    public static final String KEY_MAXIMUM = "maximum";
+
+    public static final String KEY_CONSTRAINT = "constraint";
 
     // Regex
 

@@ -5,9 +5,13 @@ import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.relationship.Relationship;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Objects;
+
+import static com.gilia.utils.Constants.*;
 
 /**
  * Representation of the Role class from the KF Metamodel
@@ -18,7 +22,7 @@ public class Role extends Entity {
 
     private EntityType entity;
     private Relationship relationship;
-    private ObjectTypeCardinality cardinalityConstraint;
+    private ArrayList<ObjectTypeCardinality> cardinalityConstraints;
 
     /**
      * Creates a basic instance of a Role. It will be created without information. The only information generated will be an id.
@@ -51,7 +55,8 @@ public class Role extends Entity {
         super(name);
         this.entity = entity;
         this.relationship = relationship;
-        this.cardinalityConstraint = new ObjectTypeCardinality(cardinality);
+        this.cardinalityConstraints = new ArrayList<ObjectTypeCardinality>();
+        cardinalityConstraints.add(new ObjectTypeCardinality(cardinality));
     }
 
     /**
@@ -68,7 +73,25 @@ public class Role extends Entity {
         super(name);
         this.entity = entity;
         this.relationship = relationship;
-        this.cardinalityConstraint = cardinalityObject;
+        this.cardinalityConstraints = new ArrayList<ObjectTypeCardinality>();
+        cardinalityConstraints.add(cardinalityObject);
+    }
+
+    /**
+     * Creates an instance of a Role. This constructor receives a ObjectTypeCardinality object that represents the constraint imposed by
+     * the cardinality.
+     *
+     * @param name          String that represents the name of the role
+     * @param entity        EntityType object associated to the role to be created
+     * @param relationship  Relationship object associated to the role to be created
+     * @param cardinalities ArrayList of ObjectTypeCardinality object that represents the cardinalities constraints for the role to be created
+     * @see com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality
+     */
+    public Role(String name, EntityType entity, Relationship relationship, ArrayList<ObjectTypeCardinality> cardinalities) {
+        super(name);
+        this.entity = entity;
+        this.relationship = relationship;
+        this.cardinalityConstraints = cardinalities;
     }
 
     public EntityType getEntity() {
@@ -87,12 +110,12 @@ public class Role extends Entity {
         this.relationship = relationship;
     }
 
-    public ObjectTypeCardinality getCardinalityConstraint() {
-        return cardinalityConstraint;
+    public ArrayList<ObjectTypeCardinality> getCardinalityConstraints() {
+        return cardinalityConstraints;
     }
 
-    public void setCardinalityConstraint(ObjectTypeCardinality cardinalityConstraint) {
-        this.cardinalityConstraint = cardinalityConstraint;
+    public void setCardinalityConstraints(ArrayList<ObjectTypeCardinality> cardinalityConstraint) {
+        this.cardinalityConstraints = cardinalityConstraint;
     }
 
     @Override
@@ -103,12 +126,12 @@ public class Role extends Entity {
         Role role = (Role) o;
         return Objects.equals(entity, role.entity) &&
                 Objects.equals(relationship, role.relationship) &&
-                Objects.equals(cardinalityConstraint, role.cardinalityConstraint);
+                Objects.equals(cardinalityConstraints, role.cardinalityConstraints);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), entity, relationship, cardinalityConstraint);
+        return Objects.hash(super.hashCode(), entity, relationship, cardinalityConstraints);
     }
 
     @Override
@@ -116,7 +139,7 @@ public class Role extends Entity {
         return "Role{" +
                 "entity=" + entity +
                 ", relationship=" + relationship +
-                ", cardinalityConstraint=" + cardinalityConstraint +
+                ", cardinalityConstraint=" + cardinalityConstraints +
                 ", id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 '}';
@@ -141,10 +164,16 @@ public class Role extends Entity {
     public JSONObject toJSONObject() {
         JSONObject role = new JSONObject();
 
-        role.put("rolename", name);
-        role.put("relationship", relationship.getName());
-        role.put("entity type", entity.getName());
-        role.put("object type cardinality", cardinalityConstraint.getName());
+        JSONArray cardinalities = new JSONArray();
+        for (ObjectTypeCardinality cardinality : cardinalityConstraints) {
+            cardinalities.add(cardinality.getName());
+        }
+
+
+        role.put(KEY_ROLENAME, name);
+        role.put(RELATIONSHIP_STRING, relationship.getName());
+        role.put(KEY_ENTITY_TYPE, entity.getName());
+        role.put(KEY_OBJECT_TYPE_CARDINALITY, cardinalities);
 
         return role;
     }

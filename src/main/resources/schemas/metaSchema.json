@@ -222,5 +222,5 @@
       }
     }
   },
-  "required": []
+  "required": ["Entity type","Role","Relationship","Constraint"]
 }

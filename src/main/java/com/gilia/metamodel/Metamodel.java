@@ -54,111 +54,108 @@ public class Metamodel {
         this.ontologyIRI = ontologyIRI;
     }
 
-    /**
-     * @return
-     */
     public ArrayList<EntityType> getEntities() {
         return entities;
     }
 
-    /**
-     * @param entities
-     */
     public void setEntities(ArrayList<EntityType> entities) {
         this.entities = entities;
     }
 
-    /**
-     * @return
-     */
     public ArrayList<Relationship> getRelationships() {
         return relationships;
     }
 
-    /**
-     * @param relationships
-     */
     public void setRelationships(ArrayList<Relationship> relationships) {
         this.relationships = relationships;
     }
 
-    /**
-     * @return
-     */
     public ArrayList<Role> getRoles() {
         return roles;
     }
 
-    /**
-     * @param roles
-     */
     public void setRoles(ArrayList<Role> roles) {
         this.roles = roles;
     }
 
-    /**
-     * @return
-     */
     public ArrayList<Constraint> getConstraints() {
         return constraints;
     }
 
-    /**
-     * @param constraints
-     */
     public void setConstraints(ArrayList<Constraint> constraints) {
         this.constraints = constraints;
     }
 
     /**
-     * @param entity
+     * Adds a single EntityType object to the Metamodel instance
+     *
+     * @param entity EntityType object to be added
      */
     public void addEntity(EntityType entity) {
         this.entities.add(entity);
     }
 
     /**
-     * @param entities
+     * Adds a collection of entities (EntityType objects) to the Metamodel instance
+     *
+     * @param entities ArrayList of EntityType objects to be added
      */
     public void addEntities(ArrayList<EntityType> entities) {
         this.entities.addAll(entities);
     }
 
     /**
-     * @param relationship
+     * Adds a single Relationship object to the Metamodel instance
+     *
+     * @param relationship Relationship object to be added
      */
     public void addRelationship(Relationship relationship) {
         this.relationships.add(relationship);
     }
 
     /**
-     * @param relationships
+     * Adds a collection of relationships (Relationship objects) to the Metamodel instance
+     *
+     * @param relationships ArrayList of Relationship objects to be added
      */
     public void addRelationships(ArrayList<Relationship> relationships) {
         this.relationships.addAll(relationships);
     }
 
     /**
-     * @param role
+     * Adds a single Role object to the Metamodel instance
+     *
+     * @param role Role object to be added
      */
     public void addRole(Role role) {
         this.roles.add(role);
     }
 
     /**
-     * @param roles
+     * Adds a collection of roles (Role objects) to the Metamodel instance
+     *
+     * @param roles ArrayList of Role objects to be added
      */
     public void addRoles(ArrayList<Role> roles) {
         this.roles.addAll(roles);
     }
 
     /**
-     * @param constraint
+     * Adds a single Constraint object to the Metamodel instance
+     *
+     * @param constraint Constraint object to be added
      */
     public void addConstraint(Constraint constraint) {
         this.constraints.add(constraint);
     }
 
+    /**
+     * Search for an entity (EntityType object) in the Metamodel according to its name. Returns a new empty ObjectType
+     * object if there is no EntityType object with the given name.
+     *
+     * @param name String that represents the entity name
+     * @return EntityType object that has the given name or a new ObjectType object if there is no match
+     */
     public EntityType getEntity(String name) {
         for (EntityType entity : entities) {
             if (entity.getName().equals(name)) {
@@ -168,6 +165,13 @@ public class Metamodel {
         return new ObjectType();
     }
 
+    /**
+     * Search for a relationship (Relationship object) in the Metamodel according to its name. Returns a new empty Relationship
+     * object if there is no Relationship object with the given name.
+     *
+     * @param name String that represents the relationship name
+     * @return Relationship object that has the given name or a new Relationship object if there is no match
+     */
     public Relationship getRelationship(String name) {
         for (Relationship relationship : relationships) {
             if (relationship.getName().equals(name)) {
@@ -213,11 +217,6 @@ public class Metamodel {
         return null;
     }
 
-
-    /**
-     * @param obj
-     * @return
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -229,17 +228,11 @@ public class Metamodel {
                 Objects.equals(constraints, metamodel.constraints);
     }
 
-    /**
-     * @return
-     */
     @Override
     public int hashCode() {
         return Objects.hash(entities, relationships, roles, constraints);
     }
 
-    /**
-     * @return
-     */
     @Override
     public String toString() {
         return "Metamodel{" +

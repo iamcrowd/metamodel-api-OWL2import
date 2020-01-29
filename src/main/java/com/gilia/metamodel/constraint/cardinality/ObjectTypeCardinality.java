@@ -80,9 +80,9 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
     public JSONObject toJSONObject() {
         JSONObject objectTypeCardinalityConstraint = new JSONObject();
 
-        objectTypeCardinalityConstraint.put("name", name);
-        objectTypeCardinalityConstraint.put("minimum", minCardinality);
-        objectTypeCardinalityConstraint.put("maximum", maxCardinality);
+        objectTypeCardinalityConstraint.put(KEY_NAME, name);
+        objectTypeCardinalityConstraint.put(KEY_MINIMUM, minCardinality);
+        objectTypeCardinalityConstraint.put(KEY_MAXIMUM, maxCardinality);
 
         return objectTypeCardinalityConstraint;
     }

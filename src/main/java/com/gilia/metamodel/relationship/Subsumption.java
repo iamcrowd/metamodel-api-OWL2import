@@ -7,6 +7,8 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static com.gilia.utils.Constants.*;
+
 /**
  * Representation of the Subsumption class from the KF Metamodel
  *
@@ -97,9 +99,9 @@ public class Subsumption extends Relationship {
             entitiesJSON.add(((ObjectType) entity).getName());
         }
 
-        subsumption.put("name", name);
-        subsumption.put("entity parent", parent.getName());
-        subsumption.put("entity children", entitiesJSON);
+        subsumption.put(KEY_NAME, name);
+        subsumption.put(KEY_ENTITY_PARENT, parent.getName());
+        subsumption.put(KEY_ENTITY_CHILDREN, entitiesJSON);
         return subsumption;
     }
 }
