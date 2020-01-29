@@ -239,18 +239,20 @@ public class UMLTranslator implements JSONTranslator {
                     }
                 }
 
+                DisjointObjectType disjointObjectType = null;
+                CompletenessConstraint completenessConstraint = null;
                 for (Object o : constraints) {
                     String constraint = (String) o;
-                    if(constraint.equals(DISJOINT_STRING)){
-                        DisjointObjectType disjointObjectType = new DisjointObjectType(model.getOntologyIRI() + (model.getConstraints().size() + 1), objectsType);
+                    if (constraint.equals(DISJOINT_STRING)) {
+                        disjointObjectType = new DisjointObjectType(model.getOntologyIRI() + "dc" + (model.getConstraints().size() + 1), objectsType);
                         model.addConstraint(disjointObjectType);
-                    }else if(constraint.equals(COVERING_STRING)){
-                        CompletenessConstraint completenessConstraint = new CompletenessConstraint(model.getOntologyIRI() + (model.getConstraints().size() + 1), objectsType);
+                    } else if (constraint.equals(COVERING_STRING)) {
+                        completenessConstraint = new CompletenessConstraint(model.getOntologyIRI() + "cc" + (model.getConstraints().size() + 1), objectsType);
                         model.addConstraint(completenessConstraint);
                     }
                 }
 
-                Subsumption newSubsumption = new Subsumption(subclassRelationshipName, parent, objectsType);
+                Subsumption newSubsumption = new Subsumption(subclassRelationshipName, parent, objectsType, completenessConstraint, disjointObjectType);
                 newSubsumptions.add(newSubsumption);
             }
         }

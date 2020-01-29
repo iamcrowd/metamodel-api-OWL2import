@@ -95,6 +95,10 @@ public class Constants {
 
     public static final String KEY_CONSTRAINT = "constraint";
 
+    public static final String KEY_DISJOINTNESS_CONSTRAINT = "disjointness constraints";
+
+    public static final String KEY_COMPLETENESS_CONSTRAINT = "completeness constraints";
+
     // Regex
 
     public static final String CARDINALITY_REGEX = "(\\d+|N|\\*)\\.\\.(\\d+|N|M|\\*)";
