@@ -11,7 +11,7 @@ import org.json.simple.parser.JSONParser
 import spock.lang.Specification
 
 class UMLTranslatorTest extends Specification {
-
+/*
     void 'Correct generation of a metamodel from an UML JSON'(){
         given:
         JSONParser parser = new JSONParser()
@@ -60,5 +60,5 @@ class UMLTranslatorTest extends Specification {
         roles.size() == 2
         relationships.get(0) == expectedRelationship
         relationships.get(1) == expectedSubsumption
-    }
+    }*/
 }

@@ -32,3 +32,4 @@ build/
 
 ### Personal ###
 src/main/java/com/gilia/Main.java
+out/
