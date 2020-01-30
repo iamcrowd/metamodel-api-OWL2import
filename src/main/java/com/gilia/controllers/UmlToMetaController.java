@@ -34,7 +34,7 @@ public class UmlToMetaController {
             JSONObject umlModelObject = (JSONObject) parser.parse(payload);
             director.createMetamodelFromUML(umlModelObject);
             response = director.generateMeta();
-        } catch (ParseException | MetamodelException | FileNotFoundException e) {
+        } catch (ParseException | FileNotFoundException e) {
             response.put(ERROR_STRING, e.getMessage());
         } catch (ValidationException e) {
             StringBuilder stringBuilder = new StringBuilder();

@@ -7,7 +7,7 @@ This project is built with the Java framework *Spring boot*, and its dependencie
 - Java JDK 11 (11.0.5)
 - Apache Maven 3.6.0
 
-Once you fullfil the requeriments listed above, clone this repository. Run the following commands from the root folder of the project to run the API and deploy it locally with port *8080*:
+Once you fulfil the requeriments listed above, clone this repository. Run the following commands from the root folder of the project to run the API and deploy it locally with port *8080*:
 ```
 $ mvn clean compile
 $ mvn package
