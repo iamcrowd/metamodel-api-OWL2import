@@ -5,6 +5,30 @@
   "description": "This JSON represents the information represented by a model described in UML modeling language",
   "type": "object",
   "properties": {
+    "namespaces": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "ontologyIRI": {
+          "description": "",
+          "type": "object",
+          "properties": {
+            "prefix": {
+              "description": "",
+              "type": "string"
+            },
+            "value": {
+              "description": "",
+              "type": "string"
+            }
+          },
+          "required": [
+            "prefix",
+            "value"
+          ]
+        }
+      }
+    },
     "classes": {
       "description": "",
       "type": "array",
@@ -14,7 +38,10 @@
           "name": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "name"
+        ]
       }
     },
     "links": {
@@ -22,6 +49,11 @@
       "type": "array",
       "items": {
         "type": "object",
+        "required": [
+          "name",
+          "classes",
+          "type"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -38,56 +70,66 @@
               "association",
               "generalization"
             ]
-          },
-          "if": {
-            "properties": {
-              "type": {
-                "const": "generalization"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "multiplicity": {
-                "type": "null"
-              },
-              "roles": {
-                "type": "null"
-              },
-              "constraint": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "enum": [
-                    "disjoint",
-                    "covering"
-                  ],
-                  "maxItems": 2,
-                  "uniqueItems": true
-                }
-              }
-            }
-          },
-          "else": {
-            "properties": {
-              "multiplicity": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "pattern": "([0-9]+|N|\\*)\\.\\.([0-9]+|N|M|\\*)"
-                }
-              },
-              "roles": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
+          }
+        },
+        "if": {
+          "properties": {
+            "type": {
+              "const": "generalization"
             }
           }
+        },
+        "then": {
+          "properties": {
+            "multiplicity": {
+              "type": "null"
+            },
+            "roles": {
+              "type": "null"
+            },
+            "constraint": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "disjoint",
+                  "covering"
+                ],
+                "maxItems": 2,
+                "uniqueItems": true
+              }
+            }
+          },
+          "required": [
+            "constraint"
+          ]
+        },
+        "else": {
+          "properties": {
+            "multiplicity": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "([0-9]+|N|\\*)\\.\\.([0-9]+|N|M|\\*)"
+              }
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "multiplicity",
+            "roles"
+          ]
         }
       }
     }
   },
-  "required": ["links", "classes"]
+  "required": [
+    "links",
+    "classes"
+  ]
 }

@@ -1,11 +1,11 @@
 {
   "namespaces": {
-    "ontologyIRI": [
+    "ontologyIRI":
       {
         "prefix": "crowd",
         "value": "http://crowd.fi.uncoma.edu.ar#"
       }
-    ],
+    ,
     "defaultIRIs": [
       {
         "prefix": "rdf",

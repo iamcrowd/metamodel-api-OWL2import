@@ -1,0 +1,192 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "gilia.metamodel.eer",
+  "title": "EER JSON",
+  "description": "This JSON represents the information represented by a model described in EER modeling language",
+  "type": "object",
+  "properties": {
+    "entities": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "attributes": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "datatype"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "datatype": {
+            "type": "string",
+            "enum": [
+              "String",
+              "Boolean",
+              "Integer"
+            ]
+          }
+        }
+      }
+    },
+    "relationships": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "links": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "type"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "attribute",
+              "isa",
+              "relationship"
+            ]
+          }
+        },
+        "if": {
+          "properties": {
+            "type": {
+              "const": "attribute"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "entity": {
+              "type": "string"
+            },
+            "attribute": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "entity",
+            "attribute"
+          ]
+        },
+        "else": {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "isa"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "parent": {
+                "type": "string"
+              },
+              "entities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "constraint": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "exclusive",
+                    "overlapping"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "parent",
+              "entities",
+              "constraint"
+            ]
+          },
+          "else": {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "relationship"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "entities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "cardinality": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "([0-9]+|N|\\*)\\.\\.([0-9]+|N|M|\\*)"
+                  }
+                },
+                "roles": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "entities",
+                "cardinality",
+                "roles"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "entities",
+    "attributes",
+    "relationships",
+    "links"
+  ]
+}

@@ -1,62 +1,98 @@
 {
   "entities": [
     {
-      "name": "Entity",
+      "name": "Person",
       "id": "c51",
       "timestamp": "",
       "position": {
-        "x": 380,
-        "y": 340
+        "x": 530,
+        "y": 250
       }
     },
     {
-      "name": "Entity",
+      "name": "Dog",
       "id": "c63",
       "timestamp": "",
       "position": {
-        "x": 740,
-        "y": 340
+        "x": 890,
+        "y": 250
       }
     },
     {
-      "name": "Entity",
-      "id": "c163",
-      "timestamp": "",
-      "position": {
-        "x": 683,
-        "y": 509
-      }
-    },
-    {
-      "name": "Entity",
-      "id": "c175",
-      "timestamp": "",
-      "position": {
-        "x": 817,
-        "y": 504
-      }
-    }
-  ],
-  "attributes": [],
-  "relationships": [
-    {
-      "name": "R",
+      "name": "Golden",
       "id": "c75",
       "timestamp": "",
       "position": {
-        "x": 570,
-        "y": 330
+        "x": 830,
+        "y": 450
+      }
+    },
+    {
+      "name": "Pointer",
+      "id": "c87",
+      "timestamp": "",
+      "position": {
+        "x": 990,
+        "y": 450
+      }
+    },
+    {
+      "name": "Toy",
+      "id": "c99",
+      "timestamp": "",
+      "position": {
+        "x": 830,
+        "y": 660
+      }
+    }
+  ],
+  "attributes": [
+    {
+      "name": "Name",
+      "type": "normal",
+      "datatype": "String",
+      "id": "c376",
+      "timestamp": "",
+      "position": {
+        "x": 445,
+        "y": 161
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "name": "R",
+      "id": "c111",
+      "timestamp": "",
+      "position": {
+        "x": 720,
+        "y": 240
+      }
+    },
+    {
+      "name": "R",
+      "id": "c284",
+      "timestamp": "",
+      "position": {
+        "x": 840,
+        "y": 540
       }
     }
   ],
   "links": [
     {
-      "name": "c187",
+      "name": "c389",
+      "entity": "Person",
+      "attribute": "Name",
+      "type": "attribute"
+    },
+    {
+      "name": "c197",
       "parent": "undefined",
       "entities": [
-        "Entity",
-        "Entity",
-        "Entity"
+        "Golden",
+        "Dog",
+        "Pointer"
       ],
       "type": "isa",
       "constraint": [
@@ -65,18 +101,35 @@
     },
     {
       "name": "R",
-      "id": "c75",
+      "id": "c111",
       "entities": [
-        "Entity",
-        "Entity"
+        "Dog",
+        "Person"
+      ],
+      "cardinality": [
+        "1..1",
+        "0..N"
+      ],
+      "roles": [
+        "dog",
+        "person"
+      ],
+      "type": "relationship"
+    },
+    {
+      "name": "R",
+      "id": "c284",
+      "entities": [
+        "Golden",
+        "Toy"
       ],
       "cardinality": [
         "1..1",
         "1..1"
       ],
       "roles": [
-        "entity",
-        "entity"
+        "golden",
+        "toy"
       ],
       "type": "relationship"
     }
