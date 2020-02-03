@@ -3,6 +3,7 @@ package com.gilia.utils;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.ValidationException;
 import org.everit.json.schema.loader.SchemaLoader;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -28,7 +29,7 @@ public class Utils {
      * @throws FileNotFoundException
      * @throws ValidationException
      */
-    public static void validateJSON(String jsonString, String schemaPath) throws FileNotFoundException, ValidationException {
+    public static void validateJSON(String jsonString, String schemaPath) throws FileNotFoundException, ValidationException, JSONException {
         File schemaFile = new File(schemaPath);
         InputStream targetStream = new FileInputStream(schemaFile);
 

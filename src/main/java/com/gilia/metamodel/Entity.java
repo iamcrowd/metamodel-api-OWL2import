@@ -50,6 +50,6 @@ public abstract class Entity {
     }
 
     public boolean isNameless() { // Used mainly for checking existence. It is a way to avoid checking/returning nulls
-        return name.equals("");
+        return name.equals("") || name == null;
     }
 }

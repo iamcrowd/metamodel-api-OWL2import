@@ -51,6 +51,12 @@ public class Constants {
 
     public static final String COVERING_STRING = "covering";
 
+    public static final String TIMESTAMP_STRING = "timestamp";
+
+    public static final String MESSAGE_STRING = "message";
+
+    public static final String STATUS_STRING = "status";
+
     // JSON Keys
 
     public static final String KEY_NAMESPACES = "namespaces";
@@ -107,7 +113,7 @@ public class Constants {
 
     // Error Messages
 
-    public static final String ALREADY_EXIST_ENTITY_ERROR = "The given entitiy already exists in the metamodel";
+    public static final String ALREADY_EXIST_ENTITY_ERROR = "The given entity already exists in the metamodel";
 
     public static final String ALREADY_EXIST_RELATIONSHIP_ERROR = "The given relationship already exists in the metamodel";
 
@@ -124,6 +130,8 @@ public class Constants {
     public static final String ROLES_INFORMATION_NOT_FOUND_ERROR = "Information about the roles was not found";
 
     public static final String CONSTRAINTS_INFORMATION_NOT_FOUND_ERROR = "Information about the constraints was not found";
+
+    public static final String ASSOCIATION_EXPECTED_ERROR = "An association link was expected";
 
     // Exception Names
 

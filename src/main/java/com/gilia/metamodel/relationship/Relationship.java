@@ -43,7 +43,7 @@ public class Relationship extends Entity {
 
     /**
      * Creates an instance of a Relationship. This constructor receives information about the name of the relationship,
-     * and the entities involved in the relationship
+     * and the entities involved in the relationship. By definition, a Relationship must have at least two roles.
      *
      * @param name     String that represents the name of the relationship
      * @param entities ArrayList of ObjectType that represents the entities involved in the relationship

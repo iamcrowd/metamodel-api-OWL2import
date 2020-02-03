@@ -118,7 +118,7 @@ public class UMLTranslator implements JSONTranslator {
                         }
 
                         Relationship newRelationship = new Relationship(associationName, objectsType);
-                        model.addRelationship(newRelationship);
+                        model.addRelationship(newRelationship); // TODO: The relationship is not saving the roles
                         newRoles = identifyRoles(model, association);
                     } else {
                         throw new AlreadyExistException(ALREADY_EXIST_RELATIONSHIP_ERROR);
@@ -142,41 +142,51 @@ public class UMLTranslator implements JSONTranslator {
      * @return An ArrayList of Role objects equivalent to the roles given in the JSONArray
      */
     private ArrayList identifyRoles(Metamodel model, JSONObject association) throws EntityNotValidException {
+
+        String type = (String) association.get(KEY_TYPE);
+        if (!type.equals(KEY_ASSOCIATION)) {
+            throw new EntityNotValidException(ASSOCIATION_EXPECTED_ERROR);
+        }
+
         ArrayList newRoles = new ArrayList();
         String associationName = (String) association.get(KEY_NAME);
         JSONArray jsonClasses = (JSONArray) association.get(KEY_CLASSES);
         JSONArray jsonRoles = (JSONArray) association.get(KEY_ROLES);
         JSONArray jsonCardinalities = (JSONArray) association.get(KEY_MULTIPLICITY);
-        if (jsonRoles.size() == jsonCardinalities.size()) {
-            for (int i = 0; i < jsonRoles.size(); i++) {
-                String entityName = (String) jsonClasses.get(i);
-                String roleName = (String) jsonRoles.get(i);
-                String cardinality = (String) jsonCardinalities.get(i);
+        if (jsonClasses != null && jsonRoles != null && jsonCardinalities != null) {
+            if (jsonRoles.size() == jsonCardinalities.size()) {
+                for (int i = 0; i < jsonRoles.size(); i++) {
+                    String entityName = (String) jsonClasses.get(i);
+                    String roleName = (String) jsonRoles.get(i);
+                    String cardinality = (String) jsonCardinalities.get(i);
 
-                // Get the entity related to this new role. It should exist already
-                ObjectType entity = (ObjectType) model.getEntity(entityName);
-                // TODO: Change this to checkEntityExistence
-                if (entity.isNameless()) { // If the entity returned is nameless, then it does not exist or is not valid.
-                    throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                    // Get the entity related to this new role. It should exist already
+                    ObjectType entity = (ObjectType) model.getEntity(entityName);
+                    // TODO: Change this to checkEntityExistence
+                    if (entity.isNameless()) { // If the entity returned is nameless, then it does not exist or is not valid.
+                        throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                    }
+
+                    // Get the relationship related to this new role. It should exist already
+                    Relationship relationship = model.getRelationship(associationName);
+                    // TODO: Change this to checkEntityExistence
+                    if (relationship.isNameless()) { // If the relationship returned is nameless, then it does not exist or is not valid.
+                        throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                    }
+
+                    // Generate the cardinality constraint associated to the new role
+                    // TODO: Check existence first?
+                    ObjectTypeCardinality newCardinalityConstraint = new ObjectTypeCardinality(model.getOntologyIRI() + "card" + (model.getConstraints().size() + 1), cardinality);
+                    model.addConstraint(newCardinalityConstraint);
+
+                    Role newRole = new Role(roleName, entity, relationship, newCardinalityConstraint);
+                    newRoles.add(newRole);
                 }
-
-                // Get the relationship related to this new role. It should exist already
-                Relationship relationship = model.getRelationship(associationName);
-                // TODO: Change this to checkEntityExistence
-                if (relationship.isNameless()) { // If the relationship returned is nameless, then it does not exist or is not valid.
-                    throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
-                }
-
-                // Generate the cardinality constraint associated to the new role
-                // TODO: Check existence first?
-                ObjectTypeCardinality newCardinalityConstraint = new ObjectTypeCardinality(model.getOntologyIRI() + "card" + (model.getConstraints().size() + 1), cardinality);
-                model.addConstraint(newCardinalityConstraint);
-
-                Role newRole = new Role(roleName, entity, relationship, newCardinalityConstraint);
-                newRoles.add(newRole);
+            } else {
+                throw new InconsistentModelInformationException(INCONSISTENT_ROLES_WITH_CARDINALITIES_ERROR);
             }
         } else {
-            throw new InconsistentModelInformationException(INCONSISTENT_ROLES_WITH_CARDINALITIES_ERROR);
+            throw new InformationNotFoundException(RELATIONSHIPS_INFORMATION_NOT_FOUND_ERROR);
         }
 
         return newRoles;
