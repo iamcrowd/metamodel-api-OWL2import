@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+    <title>MetamodelAPI</title>
+</head>
+
+<body>
+    <h1>MetamodelAPI</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form>
+                    <select class="form-control">
+                        <option>UML to Metamodel</option>
+                        <!-- <option>EER to Metamodel</option> -->
+                        <!-- <option>ORM to Metamodel</option> -->
+                    </select>
+                    <div class="form-group">
+                        <label for="jsonInput">JSON</label>
+                        <textarea class="form-control" id="jsonInput" rows="30"></textarea>
+                    </div>
+                    <input type="button" class="btn btn-primary" id="sendJson" value="Convert" />
+                    <input type="button" class="btn btn-primary" onclick="beautify()" value="Beautify" />
+                </form>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="jsonInput">Converted Model</label>
+                    <textarea class="form-control" id="jsonOutput" rows="30">
+                    </textarea>
+           
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

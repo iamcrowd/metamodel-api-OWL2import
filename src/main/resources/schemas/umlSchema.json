@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "gilia.metamodel.uml",
+  "title": "UML JSON",
+  "description": "This JSON represents the information represented by a model described in UML modeling language",
+  "type": "object",
+  "properties": {
+    "classes": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "links": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "classes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "association",
+              "generalization"
+            ]
+          },
+          "if": {
+            "properties": {
+              "type": {
+                "const": "generalization"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "multiplicity": {
+                "type": "null"
+              },
+              "roles": {
+                "type": "null"
+              },
+              "constraint": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "disjoint",
+                    "covering"
+                  ],
+                  "maxItems": 2,
+                  "uniqueItems": true
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "multiplicity": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "([0-9]+|N|\\*)\\.\\.([0-9]+|N|M|\\*)"
+                }
+              },
+              "roles": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["links", "classes"]
+}

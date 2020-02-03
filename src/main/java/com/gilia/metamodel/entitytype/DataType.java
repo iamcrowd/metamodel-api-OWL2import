@@ -6,4 +6,10 @@ package com.gilia.metamodel.entitytype;
  */
 public class DataType extends EntityType {
 
+    /**
+     * @param name
+     */
+    public DataType(String name) {
+        super(name);
+    }
 }
