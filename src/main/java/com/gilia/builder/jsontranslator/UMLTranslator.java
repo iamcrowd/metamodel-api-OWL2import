@@ -34,7 +34,7 @@ public class UMLTranslator implements JSONTranslator {
         String ontologyIRI = "";
         try {
             ontologyIRI = (String) ((JSONObject) ((JSONObject) json.get(KEY_NAMESPACES)).get(KEY_ONTOLOGY_IRI)).get(KEY_VALUE);
-        } catch (ClassCastException e) {
+        } catch (NullPointerException | ClassCastException e) {
             System.out.println("WARNING: ontologyIRI was not obtained");
         }
 

@@ -85,6 +85,10 @@ public class Constants {
 
     public static final String KEY_ENTITIES = "entities";
 
+    public static final String KEY_RELATIONSHIPS = "relationships";
+
+    public static final String KEY_ATTRIBUTES = "attributes";
+
     public static final String KEY_ROLENAME = "rolename";
 
     public static final String KEY_ENTITY_TYPE = "entity type";
