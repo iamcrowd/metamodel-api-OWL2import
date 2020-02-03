@@ -6,7 +6,7 @@ import spock.lang.Specification
 
 class RelationshipTest extends Specification {
 
-    void 'Empty Relationship creation'(){
+    void 'Empty Relationship creation'() {
         when:
         Relationship newRelationship = new Relationship();
 
@@ -28,17 +28,27 @@ class RelationshipTest extends Specification {
         newRelationship.getName() == relationshipName
     }
 
-    void 'Relationship creation with name, entities and roles'(){
+    void 'Relationship creation with name, entities and roles'() {
         when:
         String relationshipName = "MyNewRelationship";
         ObjectType firstEntity = new ObjectType("MyFirstEntity");
         ObjectType secondEntity = new ObjectType("MySecondEntity");
-        Role role = new Role();
-        Relationship newRelationship = new Relationship(relationshipName);
+        Role role = new Role("MyRole");
+
+        ArrayList roles = new ArrayList()
+        ArrayList entities = new ArrayList();
+        roles.add(role);
+        entities.add(firstEntity);
+        entities.add(secondEntity);
+
+        Relationship newRelationship = new Relationship(relationshipName, entities, roles);
 
         then:
         !newRelationship.isNameless()
         newRelationship.getId() != null
         newRelationship.getName() == relationshipName
+        newRelationship.getEntities().contains(firstEntity)
+        newRelationship.getEntities().contains(secondEntity)
+        newRelationship.getRoles().contains(role)
     }
 }

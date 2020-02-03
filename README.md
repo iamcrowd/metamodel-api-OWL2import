@@ -1,7 +1,7 @@
 # Metamodel
 
 ## Description
-This project involves the research, design and implementantion of the [KF Metamodel](https://www.sciencedirect.com/science/article/abs/pii/S0169023X1500049X). The main idea is the implementation of an API that allows a user to send a JSON that represents a model in a given modeling language (UML, EER or ORM) and generate the equivalent model in one of the languages mentioned previously.
+This project involves the research, design and implementantion of the [KF Metamodel](https://www.sciencedirect.com/science/article/abs/pii/S0169023X1500049X). The main idea of this project is to implement an API that allows a user to send a JSON that represents a model in a given modeling language (UML, EER or ORM) and generate the equivalent model in one of the languages mentioned previously.
 
 
 ## Getting started
