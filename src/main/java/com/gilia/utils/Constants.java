@@ -47,11 +47,19 @@ public class Constants {
 
     public static final String ROLE_STRING = "role";
 
+    public static final String ISA_STRING = "isa";
+
     public static final String ERROR_STRING = "error";
 
     public static final String DISJOINT_STRING = "disjoint";
 
     public static final String COVERING_STRING = "covering";
+
+    public static final String EXCLUSIVE_STRING = "exclusive";
+
+    public static final String OVERLAPPING_STRING = "overlapping";
+
+    public static final String UNION_STRING = "union";
 
     public static final String TIMESTAMP_STRING = "timestamp";
 
@@ -111,9 +119,13 @@ public class Constants {
 
     public static final String KEY_COMPLETENESS_CONSTRAINT = "completeness constraints";
 
+    public static final String KEY_CARDINALITY = "cardinality";
+
     // Regex
 
     public static final String RANDOM_STRING_REGEX = "[^A-Za-z0-9]";
+
+    public static final String ENDPOINT_REGEX = "/(uml|eer|orm|meta)to(uml|eer|orm|meta)";
 
     public static final String CARDINALITY_DIVIDER_REGEX = "\\.\\.";
 
@@ -150,6 +162,8 @@ public class Constants {
     public static final String CONSTRAINTS_INFORMATION_NOT_FOUND_ERROR = "Information about the constraints was not found";
 
     public static final String ASSOCIATION_EXPECTED_ERROR = "An association link was expected";
+
+    public static final String RELATIONSHIP_EXPECTED_ERROR = "A relationship link was expected";
 
     // Exception Names
 

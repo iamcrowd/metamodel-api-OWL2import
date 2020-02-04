@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.Null;
 import java.io.FileNotFoundException;
 
-import static com.gilia.utils.Constants.*;
+import static com.gilia.utils.Constants.EER_SCHEMA_PATH;
+import static com.gilia.utils.Constants.EER_TO_META_ROUTE;
 import static com.gilia.utils.Utils.validateJSON;
 
 /**

@@ -5,6 +5,30 @@
   "description": "This JSON represents the information represented by a model described in EER modeling language",
   "type": "object",
   "properties": {
+    "namespaces": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "ontologyIRI": {
+          "description": "",
+          "type": "object",
+          "properties": {
+            "prefix": {
+              "description": "",
+              "type": "string"
+            },
+            "value": {
+              "description": "",
+              "type": "string"
+            }
+          },
+          "required": [
+            "prefix",
+            "value"
+          ]
+        }
+      }
+    },
     "entities": {
       "description": "",
       "type": "array",
@@ -131,7 +155,8 @@
                   "type": "string",
                   "enum": [
                     "exclusive",
-                    "overlapping"
+                    "overlapping",
+                    "union"
                   ]
                 }
               }
