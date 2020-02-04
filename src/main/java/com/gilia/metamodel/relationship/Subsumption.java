@@ -133,7 +133,7 @@ public class Subsumption extends Relationship {
 
         subsumption.put(KEY_NAME, name);
         subsumption.put(KEY_ENTITY_PARENT, parent.getName());
-        subsumption.put(KEY_ENTITY_CHILDREN, child.getName());
+        subsumption.put(KEY_ENTITY_CHILD, child.getName());
         if (disjointness != null && !disjointness.isNameless()) {
             subsumption.put(KEY_DISJOINTNESS_CONSTRAINT, disjointness.getName());
         }

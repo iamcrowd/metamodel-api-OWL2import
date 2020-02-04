@@ -95,7 +95,7 @@ public class Constants {
 
     public static final String KEY_ENTITY_PARENT = "entity parent";
 
-    public static final String KEY_ENTITY_CHILDREN = "entity children";
+    public static final String KEY_ENTITY_CHILD = "entity child";
 
     public static final String KEY_MINIMUM = "minimum";
 
@@ -111,9 +111,13 @@ public class Constants {
 
     public static final String RANDOM_STRING_REGEX = "[^A-Za-z0-9]";
 
-    public static final String CARDINALITY_REGEX = "(\\d+|N|\\*)\\.\\.(\\d+|N|M|\\*)";
-
     public static final String CARDINALITY_DIVIDER_REGEX = "\\.\\.";
+
+    public static final String CARDINALITY_LEFT_COMPONENT_REGEX = "(\\d+|N|\\*)";
+
+    public static final String CARDINALITY_RIGHT_COMPONENT_REGEX = "(\\d+|N|M|\\*)";
+
+    public static final String CARDINALITY_REGEX = CARDINALITY_LEFT_COMPONENT_REGEX + CARDINALITY_DIVIDER_REGEX + CARDINALITY_RIGHT_COMPONENT_REGEX; // "(\\d+|N|\\*)\\.\\.(\\d+|N|M|\\*)"
 
     // Common Numbers
 
@@ -126,6 +130,8 @@ public class Constants {
     public static final String ALREADY_EXIST_RELATIONSHIP_ERROR = "The given relationship already exists in the metamodel";
 
     public static final String CARDINALITY_SYNTAX_ERROR = "Cardinality syntax error creating";
+
+    public static final String CARDINALITY_RANGE_ERROR = "Cardinality range error creating";
 
     public static final String INCONSISTENT_ROLES_WITH_CARDINALITIES_ERROR = "The number of roles is inconsistent with the number of cardinalities";
 

@@ -1,5 +1,6 @@
 package com.gilia.metamodel.constraint.cardinality;
 
+import com.gilia.exceptions.CardinalityRangeException;
 import com.gilia.exceptions.CardinalitySyntaxException;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
@@ -18,14 +19,20 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
     private String minCardinality;
     private String maxCardinality;
 
-    public ObjectTypeCardinality(String cardinality) throws CardinalitySyntaxException {
+    public ObjectTypeCardinality(String cardinality) throws CardinalitySyntaxException, CardinalityRangeException {
         super();
         if (cardinality.matches(CARDINALITY_REGEX)) {
             String[] cardinalities = cardinality.split(CARDINALITY_DIVIDER_REGEX);
-            this.minCardinality = cardinalities[0]; // TODO: Check that ranges are valid
-            this.maxCardinality = cardinalities[1];
+            String newMinCardinality = cardinalities[0].equals("N") ? "*" : cardinalities[0];
+            String newMaxCardinality = cardinalities[1].equals("N") || cardinalities[1].equals("M") ? "*" : cardinalities[1];
+            if (isCardinalityRangeValid(newMinCardinality, newMaxCardinality)) {
+                this.minCardinality = newMinCardinality;
+                this.maxCardinality = newMaxCardinality;
+            } else {
+                throw new CardinalityRangeException(CARDINALITY_RANGE_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
+            }
         } else {
-            throw new CardinalitySyntaxException(CARDINALITY_SYNTAX_ERROR + " " + StringUtils.capitalize(ROLE_STRING) + " " + name);
+            throw new CardinalitySyntaxException(CARDINALITY_SYNTAX_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
         }
     }
 
@@ -33,17 +40,34 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
         super(name);
         if (cardinality.matches(CARDINALITY_REGEX)) {
             String[] cardinalities = cardinality.split(CARDINALITY_DIVIDER_REGEX);
-            this.minCardinality = cardinalities[0]; // TODO: Check that ranges are valid
-            this.maxCardinality = cardinalities[1];
+            String newMinCardinality = cardinalities[0].equals("N") ? "*" : cardinalities[0];
+            String newMaxCardinality = cardinalities[1].equals("N") || cardinalities[1].equals("M") ? "*" : cardinalities[1];
+            if (isCardinalityRangeValid(newMinCardinality, newMaxCardinality)) {
+                this.minCardinality = newMinCardinality;
+                this.maxCardinality = newMaxCardinality;
+            } else {
+                throw new CardinalityRangeException(CARDINALITY_RANGE_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
+            }
         } else {
-            throw new CardinalitySyntaxException(CARDINALITY_SYNTAX_ERROR + " " + StringUtils.capitalize(ROLE_STRING) + " " + name);
+            throw new CardinalitySyntaxException(CARDINALITY_SYNTAX_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
         }
     }
 
     public ObjectTypeCardinality(String name, String minCardinality, String maxCardinality) {
         super(name);
-        this.minCardinality = minCardinality; // TODO: Check that ranges are valid
-        this.maxCardinality = maxCardinality;
+        if (minCardinality.matches(CARDINALITY_LEFT_COMPONENT_REGEX) && maxCardinality.matches(CARDINALITY_RIGHT_COMPONENT_REGEX)) {
+            String newMinCardinality = minCardinality.equals("N") ? "*" : minCardinality;
+            String newMaxCardinality = maxCardinality.equals("N") || maxCardinality.equals("M") ? "*" : maxCardinality;
+            if (isCardinalityRangeValid(newMinCardinality, newMaxCardinality)) {
+                this.minCardinality = newMinCardinality;
+                this.maxCardinality = newMaxCardinality;
+            } else {
+                throw new CardinalityRangeException(CARDINALITY_RANGE_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
+            }
+        } else {
+            throw new CardinalitySyntaxException(CARDINALITY_SYNTAX_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
+        }
+
     }
 
     public String getMinCardinality() {
@@ -51,7 +75,16 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
     }
 
     public void setMinCardinality(String minCardinality) {
-        this.minCardinality = minCardinality;
+        if (minCardinality.matches(CARDINALITY_LEFT_COMPONENT_REGEX)) {
+            String newMinCardinality = minCardinality.equals("N") ? "*" : minCardinality;
+            if (isCardinalityRangeValid(newMinCardinality, this.maxCardinality)) {
+                this.minCardinality = newMinCardinality;
+            } else {
+                throw new CardinalityRangeException(CARDINALITY_RANGE_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
+            }
+        } else {
+            throw new CardinalitySyntaxException(CARDINALITY_SYNTAX_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
+        }
     }
 
     public String getMaxCardinality() {
@@ -59,7 +92,16 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
     }
 
     public void setMaxCardinality(String maxCardinality) {
-        this.maxCardinality = maxCardinality;
+        if (maxCardinality.matches(CARDINALITY_RIGHT_COMPONENT_REGEX)) {
+            String newMaxCardinality = maxCardinality.equals("N") ? "*" : maxCardinality;
+            if (isCardinalityRangeValid(this.minCardinality, maxCardinality)) {
+                this.maxCardinality = newMaxCardinality;
+            } else {
+                throw new CardinalityRangeException(CARDINALITY_RANGE_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
+            }
+        } else {
+            throw new CardinalitySyntaxException(CARDINALITY_SYNTAX_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
+        }
     }
 
     @Override
@@ -85,5 +127,31 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
         objectTypeCardinalityConstraint.put(KEY_MAXIMUM, maxCardinality);
 
         return objectTypeCardinalityConstraint;
+    }
+
+    private boolean isCardinalityRangeValid(String minCardinality, String maxCardinality) {
+        int minCardinalityValue, maxCardinalityValue;
+
+        if (minCardinality.equals("*")) {
+            minCardinalityValue = Integer.MAX_VALUE;
+        } else {
+            try {
+                minCardinalityValue = Integer.valueOf(minCardinality);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+
+        if (maxCardinality.equals("*")) {
+            maxCardinalityValue = Integer.MAX_VALUE;
+        } else {
+            try {
+                maxCardinalityValue = Integer.valueOf(maxCardinality);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+
+        return minCardinalityValue <= maxCardinalityValue;
     }
 }

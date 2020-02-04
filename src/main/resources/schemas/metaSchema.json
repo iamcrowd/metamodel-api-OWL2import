@@ -86,7 +86,7 @@
               "entity parent": {
                 "type": "string"
               },
-              "entity children": {
+              "entity child": {
                   "type": "string"
               },
               "disjointness constraints": {
