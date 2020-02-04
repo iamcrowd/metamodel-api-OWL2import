@@ -86,11 +86,8 @@
               "entity parent": {
                 "type": "string"
               },
-              "entity children": {
-                "type": "array",
-                "items": {
+              "entity child": {
                   "type": "string"
-                }
               },
               "disjointness constraints": {
                 "type": "string"
@@ -126,7 +123,7 @@
         }
       }
     },
-    "Constraint": {
+    "Constraints": {
       "description": "",
       "type": "object",
       "properties": {
