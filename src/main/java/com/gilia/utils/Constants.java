@@ -29,6 +29,8 @@ public class Constants {
 
     // Common Strings
 
+    public static final String CHARSET = "UTF-8";
+
     public static final String UML_STRING = "uml";
 
     public static final String EER_STRING = "eer";
@@ -107,9 +109,15 @@ public class Constants {
 
     // Regex
 
+    public static final String RANDOM_STRING_REGEX = "[^A-Za-z0-9]";
+
     public static final String CARDINALITY_REGEX = "(\\d+|N|\\*)\\.\\.(\\d+|N|M|\\*)";
 
     public static final String CARDINALITY_DIVIDER_REGEX = "\\.\\.";
+
+    // Common Numbers
+
+    public static final int RANDOM_STRING_LENGTH = 4;
 
     // Error Messages
 

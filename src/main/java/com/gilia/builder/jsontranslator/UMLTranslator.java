@@ -17,8 +17,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static com.gilia.utils.Constants.*;
+import static com.gilia.utils.Utils.getAlphaNumericString;
 
 /**
  * Represents a concrete builder in the Builder design pattern.
@@ -262,8 +264,10 @@ public class UMLTranslator implements JSONTranslator {
                     }
                 }
 
-                Subsumption newSubsumption = new Subsumption(subclassRelationshipName, parent, objectsType, completenessConstraint, disjointObjectType);
-                newSubsumptions.add(newSubsumption);
+                for (Object entity : objectsType){
+                    Subsumption newSubsumption = new Subsumption(subclassRelationshipName + "_" + getAlphaNumericString(RANDOM_STRING_LENGTH), parent, (ObjectType) entity, completenessConstraint, disjointObjectType);
+                    newSubsumptions.add(newSubsumption);
+                }
             }
         }
         model.addRelationships(newSubsumptions);
