@@ -3,10 +3,8 @@ package com.gilia.metamodel.relationship;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.gilia.utils.Constants.*;
@@ -19,6 +17,7 @@ import static com.gilia.utils.Constants.*;
 public class Subsumption extends Relationship {
 
     protected ObjectType parent;
+    protected ObjectType child;
     protected CompletenessConstraint completeness;
     protected DisjointObjectType disjointness;
 
@@ -34,34 +33,38 @@ public class Subsumption extends Relationship {
 
     /**
      * Creates an instance of a Subsumption. This constructor receives information about the name of the subsumption,
-     * the parent entity, and the entities involved in the subsumption (children)
+     * the parent entity, and the entity involved in the subsumption (child)
      *
-     * @param name     String that represents the name of the subsumption
-     * @param parent   ObjectType that represents the parent entity
-     * @param entities ArrayList of ObjectType that represents the children entities
+     * @param name   String that represents the name of the subsumption
+     * @param parent ObjectType that represents the parent entity
+     * @param child  ObjectType that represents the child entity
      */
-    public Subsumption(String name, ObjectType parent, ArrayList<ObjectType> entities) {
-        super(name, entities, null);
+    public Subsumption(String name, ObjectType parent, ObjectType child) {
+        super(name, null, null);
         this.parent = parent;
+        this.child = child;
     }
 
-    public Subsumption(String name, ObjectType parent, ArrayList<ObjectType> entities, CompletenessConstraint completeness, DisjointObjectType disjointness) {
-        super(name, entities, null);
+    public Subsumption(String name, ObjectType parent, ObjectType child, CompletenessConstraint completeness, DisjointObjectType disjointness) {
+        super(name, null, null);
         this.parent = parent;
+        this.child = child;
         this.completeness = completeness;
         this.disjointness = disjointness;
     }
 
-    public Subsumption(String name, ObjectType parent, ArrayList<ObjectType> entities, CompletenessConstraint completeness) {
-        super(name, entities, null);
+    public Subsumption(String name, ObjectType parent, ObjectType child, CompletenessConstraint completeness) {
+        super(name, null, null);
         this.parent = parent;
+        this.child = child;
         this.completeness = completeness;
         this.disjointness = null;
     }
 
-    public Subsumption(String name, ObjectType parent, ArrayList<ObjectType> entities, DisjointObjectType disjointness) {
-        super(name, entities, null);
+    public Subsumption(String name, ObjectType parent, ObjectType child, DisjointObjectType disjointness) {
+        super(name, null, null);
         this.parent = parent;
+        this.child = child;
         this.completeness = null;
         this.disjointness = disjointness;
     }
@@ -74,13 +77,24 @@ public class Subsumption extends Relationship {
         this.parent = parent;
     }
 
+    public ObjectType getChild() {
+        return child;
+    }
+
+    public void setChild(ObjectType child) {
+        this.child = child;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Subsumption that = (Subsumption) o;
-        return Objects.equals(parent, that.parent);
+        return Objects.equals(parent, that.parent) &&
+                Objects.equals(child, that.child) &&
+                Objects.equals(completeness, that.completeness) &&
+                Objects.equals(disjointness, that.disjointness);
     }
 
     @Override
@@ -92,8 +106,9 @@ public class Subsumption extends Relationship {
     public String toString() {
         return "Subsumption{" +
                 "parent=" + parent +
-                ", entities=" + entities +
-                ", roles=" + roles +
+                ", child=" + child +
+                ", disjointness constraint=" + disjointness +
+                ", completeness constraint=" + completeness +
                 ", id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 '}';
@@ -105,10 +120,7 @@ public class Subsumption extends Relationship {
      * <p>
      * Example: <p>
      * { <p>
-     * "entity children": [ <p>
-     * "http://crowd.fi.uncoma.edu.ar#Class4", <p>
-     * "http://crowd.fi.uncoma.edu.ar#Class3" <p>
-     * ], <p>
+     * "entity children": "http://crowd.fi.uncoma.edu.ar#Class4", <p>
      * "name": "http://crowd.fi.uncoma.edu.ar#s1", <p>
      * "entity parent": "http://crowd.fi.uncoma.edu.ar#Class2" <p>
      * }
@@ -118,15 +130,10 @@ public class Subsumption extends Relationship {
     @Override
     public JSONObject toJSONObject() {
         JSONObject subsumption = new JSONObject();
-        JSONArray entitiesJSON = new JSONArray();
-
-        for (Object entity : entities) {
-            entitiesJSON.add(((ObjectType) entity).getName());
-        }
 
         subsumption.put(KEY_NAME, name);
         subsumption.put(KEY_ENTITY_PARENT, parent.getName());
-        subsumption.put(KEY_ENTITY_CHILDREN, entitiesJSON);
+        subsumption.put(KEY_ENTITY_CHILD, child.getName());
         if (disjointness != null && !disjointness.isNameless()) {
             subsumption.put(KEY_DISJOINTNESS_CONSTRAINT, disjointness.getName());
         }

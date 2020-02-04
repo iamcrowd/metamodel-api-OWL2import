@@ -11,6 +11,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.util.Random;
+
+import static com.gilia.utils.Constants.CHARSET;
+import static com.gilia.utils.Constants.RANDOM_STRING_REGEX;
 
 /**
  * Class use for utility methods that can be used anywhere in the application. The methods inside this class
@@ -38,6 +43,45 @@ public class Utils {
         JSONObject jsonSubject = new JSONObject(jsonString);
         Schema schema = SchemaLoader.load(jsonSchema);
         schema.validate(jsonSubject);
+    }
+
+    /**
+     * Generates a random string with alphanumeric characters (UTF-8). The length of the string is specified by parameter.
+     *
+     * @param stringLength Length of the string to be generated
+     * @return Random string of the given length with alphanumeric characters
+     */
+    public static String getAlphaNumericString(int stringLength) {
+
+        // length is bounded by 256 Character
+        byte[] array = new byte[256];
+        new Random().nextBytes(array);
+
+        String randomString = new String(array, Charset.forName(CHARSET));
+
+        // Create a StringBuffer to store the result
+        StringBuffer stringBuffer = new StringBuffer();
+
+        // remove all spacial char
+        String AlphaNumericString
+                = randomString
+                .replaceAll(RANDOM_STRING_REGEX, "");
+
+        // Append first 20 alphanumeric characters
+        // from the generated random String into the result
+        for (int k = 0; k < AlphaNumericString.length(); k++) {
+            if (Character.isLetter(AlphaNumericString.charAt(k))
+                    && (stringLength > 0)
+                    || Character.isDigit(AlphaNumericString.charAt(k))
+                    && (stringLength > 0)) {
+
+                stringBuffer.append(AlphaNumericString.charAt(k));
+                stringLength--;
+            }
+        }
+
+        // return the resultant string
+        return stringBuffer.toString();
     }
 
 }

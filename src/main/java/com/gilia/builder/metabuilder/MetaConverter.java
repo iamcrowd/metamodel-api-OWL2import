@@ -45,11 +45,11 @@ public class MetaConverter implements MetaBuilder {
 
         JSONObject entityType = new JSONObject();
 
-        entityType.put("Object Type", objectTypes);
-        entityType.put("Data Type", dataTypes);
+        entityType.put("Object type", objectTypes);
+        entityType.put("Data type", dataTypes);
         entityType.put("Value property", valueProperties);
 
-        jsonMetamodel.put("Entity Type", entityType);
+        jsonMetamodel.put("Entity type", entityType);
 
 
         // Relationship
@@ -126,7 +126,7 @@ public class MetaConverter implements MetaBuilder {
         jsonConstraints.put("Completeness constraints", completenessConstraintsJSONArray);
 
 
-        jsonMetamodel.put("Constraint", jsonConstraints);
+        jsonMetamodel.put("Constraints", jsonConstraints);
 
         return jsonMetamodel;
 
