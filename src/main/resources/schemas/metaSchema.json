@@ -126,7 +126,7 @@
         }
       }
     },
-    "Constraint": {
+    "Constraints": {
       "description": "",
       "type": "object",
       "properties": {

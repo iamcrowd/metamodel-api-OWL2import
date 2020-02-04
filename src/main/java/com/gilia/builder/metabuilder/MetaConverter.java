@@ -126,7 +126,7 @@ public class MetaConverter implements MetaBuilder {
         jsonConstraints.put("Completeness constraints", completenessConstraintsJSONArray);
 
 
-        jsonMetamodel.put("Constraint", jsonConstraints);
+        jsonMetamodel.put("Constraints", jsonConstraints);
 
         return jsonMetamodel;
 
