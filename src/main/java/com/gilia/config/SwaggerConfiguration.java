@@ -7,6 +7,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import static com.gilia.utils.Constants.ENDPOINT_REGEX;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 @Configuration
@@ -18,7 +19,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.gilia.controllers"))
-                .paths(regex("/umltometa"))
+                .paths(regex(ENDPOINT_REGEX))
                 .build();
     }
 
