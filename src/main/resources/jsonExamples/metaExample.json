@@ -40,14 +40,14 @@
       {
         "name": "http://crowd.fi.uncoma.edu.ar/kb1#s1",
         "entity parent": "http://crowd.fi.uncoma.edu.ar/kb1#Person",
-        "entity children": "http://crowd.fi.uncoma.edu.ar/kb1#Dog",
+        "entity child": "http://crowd.fi.uncoma.edu.ar/kb1#Dog",
         "disjointness constraints": "http://crowd.fi.uncoma.edu.ar/kb1#dc1",
         "completeness constraints": "http://crowd.fi.uncoma.edu.ar/kb1#cc1"
       },
       {
         "name": "http://crowd.fi.uncoma.edu.ar/kb1#s1",
         "entity parent": "http://crowd.fi.uncoma.edu.ar/kb1#Person",
-        "entity children": "http://crowd.fi.uncoma.edu.ar/kb1#Dog",
+        "entity child": "http://crowd.fi.uncoma.edu.ar/kb1#Dog",
         "disjointness constraints": "http://crowd.fi.uncoma.edu.ar/kb1#dc1",
         "completeness constraints": "http://crowd.fi.uncoma.edu.ar/kb1#cc1"
       }
@@ -77,7 +77,7 @@
       }
     ]
   },
-  "Constraint": {
+  "Constraints": {
     "Disjointness constraints": {
       "Disjoint object type": [
         {

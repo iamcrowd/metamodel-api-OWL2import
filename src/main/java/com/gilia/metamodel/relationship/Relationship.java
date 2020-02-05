@@ -1,5 +1,6 @@
 package com.gilia.metamodel.relationship;
 
+import com.gilia.exceptions.MetamodelDefinitionCompromisedException;
 import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.role.Role;
@@ -9,8 +10,7 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.gilia.utils.Constants.KEY_ENTITIES;
-import static com.gilia.utils.Constants.KEY_NAME;
+import static com.gilia.utils.Constants.*;
 
 /**
  * Representation of the Relationship class from the KF Metamodel
@@ -82,6 +82,14 @@ public class Relationship extends Entity {
 
     public void setRoles(ArrayList<Role> roles) {
         this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        if (roles.size() <= 1 && !roles.contains(role)) {
+            roles.add(role);
+        }else{
+            throw new MetamodelDefinitionCompromisedException(RELATIONSHIP_DEFINITION_ERROR);
+        }
     }
 
     @Override

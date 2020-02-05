@@ -1,10 +1,13 @@
 package com.gilia.metamodel.relationship;
 
+import com.gilia.exceptions.EntityNotValidException;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
+import com.gilia.metamodel.constraint.Constraint;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import org.json.simple.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.gilia.utils.Constants.*;
@@ -67,6 +70,23 @@ public class Subsumption extends Relationship {
         this.child = child;
         this.completeness = null;
         this.disjointness = disjointness;
+    }
+
+    public Subsumption(String name, ObjectType parent, ObjectType child, ArrayList<Constraint> constraints) {
+        super(name, null, null);
+        this.parent = parent;
+        this.child = child;
+
+        for (int i = 0; i < constraints.size(); i++) {
+            if (constraints.get(i).getClass() == DisjointObjectType.class) {
+                this.disjointness = (DisjointObjectType) constraints.get(i);
+            } else if (constraints.get(i).getClass() == CompletenessConstraint.class) {
+                this.completeness = (CompletenessConstraint) constraints.get(i);
+            } else {
+                throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+            }
+        }
+
     }
 
     public ObjectType getParent() {
