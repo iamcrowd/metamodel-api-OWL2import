@@ -1,7 +1,18 @@
 $(document).ready(function () {
     $('#sendJson').click(function () {
+        switch($('#convertid')[0].value){
+            case "UML to Metamodel":
+                url = "http://localhost:8080/umltometa";
+                break;
+            case "EER to Metamodel":
+                url = "http://localhost:8080/eertometa";
+                break;
+            default:
+                url = "http://localhost:8080/umltometa";
+                break;
+        }
         var settings = {
-            "url": "http://localhost:8080/umltometa",
+            "url": url,
             "method": "POST",
             "timeout": 0,
             "headers": {
@@ -23,3 +34,5 @@ function beautify() {
     var pretty = JSON.stringify(obj, undefined, 4);
     document.getElementById('jsonInput').value = pretty;
 }
+
+$('#convertid')
