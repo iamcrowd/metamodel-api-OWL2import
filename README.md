@@ -23,6 +23,15 @@ At the moment, there are two ways of trying the API out. The first one involves 
 
 The other way to try the API is by using the web page generated for this project. To use the web page, open `src/web/index.html` in any browser. This will display an static html page that uses the API endpoints. Note that this web page is isolated from the API itself in order to keep the definition and purpose of it. The web page consumes the API as any other client would.
 
+## Next developments
+- ~~UML ⟶ Meta~~ ✔️
+- ~~EER ⟶ Meta~~ ✔️
+- ORM ⟶ Meta ❌
+- Meta ⟶ UML :hourglass_flowing_sand:
+- Meta ⟶ EER ❌
+- Meta ⟶ ORM ❌
+
+*Note: Additionally, other mappings, transformations and aproximations could be considered for future developments.*
 
 ## Code Conventions
 - [General Naming Conventions](https://www.oracle.com/technetwork/java/codeconventions-135099.html)
