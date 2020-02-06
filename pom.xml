@@ -9,16 +9,35 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.gilia</groupId>
-    <artifactId>MetamodelAPI</artifactId>
+    <artifactId>OWL2KFImporter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>MetamodelAPI</name>
-    <description>Metamodel Project</description>
+    <name>OWL2KFImporter</name>
+    <description>OWL 2 to Metamodel KF Importer</description>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
+    
+    	<dependency>
+    		<groupId>net.sourceforge.owlapi</groupId>
+    		<artifactId>owlapi-distribution</artifactId>
+    		<version>5.1.0</version>
+    		<exclusions>
+    			<exclusion>
+    				<groupId>com.github.jsonld-java</groupId>
+    				<artifactId>jsonld-java</artifactId>
+    			</exclusion>
+    		</exclusions>
+    	</dependency>
+		
+		<dependency>
+			<groupId>com.github.jsonld-java.jsonld-java</groupId>
+    		<artifactId>jsonld-java</artifactId>
+    		<version>0.12.3</version>
+		</dependency>
+		
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
