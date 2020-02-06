@@ -131,6 +131,13 @@ public class Constants {
 
     public static final String KEY_OBJECT_TYPE = "object type";
 
+    /**
+     * Attributes in UML class
+     */
+    public static final String KEY_ATTRS = "attrs";
+
+    public static final String KEY_METHODS = "methods";
+
     // Regex
 
     public static final String RANDOM_STRING_REGEX = "[^A-Za-z0-9]";

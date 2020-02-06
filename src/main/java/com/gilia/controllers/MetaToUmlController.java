@@ -37,8 +37,7 @@ public class MetaToUmlController {
             validateJSON(payload, META_SCHEMA_PATH);
             JSONObject metaModelObject = (JSONObject) parser.parse(payload);
             director.createMetamodelFromMeta(metaModelObject);
-            // response = director.generateUML(); // TODO: Implement generateUML
-            response = director.generateMeta();
+            response = director.generateUML();
         } catch (FileNotFoundException e) {
             ResponseError error = new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage());
             return new ResponseEntity<>(error.toJSONObject(), HttpStatus.INTERNAL_SERVER_ERROR);

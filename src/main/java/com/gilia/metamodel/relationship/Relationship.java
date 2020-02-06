@@ -84,10 +84,18 @@ public class Relationship extends Entity {
         this.roles = roles;
     }
 
-    public void addRole(Role role) {
+    /**
+     * Adds a Role object to the relationship. This method checks that the role
+     * does not exist already in the relationship and that the relationship contains
+     * a maximum of two roles (including the one to be added).
+     *
+     * @param role Role object to be added to the relationship
+     * @throws MetamodelDefinitionCompromisedException
+     */
+    public void addRole(Role role) throws MetamodelDefinitionCompromisedException {
         if (roles.size() <= 1 && !roles.contains(role)) {
             roles.add(role);
-        }else{
+        } else {
             throw new MetamodelDefinitionCompromisedException(RELATIONSHIP_DEFINITION_ERROR);
         }
     }
@@ -142,5 +150,34 @@ public class Relationship extends Entity {
         relationship.put(KEY_NAME, name);
         relationship.put(KEY_ENTITIES, entitiesJSON);
         return relationship;
+    }
+
+    /**
+     * Generates a JSONObject that represents the information of the Relationship according to the
+     * UML language. The JSONObject generated respects the UML Schema.
+     *
+     * @return JSONObject that represents the equivalent UML Relationship.
+     */
+    public JSONObject toUML() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(KEY_NAME, this.name);
+        jsonObject.put(KEY_TYPE, KEY_ASSOCIATION);
+
+        // Classes involved
+        JSONArray jsonEntities = new JSONArray();
+        this.entities.forEach(entity -> jsonEntities.add(entity.getName()));
+        jsonObject.put(KEY_CLASSES, jsonEntities);
+
+        // Roles and cardinalities
+        JSONArray jsonRoles = new JSONArray();
+        JSONArray jsonMultiplicity = new JSONArray();
+        for (Role role : roles) {
+            jsonRoles.add(role.getName());
+            jsonMultiplicity.add(role.getCardinalityConstraints().get(0).getCardinality());
+        }
+        jsonObject.put(KEY_ROLES, jsonRoles);
+        jsonObject.put(KEY_MULTIPLICITY, jsonMultiplicity);
+
+        return jsonObject;
     }
 }

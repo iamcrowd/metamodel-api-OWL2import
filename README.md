@@ -26,8 +26,8 @@ The other way to try the API is by using the web page generated for this project
 ## Next developments
 - ~~UML ⟶ Meta~~ ✔️
 - ~~EER ⟶ Meta~~ ✔️
-- ORM ⟶ Meta ❌
-- Meta ⟶ UML :hourglass_flowing_sand:
+- ORM ⟶ Meta :hourglass_flowing_sand:
+- Meta ⟶ UML ✔️
 - Meta ⟶ EER ❌
 - Meta ⟶ ORM ❌
 
