@@ -21,6 +21,7 @@ At the moment, there are two ways of trying the API out. The first one involves 
 - `/umltometa`  - UML to Metamodel  
 - `/metatouml` - Metamodel to UML   
 - `/eertometa` - EER to Metamodel  
+- `/eertouml` - EER to UML  
 
 The other way to try the API is by using the web page generated for this project. To use the web page, open `src/web/index.html` in any browser. This will display an static html page that uses the API endpoints. Note that this web page is isolated from the API itself in order to keep the definition and purpose of it. The web page consumes the API as any other client would.
 
