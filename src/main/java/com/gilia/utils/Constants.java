@@ -17,6 +17,8 @@ public class Constants {
 
     public static final String ORM_TO_META_ROUTE = "/ormtometa";
 
+    public static final String META_TO_UML_ROUTE = "/metatouml";
+
     // Schemas
 
     public static final String UML_SCHEMA_PATH = "src/main/resources/schemas/umlSchema.json";
@@ -115,11 +117,26 @@ public class Constants {
 
     public static final String KEY_CONSTRAINT = "constraint";
 
+    public static final String KEY_CONSTRAINTS = "constraints";
+
+    public static final String KEY_CARDINALITY_CONSTRAINTS = "cardinality constraints";
+
     public static final String KEY_DISJOINTNESS_CONSTRAINT = "disjointness constraints";
 
     public static final String KEY_COMPLETENESS_CONSTRAINT = "completeness constraints";
 
+    public static final String KEY_DISJOINT_OBJECT_TYPE_CONSTRAINT = "disjoint object type";
+
     public static final String KEY_CARDINALITY = "cardinality";
+
+    public static final String KEY_OBJECT_TYPE = "object type";
+
+    /**
+     * Attributes in UML class
+     */
+    public static final String KEY_ATTRS = "attrs";
+
+    public static final String KEY_METHODS = "methods";
 
     // Regex
 
@@ -164,6 +181,8 @@ public class Constants {
     public static final String ASSOCIATION_EXPECTED_ERROR = "An association link was expected";
 
     public static final String RELATIONSHIP_EXPECTED_ERROR = "A relationship link was expected";
+
+    public static final String RELATIONSHIP_DEFINITION_ERROR = "Relationship definition would be violated";
 
     // Exception Names
 

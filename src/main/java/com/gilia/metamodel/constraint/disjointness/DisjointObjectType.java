@@ -15,7 +15,7 @@ import static com.gilia.utils.Constants.KEY_NAME;
  */
 public class DisjointObjectType extends DisjointnessConstraint {
 
-    protected ArrayList<ObjectType> entities; // TODO: The disjointness is between siblings, right?
+    protected ArrayList<ObjectType> entities;
 
     /**
      * @param name

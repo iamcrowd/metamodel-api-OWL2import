@@ -1,10 +1,14 @@
 package com.gilia.metamodel.relationship;
 
+import com.gilia.exceptions.EntityNotValidException;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
+import com.gilia.metamodel.constraint.Constraint;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.gilia.utils.Constants.*;
@@ -69,6 +73,23 @@ public class Subsumption extends Relationship {
         this.disjointness = disjointness;
     }
 
+    public Subsumption(String name, ObjectType parent, ObjectType child, ArrayList<Constraint> constraints) {
+        super(name, null, null);
+        this.parent = parent;
+        this.child = child;
+
+        for (int i = 0; i < constraints.size(); i++) {
+            if (constraints.get(i).getClass() == DisjointObjectType.class) {
+                this.disjointness = (DisjointObjectType) constraints.get(i);
+            } else if (constraints.get(i).getClass() == CompletenessConstraint.class) {
+                this.completeness = (CompletenessConstraint) constraints.get(i);
+            } else {
+                throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+            }
+        }
+
+    }
+
     public ObjectType getParent() {
         return parent;
     }
@@ -83,6 +104,22 @@ public class Subsumption extends Relationship {
 
     public void setChild(ObjectType child) {
         this.child = child;
+    }
+
+    public CompletenessConstraint getCompleteness() {
+        return completeness;
+    }
+
+    public void setCompleteness(CompletenessConstraint completeness) {
+        this.completeness = completeness;
+    }
+
+    public DisjointObjectType getDisjointness() {
+        return disjointness;
+    }
+
+    public void setDisjointness(DisjointObjectType disjointness) {
+        this.disjointness = disjointness;
     }
 
     @Override
@@ -142,5 +179,38 @@ public class Subsumption extends Relationship {
         }
 
         return subsumption;
+    }
+
+    /**
+     * Generates a JSONObject that represents the information of the Subsumption according to the
+     * UML language. The JSONObject generated respects the UML Schema.
+     *
+     * @return JSONObject that represents the equivalent UML Generalization.
+     */
+    @Override
+    public JSONObject toUML() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(KEY_NAME, this.name);
+        jsonObject.put(KEY_PARENT, this.parent.getName());
+        jsonObject.put(KEY_TYPE, KEY_GENERALIZATION);
+
+        // Classes involved
+        JSONArray jsonClasses = new JSONArray();
+        jsonClasses.add(this.child.getName());
+        jsonObject.put(KEY_CLASSES, jsonClasses);
+
+        // Constraints
+        JSONArray jsonConstraints = new JSONArray();
+        if (disjointness != null) {
+            jsonConstraints.add(DISJOINT_STRING);
+        }
+
+        if (completeness != null) {
+            jsonConstraints.add(COVERING_STRING);
+        }
+
+        jsonObject.put(KEY_CONSTRAINT, jsonConstraints);
+
+        return jsonObject;
     }
 }

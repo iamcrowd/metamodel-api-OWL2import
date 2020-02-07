@@ -104,6 +104,16 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
         }
     }
 
+    /**
+     * Returns a string that represents the cardinality according to the CARDINALITY_REGEX
+     *
+     * @return A string that represents a cardinality range.
+     * @see com.gilia.utils.Constants#CARDINALITY_REGEX
+     */
+    public String getCardinality() {
+        return minCardinality + ".." + maxCardinality;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -129,6 +139,14 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
         return objectTypeCardinalityConstraint;
     }
 
+    /**
+     * Checks if the cardinality is a valid range. A range is considered valid if the minCardinality is equal or smaller
+     * than the maxCardinality
+     *
+     * @param minCardinality Minimum component from the cardinality
+     * @param maxCardinality Maximum component from the cardinality
+     * @return A boolean indicating wheter the cardinality range is valid or not
+     */
     private boolean isCardinalityRangeValid(String minCardinality, String maxCardinality) {
         int minCardinalityValue, maxCardinalityValue;
 

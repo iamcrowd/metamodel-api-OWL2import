@@ -17,22 +17,23 @@ $ mvn exec:java
 ```
 
 ### Using the API
-At the moment, there are two ways of trying the API out. The first one involves using the endpoints defined, sending HTTP POST requests to one of the following endpoints:
-- `/umltometa`  - UML to Metamodel
-- `/eertometa` - EER to Metamodel
+At the moment, there are two ways of trying the API out. The first one involves using the endpoints defined, sending HTTP POST requests to one of the following endpoints:    
+- `/umltometa`  - UML to Metamodel  
+- `/metatouml` - Metamodel to UML   
+- `/eertometa` - EER to Metamodel  
 
 The other way to try the API is by using the web page generated for this project. To use the web page, open `src/web/index.html` in any browser. This will display an static html page that uses the API endpoints. Note that this web page is isolated from the API itself in order to keep the definition and purpose of it. The web page consumes the API as any other client would.
 
 ## Next developments
 - ~~UML ⟶ Meta~~ ✔️
 - ~~EER ⟶ Meta~~ ✔️
-- ORM ⟶ Meta ❌
-- Meta ⟶ UML :hourglass_flowing_sand:
+- ORM ⟶ Meta :hourglass_flowing_sand:
+- Meta ⟶ UML ✔️
 - Meta ⟶ EER ❌
 - Meta ⟶ ORM ❌
 
-*Note: Additionally, other mappings, transformations and aproximations could be considered for future developments.*
-
+*Note: Additionally, other mappings, transformations and aproximations could be considered for future developments.*  
+*Note: Model to model transformations will be trivial once the Model ⟶ Meta and Meta ⟶ Model endpoints are implemented.*
 ## Code Conventions
 - [General Naming Conventions](https://www.oracle.com/technetwork/java/codeconventions-135099.html)
 - [Naming Package Conventions](https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html)
