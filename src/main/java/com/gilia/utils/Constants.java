@@ -19,6 +19,8 @@ public class Constants {
 
     public static final String META_TO_UML_ROUTE = "/metatouml";
 
+    public static final String EER_TO_UML = "/eertouml";
+
     // Schemas
 
     public static final String UML_SCHEMA_PATH = "src/main/resources/schemas/umlSchema.json";
