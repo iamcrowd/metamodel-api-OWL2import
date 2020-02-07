@@ -2,6 +2,7 @@ package com.gilia.metamodel.relationship
 
 import com.gilia.metamodel.entitytype.objecttype.ObjectType
 import com.gilia.metamodel.role.Role
+import com.gilia.metamodel.relationship.Relationship
 import spock.lang.Specification
 
 class RelationshipTest extends Specification {

@@ -3,6 +3,7 @@ package com.gilia.metamodel.role
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality
 import com.gilia.metamodel.entitytype.objecttype.ObjectType
 import com.gilia.metamodel.relationship.Relationship
+import com.gilia.metamodel.role.Role
 import org.json.simple.JSONObject
 import spock.lang.Specification
 
