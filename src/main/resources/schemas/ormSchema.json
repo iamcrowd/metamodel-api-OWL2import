@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "gilia.metamodel.orm",
+  "title": "ORM JSON",
+  "description": "This JSON represents the information represented by a model described in ORM modeling language",
+  "type": "object",
+  "properties": {
+    "namespaces": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "ontologyIRI": {
+          "description": "",
+          "type": "object",
+          "properties": {
+            "prefix": {
+              "description": "",
+              "type": "string"
+            },
+            "value": {
+              "description": "",
+              "type": "string"
+            }
+          },
+          "required": [
+            "prefix",
+            "value"
+          ]
+        }
+      }
+    },
+    "entities": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "attributes": {
+      "description": "",
+      "type": "array"
+    },
+    "relationships": {
+      "description": "",
+      "type": "array"
+    },
+    "inheritances": {
+      "description": "",
+      "type": "array"
+    },
+    "connectors": {
+      "description": "",
+      "type": "array"
+    }
+  },
+  "required": [
+    "entities",
+    "attributes",
+    "relationships",
+    "inheritances",
+    "connectors"
+  ]
+}
