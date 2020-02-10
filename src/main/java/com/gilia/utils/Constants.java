@@ -16,6 +16,18 @@ public class Constants {
     public static final String EER_TO_META_ROUTE = "/eertometa";
 
     public static final String ORM_TO_META_ROUTE = "/ormtometa";
+    
+    // Importer Endpoints
+    
+    public static final String OWL_TO_META_ROUTE = "/owltometa";
+    
+    public static final String OWL_CLASSES_TO_META_ROUTE = "/owlclassestometa";
+    
+    public static final String OWL_SUBSUMPTIONS_TO_META_ROUTE = "/owlsubstometa";
+    
+    public static final String OWL_OBJECT_PROPERTIES_TO_META_ROUTE = "/owlobjproptometa";
+    
+    public static final String OWL_DATA_PROPERTIES_TO_META_ROUTE = "/owldataproptometa";
 
     // Schemas
 

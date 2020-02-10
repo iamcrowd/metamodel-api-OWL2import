@@ -7,6 +7,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.*;
+import org.semanticweb.owlapi.apibinding.*;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,6 +48,30 @@ public class Utils {
         JSONObject jsonSubject = new JSONObject(jsonString);
         Schema schema = SchemaLoader.load(jsonSchema);
         schema.validate(jsonSubject);
+    }
+    
+    /**
+     * Validates the given OWL 2 spec defined in an OWL file. The path to this file
+     * must be provided as a parameter. The method will execute successfully (no exceptions will be thrown)
+     * if the OWL 2 file is valid according to the W3C standard. If the OWL 2 spec is not valid, then it will
+     * throw a ValidationException.
+     * File path is given as this example: "C:\\pizza.owl.xml"
+     *
+     * @param owl2FilePath The path to a file that contains an OWL spec (OWL/XML | RDF/XML)
+     * @throws FileNotFoundException
+     * @throws ValidationException
+     */
+    public static void validateOWL(String owl2FilePath) throws FileNotFoundException, ValidationException {
+        try {
+        	OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+            File file = new File(owl2FilePath);
+            OWLOntology o = man.loadOntologyFromOntologyDocument(file);
+            System.out.println(o);
+        }
+        catch (OWLOntologyCreationException e){
+        	e.printStackTrace();
+        }
+
     }
 
     /**
