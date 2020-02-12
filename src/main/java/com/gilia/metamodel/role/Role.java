@@ -137,8 +137,8 @@ public class Role extends Entity {
     @Override
     public String toString() {
         return "Role{" +
-                "entity=" + entity +
-                ", relationship=" + relationship +
+                "entity=" + entity.getName() +
+                ", relationship=" + relationship.getName() +
                 ", cardinalityConstraint=" + cardinalityConstraints +
                 ", id='" + id + '\'' +
                 ", name='" + name + '\'' +
