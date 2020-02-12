@@ -2,6 +2,7 @@ package com.gilia.controllers;
 
 import com.gilia.builder.MetaDirector;
 import com.gilia.exceptions.MetamodelException;
+import com.gilia.exceptions.EmptyOntologyException;
 import com.gilia.utils.ResponseError;
 import org.everit.json.schema.ValidationException;
 import org.json.JSONException;
@@ -19,7 +20,7 @@ import java.io.FileNotFoundException;
 
 import static com.gilia.utils.Constants.*;
 import static com.gilia.utils.Utils.validateJSON;
-import static com.gilia.utils.Utils.validateOWL;
+import static com.gilia.utils.ImportUtils.validateOWL;
 
 /**
  * Controller of the OWL_TO_META_ROUTE endpoint. This controller is in charge of receiving an OWL spec, creating the Metamodel
@@ -36,13 +37,14 @@ public class OWL2ToMetaController {
         JSONObject response;
 
         try {
-        	validateOWL(payload);
+        	//validateOWL(payload);
             JSONObject umlModelObject = (JSONObject) parser.parse(payload);
             director.createMetamodelFromUML(umlModelObject);
             response = director.generateMeta();
-        } catch (FileNotFoundException e) {
-            ResponseError error = new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage());
-            return new ResponseEntity<>(error.toJSONObject(), HttpStatus.INTERNAL_SERVER_ERROR);
+        //} 
+        //catch (FileNotFoundException e) {
+        //    ResponseError error = new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage());
+        //    return new ResponseEntity<>(error.toJSONObject(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (JSONException | ParseException e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
             return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
@@ -54,6 +56,9 @@ public class OWL2ToMetaController {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), stringBuilder.toString());
             return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
         } catch (MetamodelException e) {
+            ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
+            return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
+        } catch (EmptyOntologyException e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
             return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
         }
