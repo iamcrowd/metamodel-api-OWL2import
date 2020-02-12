@@ -5,30 +5,6 @@
   "description": "This JSON represents the information represented by a model described in ORM modeling language",
   "type": "object",
   "properties": {
-    "namespaces": {
-      "description": "",
-      "type": "object",
-      "properties": {
-        "ontologyIRI": {
-          "description": "",
-          "type": "object",
-          "properties": {
-            "prefix": {
-              "description": "",
-              "type": "string"
-            },
-            "value": {
-              "description": "",
-              "type": "string"
-            }
-          },
-          "required": [
-            "prefix",
-            "value"
-          ]
-        }
-      }
-    },
     "entities": {
       "description": "",
       "type": "array",
@@ -44,19 +20,75 @@
         }
       }
     },
+    "connectors": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "parent": {
+            "type": "string"
+          },
+          "entities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "subtypingContraint": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "relationships": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "entities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "uniquenessConstraints": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "([0-9]+|N|\\*)\\.\\.([0-9]+|N|M|\\*)"
+            }
+          },
+          "mandatory": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "attributes": {
       "description": "",
       "type": "array"
     },
-    "relationships": {
-      "description": "",
-      "type": "array"
-    },
     "inheritances": {
-      "description": "",
-      "type": "array"
-    },
-    "connectors": {
       "description": "",
       "type": "array"
     }

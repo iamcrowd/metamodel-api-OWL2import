@@ -1,35 +1,83 @@
 {
   "entities": [
     {
-      "name": "http://crowd.fi.uncoma.edu.ar#Entity",
+      "name": "http://crowd.fi.uncoma.edu.ar#Person",
       "ref": "",
       "id": 60,
       "type": "entity",
       "position": {
-        "x": 250,
-        "y": 195
+        "x": 390,
+        "y": 215
       }
     },
     {
-      "name": "http://crowd.fi.uncoma.edu.ar#Entity",
+      "name": "http://crowd.fi.uncoma.edu.ar#Dog",
       "ref": "",
       "id": 74,
       "type": "entity",
       "position": {
-        "x": 585,
-        "y": 200
+        "x": 715,
+        "y": 210
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Golden",
+      "ref": "",
+      "id": 88,
+      "type": "entity",
+      "position": {
+        "x": 590,
+        "y": 405
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Pointer",
+      "ref": "",
+      "id": 102,
+      "type": "entity",
+      "position": {
+        "x": 825,
+        "y": 405
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Toy",
+      "ref": "",
+      "id": 116,
+      "type": "entity",
+      "position": {
+        "x": 580,
+        "y": 635
       }
     }
   ],
   "relationships": [
     {
-      "name": "http://crowd.fi.uncoma.edu.ar#role_name",
+      "name": "http://crowd.fi.uncoma.edu.ar#owns",
       "inverseReading": false,
       "entities": [
-        "http://crowd.fi.uncoma.edu.ar#undefined",
-        "http://crowd.fi.uncoma.edu.ar#Entity",
-        "http://crowd.fi.uncoma.edu.ar#undefined",
-        "http://crowd.fi.uncoma.edu.ar#Entity"
+        "http://crowd.fi.uncoma.edu.ar#Person",
+        "http://crowd.fi.uncoma.edu.ar#Dog"
+      ],
+      "uniquenessConstraints": [
+        "0..1",
+        "0..1"
+      ],
+      "mandatory": [
+        "http://crowd.fi.uncoma.edu.ar#Dog"
+      ],
+      "type": "binaryFactType",
+      "position": {
+        "x": 575,
+        "y": 230
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#has",
+      "inverseReading": false,
+      "entities": [
+        "http://crowd.fi.uncoma.edu.ar#Golden",
+        "http://crowd.fi.uncoma.edu.ar#Toy"
       ],
       "uniquenessConstraints": [
         "0..1",
@@ -38,12 +86,27 @@
       "mandatory": [],
       "type": "binaryFactType",
       "position": {
-        "x": 430,
-        "y": 210
+        "x": 615,
+        "y": 520
       }
     }
   ],
   "attributes": [],
   "inheritances": [],
-  "connectors": []
+  "connectors": [
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#S1",
+      "parent": "http://crowd.fi.uncoma.edu.ar#Dog",
+      "entities": [
+        "http://crowd.fi.uncoma.edu.ar#Golden",
+        "http://crowd.fi.uncoma.edu.ar#Pointer"
+      ],
+      "type": "subtyping",
+      "subtypingContraint": ["union", "exclusive"],
+      "position": {
+        "x": 745.5,
+        "y": 347.5
+      }
+    }
+  ]
 }

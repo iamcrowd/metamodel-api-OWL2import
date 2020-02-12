@@ -87,7 +87,7 @@
                 "type": "string"
               },
               "entity child": {
-                  "type": "string"
+                "type": "string"
               },
               "disjointness constraints": {
                 "type": "string"
@@ -215,9 +215,27 @@
               "items": true
             }
           }
+        },
+        "Mandatory constraints": {
+          "description": "",
+          "type": "object",
+          "properties": {
+            "Mandatory": {
+              "description": "",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     }
   },
-  "required": ["Entity type","Role","Relationship","Constraints"]
+  "required": [
+    "Entity type",
+    "Role",
+    "Relationship",
+    "Constraints"
+  ]
 }
