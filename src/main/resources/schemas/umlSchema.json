@@ -5,30 +5,6 @@
   "description": "This JSON represents the information represented by a model described in UML modeling language",
   "type": "object",
   "properties": {
-    "namespaces": {
-      "description": "",
-      "type": "object",
-      "properties": {
-        "ontologyIRI": {
-          "description": "",
-          "type": "object",
-          "properties": {
-            "prefix": {
-              "description": "",
-              "type": "string"
-            },
-            "value": {
-              "description": "",
-              "type": "string"
-            }
-          },
-          "required": [
-            "prefix",
-            "value"
-          ]
-        }
-      }
-    },
     "classes": {
       "description": "",
       "type": "array",
