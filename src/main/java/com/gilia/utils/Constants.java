@@ -186,6 +186,8 @@ public class Constants {
 
     public static final String RELATIONSHIP_DEFINITION_ERROR = "Relationship definition would be violated";
 
+    public static final String SUBSUMPTION_DEFINITION_ERROR = "Subsumption definition would be violated";
+
     // Exception Names
 
     public static final String VALIDATION_EXCEPTION_NAME = "ValidationException";
