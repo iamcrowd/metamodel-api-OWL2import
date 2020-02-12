@@ -171,9 +171,17 @@ public class Relationship extends Entity {
         // Roles and cardinalities
         JSONArray jsonRoles = new JSONArray();
         JSONArray jsonMultiplicity = new JSONArray();
-        for (Role role : roles) {
-            jsonRoles.add(role.getName());
-            jsonMultiplicity.add(role.getCardinalityConstraints().get(0).getCardinality());
+        if (roles.size() >= 2) {
+            for (Role role : roles) {
+                jsonRoles.add(role.getName());
+                if ((role.getCardinalityConstraints() != null) && (role.getCardinalityConstraints().size() >= 1)) {
+                    jsonMultiplicity.add(role.getCardinalityConstraints().get(0).getCardinality());
+                } else {
+                    throw new MetamodelDefinitionCompromisedException("Can not generate UML for Relationship " + name + ". Role definition has been violated.");
+                }
+            }
+        } else {
+            throw new MetamodelDefinitionCompromisedException("Can not generate UML for Relationship " + name + ". Relationship definition has been violated.");
         }
         jsonObject.put(KEY_ROLES, jsonRoles);
         jsonObject.put(KEY_MULTIPLICITY, jsonMultiplicity);
