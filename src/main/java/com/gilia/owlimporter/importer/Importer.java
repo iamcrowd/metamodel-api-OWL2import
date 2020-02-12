@@ -16,7 +16,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import static com.gilia.utils.ImportUtils.validateOWL;
+import com.gilia.builder.metabuilder.*;
 
+import com.gilia.owlimporter.OWLClasses;
 import com.gilia.exceptions.EmptyOntologyException;
 
 
@@ -29,6 +31,7 @@ import com.gilia.exceptions.EmptyOntologyException;
 public class Importer {
 	
 	private Metamodel kfimported;
+	private MetaConverter metabuilder;
 	private OWLOntology onto;
 	private OWLOntologyManager man;
 	
@@ -43,6 +46,7 @@ public class Importer {
 			this.kfimported = new Metamodel();
 			this.man = OWLManager.createOWLOntologyManager();
 	        this.onto = man.loadOntologyFromOntologyDocument(file);
+			this.metabuilder = new MetaConverter();
 		}
 		catch (Exception e){
         	e.printStackTrace();
@@ -59,6 +63,7 @@ public class Importer {
 			this.kfimported = new Metamodel();
 			this.man = OWLManager.createOWLOntologyManager();
 	        this.onto = man.loadOntologyFromOntologyDocument(iri);
+			this.metabuilder = new MetaConverter();
 		}
 		catch (Exception e){
         	e.printStackTrace();
@@ -77,8 +82,26 @@ public class Importer {
 		return this.onto;
 	}
 	
-//	public void addOWLClasses(ArrayList<EntityType> classes) {
-//		this.kfimported.setEntities(classes);
-//	}
+	/**
+	 * Metamodel instance is to exported as a JSONObject according to the KF JSON Scheme
+	 * 
+	 * @return JSONObject KF metamodel
+	 */
+	public JSONObject toJSON() {
+		return this.metabuilder.generateJSON(this.kfimported);
+	}
+	
+	
+	/**
+	 * Import OWL Classes and generate a KF instance with the respective set of ObjectTypes
+	 * 
+	 * @see KF metamodel ObjectType
+	 */
+	public void OWLClassesImport() {
+   	  	OWLClasses import_classes = new OWLClasses();
+	  	import_classes.owlClasses2ObjectType(this.kfimported,this.onto);
+	  	MetaBuilder builder = new MetaConverter();
+	  	builder.generateJSON(this.kfimported);
+	}
 	
 }
