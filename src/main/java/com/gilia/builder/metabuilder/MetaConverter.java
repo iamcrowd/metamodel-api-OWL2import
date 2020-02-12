@@ -4,6 +4,7 @@ import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
+import com.gilia.metamodel.constraint.mandatory.Mandatory;
 import com.gilia.metamodel.entitytype.DataType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.entitytype.valueproperty.ValueProperty;
@@ -89,6 +90,7 @@ public class MetaConverter implements MetaBuilder {
         JSONObject disjointnessConstraints = new JSONObject();
         JSONObject completenessConstraints = new JSONObject();
         JSONObject cardinalityConstraints = new JSONObject();
+        JSONObject mandatoryConstraints = new JSONObject();
 
         // Get ObjectType cardinalities constraints
         JSONArray objectTypeCardinalitiesJSONArray = new JSONArray();
@@ -110,8 +112,8 @@ public class MetaConverter implements MetaBuilder {
             }
         }
 
-        disjointnessConstraints.put("Disjoint object type" ,disjointnessConstraintsJSONArray);
-        disjointnessConstraints.put("Disjoint role" ,new JSONArray());
+        disjointnessConstraints.put("Disjoint object type", disjointnessConstraintsJSONArray);
+        disjointnessConstraints.put("Disjoint role", new JSONArray());
         jsonConstraints.put("Disjointness constraints", disjointnessConstraints);
 
 
@@ -124,6 +126,17 @@ public class MetaConverter implements MetaBuilder {
         }
 
         jsonConstraints.put("Completeness constraints", completenessConstraintsJSONArray);
+
+        // Get Mandatory constraints
+        JSONArray mandatoryConstraintsJSONArray = new JSONArray();
+        for (Object constraint : constraints) {
+            if (Mandatory.class.equals(constraint.getClass())) {
+                mandatoryConstraintsJSONArray.add(((Mandatory) constraint).toJSONObject());
+            }
+        }
+
+        mandatoryConstraints.put("Mandatory", mandatoryConstraintsJSONArray);
+        jsonConstraints.put("Mandatory constraints", mandatoryConstraints);
 
 
         jsonMetamodel.put("Constraints", jsonConstraints);
