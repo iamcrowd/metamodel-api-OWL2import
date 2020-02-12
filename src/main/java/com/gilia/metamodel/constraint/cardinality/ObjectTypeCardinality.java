@@ -129,6 +129,16 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
         return Objects.hash(super.hashCode(), minCardinality, maxCardinality);
     }
 
+    @Override
+    public String toString() {
+        return "ObjectTypeCardinality{" +
+                "minCardinality='" + minCardinality + '\'' +
+                ", maxCardinality='" + maxCardinality + '\'' +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public JSONObject toJSONObject() {
         JSONObject objectTypeCardinalityConstraint = new JSONObject();
 
