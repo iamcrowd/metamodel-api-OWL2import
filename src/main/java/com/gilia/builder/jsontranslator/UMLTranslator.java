@@ -122,6 +122,7 @@ public class UMLTranslator implements JSONTranslator {
                         Relationship newRelationship = new Relationship(associationName, objectsType);
                         model.addRelationship(newRelationship); // TODO: The relationship is not saving the roles
                         newRoles = identifyRoles(model, association);
+                        newRelationship.addRoles(newRoles);
                     } else {
                         throw new AlreadyExistException(ALREADY_EXIST_RELATIONSHIP_ERROR);
                     }

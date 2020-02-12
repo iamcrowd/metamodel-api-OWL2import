@@ -17,27 +17,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileNotFoundException;
 
-import static com.gilia.utils.Constants.EER_SCHEMA_PATH;
-import static com.gilia.utils.Constants.EER_TO_UML_ROUTE;
+import static com.gilia.utils.Constants.*;
 import static com.gilia.utils.Utils.validateJSON;
 
 /**
- * Controller of the EER_TO_UML endpoint. This controller is in charge of receiving an EER JSON and returning a UML JSON.
+ * Controller of the ORM_TO_UML endpoint. This controller is in charge of receiving an ORM JSON and returning a UML JSON.
  */
 @RestController
 @CrossOrigin(origins = "*")
-public class EerToUmlController {
+public class OrmToUmlController {
 
-    @PostMapping(EER_TO_UML_ROUTE)
-    public ResponseEntity eerToUml(@RequestBody String payload) {
+    @PostMapping(ORM_TO_UML_ROUTE)
+    public ResponseEntity ormToUml(@RequestBody String payload) {
         MetaDirector director = new MetaDirector();
         JSONParser parser = new JSONParser();
         JSONObject response;
 
         try {
-            validateJSON(payload, EER_SCHEMA_PATH);
-            JSONObject eerModelObject = (JSONObject) parser.parse(payload);
-            director.createMetamodelFromEER(eerModelObject);
+            validateJSON(payload, ORM_SCHEMA_PATH);
+            JSONObject ormModelObject = (JSONObject) parser.parse(payload);
+            director.createMetamodelFromORM(ormModelObject);
             response = director.generateUML();
         } catch (FileNotFoundException e) {
             ResponseError error = new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage());

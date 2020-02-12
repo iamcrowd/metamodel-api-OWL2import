@@ -105,6 +105,13 @@ public class Role extends Entity {
         this.entity = entity;
         this.relationship = relationship;
         this.cardinalityConstraints = new ArrayList<ObjectTypeCardinality>();
+        try {
+            if (mandatoryConstraint != null && Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
+                cardinalityObject.setMinCardinality("1");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         cardinalityConstraints.add(cardinalityObject);
         this.mandatoryConstraint = mandatoryConstraint;
     }
@@ -125,6 +132,17 @@ public class Role extends Entity {
         this.entity = entity;
         this.relationship = relationship;
         this.cardinalityConstraints = cardinalities;
+        try {
+            if (mandatoryConstraint != null) {
+                for (ObjectTypeCardinality cardinalityObject : cardinalities) {
+                    if (Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
+                        cardinalityObject.setMinCardinality("1");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         this.mandatoryConstraint = mandatoryConstraint;
     }
 
@@ -157,6 +175,17 @@ public class Role extends Entity {
     }
 
     public void setMandatoryConstraint(Mandatory mandatoryConstraint) {
+        try {
+            if (mandatoryConstraint != null) {
+                for (ObjectTypeCardinality cardinalityObject : this.cardinalityConstraints) {
+                    if (Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
+                        cardinalityObject.setMinCardinality("1");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         this.mandatoryConstraint = mandatoryConstraint;
     }
 
@@ -216,7 +245,7 @@ public class Role extends Entity {
         role.put(RELATIONSHIP_STRING, relationship.getName());
         role.put(KEY_ENTITY_TYPE, entity.getName());
         role.put(KEY_OBJECT_TYPE_CARDINALITY, cardinalities);
-        if(mandatoryConstraint != null) {
+        if (mandatoryConstraint != null) {
             role.put(KEY_MANDATORY, mandatoryConstraint.getName());
         }
         return role;

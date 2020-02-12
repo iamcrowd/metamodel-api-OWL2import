@@ -112,6 +112,7 @@ public class ORMTranslator implements JSONTranslator {
                         Relationship newRelationship = new Relationship(binaryFactTypeName, objectsType);
                         model.addRelationship(newRelationship); // TODO: The relationship is not saving the roles
                         newRoles = identifyRoles(model, binaryFactType);
+                        newRelationship.addRoles(newRoles);
                     } else {
                         throw new AlreadyExistException(ALREADY_EXIST_RELATIONSHIP_ERROR);
                     }
