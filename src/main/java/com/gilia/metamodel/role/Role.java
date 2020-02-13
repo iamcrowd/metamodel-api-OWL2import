@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.gilia.utils.Constants.*;
+import static com.gilia.utils.Utils.getAlphaNumericString;
 
 /**
  * Representation of the Role class from the KF Metamodel
@@ -108,6 +109,8 @@ public class Role extends Entity {
         try {
             if (mandatoryConstraint != null && Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
                 cardinalityObject.setMinCardinality("1");
+            } else if (mandatoryConstraint == null && Integer.parseInt(cardinalityObject.getMinCardinality()) >= 1) {
+                mandatoryConstraint = new Mandatory("mandatory" + getAlphaNumericString(4), this);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -135,8 +138,10 @@ public class Role extends Entity {
         try {
             if (mandatoryConstraint != null) {
                 for (ObjectTypeCardinality cardinalityObject : cardinalities) {
-                    if (Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
+                    if (mandatoryConstraint != null && Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
                         cardinalityObject.setMinCardinality("1");
+                    } else if (mandatoryConstraint == null && Integer.parseInt(cardinalityObject.getMinCardinality()) >= 1) {
+                        mandatoryConstraint = new Mandatory("mandatory" + getAlphaNumericString(4), this);
                     }
                 }
             }
@@ -178,8 +183,10 @@ public class Role extends Entity {
         try {
             if (mandatoryConstraint != null) {
                 for (ObjectTypeCardinality cardinalityObject : this.cardinalityConstraints) {
-                    if (Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
+                    if (mandatoryConstraint != null && Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
                         cardinalityObject.setMinCardinality("1");
+                    } else if (mandatoryConstraint == null && Integer.parseInt(cardinalityObject.getMinCardinality()) >= 1) {
+                        mandatoryConstraint = new Mandatory("mandatory" + getAlphaNumericString(4), this);
                     }
                 }
             }

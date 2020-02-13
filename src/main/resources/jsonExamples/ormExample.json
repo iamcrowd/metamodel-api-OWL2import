@@ -6,8 +6,8 @@
       "id": 60,
       "type": "entity",
       "position": {
-        "x": 390,
-        "y": 215
+        "x": 190,
+        "y": 190
       }
     },
     {
@@ -16,38 +16,38 @@
       "id": 74,
       "type": "entity",
       "position": {
-        "x": 715,
-        "y": 210
+        "x": 565,
+        "y": 175
       }
     },
     {
       "name": "http://crowd.fi.uncoma.edu.ar#Golden",
       "ref": "",
-      "id": 88,
+      "id": 188,
       "type": "entity",
       "position": {
-        "x": 590,
-        "y": 405
+        "x": 430,
+        "y": 399.5
       }
     },
     {
       "name": "http://crowd.fi.uncoma.edu.ar#Pointer",
       "ref": "",
-      "id": 102,
+      "id": 202,
       "type": "entity",
       "position": {
-        "x": 825,
-        "y": 405
+        "x": 654,
+        "y": 399.5
       }
     },
     {
       "name": "http://crowd.fi.uncoma.edu.ar#Toy",
       "ref": "",
-      "id": 116,
+      "id": 220,
       "type": "entity",
       "position": {
-        "x": 580,
-        "y": 635
+        "x": 434,
+        "y": 642.5
       }
     }
   ],
@@ -61,15 +61,15 @@
       ],
       "uniquenessConstraints": [
         "0..1",
-        "0..1"
+        "1..1"
       ],
       "mandatory": [
         "http://crowd.fi.uncoma.edu.ar#Dog"
       ],
       "type": "binaryFactType",
       "position": {
-        "x": 575,
-        "y": 230
+        "x": 380,
+        "y": 195
       }
     },
     {
@@ -80,14 +80,17 @@
         "http://crowd.fi.uncoma.edu.ar#Toy"
       ],
       "uniquenessConstraints": [
-        "0..1",
-        "0..1"
+        "1..*",
+        "1..1"
       ],
-      "mandatory": [],
+      "mandatory": [
+        "http://crowd.fi.uncoma.edu.ar#Golden",
+        "http://crowd.fi.uncoma.edu.ar#Toy"
+      ],
       "type": "binaryFactType",
       "position": {
-        "x": 615,
-        "y": 520
+        "x": 460,
+        "y": 515
       }
     }
   ],
@@ -102,10 +105,10 @@
         "http://crowd.fi.uncoma.edu.ar#Pointer"
       ],
       "type": "subtyping",
-      "subtypingContraint": ["union", "exclusive"],
+      "subtypingContraint": ["exclusive","union"],
       "position": {
-        "x": 745.5,
-        "y": 347.5
+        "x": 587.5,
+        "y": 320.5
       }
     }
   ]

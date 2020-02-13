@@ -1,92 +1,90 @@
 {
-  "namespaces": {
-    "ontologyIRI":
-      {
-        "prefix": "crowd",
-        "value": "http://crowd.fi.uncoma.edu.ar#"
-      }
-    ,
-    "defaultIRIs": [
-      {
-        "prefix": "rdf",
-        "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-      },
-      {
-        "prefix": "rdfs",
-        "value": "http://www.w3.org/2000/01/rdf-schema#"
-      },
-      {
-        "prefix": "xsd",
-        "value": "http://www.w3.org/2001/XMLSchema#"
-      },
-      {
-        "prefix": "owl",
-        "value": "http://www.w3.org/2002/07/owl#"
-      }
-    ],
-    "IRIs": []
-  },
   "classes": [
     {
-      "name": "http://crowd.fi.uncoma.edu.ar#Class1",
+      "name": "http://crowd.fi.uncoma.edu.ar#Person",
       "attrs": [],
       "methods": [],
       "position": {
-        "x": 433,
-        "y": 179
+        "x": 422,
+        "y": 275
       }
     },
     {
-      "name": "http://crowd.fi.uncoma.edu.ar#Class2",
+      "name": "http://crowd.fi.uncoma.edu.ar#Dog",
       "attrs": [],
       "methods": [],
       "position": {
-        "x": 822,
-        "y": 181
+        "x": 863,
+        "y": 274
       }
     },
     {
-      "name": "http://crowd.fi.uncoma.edu.ar#Class3",
+      "name": "http://crowd.fi.uncoma.edu.ar#Golden",
       "attrs": [],
       "methods": [],
       "position": {
-        "x": 724,
-        "y": 353
+        "x": 706,
+        "y": 542
       }
     },
     {
-      "name": "http://crowd.fi.uncoma.edu.ar#Class4",
+      "name": "http://crowd.fi.uncoma.edu.ar#Pointer",
       "attrs": [],
       "methods": [],
       "position": {
-        "x": 935,
-        "y": 350
+        "x": 1029,
+        "y": 534
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Toy",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 705,
+        "y": 759
       }
     }
   ],
   "links": [
     {
-      "name": "http://crowd.fi.uncoma.edu.ar#Rel1",
+      "name": "http://crowd.fi.uncoma.edu.ar#owns",
       "classes": [
-        "http://crowd.fi.uncoma.edu.ar#Class1",
-        "http://crowd.fi.uncoma.edu.ar#Class2"
+        "http://crowd.fi.uncoma.edu.ar#Person",
+        "http://crowd.fi.uncoma.edu.ar#Dog"
       ],
       "multiplicity": [
-        "0..*",
-        "0..*"
+        "0..1",
+        "1..1"
       ],
       "roles": [
-        "http://crowd.fi.uncoma.edu.ar#role1",
-        "http://crowd.fi.uncoma.edu.ar#role2"
+        "http://crowd.fi.uncoma.edu.ar#person",
+        "http://crowd.fi.uncoma.edu.ar#dog"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#has",
+      "classes": [
+        "http://crowd.fi.uncoma.edu.ar#Golden",
+        "http://crowd.fi.uncoma.edu.ar#Toy"
+      ],
+      "multiplicity": [
+        "1..*",
+        "1..1"
+      ],
+      "roles": [
+        "http://crowd.fi.uncoma.edu.ar#golden",
+        "http://crowd.fi.uncoma.edu.ar#toy"
       ],
       "type": "association"
     },
     {
       "name": "http://crowd.fi.uncoma.edu.ar#s1",
-      "parent": "http://crowd.fi.uncoma.edu.ar#Class2",
+      "parent": "http://crowd.fi.uncoma.edu.ar#Dog",
       "classes": [
-        "http://crowd.fi.uncoma.edu.ar#Class4",
-        "http://crowd.fi.uncoma.edu.ar#Class3"
+        "http://crowd.fi.uncoma.edu.ar#Golden",
+        "http://crowd.fi.uncoma.edu.ar#Pointer"
       ],
       "multiplicity": null,
       "roles": null,
@@ -96,12 +94,9 @@
         "covering"
       ],
       "position": {
-        "x": 866,
-        "y": 310
+        "x": 936,
+        "y": 425
       }
     }
-  ],
-  "owllink": [
-    ""
   ]
 }
