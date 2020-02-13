@@ -1,4 +1,4 @@
-package com.gilia.owlimporter;
+package com.gilia.owlimporter.importer;
 
 import com.gilia.metamodel.*;
 
@@ -18,7 +18,7 @@ import java.io.FileNotFoundException;
 import static com.gilia.utils.ImportUtils.validateOWL;
 import com.gilia.builder.metabuilder.*;
 
-import com.gilia.owlimporter.OWLClasses;
+import com.gilia.owlimporter.importer.entity.OWLClasses;
 import com.gilia.exceptions.EmptyOntologyException;
 
 

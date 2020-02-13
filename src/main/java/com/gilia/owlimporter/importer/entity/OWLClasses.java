@@ -1,4 +1,4 @@
-package com.gilia.owlimporter;
+package com.gilia.owlimporter.importer.entity;
 
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
@@ -15,7 +15,7 @@ import java.util.Iterator;
 import java.util.Objects;
 
 import com.gilia.metamodel.*;
-import com.gilia.owlimporter.Importer;
+import com.gilia.owlimporter.importer.Importer;
 
 /**
  *
