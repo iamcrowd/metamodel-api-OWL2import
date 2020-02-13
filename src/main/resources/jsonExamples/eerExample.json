@@ -1,75 +1,75 @@
 {
   "entities": [
     {
-      "name": "Golden",
+      "name": "Person",
       "id": "c51",
       "timestamp": "",
       "position": {
-        "x": 620,
-        "y": 310
-      }
-    },
-    {
-      "name": "Pointer",
-      "id": "c75",
-      "timestamp": "",
-      "position": {
-        "x": 820,
-        "y": 300
+        "x": 580,
+        "y": 260
       }
     },
     {
       "name": "Dog",
-      "id": "c87",
+      "id": "c63",
       "timestamp": "",
       "position": {
-        "x": 720,
-        "y": 80
+        "x": 1020,
+        "y": 230
       }
     },
     {
-      "name": "Person",
-      "id": "c435",
+      "name": "Golden",
+      "id": "c87",
       "timestamp": "",
       "position": {
-        "x": 289,
-        "y": 90
+        "x": 976,
+        "y": 473
+      }
+    },
+    {
+      "name": "Pointer",
+      "id": "c99",
+      "timestamp": "",
+      "position": {
+        "x": 1140,
+        "y": 480
       }
     },
     {
       "name": "Toy",
-      "id": "c459",
+      "id": "c111",
       "timestamp": "",
       "position": {
-        "x": 630,
-        "y": 550
+        "x": 980,
+        "y": 700
       }
     }
   ],
   "attributes": [],
   "relationships": [
     {
-      "name": "R",
-      "id": "c447",
+      "name": "owns",
+      "id": "c75",
       "timestamp": "",
       "position": {
-        "x": 518,
-        "y": 75
+        "x": 780,
+        "y": 230
       }
     },
     {
-      "name": "R",
-      "id": "c471",
+      "name": "has",
+      "id": "c228",
       "timestamp": "",
       "position": {
-        "x": 633,
-        "y": 406
+        "x": 990,
+        "y": 580
       }
     }
   ],
   "links": [
     {
-      "name": "c194",
+      "name": "c123",
       "parent": "Dog",
       "entities": [
         "Pointer",
@@ -77,19 +77,20 @@
       ],
       "type": "isa",
       "constraint": [
+        "union",
         "exclusive"
       ]
     },
     {
-      "name": "R1",
-      "id": "c447",
+      "name": "owns",
+      "id": "c75",
       "entities": [
         "Person",
         "Dog"
       ],
       "cardinality": [
-        "1..1",
-        "0..N"
+        "0..1",
+        "1..1"
       ],
       "roles": [
         "person",
@@ -98,19 +99,19 @@
       "type": "relationship"
     },
     {
-      "name": "R2",
-      "id": "c471",
+      "name": "has",
+      "id": "c228",
       "entities": [
-        "Toy",
-        "Golden"
+        "Golden",
+        "Toy"
       ],
       "cardinality": [
-        "1..1",
+        "1..*",
         "1..1"
       ],
       "roles": [
-        "toy",
-        "golden"
+        "golden",
+        "toy"
       ],
       "type": "relationship"
     }

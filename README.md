@@ -19,19 +19,21 @@ $ mvn exec:java
 ### Using the API
 At the moment, there are two ways of trying the API out. The first one involves using the endpoints defined, sending HTTP POST requests to one of the following endpoints:    
 - `/umltometa`  - UML to Metamodel  
-- `/metatouml` - Metamodel to UML   
 - `/eertometa` - EER to Metamodel  
+- `/ormtometa` - ORM to Metamodel  
+- `/metatouml` - Metamodel to UML   
 - `/eertouml` - EER to UML  
+- `/ormtouml` - ORM to UML
 
 The other way to try the API is by using the web page generated for this project. To use the web page, open `src/web/index.html` in any browser. This will display an static html page that uses the API endpoints. Note that this web page is isolated from the API itself in order to keep the definition and purpose of it. The web page consumes the API as any other client would.
 
 ## Next developments
 - ~~UML ⟶ Meta~~ ✔️
 - ~~EER ⟶ Meta~~ ✔️
-- ORM ⟶ Meta :hourglass_flowing_sand:
-- Meta ⟶ UML ✔️
+- ~~ORM ⟶ Meta~~ ✔️
+- ~~Meta ⟶ UML~~ ✔️
 - Meta ⟶ EER ❌
-- Meta ⟶ ORM ❌
+- Meta ⟶ ORM :hourglass_flowing_sand:
 
 *Note: Additionally, other mappings, transformations and aproximations could be considered for future developments.*  
 *Note: Model to model transformations will be trivial once the Model ⟶ Meta and Meta ⟶ Model endpoints are implemented.*

@@ -19,7 +19,11 @@ public class Constants {
 
     public static final String META_TO_UML_ROUTE = "/metatouml";
 
-    public static final String EER_TO_UML = "/eertouml";
+    public static final String EER_TO_UML_ROUTE = "/eertouml";
+
+    public static final String EER_TO_ORM_ROUTE = "/eertoorm";
+
+    public static final String ORM_TO_UML_ROUTE = "/ormtouml";
 
     // Schemas
 
@@ -70,6 +74,11 @@ public class Constants {
     public static final String MESSAGE_STRING = "message";
 
     public static final String STATUS_STRING = "status";
+
+    public static final String BINARY_FACT_TYPE_STRING = "binaryFactType";
+
+    public static final String SUBTYPING_STRING = "subtyping";
+
 
     // JSON Keys
 
@@ -133,6 +142,16 @@ public class Constants {
 
     public static final String KEY_OBJECT_TYPE = "object type";
 
+    public static final String KEY_UNIQUENESS_CONSTRAINT = "uniquenessConstraints";
+
+    public static final String KEY_MANDATORY = "mandatory";
+
+    public static final String KEY_CONNECTORS = "connectors";
+
+    public static final String KEY_SUBTYPING_CONSTRAINT = "subtypingContraint";
+
+    public static final String KEY_ROLE_DECLARED_ON = "declared on";
+
     /**
      * Attributes in UML class
      */
@@ -184,7 +203,11 @@ public class Constants {
 
     public static final String RELATIONSHIP_EXPECTED_ERROR = "A relationship link was expected";
 
+    public static final String BINARY_FACT_TYPE_EXPECTED_ERROR = "A binary fact type link was expected";
+
     public static final String RELATIONSHIP_DEFINITION_ERROR = "Relationship definition would be violated";
+
+    public static final String SUBSUMPTION_DEFINITION_ERROR = "Subsumption definition would be violated";
 
     // Exception Names
 

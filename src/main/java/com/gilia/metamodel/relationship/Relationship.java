@@ -100,6 +100,24 @@ public class Relationship extends Entity {
         }
     }
 
+    /**
+     * Adds a list of Roles object to the relationship. This method checks that the role
+     * does not exist already in the relationship and that the relationship contains
+     * a maximum of two roles (including the one to be added).
+     *
+     * @param roles Role object to be added to the relationship
+     * @throws MetamodelDefinitionCompromisedException
+     */
+    public void addRoles(ArrayList<Role> roles) throws MetamodelDefinitionCompromisedException {
+        if (roles.size() <= 2 && this.roles.size() == 0) {
+            for (Role role : roles) {
+                this.roles.add(role);
+            }
+        } else {
+            throw new MetamodelDefinitionCompromisedException(RELATIONSHIP_DEFINITION_ERROR);
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
