@@ -1,25 +1,50 @@
 $(document).ready(function () {
-    $('#sendJson').click(function () {
+    $('#send').click(function () {
         switch($('#convertid')[0].value){
-            case "UML to Metamodel":
-                url = "http://localhost:8080/umltometa";
+            case "OWL Classes to Metamodel":
+                url = "http://localhost:8080/owlclassestometa";
+                var settings = {
+                        "url": url,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "text/plain"
+                        },
+                        "data": $('#jsonInput')[0].value.toString(),
+                    };
                 break;
-            case "EER to Metamodel":
-                url = "http://localhost:8080/eertometa";
+            case "All OWL SubClasses to Metamodel":
+                url = "http://localhost:8080/owlallsubstometa";
+                var settings = {
+                        "url": url,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "text/plain"
+                        },
+                        "data": $('#jsonInput')[0].value.toString(),
+                    };
+                break;
+            case "One OWL SubClass to Metamodel":
+                url = "http://localhost:8080/owlonesubstometa";
+                var settings = {
+                        "url": url,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "text/plain"
+                        },
+                        "data": {
+                        	onto: $('#jsonInput')[0].value.toString(),
+                        	entity: $(jsonInput2)[0].value.toString()
+                        }
+                    };
                 break;
             default:
-                url = "http://localhost:8080/umltometa";
+                url = "http://localhost:8080/owlclassestometa";
                 break;
-        }
-        var settings = {
-            "url": url,
-            "method": "POST",
-            "timeout": 0,
-            "headers": {
-                "Content-Type": "application/json"
-            },
-            "data": $(jsonInput)[0].value,
         };
+
 
         $.ajax(settings).done(function (response) {
             console.log(response);
@@ -29,10 +54,10 @@ $(document).ready(function () {
 });
 
 function beautify() {
-    var ugly = document.getElementById('jsonInput').value;
+    var ugly = document.getElementById('jsonOutput').value;
     var obj = JSON.parse(ugly);
     var pretty = JSON.stringify(obj, undefined, 4);
-    document.getElementById('jsonInput').value = pretty;
+    document.getElementById('jsonOutput').value = pretty;
 }
 
 $('#convertid')

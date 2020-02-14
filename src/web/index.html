@@ -11,37 +11,52 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
     <script src="index.js"></script>
-    <title>MetamodelAPI</title>
+    <title>crowd OWL 2 Importer API</title>
 </head>
 
 <body>
-    <h1>MetamodelAPI</h1>
+    <h1>OWL 2 Importer API</h1>
     <div class="container">
         <div class="row">
             <div class="col">
                 <form>
+                	<label for="convertid">Choose endpoint</label>
                     <select id="convertid" class="form-control">
-                        <option>UML to Metamodel</option>
-                        <option>EER to Metamodel</option>
-                        <!-- <option>ORM to Metamodel</option> -->
+                        <option>OWL Classes to Metamodel</option>
+                        <option>All OWL SubClasses to Metamodel</option>
+                        <option>One OWL SubClass to Metamodel</option>
                     </select>
+                    
                     <div class="form-group">
-                        <label for="jsonInput">JSON</label>
-                        <textarea class="form-control" id="jsonInput" rows="30"></textarea>
+                    	<div>
+                        	<label for="jsonInput">Onto URL</label>
+                        	<select id="jsonInput" class="form-control">
+                        		<option>https://protege.stanford.edu/ontologies/pizza/pizza.owl</option>
+                        		<option>http://owl.man.ac.uk/2006/07/sssw/people.owl</option>
+                        		<option>http://protege.stanford.edu/ontologies/camera.owl</option>
+                        		<option>http://protege.stanford.edu/ontologies/koala.owl</option>
+                        		<option>http://protege.stanford.edu/ontologies/travel.owl</option>
+                        		<option>http://www.w3.org/TR/owl-guide/wine.rdf</option>                        		               
+                    		</select>
+                    	</div>
+                    	<div>
+                        	<label for="jsonInput2">IRI Entity</label>
+                        	<textarea class="form-control" id="jsonInput2" rows="1"></textarea>
+                    	</div>
                     </div>
-                    <input type="button" class="btn btn-primary" id="sendJson" value="Convert" />
-                    <input type="button" class="btn btn-primary" onclick="beautify()" value="Beautify" />
+                    <input type="button" class="btn btn-primary" id="send" value="Import" />
                 </form>
             </div>
 
             <div class="col">
                 <div class="form-group">
-                    <label for="jsonInput">Converted Model</label>
-                    <textarea class="form-control" id="jsonOutput" rows="30">
-                    </textarea>
-           
-            </div>
-        </div>
+                    <label for="jsonInput">Output</label>
+                    <textarea class="form-control" id="jsonOutput" rows="30"></textarea>
+                    </br>
+           		<!-- <input type="button" class="btn btn-primary" onclick="beautify()" value="Beautify" /> -->
+            	</div>
+        	</div>
+    	</div>
     </div>
 </body>
 
