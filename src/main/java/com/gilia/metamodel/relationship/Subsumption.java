@@ -238,6 +238,39 @@ public class Subsumption extends Relationship {
     }
 
     /**
+     * Generates a JSONObject that represents the information of the Subsumption according to the
+     * ORM language. The JSONObject generated respects the ORM Schema.
+     *
+     * @return JSONObject that represents the equivalent ORM Subtyping.
+     */
+    @Override
+    public JSONObject toORM() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(KEY_NAME, this.name);
+        jsonObject.put(KEY_PARENT, this.parent.getName());
+        jsonObject.put(KEY_TYPE, SUBTYPING_STRING);
+
+        // Classes involved
+        JSONArray jsonClasses = new JSONArray();
+        jsonClasses.add(this.child.getName());
+        jsonObject.put(KEY_ENTITIES, jsonClasses);
+
+        // Constraints
+        JSONArray jsonConstraints = new JSONArray();
+        if (disjointness != null) {
+            jsonConstraints.add(EXCLUSIVE_STRING);
+        }
+
+        if (completeness != null) {
+            jsonConstraints.add(UNION_STRING);
+        }
+
+        jsonObject.put(KEY_SUBTYPING_CONSTRAINT, jsonConstraints);
+
+        return jsonObject;
+    }
+
+    /**
      * Entities in a Subsumption can not be Qualified relationships, Attributive properties, Subsumptions, Qualifiers, nor Constraints.
      * Therefore, if the given entity is of the type enlisted, then the entity is not valid.
      *
