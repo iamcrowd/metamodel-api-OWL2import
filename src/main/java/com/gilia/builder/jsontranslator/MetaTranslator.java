@@ -7,6 +7,7 @@ import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
+import com.gilia.metamodel.constraint.mandatory.Mandatory;
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.relationship.Relationship;
@@ -128,13 +129,28 @@ public class MetaTranslator implements JSONTranslator {
             JSONObject jsonDisjointnessConstraints = (JSONObject) jsonConstraints.get(StringUtils.capitalize(KEY_DISJOINTNESS_CONSTRAINT));
             JSONArray jsonDisjointObjectTypeConstraints = (JSONArray) jsonDisjointnessConstraints.get(StringUtils.capitalize(KEY_DISJOINT_OBJECT_TYPE_CONSTRAINT));
             identifyDisjointObjectTypeConstraints(model, jsonDisjointObjectTypeConstraints);
+
+            // Mandatory
+            JSONObject jsonMandatoryConstraints = (JSONObject) jsonConstraints.get(StringUtils.capitalize(KEY_MANDATORY_CONSTRAINTS));
+            JSONArray jsonMandatory = (JSONArray) jsonMandatoryConstraints.get(StringUtils.capitalize(KEY_MANDATORY));
+            identifyMandatory(model, jsonMandatory);
         } else {
             throw new InformationNotFoundException(CONSTRAINTS_INFORMATION_NOT_FOUND_ERROR);
         }
     }
 
+    private void identifyMandatory(Metamodel model, JSONArray jsonMandatory) {
+        if (model != null && jsonMandatory != null) {
+            for (Object mandatory : jsonMandatory) {
+                JSONObject mandatoryConstraint = (JSONObject) mandatory;
+                Mandatory newMandatory = new Mandatory((String) mandatoryConstraint.get(KEY_NAME));
+                model.addConstraint(newMandatory);
+            }
+        }
+    }
+
     private void identifyObjectTypeCardinalityConstraints(Metamodel model, JSONArray jsonCardinalities) {
-        if (jsonCardinalities != null) {
+        if (model != null && jsonCardinalities != null) {
             for (Object constraint : jsonCardinalities) {
                 JSONObject cardinalityConstraint = (JSONObject) constraint;
                 String constraintName = (String) cardinalityConstraint.get(KEY_NAME);
@@ -147,7 +163,7 @@ public class MetaTranslator implements JSONTranslator {
     }
 
     private void identifyCompletenessConstraints(Metamodel model, JSONArray jsonConstraints) {
-        if (jsonConstraints != null) {
+        if (model != null && jsonConstraints != null) {
             for (Object constraint : jsonConstraints) {
                 JSONObject completenessConstraint = (JSONObject) constraint;
                 String constraintName = (String) completenessConstraint.get(KEY_NAME);
@@ -169,7 +185,7 @@ public class MetaTranslator implements JSONTranslator {
     }
 
     private void identifyDisjointObjectTypeConstraints(Metamodel model, JSONArray jsonConstraints) {
-        if (jsonConstraints != null) {
+        if (model != null && jsonConstraints != null) {
             for (Object constraint : jsonConstraints) {
                 JSONObject disjointnessConstraint = (JSONObject) constraint;
                 String constraintName = (String) disjointnessConstraint.get(KEY_NAME);
@@ -191,13 +207,14 @@ public class MetaTranslator implements JSONTranslator {
     }
 
     private void identifyRoles(Metamodel model, JSONArray jsonRoles) {
-        if (jsonRoles != null) {
+        if (model != null && jsonRoles != null) {
             for (Object role : jsonRoles) {
                 JSONObject jsonRole = (JSONObject) role;
                 String roleName = (String) jsonRole.get(KEY_ROLENAME);
                 String relationshipName = (String) jsonRole.get(RELATIONSHIP_STRING);
                 String entityName = (String) jsonRole.get(KEY_ENTITY_TYPE);
                 JSONArray cardinalities = (JSONArray) jsonRole.get(KEY_OBJECT_TYPE_CARDINALITY);
+                String mandatory = (String) jsonRole.get(KEY_MANDATORY);
 
                 Relationship relationshipInvolved = (Relationship) model.checkEntityExistence(relationshipName);
                 EntityType entityInvolved = (EntityType) model.checkEntityExistence(entityName);
@@ -217,8 +234,15 @@ public class MetaTranslator implements JSONTranslator {
                     }
                 }
 
-                Role newRole = new Role(roleName, entityInvolved, relationshipInvolved, cardinalitiesInvolved);
+                Mandatory mandatoryInvolved = null;
+                if (mandatory != null) {
+                    mandatoryInvolved = (Mandatory) model.checkEntityExistence(mandatory);
+                }
+                Role newRole = new Role(roleName, entityInvolved, relationshipInvolved, cardinalitiesInvolved, mandatoryInvolved);
                 relationshipInvolved.addRole(newRole);
+                if (mandatory != null && mandatoryInvolved != null) {
+                    mandatoryInvolved.setDeclaredOn(newRole);
+                }
                 model.addRole(newRole);
             }
         } else {
@@ -227,7 +251,7 @@ public class MetaTranslator implements JSONTranslator {
     }
 
     private void identifySubclasses(Metamodel model, JSONArray jsonSubsumptions) {
-        if (jsonSubsumptions != null) {
+        if (model != null && jsonSubsumptions != null) {
             for (Object metaSubsumption : jsonSubsumptions) {
                 String subsumptionName = (String) ((JSONObject) metaSubsumption).get(KEY_NAME);
                 String parentName = (String) ((JSONObject) metaSubsumption).get(KEY_ENTITY_PARENT);
