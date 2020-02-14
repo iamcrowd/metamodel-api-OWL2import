@@ -31,18 +31,17 @@ import com.gilia.owlimporter.importer.axiom.classExpressionAxiom.OWLSubClassAxio
 mvn clean test -Dtest=UtilsTest -DfailIfNoTests=false
 */
 
-public class ImporterTest {
-
+public class OWLClassesTest {
+	
 	@Test
-    public void testCreateAnEmptyKFandLoadOntoFromFile() {
+    public void testObjectTypesFromOWL2() {
     	try {
     		String path = new String(ImporterTest.class.getClassLoader().getResource("ontologies/pizza.owl").toString());
     		String[] owlfilepath = path.split(":", 2);
     	  	Importer importer = new Importer(owlfilepath[1]);
-    	  	Metamodel meta = importer.getKFInstance();
-    	  	OWLOntology onto = importer.getOntology();
-    	  	assertEquals("Number of Axioms", onto.getAxiomCount(), 801);
-    	  	assertEquals("Metamodel empty", meta.toString(), "Metamodel{entities=[], relationships=[], roles=[], constraints=[]}");
+    	  	importer.OWLClassesImport();
+    	  	System.out.println(importer.toJSON());
+    	  	//assertEquals("Metamodel empty", meta.toString(), "Metamodel{entities=[], relationships=[], roles=[], constraints=[]}");
     	}
     	catch (Exception e){
         	e.printStackTrace();
@@ -50,18 +49,18 @@ public class ImporterTest {
     }
 	
 	@Test
-    public void testCreateAnEmptyKFandLoadOntoFromIRI() {
+    public void testObjectTypesFromOWL2Gufo() {
     	try {
-    		IRI ontoiri = IRI.create("https://protege.stanford.edu/ontologies/pizza/pizza.owl");
-    	  	Importer importer = new Importer(ontoiri);
-    	  	Metamodel meta = importer.getKFInstance();
-    	  	OWLOntology onto = importer.getOntology();
-    	  	assertTrue(onto.isOntology());
-    	  	assertEquals("Metamodel empty", meta.toString(), "Metamodel{entities=[], relationships=[], roles=[], constraints=[]}");
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("ontologies/gufo.ttl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1]);
+    	  	importer.OWLClassesImport();
+    	  	System.out.println(importer.toJSON());
+    	  	//assertEquals("Metamodel empty", meta.toString(), "Metamodel{entities=[], relationships=[], roles=[], constraints=[]}");
     	}
     	catch (Exception e){
         	e.printStackTrace();
     	}
     }
-    
+	
 }
