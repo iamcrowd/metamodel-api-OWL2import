@@ -25,6 +25,8 @@ public class Constants {
 
     public static final String ORM_TO_UML_ROUTE = "/ormtouml";
 
+    public static final String META_TO_ORM_ROUTE = "/metatoorm";
+
     // Schemas
 
     public static final String UML_SCHEMA_PATH = "src/main/resources/schemas/umlSchema.json";
@@ -112,6 +114,8 @@ public class Constants {
 
     public static final String KEY_ATTRIBUTES = "attributes";
 
+    public static final String KEY_INHERITANCES = "inheritances";
+
     public static final String KEY_ROLENAME = "rolename";
 
     public static final String KEY_ENTITY_TYPE = "entity type";
@@ -145,6 +149,8 @@ public class Constants {
     public static final String KEY_UNIQUENESS_CONSTRAINT = "uniquenessConstraints";
 
     public static final String KEY_MANDATORY = "mandatory";
+
+    public static final String KEY_MANDATORY_CONSTRAINTS = "mandatory constraints";
 
     public static final String KEY_CONNECTORS = "connectors";
 
