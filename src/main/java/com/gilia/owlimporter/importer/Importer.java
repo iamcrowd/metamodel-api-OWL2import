@@ -19,6 +19,9 @@ import static com.gilia.utils.ImportUtils.validateOWL;
 import com.gilia.builder.metabuilder.*;
 
 import com.gilia.owlimporter.importer.entity.OWLClasses;
+import com.gilia.owlimporter.importer.axiom.classExpressionAxiom.OWLSubClassAxiom;
+
+
 import com.gilia.exceptions.EmptyOntologyException;
 
 
@@ -100,6 +103,32 @@ public class Importer {
 	public void OWLClassesImport() {
    	  	OWLClasses import_classes = new OWLClasses();
 	  	import_classes.owlClasses2ObjectType(this.kfimported,this.onto);
+	  	MetaBuilder builder = new MetaConverter();
+	  	builder.generateJSON(this.kfimported);
+	}
+	
+	/**
+	 * Import All SubClasses and generate a KF instance with the respective set of ObjectTypes and
+	 * Subsumptions
+	 * 
+	 * @see KF metamodel ObjectType
+	 */
+	public void OWLSubClassesImport() {
+   	  	OWLSubClassAxiom import_subclasses = new OWLSubClassAxiom();
+	  	import_subclasses.owlSubClassAxiom2ObjectType(this.kfimported,this.onto);
+	  	MetaBuilder builder = new MetaConverter();
+	  	builder.generateJSON(this.kfimported);
+	}
+	
+	/**
+	 * Import All SubClasses for a given Class and generate a KF instance with the respective set of ObjectTypes and
+	 * Subsumptions
+	 * 
+	 * @see KF metamodel ObjectType
+	 */
+	public void OWLSubClassesImport(IRI anIRI) {
+   	  	OWLSubClassAxiom import_subclasses = new OWLSubClassAxiom();
+	  	import_subclasses.owlSubClassAxiomForGivenOWLClass2ObjectType(this.kfimported, this.onto, anIRI);
 	  	MetaBuilder builder = new MetaConverter();
 	  	builder.generateJSON(this.kfimported);
 	}

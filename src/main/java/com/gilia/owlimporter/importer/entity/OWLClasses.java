@@ -17,6 +17,8 @@ import java.util.Objects;
 import com.gilia.metamodel.*;
 import com.gilia.owlimporter.importer.Importer;
 
+import com.gilia.exceptions.OWLClassNotFoundException;
+
 /**
  *
  * Import classes from an OWL 2 specification
