@@ -37,15 +37,15 @@ import com.gilia.owlimporter.importer.entity.OWLClasses;
  */
 @RestController
 @CrossOrigin(origins = "*")
-public class OWLClassesToMetaController {
+public class AllOWLSubClassesToMetaController {
 
-    @PostMapping(OWL_CLASSES_TO_META_ROUTE)
-    public ResponseEntity owlClassesToMeta(@RequestBody String iriAsString) {
+    @PostMapping(OWL_SUBCLASSES_TO_META_ROUTE)
+    public ResponseEntity allOWLSubClassesToMeta(@RequestBody String iriAsString) {
         JSONObject result;
 
         try {
         	Importer importer = new Importer(IRI.create(iriAsString));
-    	  	importer.OWLClassesImport();
+    	  	importer.OWLSubClassesImport();
     	  	result = importer.toJSON();
         } catch (JSONException e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());

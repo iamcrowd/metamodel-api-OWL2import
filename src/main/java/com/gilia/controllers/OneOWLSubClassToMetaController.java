@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.MultiValueMap;
+import org.springframework.http.MediaType;
 
 import java.io.FileNotFoundException;
 
@@ -37,15 +39,18 @@ import com.gilia.owlimporter.importer.entity.OWLClasses;
  */
 @RestController
 @CrossOrigin(origins = "*")
-public class OWLClassesToMetaController {
+public class OneOWLSubClassToMetaController {
 
-    @PostMapping(OWL_CLASSES_TO_META_ROUTE)
-    public ResponseEntity owlClassesToMeta(@RequestBody String iriAsString) {
+    @PostMapping(value = OWL_ONE_SUBCLASS_TO_META_ROUTE, 
+    		consumes = MediaType.TEXT_PLAIN_VALUE,
+    		produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity oneOWLSubClassToMeta(@RequestBody MultiValueMap < String, String > param) {
+    	//String iriAsString, String iriClassAsString)
         JSONObject result;
 
         try {
-        	Importer importer = new Importer(IRI.create(iriAsString));
-    	  	importer.OWLClassesImport();
+        	Importer importer = new Importer(IRI.create(param.getFirst("onto")));
+    	  	importer.OWLSubClassesImport(IRI.create(param.getFirst("entity")));
     	  	result = importer.toJSON();
         } catch (JSONException e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());

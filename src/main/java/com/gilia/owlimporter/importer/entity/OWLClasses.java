@@ -32,6 +32,12 @@ public class OWLClasses {
 		
 	}
 	
+	/**
+	 * Import all OWL Classes into a KF instance with Object types
+	 * 
+	 * @param kf a metamodel instance
+	 * @param onto an OWLOntology being imported
+	 */
 	public static void owlClasses2ObjectType(Metamodel kf, OWLOntology onto) {
 		Iterator<OWLClass> iteraclasses = onto.classesInSignature().iterator();
 		

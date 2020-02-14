@@ -19,16 +19,12 @@ public class Constants {
     
     // Importer Endpoints
     
-    public static final String OWL_TO_META_ROUTE = "/owltometa";
-    
     public static final String OWL_CLASSES_TO_META_ROUTE = "/owlclassestometa";
     
-    public static final String OWL_SUBSUMPTIONS_TO_META_ROUTE = "/owlsubstometa";
+    public static final String OWL_SUBCLASSES_TO_META_ROUTE = "/owlallsubstometa";
     
-    public static final String OWL_OBJECT_PROPERTIES_TO_META_ROUTE = "/owlobjproptometa";
+    public static final String OWL_ONE_SUBCLASS_TO_META_ROUTE = "/owlonesubstometa";
     
-    public static final String OWL_DATA_PROPERTIES_TO_META_ROUTE = "/owldataproptometa";
-
     // Schemas
 
     public static final String UML_SCHEMA_PATH = "src/main/resources/schemas/umlSchema.json";
