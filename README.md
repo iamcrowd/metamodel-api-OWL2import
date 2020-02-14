@@ -21,9 +21,12 @@ At the moment, there are two ways of trying the API out. The first one involves 
 - `/umltometa`  - UML to Metamodel  
 - `/eertometa` - EER to Metamodel  
 - `/ormtometa` - ORM to Metamodel  
-- `/metatouml` - Metamodel to UML   
+- `/metatouml` - Metamodel to UML  
+- `/metatoorm` - Metamodel to ORM   
 - `/eertouml` - EER to UML  
-- `/ormtouml` - ORM to UML
+- `/eertoorm` - EER to ORM  
+- `/ormtouml` - ORM to UML  
+- `/umltoorm` - UML to ORM  
 
 The other way to try the API is by using the web page generated for this project. To use the web page, open `src/web/index.html` in any browser. This will display an static html page that uses the API endpoints. Note that this web page is isolated from the API itself in order to keep the definition and purpose of it. The web page consumes the API as any other client would.
 
@@ -32,8 +35,9 @@ The other way to try the API is by using the web page generated for this project
 - ~~EER ⟶ Meta~~ ✔️
 - ~~ORM ⟶ Meta~~ ✔️
 - ~~Meta ⟶ UML~~ ✔️
-- Meta ⟶ EER ❌
-- Meta ⟶ ORM :hourglass_flowing_sand:
+- ~~Meta ⟶ ORM~~ ✔️
+- Meta ⟶ EER :hourglass_flowing_sand:
+
 
 *Note: Additionally, other mappings, transformations and aproximations could be considered for future developments.*  
 *Note: Model to model transformations will be trivial once the Model ⟶ Meta and Meta ⟶ Model endpoints are implemented.*
