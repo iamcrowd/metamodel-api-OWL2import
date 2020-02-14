@@ -1,7 +1,9 @@
-# Metamodel
+# OWLAPI-based OWL 2 Importer to [KF Metamodel](https://www.sciencedirect.com/science/article/abs/pii/S0169023X1500049X)
 
 ## Description
-This project involves the research, design and implementantion of the [KF Metamodel](https://www.sciencedirect.com/science/article/abs/pii/S0169023X1500049X). The main idea of this project is to implement an API that allows a user to send a JSON that represents a model in a given modeling language (UML, EER or ORM) and generate the equivalent model in one of the languages mentioned previously.
+This project involves the research, design and implementantion of an [OWL 2](https://www.w3.org/TR/2012/REC-owl2-xml-serialization-20121211/) importer.
+The main idea is to implement an API that allows a user to send a URL or upload a file containing an OWL 2 specs 
+and generate KF instances from them in order to be visualised in [crowd](http://crowd.fi.uncoma.edu.ar) (UML|EER|ORM 2).
 
 
 ## Getting started
@@ -18,17 +20,14 @@ $ mvn exec:java
 
 ### Using the API
 At the moment, there are two ways of trying the API out. The first one involves using the endpoints defined, sending HTTP POST requests to one of the following endpoints:
-- `/umltometa`  - UML to Metamodel
-- `/eertometa` - EER to Metamodel
+- `/owlclassestometa`  - Import OWL classes from a give OWL 2 ontology into a KF Metamodel instance.
 
 The other way to try the API is by using the web page generated for this project. To use the web page, open `src/web/index.html` in any browser. This will display an static html page that uses the API endpoints. Note that this web page is isolated from the API itself in order to keep the definition and purpose of it. The web page consumes the API as any other client would.
 
 ## Next developments
-- ~~UML ⟶ Meta~~ ✔️
-- ~~EER ⟶ Meta~~ ✔️
-- ORM ⟶ Meta ❌
-- Meta ⟶ UML :hourglass_flowing_sand:
-- Meta ⟶ EER ❌
+- ~~OWL Classes ⟶ Meta~~ ✔️
+- OWL AllSubClasses ⟶ Meta ❌
+- OWL AnSubClass given a OWL SuperClass ⟶ Meta ❌
 - Meta ⟶ ORM ❌
 
 *Note: Additionally, other mappings, transformations and aproximations could be considered for future developments.*
