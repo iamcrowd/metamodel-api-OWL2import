@@ -2,6 +2,7 @@ package com.gilia.metamodel.relationship;
 
 import com.gilia.exceptions.MetamodelDefinitionCompromisedException;
 import com.gilia.metamodel.Entity;
+import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.role.Role;
 import org.json.simple.JSONArray;
@@ -203,6 +204,47 @@ public class Relationship extends Entity {
         }
         jsonObject.put(KEY_ROLES, jsonRoles);
         jsonObject.put(KEY_MULTIPLICITY, jsonMultiplicity);
+
+        return jsonObject;
+    }
+
+    /**
+     * Generates a JSONObject that represents the information of the Relationship according to the
+     * ORM language. The JSONObject generated respects the ORM Schema.
+     *
+     * @return JSONObject that represents the equivalent ORM Binary Fact Type.
+     */
+    public JSONObject toORM() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(KEY_NAME, this.name);
+        jsonObject.put(KEY_TYPE, BINARY_FACT_TYPE_STRING);
+
+        // Classes involved
+        JSONArray jsonEntities = new JSONArray();
+        this.entities.forEach(entity -> jsonEntities.add(entity.getName()));
+        jsonObject.put(KEY_ENTITIES, jsonEntities);
+
+        // Roles and cardinalities
+        JSONArray jsonMandatory = new JSONArray();
+        JSONArray jsonMultiplicity = new JSONArray();
+        if (roles.size() >= 2) {
+            for (Role role : roles) {
+                if ((role.getCardinalityConstraints() != null) && (role.getCardinalityConstraints().size() >= 1)) {
+                    for (ObjectTypeCardinality cardinality : role.getCardinalityConstraints()) {
+                        jsonMultiplicity.add(cardinality.getCardinality());
+                    }
+                    if (role.getMandatoryConstraint() != null) {
+                        jsonMandatory.add(role.getEntity().getName());
+                    }
+                } else {
+                    throw new MetamodelDefinitionCompromisedException("Can not generate ORM for Relationship " + name + ". Role definition has been violated.");
+                }
+            }
+        } else {
+            throw new MetamodelDefinitionCompromisedException("Can not generate ORM for Relationship " + name + ". Relationship definition has been violated.");
+        }
+        jsonObject.put(KEY_MANDATORY, jsonMandatory);
+        jsonObject.put(KEY_UNIQUENESS_CONSTRAINT, jsonMultiplicity);
 
         return jsonObject;
     }

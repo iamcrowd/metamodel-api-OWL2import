@@ -69,4 +69,17 @@ public class ObjectType extends EntityType {
         jsonObject.put(KEY_METHODS, new ArrayList());
         return jsonObject;
     }
+
+    /**
+     * Generates a JSONObject that represents the information of the Object type according to the
+     * ORM language. The JSONObject generated respects the ORM Schema.
+     *
+     * @return JSONObject that represents the equivalent ORM Entity.
+     */
+    public JSONObject toORM() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(KEY_NAME, this.name);
+        jsonObject.put(KEY_TYPE, ENTITY_STRING);
+        return jsonObject;
+    }
 }
