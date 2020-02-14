@@ -115,7 +115,7 @@ public class Importer {
 	 */
 	public void OWLSubClassesImport() {
    	  	OWLSubClassAxiom import_subclasses = new OWLSubClassAxiom();
-	  	import_subclasses.owlSubClassAxiom2ObjectType(this.kfimported,this.onto);
+	  	import_subclasses.owlSubClassAxiom2Subsumptions(this.kfimported,this.onto);
 	  	MetaBuilder builder = new MetaConverter();
 	  	builder.generateJSON(this.kfimported);
 	}
@@ -128,7 +128,7 @@ public class Importer {
 	 */
 	public void OWLSubClassesImport(IRI anIRI) {
    	  	OWLSubClassAxiom import_subclasses = new OWLSubClassAxiom();
-	  	import_subclasses.owlSubClassAxiomForGivenOWLClass2ObjectType(this.kfimported, this.onto, anIRI);
+	  	import_subclasses.owlSubClassAxiomForGivenOWLClass2Subsumptions(this.kfimported, this.onto, anIRI);
 	  	MetaBuilder builder = new MetaConverter();
 	  	builder.generateJSON(this.kfimported);
 	}

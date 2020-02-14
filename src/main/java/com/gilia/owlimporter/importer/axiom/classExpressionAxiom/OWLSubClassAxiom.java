@@ -40,7 +40,7 @@ public class OWLSubClassAxiom extends ClassExpressionAxiom {
 	 * @param kf
 	 * @param onto
 	 */
-	public static void owlSubClassAxiom2ObjectType(Metamodel kf, OWLOntology onto) {
+	public static void owlSubClassAxiom2Subsumptions(Metamodel kf, OWLOntology onto) {
 		Iterator<OWLClass> iteraclasses = onto.classesInSignature().iterator();
 
 		while (iteraclasses.hasNext()) {
@@ -57,12 +57,15 @@ public class OWLSubClassAxiom extends ClassExpressionAxiom {
 				
 				while (iteraclassinax.hasNext()) {
 					OWLClass anclasschild = iteraclassinax.next();
-					String anclasschild_iri = anclasschild.toStringID();
-					ObjectType ot_child = new ObjectType(anclasschild_iri);
-					kf.addEntity(ot_child);
 					
-					Subsumption sub = new Subsumption("sub", ot, ot_child); 
-					kf.addRelationship(sub);
+					if (!anclasschild.equals(anclass)){
+						String anclasschild_iri = anclasschild.toStringID();
+						ObjectType ot_child = new ObjectType(anclasschild_iri);
+						kf.addEntity(ot_child);
+					
+						Subsumption sub = new Subsumption("sub", ot, ot_child); 
+						kf.addRelationship(sub);
+					}
 				}
 			}
 		}
@@ -74,7 +77,7 @@ public class OWLSubClassAxiom extends ClassExpressionAxiom {
 	 * @param kf
 	 * @param onto
 	 */
-	public static void owlSubClassAxiomForGivenOWLClass2ObjectType(Metamodel kf, 
+	public static void owlSubClassAxiomForGivenOWLClass2Subsumptions(Metamodel kf, 
 			OWLOntology onto, 
 			IRI superclsIRI) {
 
@@ -94,12 +97,15 @@ public class OWLSubClassAxiom extends ClassExpressionAxiom {
 				
 				while (iteraclassinax.hasNext()) {
 					OWLClass anclasschild = iteraclassinax.next();
-					String anclasschild_iri = anclasschild.toStringID();
-					ObjectType ot_child = new ObjectType(anclasschild_iri);
-					kf.addEntity(ot_child);
+					
+					if (!anclasschild.equals(supercls)){
+						String anclasschild_iri = anclasschild.toStringID();
+						ObjectType ot_child = new ObjectType(anclasschild_iri);
+						kf.addEntity(ot_child);
 
-					Subsumption sub = new Subsumption("sub", ot, ot_child); 
-					kf.addRelationship(sub);
+						Subsumption sub = new Subsumption("sub", ot, ot_child); 
+						kf.addRelationship(sub);
+					}
 				}
 			}
 		}
