@@ -29,6 +29,8 @@ public class Constants {
 
     public static final String UML_TO_ORM_ROUTE = "/umltoorm";
 
+    public static final String META_TO_EER_ROUTE = "/metatoeer";
+
     // Schemas
 
     public static final String UML_SCHEMA_PATH = "src/main/resources/schemas/umlSchema.json";
