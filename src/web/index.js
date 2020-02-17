@@ -32,11 +32,11 @@ $(document).ready(function () {
                         "method": "POST",
                         "timeout": 0,
                         "headers": {
-                            "Content-Type": "text/plain"
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
                         },
                         "data": {
                         	onto: $('#jsonInput')[0].value.toString(),
-                        	entity: $(jsonInput2)[0].value.toString()
+                        	entity: $('#jsonInput2')[0].value.toString()
                         }
                     };
                 break;
