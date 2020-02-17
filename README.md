@@ -1,4 +1,6 @@
-# OWLAPI-based OWL 2 Importer to [KF Metamodel](https://www.sciencedirect.com/science/article/abs/pii/S0169023X1500049X)
+## OWLAPI-based OWL 2 Importer to [KF Metamodel](https://www.sciencedirect.com/science/article/abs/pii/S0169023X1500049X) ##
+
+Public URL [Try API](http://crowd.fi.uncoma.edu.ar/crowd2-metamodel/metamodelapi-owlimport/src/web/index.html)
 
 ## Description
 This project involves the research, design and implementantion of an [OWL 2](https://www.w3.org/TR/2012/REC-owl2-xml-serialization-20121211/) importer.
@@ -20,7 +22,9 @@ $ mvn exec:java
 
 ### Using the API
 At the moment, there are two ways of trying the API out. The first one involves using the endpoints defined, sending HTTP POST requests to one of the following endpoints:
-- `/owlclassestometa`  - Import OWL classes from a give OWL 2 ontology into a KF Metamodel instance.
+- `/owlclassestometa` - Given a OWL 2 ontology, import all the OWL classes into a KF Metamodel instance.    
+- `/owlallsubstometa` - Given a OWL 2 ontology, import all the SubClasses into a KF Metamodel instance.  
+- `/owlonesubstometa` - Given a OWL 2 ontology and a SuperClass, import all the SubClasses of SuperClass into a KF Metamodel instance.
 
 The other way to try the API is by using the web page generated for this project. To use the web page, open `src/web/index.html` in any browser. This will display an static html page that uses the API endpoints. Note that this web page is isolated from the API itself in order to keep the definition and purpose of it. The web page consumes the API as any other client would.
 
