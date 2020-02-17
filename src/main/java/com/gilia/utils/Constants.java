@@ -10,30 +10,21 @@ package com.gilia.utils;
 public class Constants {
 
     // Endpoints
-
     public static final String UML_TO_META_ROUTE = "/umltometa";
-
-    public static final String EER_TO_META_ROUTE = "/eertometa";
-
-    public static final String ORM_TO_META_ROUTE = "/ormtometa";
-
-    public static final String META_TO_UML_ROUTE = "/metatouml";
-
-    public static final String EER_TO_UML_ROUTE = "/eertouml";
-
-    public static final String EER_TO_ORM_ROUTE = "/eertoorm";
-
-    public static final String ORM_TO_UML_ROUTE = "/ormtouml";
-
-    public static final String META_TO_ORM_ROUTE = "/metatoorm";
-
     public static final String UML_TO_ORM_ROUTE = "/umltoorm";
-
-    public static final String META_TO_EER_ROUTE = "/metatoeer";
-
     public static final String UML_TO_EER_ROUTE = "/umltoeer";
 
+    public static final String EER_TO_META_ROUTE = "/eertometa";
+    public static final String EER_TO_UML_ROUTE = "/eertouml";
+    public static final String EER_TO_ORM_ROUTE = "/eertoorm";
+
+    public static final String ORM_TO_META_ROUTE = "/ormtometa";
+    public static final String ORM_TO_UML_ROUTE = "/ormtouml";
     public static final String ORM_TO_EER_ROUTE = "/ormtoeer";
+
+    public static final String META_TO_UML_ROUTE = "/metatouml";
+    public static final String META_TO_ORM_ROUTE = "/metatoorm";
+    public static final String META_TO_EER_ROUTE = "/metatoeer";
 
     // Schemas
 

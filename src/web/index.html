@@ -18,13 +18,18 @@
     <h1>MetamodelAPI</h1>
     <div class="container">
         <div class="row">
+            <form>
+                <select id="convertid" class="form-control">
+                    <option>UML to Metamodel</option>
+                    <option>EER to Metamodel</option>
+                    <option>ORM to Metamodel</option>
+                    <option>Metamodel to UML</option>
+                    <option>Metamodel to EER</option>
+                    <option>Metamodel to ORM</option>
+                </select>
+        </div>
+        <div class="row">
             <div class="col">
-                <form>
-                    <select id="convertid" class="form-control">
-                        <option>UML to Metamodel</option>
-                        <option>EER to Metamodel</option>
-                        <!-- <option>ORM to Metamodel</option> -->
-                    </select>
                     <div class="form-group">
                         <label for="jsonInput">JSON</label>
                         <textarea class="form-control" id="jsonInput" rows="30"></textarea>

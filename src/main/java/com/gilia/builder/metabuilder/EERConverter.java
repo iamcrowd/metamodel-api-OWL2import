@@ -65,6 +65,7 @@ public class EERConverter implements MetaBuilder {
         }
 
         jsonEer.put(KEY_ENTITIES, jsonEntities);
+        jsonEer.put(KEY_ATTRIBUTES, new JSONArray());
         jsonEer.put(KEY_RELATIONSHIPS, new JSONArray());
         jsonEer.put(KEY_LINKS, jsonLinks);
 
