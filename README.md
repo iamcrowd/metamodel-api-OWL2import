@@ -22,6 +22,7 @@ $ mvn exec:java
 
 ### Using the API
 At the moment, there are two ways of trying the API out. The first one involves using the endpoints defined, sending HTTP POST requests to one of the following endpoints:
+
 - `/owlclassestometa` - Given a OWL 2 ontology, import all the OWL classes into a KF Metamodel instance.    
 - `/owlallsubstometa` - Given a OWL 2 ontology, import all the SubClasses into a KF Metamodel instance.  
 - `/owlonesubstometa` - Given a OWL 2 ontology and a SuperClass, import all the SubClasses of SuperClass into a KF Metamodel instance.
@@ -32,7 +33,10 @@ The other way to try the API is by using the web page generated for this project
 - ~~OWL Classes ⟶ Meta~~ ✔️
 - ~~OWL AllSubClasses ⟶ Meta~~ ✔️
 - ~~OWL AnSubClass given a OWL SuperClass ⟶ Meta~~ ✔️
-- Meta ⟶ ORM ❌
+- OWL ObjectProperties ❌
+- OWL DataProperties ❌
+- OWL Disjoint Axioms ❌
+- OWL Equivalence Axioms ❌
 
 *Note: Additionally, other mappings, transformations and aproximations could be considered for future developments.*
 
