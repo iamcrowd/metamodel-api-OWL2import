@@ -26,8 +26,8 @@ The other way to try the API is by using the web page generated for this project
 
 ## Next developments
 - ~~OWL Classes ⟶ Meta~~ ✔️
-- OWL AllSubClasses ⟶ Meta ❌
-- OWL AnSubClass given a OWL SuperClass ⟶ Meta ❌
+- ~~OWL AllSubClasses ⟶ Meta~~ ✔️
+- ~~OWL AnSubClass given a OWL SuperClass ⟶ Meta~~ ✔️
 - Meta ⟶ ORM ❌
 
 *Note: Additionally, other mappings, transformations and aproximations could be considered for future developments.*
