@@ -18,6 +18,10 @@ Once you fulfil the requeriments listed above, clone this repository. Run the fo
 $ mvn clean compile
 $ mvn package
 $ mvn exec:java
+
+ - Run as Service
+$ mvn clean package spring-boot:repackage
+$ java -jar target/app.jar 
 ```
 
 ### Using the API
