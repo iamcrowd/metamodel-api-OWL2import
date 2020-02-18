@@ -20,7 +20,7 @@ $ mvn package
 $ mvn exec:java
 
  - Run as Service
-$ mvn clean package spring-boot:repackage
+$ mvn clean dependency:copy-dependencies package spring-boot:repackage
 $ java -jar target/app.jar 
 ```
 
