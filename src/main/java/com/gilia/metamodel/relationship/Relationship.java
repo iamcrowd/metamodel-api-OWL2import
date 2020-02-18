@@ -248,4 +248,43 @@ public class Relationship extends Entity {
 
         return jsonObject;
     }
+
+    /**
+     * Generates a JSONObject that represents the information of the Relationship according to the
+     * EER language. The JSONObject generated respects the EER Schema.
+     *
+     * @return JSONObject that represents the equivalent EER Relationship.
+     */
+    public JSONObject toEER() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(KEY_NAME, this.name);
+        jsonObject.put(KEY_TYPE, RELATIONSHIP_STRING);
+
+        // Classes involved
+        JSONArray jsonEntities = new JSONArray();
+        this.entities.forEach(entity -> jsonEntities.add(entity.getName()));
+        jsonObject.put(KEY_ENTITIES, jsonEntities);
+
+        // Roles and cardinalities
+        JSONArray jsonRoles = new JSONArray();
+        JSONArray jsonCardinalities = new JSONArray();
+        if (roles.size() >= 2) {
+            for (Role role : roles) {
+                if ((role.getCardinalityConstraints() != null) && (role.getCardinalityConstraints().size() >= 1)) {
+                    jsonRoles.add(role.getName());
+                    for (ObjectTypeCardinality cardinality : role.getCardinalityConstraints()) {
+                        jsonCardinalities.add(cardinality.getCardinality());
+                    }
+                } else {
+                    throw new MetamodelDefinitionCompromisedException("Can not generate EER for Relationship " + name + ". Role definition has been violated.");
+                }
+            }
+        } else {
+            throw new MetamodelDefinitionCompromisedException("Can not generate EER for Relationship " + name + ". Relationship definition has been violated.");
+        }
+        jsonObject.put(KEY_ROLES, jsonRoles);
+        jsonObject.put(KEY_CARDINALITY, jsonCardinalities);
+
+        return jsonObject;
+    }
 }

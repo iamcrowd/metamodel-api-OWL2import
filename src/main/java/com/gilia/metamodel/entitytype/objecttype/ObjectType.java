@@ -82,4 +82,16 @@ public class ObjectType extends EntityType {
         jsonObject.put(KEY_TYPE, ENTITY_STRING);
         return jsonObject;
     }
+
+    /**
+     * Generates a JSONObject that represents the information of the Object type according to the
+     * EER language. The JSONObject generated respects the EER Schema.
+     *
+     * @return JSONObject that represents the equivalent EER Entity.
+     */
+    public JSONObject toEER() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(KEY_NAME, this.name);
+        return jsonObject;
+    }
 }
