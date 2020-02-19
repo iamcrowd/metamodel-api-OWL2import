@@ -10,6 +10,11 @@ import java.util.Objects;
 import static com.gilia.utils.Constants.KEY_ENTITIES;
 import static com.gilia.utils.Constants.KEY_NAME;
 
+/**
+ * Representation of the Completeness Constraint class from the KF Metamodel
+ *
+ * @author Emiliano Rios Gavagnin
+ */
 public class CompletenessConstraint extends Constraint { // TODO: The completeness is between siblings or between parent and each child?
 
     protected ArrayList<ObjectType> entities;

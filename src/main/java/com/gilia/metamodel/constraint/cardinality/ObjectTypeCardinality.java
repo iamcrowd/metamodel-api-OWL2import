@@ -10,7 +10,7 @@ import java.util.Objects;
 import static com.gilia.utils.Constants.*;
 
 /**
- * Representation of the ObjectTypeCardinality class from the KF Metamodel
+ * Representation of the Object Type Cardinality class from the KF Metamodel
  *
  * @author Emiliano Rios Gavagnin
  */
@@ -21,53 +21,18 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
 
     public ObjectTypeCardinality(String cardinality) throws CardinalitySyntaxException, CardinalityRangeException {
         super();
-        if (cardinality.matches(CARDINALITY_REGEX)) {
-            String[] cardinalities = cardinality.split(CARDINALITY_DIVIDER_REGEX);
-            String newMinCardinality = cardinalities[0].equals("N") ? "*" : cardinalities[0];
-            String newMaxCardinality = cardinalities[1].equals("N") || cardinalities[1].equals("M") ? "*" : cardinalities[1];
-            if (isCardinalityRangeValid(newMinCardinality, newMaxCardinality)) {
-                this.minCardinality = newMinCardinality;
-                this.maxCardinality = newMaxCardinality;
-            } else {
-                throw new CardinalityRangeException(CARDINALITY_RANGE_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
-            }
-        } else {
-            throw new CardinalitySyntaxException(CARDINALITY_SYNTAX_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
-        }
+        validateCardinalityString(cardinality);
     }
 
     public ObjectTypeCardinality(String name, String cardinality) throws CardinalitySyntaxException {
         super(name);
-        if (cardinality.matches(CARDINALITY_REGEX)) {
-            String[] cardinalities = cardinality.split(CARDINALITY_DIVIDER_REGEX);
-            String newMinCardinality = cardinalities[0].equals("N") ? "*" : cardinalities[0];
-            String newMaxCardinality = cardinalities[1].equals("N") || cardinalities[1].equals("M") ? "*" : cardinalities[1];
-            if (isCardinalityRangeValid(newMinCardinality, newMaxCardinality)) {
-                this.minCardinality = newMinCardinality;
-                this.maxCardinality = newMaxCardinality;
-            } else {
-                throw new CardinalityRangeException(CARDINALITY_RANGE_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
-            }
-        } else {
-            throw new CardinalitySyntaxException(CARDINALITY_SYNTAX_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
-        }
+        validateCardinalityString(cardinality);
     }
 
     public ObjectTypeCardinality(String name, String minCardinality, String maxCardinality) {
         super(name);
-        if (minCardinality.matches(CARDINALITY_LEFT_COMPONENT_REGEX) && maxCardinality.matches(CARDINALITY_RIGHT_COMPONENT_REGEX)) {
-            String newMinCardinality = minCardinality.equals("N") ? "*" : minCardinality;
-            String newMaxCardinality = maxCardinality.equals("N") || maxCardinality.equals("M") ? "*" : maxCardinality;
-            if (isCardinalityRangeValid(newMinCardinality, newMaxCardinality)) {
-                this.minCardinality = newMinCardinality;
-                this.maxCardinality = newMaxCardinality;
-            } else {
-                throw new CardinalityRangeException(CARDINALITY_RANGE_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
-            }
-        } else {
-            throw new CardinalitySyntaxException(CARDINALITY_SYNTAX_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
-        }
-
+        String cardinality = minCardinality + ".." + maxCardinality;
+        validateCardinalityString(cardinality);
     }
 
     public String getMinCardinality() {
@@ -150,6 +115,31 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
     }
 
     /**
+     * Parses a cardinality string, validating it and instantiating the minCardinality and maxCardinality fields.
+     * The string will be valid if it respects the CARDINALITY_REGEX and if the ranges are valid (min <= max)
+     *
+     * @param cardinalityString A string that represents a cardinality (min..max).
+     * @throws CardinalitySyntaxException
+     * @throws CardinalityRangeException
+     * @see com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality#isCardinalityRangeValid(String, String)
+     */
+    private void validateCardinalityString(String cardinalityString) throws CardinalitySyntaxException, CardinalityRangeException {
+        if (cardinalityString.matches(CARDINALITY_REGEX)) {
+            String[] cardinalities = cardinalityString.split(CARDINALITY_DIVIDER_REGEX);
+            String newMinCardinality = cardinalities[0].equals("N") ? "*" : cardinalities[0];
+            String newMaxCardinality = cardinalities[1].equals("N") || cardinalities[1].equals("M") ? "*" : cardinalities[1];
+            if (isCardinalityRangeValid(newMinCardinality, newMaxCardinality)) {
+                this.minCardinality = newMinCardinality;
+                this.maxCardinality = newMaxCardinality;
+            } else {
+                throw new CardinalityRangeException(CARDINALITY_RANGE_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
+            }
+        } else {
+            throw new CardinalitySyntaxException(CARDINALITY_SYNTAX_ERROR + " " + StringUtils.capitalize(KEY_CONSTRAINT) + " " + name);
+        }
+    }
+
+    /**
      * Checks if the cardinality is a valid range. A range is considered valid if the minCardinality is equal or smaller
      * than the maxCardinality
      *
@@ -182,4 +172,6 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
 
         return minCardinalityValue <= maxCardinalityValue;
     }
+
+
 }
