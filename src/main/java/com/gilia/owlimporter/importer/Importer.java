@@ -9,6 +9,10 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.*;
 import org.semanticweb.owlapi.apibinding.*;
 
+import org.semanticweb.HermiT.ReasonerFactory;
+import org.semanticweb.owlapi.reasoner.InferenceType;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.io.File;
@@ -48,7 +52,16 @@ public class Importer {
 			validateOWL(file);
 			this.kfimported = new Metamodel();
 			this.man = OWLManager.createOWLOntologyManager();
-	        this.onto = man.loadOntologyFromOntologyDocument(file);
+	        ReasonerFactory factory = new ReasonerFactory();
+            OWLReasoner reasoner = factory.createReasoner(man.loadOntologyFromOntologyDocument(file));
+            reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY,
+					  					  InferenceType.CLASS_ASSERTIONS,
+            							  InferenceType.DISJOINT_CLASSES, 
+            							  InferenceType.OBJECT_PROPERTY_HIERARCHY, 
+            							  InferenceType.OBJECT_PROPERTY_ASSERTIONS,
+            							  InferenceType.DATA_PROPERTY_ASSERTIONS,
+            							  InferenceType.DATA_PROPERTY_HIERARCHY);
+	        this.onto = reasoner.getRootOntology();
 			this.metabuilder = new MetaConverter();
 		}
 		catch (Exception e){
@@ -65,7 +78,17 @@ public class Importer {
 			validateOWL(iri);
 			this.kfimported = new Metamodel();
 			this.man = OWLManager.createOWLOntologyManager();
-	        this.onto = man.loadOntologyFromOntologyDocument(iri);
+	        
+	        ReasonerFactory factory = new ReasonerFactory();
+            OWLReasoner reasoner = factory.createReasoner(man.loadOntologyFromOntologyDocument(iri));
+            reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY,
+					  					  InferenceType.CLASS_ASSERTIONS,
+            							  InferenceType.DISJOINT_CLASSES, 
+            							  InferenceType.OBJECT_PROPERTY_HIERARCHY, 
+            							  InferenceType.OBJECT_PROPERTY_ASSERTIONS,
+            							  InferenceType.DATA_PROPERTY_ASSERTIONS,
+            							  InferenceType.DATA_PROPERTY_HIERARCHY);
+	        this.onto = reasoner.getRootOntology();
 			this.metabuilder = new MetaConverter();
 		}
 		catch (Exception e){
