@@ -1,8 +1,8 @@
 package com.gilia.owlimporter.importer.axiom.classExpressionAxiom;
 
+import com.gilia.metamodel.*;
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
-
 import com.gilia.metamodel.relationship.Subsumption;
 
 import org.semanticweb.owlapi.io.*;
@@ -16,10 +16,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
 
-import com.gilia.metamodel.*;
-
 import com.gilia.owlimporter.importer.Importer;
 import com.gilia.owlimporter.importer.axiom.ClassExpressionAxiom;
+
+import static com.gilia.utils.Utils.getAlphaNumericString;
 
 /**
  *
@@ -63,8 +63,18 @@ public class OWLSubClassAxiom extends ClassExpressionAxiom {
 						ObjectType ot_child = new ObjectType(anclasschild_iri);
 						kf.addEntity(ot_child);
 					
-						Subsumption sub = new Subsumption("sub", ot, ot_child); 
-						kf.addRelationship(sub);
+						if (onto.getOntologyID().getOntologyIRI().isPresent()){
+							Subsumption sub = new Subsumption(
+									onto.getOntologyID().getOntologyIRI().get().toString() + "/" + getAlphaNumericString(3), 
+									ot, ot_child);
+							kf.addRelationship(sub);
+						}
+						else {
+							Subsumption sub = new Subsumption(
+									getAlphaNumericString(3), 
+									ot, ot_child);
+							kf.addRelationship(sub);
+						}
 					}
 				}
 			}
@@ -103,8 +113,19 @@ public class OWLSubClassAxiom extends ClassExpressionAxiom {
 						ObjectType ot_child = new ObjectType(anclasschild_iri);
 						kf.addEntity(ot_child);
 
-						Subsumption sub = new Subsumption("sub", ot, ot_child); 
-						kf.addRelationship(sub);
+						if (onto.getOntologyID().getOntologyIRI().isPresent()){
+							Subsumption sub = new Subsumption(
+									onto.getOntologyID().getOntologyIRI().toString() + "/" + getAlphaNumericString(3), 
+									ot, ot_child);
+							kf.addRelationship(sub);
+						}
+						else {
+							Subsumption sub = new Subsumption(
+									getAlphaNumericString(3), 
+									ot, ot_child);
+							kf.addRelationship(sub);
+						}
+						
 					}
 				}
 			}
