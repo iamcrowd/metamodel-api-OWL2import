@@ -11,10 +11,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.semanticweb.owlapi.model.IRI;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileNotFoundException;
@@ -40,12 +42,15 @@ import com.gilia.owlimporter.importer.entity.OWLClasses;
 @CrossOrigin(origins = "*")
 public class OWLClassesToMetaController {
 
-    @PostMapping(OWL_CLASSES_TO_META_ROUTE)
-    public ResponseEntity owlClassesToMeta(@RequestBody String iriAsString) {
+    @PostMapping(value = OWL_CLASSES_TO_META_ROUTE, 
+	consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+	produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity owlClassesToMeta(@RequestParam("onto") String iriAsString, 
+				 						   @RequestParam("reasoning") Boolean precompute) {
         JSONObject result;
 
         try {
-        	Importer importer = new Importer(IRI.create(iriAsString));
+        	Importer importer = new Importer(IRI.create(iriAsString), precompute);
     	  	importer.OWLClassesImport();
     	  	result = importer.toJSON();
         } catch (JSONException e) {

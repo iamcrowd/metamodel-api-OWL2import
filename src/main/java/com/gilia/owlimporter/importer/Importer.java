@@ -46,22 +46,27 @@ public class Importer {
 	 * 
 	 * @param filePath
 	 */
-	public Importer(String filePath) {
+	public Importer(String filePath, Boolean precompute) {
 		try {
 			File file = new File(filePath);
 			validateOWL(file);
 			this.kfimported = new Metamodel();
 			this.man = OWLManager.createOWLOntologyManager();
-	        ReasonerFactory factory = new ReasonerFactory();
-            OWLReasoner reasoner = factory.createReasoner(man.loadOntologyFromOntologyDocument(file));
-            reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY,
+			this.onto = man.loadOntologyFromOntologyDocument(file);
+			
+			if (precompute) {
+				ReasonerFactory factory = new ReasonerFactory();
+				OWLReasoner reasoner = factory.createReasoner(man.loadOntologyFromOntologyDocument(file));
+				reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY,
 					  					  InferenceType.CLASS_ASSERTIONS,
             							  InferenceType.DISJOINT_CLASSES, 
             							  InferenceType.OBJECT_PROPERTY_HIERARCHY, 
             							  InferenceType.OBJECT_PROPERTY_ASSERTIONS,
             							  InferenceType.DATA_PROPERTY_ASSERTIONS,
             							  InferenceType.DATA_PROPERTY_HIERARCHY);
-	        this.onto = reasoner.getRootOntology();
+				this.onto = reasoner.getRootOntology();
+			}
+			
 			this.metabuilder = new MetaConverter();
 		}
 		catch (Exception e){
@@ -73,22 +78,26 @@ public class Importer {
 	 * 
 	 * @param iri
 	 */
-	public Importer(IRI iri) {
+	public Importer(IRI iri, Boolean precompute) {
 		try {
 			validateOWL(iri);
 			this.kfimported = new Metamodel();
 			this.man = OWLManager.createOWLOntologyManager();
+			this.onto = man.loadOntologyFromOntologyDocument(iri);
 	        
-	        ReasonerFactory factory = new ReasonerFactory();
-            OWLReasoner reasoner = factory.createReasoner(man.loadOntologyFromOntologyDocument(iri));
-            reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY,
+			if (precompute) {
+				ReasonerFactory factory = new ReasonerFactory();
+				OWLReasoner reasoner = factory.createReasoner(man.loadOntologyFromOntologyDocument(iri));
+				reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY,
 					  					  InferenceType.CLASS_ASSERTIONS,
             							  InferenceType.DISJOINT_CLASSES, 
             							  InferenceType.OBJECT_PROPERTY_HIERARCHY, 
             							  InferenceType.OBJECT_PROPERTY_ASSERTIONS,
             							  InferenceType.DATA_PROPERTY_ASSERTIONS,
             							  InferenceType.DATA_PROPERTY_HIERARCHY);
-	        this.onto = reasoner.getRootOntology();
+				this.onto = reasoner.getRootOntology();
+			}
+			
 			this.metabuilder = new MetaConverter();
 		}
 		catch (Exception e){

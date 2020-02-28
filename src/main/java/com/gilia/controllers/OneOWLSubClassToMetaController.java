@@ -47,11 +47,12 @@ public class OneOWLSubClassToMetaController {
     		consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
     		produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity oneOWLSubClassToMeta(@RequestParam("onto") String onto, 
-    										   @RequestParam("entity") String entity) {
+    										   @RequestParam("entity") String entity,
+    										   @RequestParam("reasoning") Boolean precompute) {
         JSONObject result;
 
         try {
-        	Importer importer = new Importer(IRI.create(onto));
+        	Importer importer = new Importer(IRI.create(onto), precompute);
     	  	importer.OWLSubClassesImport(IRI.create(entity));
     	  	result = importer.toJSON();
         } catch (JSONException e) {
