@@ -54,8 +54,8 @@
         "http://crowd.fi.uncoma.edu.ar#Dog"
       ],
       "multiplicity": [
-        "0..1",
-        "1..1"
+        "1..1",
+        "0..1"
       ],
       "roles": [
         "http://crowd.fi.uncoma.edu.ar#person",
@@ -70,8 +70,8 @@
         "http://crowd.fi.uncoma.edu.ar#Toy"
       ],
       "multiplicity": [
-        "1..*",
-        "1..1"
+        "1..1",
+        "1..*"
       ],
       "roles": [
         "http://crowd.fi.uncoma.edu.ar#golden",

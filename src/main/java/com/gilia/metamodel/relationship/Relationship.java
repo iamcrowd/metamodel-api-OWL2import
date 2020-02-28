@@ -203,7 +203,12 @@ public class Relationship extends Entity {
             throw new MetamodelDefinitionCompromisedException("Can not generate UML for Relationship " + name + ". Relationship definition has been violated.");
         }
         jsonObject.put(KEY_ROLES, jsonRoles);
-        jsonObject.put(KEY_MULTIPLICITY, jsonMultiplicity);
+
+        JSONArray realJsonMultiplicity = new JSONArray();
+        for (int i = jsonMultiplicity.size() - 1; i >= 0; i--) {
+            realJsonMultiplicity.add(jsonMultiplicity.get(i));
+        }
+        jsonObject.put(KEY_MULTIPLICITY, realJsonMultiplicity);
 
         return jsonObject;
     }
