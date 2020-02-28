@@ -18,7 +18,7 @@
     <h2>OWL 2 Importer API</h2>
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-md-6">
                 <form>
                 	<label for="convertid">Choose endpoint</label>
                     <select id="convertid" class="form-control">
@@ -42,13 +42,18 @@
                     	<div>
                         	<label for="jsonInput2">IRI Entity</label>
                         	<textarea class="form-control" id="jsonInput2" rows="1"></textarea>
-                    	</div>
-                    </div>
+
+                    	</div></br>
+                                <div>
+                                    <input type="checkbox" name="precompute" id="reasoning" checked>
+                                    <label for="precompute">Precompute (Hermit)</label><br>
+                                </div>
+                        </div>
                     <input type="button" class="btn btn-primary" id="send" value="Import" />
                 </form>
             </div>
 
-            <div class="col">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="jsonInput">Output</label>
                     <textarea class="form-control" id="jsonOutput" rows="30"></textarea>
