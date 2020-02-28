@@ -115,7 +115,7 @@ public class OWLSubClassAxiom extends ClassExpressionAxiom {
 
 						if (onto.getOntologyID().getOntologyIRI().isPresent()){
 							Subsumption sub = new Subsumption(
-									onto.getOntologyID().getOntologyIRI().toString() + "/" + getAlphaNumericString(3), 
+									onto.getOntologyID().getOntologyIRI().get().toString() + "/" + getAlphaNumericString(3), 
 									ot, ot_child);
 							kf.addRelationship(sub);
 						}
