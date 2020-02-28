@@ -45,6 +45,7 @@ public class Importer {
 	/**
 	 * 
 	 * @param filePath
+	 * @param precompute
 	 */
 	public Importer(String filePath, Boolean precompute) {
 		try {
@@ -77,6 +78,7 @@ public class Importer {
 	/**
 	 * 
 	 * @param iri
+	 * @param precompute
 	 */
 	public Importer(IRI iri, Boolean precompute) {
 		try {
