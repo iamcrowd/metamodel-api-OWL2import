@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.gilia.metamodel.*;
 import org.semanticweb.owlapi.*;
+import org.semanticweb.HermiT.*;
 
 /**
  * API Application Init. The execution of main method of this class results in the building and deployment of the API.

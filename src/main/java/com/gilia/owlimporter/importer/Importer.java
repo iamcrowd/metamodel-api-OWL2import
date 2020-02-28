@@ -9,7 +9,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.*;
 import org.semanticweb.owlapi.apibinding.*;
 
-import org.semanticweb.HermiT.ReasonerFactory;
+import org.semanticweb.HermiT.*;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 

@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.*;
 import org.semanticweb.owlapi.apibinding.*;
+import org.semanticweb.HermiT.*;
 
 import static com.gilia.utils.Constants.*;
 import static com.gilia.utils.Utils.validateJSON;
