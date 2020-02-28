@@ -38,7 +38,7 @@ public class OWLSubClassAxiomTest {
     	try {
     		String path = new String(ImporterTest.class.getClassLoader().getResource("ontologies/pizza.owl").toString());
     		String[] owlfilepath = path.split(":", 2);
-    	  	Importer importer = new Importer(owlfilepath[1]);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
     	  	importer.OWLSubClassesImport();
     	  	System.out.println(importer.toJSON());
     	  	//assertEquals("Metamodel empty", meta.toString(), "Metamodel{entities=[], relationships=[], roles=[], constraints=[]}");
@@ -53,7 +53,7 @@ public class OWLSubClassAxiomTest {
     	try {
     		String path = new String(ImporterTest.class.getClassLoader().getResource("ontologies/gufo.ttl").toString());
     		String[] owlfilepath = path.split(":", 2);
-    	  	Importer importer = new Importer(owlfilepath[1]);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
     	  	importer.OWLSubClassesImport();
     	  	System.out.println(importer.toJSON());
     	  	//assertEquals("Metamodel empty", meta.toString(), "Metamodel{entities=[], relationships=[], roles=[], constraints=[]}");
@@ -68,7 +68,7 @@ public class OWLSubClassAxiomTest {
     	try {
     		String path = new String(ImporterTest.class.getClassLoader().getResource("ontologies/pizza.owl").toString());
     		String[] owlfilepath = path.split(":", 2);
-    	  	Importer importer = new Importer(owlfilepath[1]);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
     	  	
     	  	IRI IOR = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl#MeatTopping");
     	  	importer.OWLSubClassesImport(IOR);
@@ -85,7 +85,7 @@ public class OWLSubClassAxiomTest {
     	try {
     		String path = new String(ImporterTest.class.getClassLoader().getResource("ontologies/gufo.ttl").toString());
     		String[] owlfilepath = path.split(":", 2);
-    	  	Importer importer = new Importer(owlfilepath[1]);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
     	  	
     	  	IRI IOR = IRI.create("http://purl.org/nemo/gufo#Event");
     	  	importer.OWLSubClassesImport(IOR);

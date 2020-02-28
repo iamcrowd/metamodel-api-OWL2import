@@ -38,7 +38,7 @@ public class OWLClassesTest {
     	try {
     		String path = new String(ImporterTest.class.getClassLoader().getResource("ontologies/pizza.owl").toString());
     		String[] owlfilepath = path.split(":", 2);
-    	  	Importer importer = new Importer(owlfilepath[1]);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
     	  	importer.OWLClassesImport();
     	  	System.out.println(importer.toJSON());
     	  	//assertEquals("Metamodel empty", meta.toString(), "Metamodel{entities=[], relationships=[], roles=[], constraints=[]}");
@@ -53,7 +53,7 @@ public class OWLClassesTest {
     	try {
     		String path = new String(ImporterTest.class.getClassLoader().getResource("ontologies/gufo.ttl").toString());
     		String[] owlfilepath = path.split(":", 2);
-    	  	Importer importer = new Importer(owlfilepath[1]);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
     	  	importer.OWLClassesImport();
     	  	System.out.println(importer.toJSON());
     	  	//assertEquals("Metamodel empty", meta.toString(), "Metamodel{entities=[], relationships=[], roles=[], constraints=[]}");

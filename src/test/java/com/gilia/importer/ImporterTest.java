@@ -38,7 +38,7 @@ public class ImporterTest {
     	try {
     		String path = new String(ImporterTest.class.getClassLoader().getResource("ontologies/pizza.owl").toString());
     		String[] owlfilepath = path.split(":", 2);
-    	  	Importer importer = new Importer(owlfilepath[1]);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
     	  	Metamodel meta = importer.getKFInstance();
     	  	OWLOntology onto = importer.getOntology();
     	  	assertEquals("Number of Axioms", onto.getAxiomCount(), 801);
@@ -53,7 +53,7 @@ public class ImporterTest {
     public void testCreateAnEmptyKFandLoadOntoFromIRI() {
     	try {
     		IRI ontoiri = IRI.create("https://protege.stanford.edu/ontologies/pizza/pizza.owl");
-    	  	Importer importer = new Importer(ontoiri);
+    	  	Importer importer = new Importer(ontoiri,true);
     	  	Metamodel meta = importer.getKFInstance();
     	  	OWLOntology onto = importer.getOntology();
     	  	assertTrue(onto.isOntology());
