@@ -1,4 +1,4 @@
-package com.gilia.owlimporter.importer.axiom.classExpressionAxiom;
+package com.gilia.owlimporter.importer.axiom.classAxiom;
 
 import com.gilia.metamodel.*;
 import com.gilia.metamodel.entitytype.EntityType;
@@ -17,7 +17,8 @@ import java.util.Iterator;
 import java.util.Objects;
 
 import com.gilia.owlimporter.importer.Importer;
-import com.gilia.owlimporter.importer.axiom.ClassExpressionAxiom;
+import com.gilia.owlimporter.importer.axiom.ClassAxiom;
+import com.google.common.base.CaseFormat;
 
 import static com.gilia.utils.Utils.getAlphaNumericString;
 
@@ -28,9 +29,9 @@ import static com.gilia.utils.Utils.getAlphaNumericString;
  * @author gbraun
  *
  */
-public class OWLSubClassAxiom extends ClassExpressionAxiom {
+public class SubClassOf extends ClassAxiom {
 	
-	public OWLSubClassAxiom() {
+	public SubClassOf() {
 		
 	}
 	
@@ -42,6 +43,32 @@ public class OWLSubClassAxiom extends ClassExpressionAxiom {
 	 */
 	public static void owlSubClassAxiom2Subsumptions(Metamodel kf, OWLOntology onto) {
 		Iterator<OWLClass> iteraclasses = onto.classesInSignature().iterator();
+		
+/**		for (OWLSubClassOfAxiom subclassof : onto.axioms(AxiomType.SUBCLASS_OF)) {
+			OWLClassExpression superclassexpr = subclassof.getSuperClass();
+			
+			switch (superclassexpr.getClassExpressionType()) {
+			case OWL_CLASS:
+				
+				break;
+
+			default:
+				break;
+			}
+		}
+		
+		for (OWLSubClassOfAxiom subClasse : onto.axioms(AxiomType.SUBCLASS_OF)) {
+			OWLClassExpression classexpr = subClasse.getSubClass();
+			
+			switch (classexpr.getClassExpressionType()) {
+			case OWL_CLASS:
+				
+				break;
+
+			default:
+				break;
+			}
+		}*/
 
 		while (iteraclasses.hasNext()) {
 			OWLClass anclass = iteraclasses.next();

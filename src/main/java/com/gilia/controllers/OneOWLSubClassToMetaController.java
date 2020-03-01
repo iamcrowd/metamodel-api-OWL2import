@@ -33,7 +33,7 @@ import static com.gilia.utils.Utils.validateJSON;
 import static com.gilia.utils.ImportUtils.validateOWL;
 
 import com.gilia.owlimporter.importer.Importer;
-import com.gilia.owlimporter.importer.entity.OWLClasses;
+import com.gilia.owlimporter.importer.classExpression.Class;
 
 /**
  * Controller of the OWL_TO_META_ROUTE endpoint. This controller is in charge of receiving an OWL spec, creating the Metamodel

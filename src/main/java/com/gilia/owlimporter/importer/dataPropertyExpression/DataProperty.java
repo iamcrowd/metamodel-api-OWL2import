@@ -1,7 +1,8 @@
-package com.gilia.owlimporter.importer.entity;
+package com.gilia.owlimporter.importer.dataPropertyExpression;
 
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
+import com.gilia.metamodel.relationship.Relationship;
 
 import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
@@ -26,27 +27,10 @@ import com.gilia.exceptions.OWLClassNotFoundException;
  * @author gbraun
  *
  */
-public class OWLClasses {
+public class DataProperty {
 	
-	public OWLClasses() {
+	public DataProperty() {
 		
-	}
-	
-	/**
-	 * Import all OWL Classes into a KF instance with Object types
-	 * 
-	 * @param kf a metamodel instance
-	 * @param onto an OWLOntology being imported
-	 */
-	public static void owlClasses2ObjectType(Metamodel kf, OWLOntology onto) {
-		Iterator<OWLClass> iteraclasses = onto.classesInSignature().iterator();
-		
-		while (iteraclasses.hasNext()) {
-			OWLClass anclass = iteraclasses.next();
-			String anclass_iri = anclass.toStringID();
-			ObjectType ot = new ObjectType(anclass_iri);
-			kf.addEntity(ot);
-		}
 	}
 	
 }

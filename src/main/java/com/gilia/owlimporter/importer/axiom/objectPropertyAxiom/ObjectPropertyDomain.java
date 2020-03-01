@@ -17,7 +17,8 @@ import java.util.Iterator;
 import java.util.Objects;
 
 import com.gilia.owlimporter.importer.Importer;
-import com.gilia.owlimporter.importer.axiom.ClassExpressionAxiom;
+import com.gilia.owlimporter.importer.axiom.ClassAxiom;
+import com.gilia.owlimporter.importer.axiom.ObjectPropertyAxiom;
 
 import static com.gilia.utils.Utils.getAlphaNumericString;
 
@@ -40,7 +41,7 @@ public class ObjectPropertyDomain extends ObjectPropertyAxiom {
 	 * @param kf
 	 * @param onto
 	 */
-	public static void owlObjectPropertyDomain(Metamodel kf, 
+/**	public static void owlObjectPropertyDomain(Metamodel kf, 
 											   OWLOntology onto,
 											   OWLObjectProperty op) {
 		
@@ -84,7 +85,7 @@ public class ObjectPropertyDomain extends ObjectPropertyAxiom {
 				}
 			}
 		}
-	}
+	} **/
 	
 	/**
 	 * Imports all the subclass axioms for an <OWLClass> super given as parameter 
@@ -92,7 +93,7 @@ public class ObjectPropertyDomain extends ObjectPropertyAxiom {
 	 * @param kf
 	 * @param onto
 	 */
-	public static void owlSubClassAxiomForGivenOWLClass2Subsumptions(Metamodel kf, 
+/**	public static void owlSubClassAxiomForGivenOWLClass2Subsumptions(Metamodel kf, 
 			OWLOntology onto, 
 			IRI superclsIRI) {
 
@@ -135,6 +136,6 @@ public class ObjectPropertyDomain extends ObjectPropertyAxiom {
 				}
 			}
 		}
-	}
+	}*/
 	
 }

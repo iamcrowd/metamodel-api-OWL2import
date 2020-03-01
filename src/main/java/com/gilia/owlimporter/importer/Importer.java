@@ -22,8 +22,8 @@ import java.io.FileNotFoundException;
 import static com.gilia.utils.ImportUtils.validateOWL;
 import com.gilia.builder.metabuilder.*;
 
-import com.gilia.owlimporter.importer.entity.OWLClasses;
-import com.gilia.owlimporter.importer.axiom.classExpressionAxiom.OWLSubClassAxiom;
+import com.gilia.owlimporter.importer.classExpression.Class;
+import com.gilia.owlimporter.importer.axiom.classAxiom.SubClassOf;
 
 
 import com.gilia.exceptions.EmptyOntologyException;
@@ -135,7 +135,7 @@ public class Importer {
 	 * @see KF metamodel ObjectType
 	 */
 	public void OWLClassesImport() {
-   	  	OWLClasses import_classes = new OWLClasses();
+   	  	Class import_classes = new Class();
 	  	import_classes.owlClasses2ObjectType(this.kfimported,this.onto);
 	  	MetaBuilder builder = new MetaConverter();
 	  	builder.generateJSON(this.kfimported);
@@ -148,7 +148,7 @@ public class Importer {
 	 * @see KF metamodel ObjectType
 	 */
 	public void OWLSubClassesImport() {
-   	  	OWLSubClassAxiom import_subclasses = new OWLSubClassAxiom();
+   	  	SubClassOf import_subclasses = new SubClassOf();
 	  	import_subclasses.owlSubClassAxiom2Subsumptions(this.kfimported,this.onto);
 	  	MetaBuilder builder = new MetaConverter();
 	  	builder.generateJSON(this.kfimported);
@@ -161,7 +161,7 @@ public class Importer {
 	 * @see KF metamodel ObjectType
 	 */
 	public void OWLSubClassesImport(IRI anIRI) {
-   	  	OWLSubClassAxiom import_subclasses = new OWLSubClassAxiom();
+   	  	SubClassOf import_subclasses = new SubClassOf();
 	  	import_subclasses.owlSubClassAxiomForGivenOWLClass2Subsumptions(this.kfimported, this.onto, anIRI);
 	  	MetaBuilder builder = new MetaConverter();
 	  	builder.generateJSON(this.kfimported);

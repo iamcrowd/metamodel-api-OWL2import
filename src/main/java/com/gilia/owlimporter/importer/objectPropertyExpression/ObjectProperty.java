@@ -1,4 +1,4 @@
-package com.gilia.owlimporter.importer.objectProperty;
+package com.gilia.owlimporter.importer.objectPropertyExpression;
 
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
@@ -27,9 +27,9 @@ import com.gilia.exceptions.OWLClassNotFoundException;
  * @author gbraun
  *
  */
-public class OWLObjectProperty {
+public class ObjectProperty {
 	
-	public OWLObjectProperty() {
+	public ObjectProperty() {
 		
 	}
 	
@@ -42,7 +42,7 @@ public class OWLObjectProperty {
 	 * @param kf a metamodel instance
 	 * @param onto an OWLOntology being imported
 	 */
-	public static void owlObjectProperty2Relationship(Metamodel kf, OWLOntology onto) {
+/**	public static void owlObjectProperty2Relationship(Metamodel kf, OWLOntology onto) {
 		Iterator<OWLObjectProperty> iteraop = onto.objectPropertiesInSignature().iterator();
 		
 		while (iteraop.hasNext()) {
@@ -52,6 +52,6 @@ public class OWLObjectProperty {
 			Relationship rel = new Relationship(anop_iri);
 			kf.addRelationship(rel);
 		}
-	}
+	}*/
 	
 }
