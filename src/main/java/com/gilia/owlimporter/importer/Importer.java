@@ -14,6 +14,7 @@ import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Objects;
 import java.io.File;
 import java.io.FileInputStream;
@@ -117,6 +118,16 @@ public class Importer {
 	
 	public OWLOntology getOntology() {
 		return this.onto;
+	}
+	
+	public JSONObject showOntology() {
+		JSONObject jsonAx = new JSONObject();
+    	Iterator<OWLAxiom> axs = this.onto.axioms().iterator();
+    	while (axs.hasNext()) {
+    		OWLAxiom ax = axs.next();
+    		jsonAx.put(ax.getAxiomType().toString(), ax.toString());
+        }
+    	return jsonAx;
 	}
 	
 	/**
