@@ -32,7 +32,7 @@ import static com.gilia.utils.Utils.validateJSON;
 import static com.gilia.utils.ImportUtils.validateOWL;
 
 import com.gilia.owlimporter.importer.Importer;
-import com.gilia.owlimporter.importer.classExpression.Class;
+import com.gilia.owlimporter.importer.classExpression.ClassExpression;
 
 /**
  * Controller of the OWL_TO_META_ROUTE endpoint. This controller is in charge of receiving an OWL spec, creating the Metamodel
@@ -51,7 +51,7 @@ public class OWLClassesToMetaController {
 
         try {
         	Importer importer = new Importer(IRI.create(iriAsString), precompute);
-    	  	importer.OWLClassesImport();
+    	  	importer.class2KF();
     	  	result = importer.toJSON();
         } catch (JSONException e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());

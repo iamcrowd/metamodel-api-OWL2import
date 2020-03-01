@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.Objects;
 
 import com.gilia.owlimporter.importer.Importer;
-import com.gilia.owlimporter.importer.axiom.ClassAxiom;
+import com.gilia.owlimporter.importer.axiom.classAxiom.ClassAxiom;
 import com.google.common.base.CaseFormat;
 
 import static com.gilia.utils.Utils.getAlphaNumericString;

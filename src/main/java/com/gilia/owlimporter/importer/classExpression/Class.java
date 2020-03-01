@@ -17,6 +17,8 @@ import java.util.Objects;
 import com.gilia.metamodel.*;
 import com.gilia.owlimporter.importer.Importer;
 
+import com.gilia.owlimporter.importer.classExpression.ClassExpression;
+
 import com.gilia.exceptions.OWLClassNotFoundException;
 
 /**
@@ -26,27 +28,25 @@ import com.gilia.exceptions.OWLClassNotFoundException;
  * @author gbraun
  *
  */
-public class Class {
+public class Class extends ClassExpression{
 	
 	public Class() {
 		
 	}
 	
 	/**
-	 * Import all OWL Classes into a KF instance with Object types
+	 * OWL Classes into a KF instance with Object types
 	 * 
 	 * @param kf a metamodel instance
 	 * @param onto an OWLOntology being imported
+	 * @param anclass an <OWLClass>
 	 */
-	public static void owlClasses2ObjectType(Metamodel kf, OWLOntology onto) {
-		Iterator<OWLClass> iteraclasses = onto.classesInSignature().iterator();
-		
-		while (iteraclasses.hasNext()) {
-			OWLClass anclass = iteraclasses.next();
+	public static void owlClasses2ObjectType(Metamodel kf, 
+											 OWLOntology onto, 
+											 OWLClass anclass) {
 			String anclass_iri = anclass.toStringID();
 			ObjectType ot = new ObjectType(anclass_iri);
 			kf.addEntity(ot);
-		}
 	}
 	
 }

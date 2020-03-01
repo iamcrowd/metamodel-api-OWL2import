@@ -1,6 +1,4 @@
-package com.gilia.owlimporter.importer;
-
-import com.gilia.owlimporter.importer.Axiom;
+package com.gilia.owlimporter.importer.classExpression;
 
 /**
 ClassExpression :=
@@ -13,8 +11,10 @@ ClassExpression :=
  * @author gab
  *
  */
-public abstract class ClassExpression extends Axiom{
+public abstract class ClassExpression {
 
-    public ClassExpression() {}
+    public ClassExpression() {
+    	
+    }
     
 }

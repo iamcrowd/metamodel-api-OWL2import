@@ -22,7 +22,7 @@ import java.io.FileNotFoundException;
 import static com.gilia.utils.ImportUtils.validateOWL;
 import com.gilia.builder.metabuilder.*;
 
-import com.gilia.owlimporter.importer.classExpression.Class;
+import com.gilia.owlimporter.importer.ClassExpressionTools;
 import com.gilia.owlimporter.importer.axiom.classAxiom.SubClassOf;
 
 
@@ -134,9 +134,9 @@ public class Importer {
 	 * 
 	 * @see KF metamodel ObjectType
 	 */
-	public void OWLClassesImport() {
-   	  	Class import_classes = new Class();
-	  	import_classes.owlClasses2ObjectType(this.kfimported,this.onto);
+	public void class2KF() {
+   	  	ClassExpressionTools import_classes = new ClassExpressionTools();
+   	  	import_classes.owlClasses(this.kfimported, this.onto);
 	  	MetaBuilder builder = new MetaConverter();
 	  	builder.generateJSON(this.kfimported);
 	}

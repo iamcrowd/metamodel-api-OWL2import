@@ -1,5 +1,4 @@
-package com.gilia.owlimporter.importer;
-
+package com.gilia.owlimporter.importer.axiom;
 
 /**
  * Axiom := Declaration | ClassAxiom | ObjectPropertyAxiom | DataPropertyAxiom | DatatypeDefinition | HasKey | Assertion | AnnotationAxiom
