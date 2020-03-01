@@ -24,14 +24,14 @@ import com.gilia.metamodel.*;
 import com.gilia.builder.metabuilder.*;
 import com.gilia.owlimporter.importer.Importer;
 
-import com.gilia.owlimporter.importer.entity.OWLClasses;
-import com.gilia.owlimporter.importer.axiom.classExpressionAxiom.OWLSubClassAxiom;
+import com.gilia.owlimporter.importer.classExpression.Class;
+import com.gilia.owlimporter.importer.axiom.classAxiom.SubClassOf;
 
 /**
 mvn clean test -Dtest=UtilsTest -DfailIfNoTests=false
 */
 
-public class OWLSubClassAxiomTest {
+public class SubClassOfTest {
 
 	@Test
     public void testSubsumptionsFromOWL2() {
