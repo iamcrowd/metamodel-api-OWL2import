@@ -1,6 +1,21 @@
 $(document).ready(function () {
     $('#send').click(function () {
         switch($('#convertid')[0].value){
+            case "Show Ontology":
+                url = "http://localhost:3333/showontology";
+                var settings = {
+                        "url": url,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                        },
+                        "data": {
+                        	onto: $('#jsonInput')[0].value.toString(),
+                            reasoning: $('#reasoning').is(":checked")
+                        }
+                    };
+                break;
             case "OWL Classes to Metamodel":
                 url = "http://localhost:3333/owlclassestometa";
                 var settings = {
