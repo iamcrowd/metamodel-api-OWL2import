@@ -118,6 +118,7 @@
         	<version>2.4.4</version>
         	<scope>test</scope>
     	</dependency>
+    	
     	<dependency>
         	<groupId>org.spockframework</groupId>
         	<artifactId>spock-core</artifactId>
@@ -190,6 +191,7 @@
                     <mainClass>com.gilia.OWL2ImporterApp</mainClass>
                 </configuration>
             </plugin>
+
 
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
