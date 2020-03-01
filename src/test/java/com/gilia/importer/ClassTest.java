@@ -22,10 +22,11 @@ import org.semanticweb.owlapi.apibinding.*;
 import static com.gilia.utils.ImportUtils.validateOWL;
 import com.gilia.metamodel.*;
 import com.gilia.builder.metabuilder.*;
+
 import com.gilia.owlimporter.importer.Importer;
 
-import com.gilia.owlimporter.importer.classExpression.Class;
-import com.gilia.owlimporter.importer.axiom.classAxiom.SubClassOf;
+//import com.gilia.owlimporter.importer.classExpression.ClassExpressionTools;
+//import com.gilia.owlimporter.importer.axiom.classAxiom.SubClassOf;
 
 /**
 mvn clean test -Dtest=UtilsTest -DfailIfNoTests=false
@@ -39,7 +40,7 @@ public class ClassTest {
     		String path = new String(ImporterTest.class.getClassLoader().getResource("ontologies/pizza.owl").toString());
     		String[] owlfilepath = path.split(":", 2);
     	  	Importer importer = new Importer(owlfilepath[1],true);
-    	  	importer.OWLClassesImport();
+    	  	importer.class2KF();
     	  	System.out.println(importer.toJSON());
     	  	//assertEquals("Metamodel empty", meta.toString(), "Metamodel{entities=[], relationships=[], roles=[], constraints=[]}");
     	}
@@ -54,7 +55,7 @@ public class ClassTest {
     		String path = new String(ImporterTest.class.getClassLoader().getResource("ontologies/gufo.ttl").toString());
     		String[] owlfilepath = path.split(":", 2);
     	  	Importer importer = new Importer(owlfilepath[1],true);
-    	  	importer.OWLClassesImport();
+    	  	importer.class2KF();
     	  	System.out.println(importer.toJSON());
     	  	//assertEquals("Metamodel empty", meta.toString(), "Metamodel{entities=[], relationships=[], roles=[], constraints=[]}");
     	}
