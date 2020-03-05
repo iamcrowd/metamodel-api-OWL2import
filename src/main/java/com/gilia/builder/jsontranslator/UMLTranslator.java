@@ -161,7 +161,7 @@ public class UMLTranslator implements JSONTranslator {
                 for (int i = 0; i < jsonRoles.size(); i++) {
                     String entityName = (String) jsonClasses.get(i);
                     String roleName = (String) jsonRoles.get(i);
-                    String cardinality = (String) jsonCardinalities.get(i);
+                    String cardinality = (String) jsonCardinalities.get(jsonRoles.size() - 1 - i);
 
                     // Get the entity related to this new role. It should exist already
                     ObjectType entity = (ObjectType) model.getEntity(entityName);
