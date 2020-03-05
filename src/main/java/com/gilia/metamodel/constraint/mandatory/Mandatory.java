@@ -6,9 +6,14 @@ import org.json.simple.JSONObject;
 import static com.gilia.utils.Constants.KEY_NAME;
 import static com.gilia.utils.Constants.KEY_ROLE_DECLARED_ON;
 
+/**
+ * Representation of the Mandatory class from the KF Metamodel
+ *
+ * @author Emiliano Rios Gavagnin
+ */
 public class Mandatory extends MandatoryConstraint {
 
-    Role declaredOn;
+    private Role declaredOn;
 
     public Mandatory() {
         super();

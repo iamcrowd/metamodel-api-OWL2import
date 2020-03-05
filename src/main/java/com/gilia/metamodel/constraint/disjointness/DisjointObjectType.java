@@ -11,6 +11,8 @@ import static com.gilia.utils.Constants.KEY_ENTITIES;
 import static com.gilia.utils.Constants.KEY_NAME;
 
 /**
+ * Representation of the Disjoint object types class from the KF Metamodel
+ *
  * @author Emiliano Rios Gavagnin
  */
 public class DisjointObjectType extends DisjointnessConstraint {
