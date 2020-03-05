@@ -34,7 +34,7 @@ class RoleTest extends Specification {
         newRole.getName() == roleName
     }
 
-    void 'Role creation with name, entity, relationship and cardinality object'(){
+    void 'Role creation with name, entity, relationship and cardinality object'() {
         when:
         String roleName = "MyNewRole";
         ObjectType entity = new ObjectType("MyObjectType");
@@ -51,7 +51,7 @@ class RoleTest extends Specification {
         newRole.getCardinalityConstraints().get(0) == cardinality
     }
 
-    void 'Role creation with name, entity, relationship and cardinality objects'(){
+    void 'Role creation with name, entity, relationship and cardinality objects'() {
         when:
         String roleName = "MyNewRole";
         ObjectType entity = new ObjectType("MyObjectType");
@@ -73,7 +73,7 @@ class RoleTest extends Specification {
         newRole.getCardinalityConstraints().get(1) == secondCardinality
     }
 
-    void 'Role equal comparison'(){
+    void 'Role equal comparison'() {
         when:
         String roleName = "MyNewRole";
         ObjectType entity = new ObjectType("MyObjectType");
@@ -99,7 +99,7 @@ class RoleTest extends Specification {
         firstRole.equals(secondRole)
     }
 
-    void 'Different roles by name'(){
+    void 'Different roles by name'() {
         when:
         String roleName = "MyFirstRole";
         ObjectType entity = new ObjectType("MyObjectType");
@@ -125,7 +125,7 @@ class RoleTest extends Specification {
         !firstRole.equals(secondRole)
     }
 
-    void 'Different roles by entities'(){
+    void 'Different roles by entities'() {
         when:
         String roleName = "MyNewRole";
         ObjectType entity = new ObjectType("OneObjectType");
@@ -151,7 +151,7 @@ class RoleTest extends Specification {
         !firstRole.equals(secondRole)
     }
 
-    void 'Different roles by relationships'(){
+    void 'Different roles by relationships'() {
         when:
         String roleName = "MyNewRole";
         ObjectType entity = new ObjectType("MyObjectType");
@@ -177,7 +177,7 @@ class RoleTest extends Specification {
         !firstRole.equals(secondRole)
     }
 
-    void 'Different roles by cardinalities names'(){
+    void 'Different roles by cardinalities names'() {
         when:
         String roleName = "MyNewRole";
         ObjectType entity = new ObjectType("MyObjectType");
@@ -195,7 +195,7 @@ class RoleTest extends Specification {
         !firstRole.equals(secondRole)
     }
 
-    void 'Different roles by cardinalities'(){
+    void 'Different roles by cardinalities'() {
         when:
         String roleName = "MyNewRole";
         ObjectType entity = new ObjectType("MyObjectType");
@@ -213,7 +213,7 @@ class RoleTest extends Specification {
         !firstRole.equals(secondRole)
     }
 
-    void 'Role toJSONObject'(){
+    void 'Role toJSONObject'() {
         given:
         String roleName = "MyNewRole";
         ObjectType entity = new ObjectType("MyObjectType");
@@ -231,7 +231,7 @@ class RoleTest extends Specification {
         json.get(KEY_OBJECT_TYPE_CARDINALITY).get(0) == "MyConstraint"
     }
 
-    void 'Role toJSONObject with multiples cardinalities'(){
+    void 'Role toJSONObject with multiples cardinalities'() {
         given:
         String roleName = "MyNewRole";
         ObjectType entity = new ObjectType("MyObjectType");
