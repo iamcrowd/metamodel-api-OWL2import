@@ -3,6 +3,8 @@ package com.gilia.metamodel.constraint;
 import com.gilia.metamodel.Entity;
 
 /**
+ * Representation of the Constraint class from the KF Metamodel
+ *
  * @author Emiliano Rios Gavagnin
  */
 public class Constraint extends Entity {

@@ -62,6 +62,18 @@ $(document).ready(function () {
                         }
                     };
                 break;
+            case "ORM to Metamodel":
+                url = "http://localhost:8080/ormtometa";
+                break;
+            case "Metamodel to UML":
+                url = "http://localhost:8080/metatouml";
+                break;
+            case "Metamodel to ORM":
+                url = "http://localhost:8080/metatoorm";
+                break;
+            case "Metamodel to EER":
+                url = "http://localhost:8080/metatoeer";
+                break;
             default:
                 url = "http://localhost:3333/owlclassestometa";
                 break;

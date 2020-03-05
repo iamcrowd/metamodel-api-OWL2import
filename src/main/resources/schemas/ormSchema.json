@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "gilia.metamodel.orm",
+  "title": "ORM JSON",
+  "description": "This JSON represents the information represented by a model described in ORM modeling language",
+  "type": "object",
+  "properties": {
+    "entities": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "connectors": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "parent": {
+            "type": "string"
+          },
+          "entities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "subtypingContraint": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "relationships": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "entities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "uniquenessConstraints": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "([0-9]+|N|\\*)\\.\\.([0-9]+|N|M|\\*)"
+            }
+          },
+          "mandatory": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "attributes": {
+      "description": "",
+      "type": "array"
+    },
+    "inheritances": {
+      "description": "",
+      "type": "array"
+    }
+  },
+  "required": [
+    "entities",
+    "attributes",
+    "relationships",
+    "inheritances",
+    "connectors"
+  ]
+}

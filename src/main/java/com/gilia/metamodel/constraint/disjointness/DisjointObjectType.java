@@ -11,11 +11,13 @@ import static com.gilia.utils.Constants.KEY_ENTITIES;
 import static com.gilia.utils.Constants.KEY_NAME;
 
 /**
+ * Representation of the Disjoint object types class from the KF Metamodel
+ *
  * @author Emiliano Rios Gavagnin
  */
 public class DisjointObjectType extends DisjointnessConstraint {
 
-    protected ArrayList<ObjectType> entities; // TODO: The disjointness is between siblings, right?
+    protected ArrayList<ObjectType> entities;
 
     /**
      * @param name

@@ -122,6 +122,7 @@ public class UMLTranslator implements JSONTranslator {
                         Relationship newRelationship = new Relationship(associationName, objectsType);
                         model.addRelationship(newRelationship); // TODO: The relationship is not saving the roles
                         newRoles = identifyRoles(model, association);
+                        newRelationship.addRoles(newRoles);
                     } else {
                         throw new AlreadyExistException(ALREADY_EXIST_RELATIONSHIP_ERROR);
                     }
@@ -160,7 +161,7 @@ public class UMLTranslator implements JSONTranslator {
                 for (int i = 0; i < jsonRoles.size(); i++) {
                     String entityName = (String) jsonClasses.get(i);
                     String roleName = (String) jsonRoles.get(i);
-                    String cardinality = (String) jsonCardinalities.get(i);
+                    String cardinality = (String) jsonCardinalities.get(jsonRoles.size() - 1 - i);
 
                     // Get the entity related to this new role. It should exist already
                     ObjectType entity = (ObjectType) model.getEntity(entityName);

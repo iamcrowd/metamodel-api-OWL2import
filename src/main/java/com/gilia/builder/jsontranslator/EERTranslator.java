@@ -119,6 +119,7 @@ public class EERTranslator implements JSONTranslator {
                         Relationship newRelationship = new Relationship(relationshipName, objectsType);
                         model.addRelationship(newRelationship); // TODO: The relationship is not saving the roles
                         newRoles = identifyRoles(model, relationship);
+                        newRelationship.addRoles(newRoles);
                     } else {
                         throw new AlreadyExistException(ALREADY_EXIST_RELATIONSHIP_ERROR);
                     }

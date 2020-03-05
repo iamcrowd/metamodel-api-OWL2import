@@ -34,6 +34,7 @@ At the moment, there are two ways of trying the API out. The first one involves 
 The other way to try the API is by using the web page generated for this project. To use the web page, open `src/web/index.html` in any browser. This will display an static html page that uses the API endpoints. Note that this web page is isolated from the API itself in order to keep the definition and purpose of it. The web page consumes the API as any other client would.
 
 ## Next developments
+
 - ~~OWL Classes ⟶ Meta~~ ✔️
 - ~~OWL AllSubClasses ⟶ Meta~~ ✔️
 - ~~OWL AnSubClass given a OWL SuperClass ⟶ Meta~~ ✔️
@@ -42,8 +43,8 @@ The other way to try the API is by using the web page generated for this project
 - OWL Disjoint Axioms ❌
 - OWL Equivalence Axioms ❌
 
-*Note: Additionally, other mappings, transformations and aproximations could be considered for future developments.*
-
+*Note: Additionally, other mappings, transformations and aproximations could be considered for future developments.*  
+*Note: Model to model transformations will be trivial once the Model ⟶ Meta and Meta ⟶ Model endpoints are implemented.*
 ## Code Conventions
 - [General Naming Conventions](https://www.oracle.com/technetwork/java/codeconventions-135099.html)
 - [Naming Package Conventions](https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html)

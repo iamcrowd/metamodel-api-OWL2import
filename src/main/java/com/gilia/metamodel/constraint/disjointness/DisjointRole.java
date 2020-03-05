@@ -9,6 +9,11 @@ import java.util.Objects;
 import static com.gilia.utils.Constants.KEY_ENTITIES;
 import static com.gilia.utils.Constants.KEY_NAME;
 
+/**
+ * Representation of the Disjoint roles class from the KF Metamodel
+ *
+ * @author Emiliano Rios Gavagnin
+ */
 public class DisjointRole extends DisjointnessConstraint {
     // TODO: Although this class is similar to DisjointObjectType,
     //  the implementation will be duplicated just in case they have different information.

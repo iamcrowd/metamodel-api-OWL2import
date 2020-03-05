@@ -10,10 +10,13 @@ package com.gilia.utils;
 public class Constants {
 
     // Endpoints
-
     public static final String UML_TO_META_ROUTE = "/umltometa";
+    public static final String UML_TO_ORM_ROUTE = "/umltoorm";
+    public static final String UML_TO_EER_ROUTE = "/umltoeer";
 
     public static final String EER_TO_META_ROUTE = "/eertometa";
+    public static final String EER_TO_UML_ROUTE = "/eertouml";
+    public static final String EER_TO_ORM_ROUTE = "/eertoorm";
 
     public static final String ORM_TO_META_ROUTE = "/ormtometa";
     
@@ -27,6 +30,13 @@ public class Constants {
     
     public static final String OWL_ONE_SUBCLASS_TO_META_ROUTE = "/owlonesubstometa";
     
+    public static final String ORM_TO_UML_ROUTE = "/ormtouml";
+    public static final String ORM_TO_EER_ROUTE = "/ormtoeer";
+
+    public static final String META_TO_UML_ROUTE = "/metatouml";
+    public static final String META_TO_ORM_ROUTE = "/metatoorm";
+    public static final String META_TO_EER_ROUTE = "/metatoeer";
+
     // Schemas
 
     public static final String UML_SCHEMA_PATH = "src/main/resources/schemas/umlSchema.json";
@@ -77,6 +87,11 @@ public class Constants {
 
     public static final String STATUS_STRING = "status";
 
+    public static final String BINARY_FACT_TYPE_STRING = "binaryFactType";
+
+    public static final String SUBTYPING_STRING = "subtyping";
+
+
     // JSON Keys
 
     public static final String KEY_NAMESPACES = "namespaces";
@@ -109,6 +124,8 @@ public class Constants {
 
     public static final String KEY_ATTRIBUTES = "attributes";
 
+    public static final String KEY_INHERITANCES = "inheritances";
+
     public static final String KEY_ROLENAME = "rolename";
 
     public static final String KEY_ENTITY_TYPE = "entity type";
@@ -125,11 +142,38 @@ public class Constants {
 
     public static final String KEY_CONSTRAINT = "constraint";
 
+    public static final String KEY_CONSTRAINTS = "constraints";
+
+    public static final String KEY_CARDINALITY_CONSTRAINTS = "cardinality constraints";
+
     public static final String KEY_DISJOINTNESS_CONSTRAINT = "disjointness constraints";
 
     public static final String KEY_COMPLETENESS_CONSTRAINT = "completeness constraints";
 
+    public static final String KEY_DISJOINT_OBJECT_TYPE_CONSTRAINT = "disjoint object type";
+
     public static final String KEY_CARDINALITY = "cardinality";
+
+    public static final String KEY_OBJECT_TYPE = "object type";
+
+    public static final String KEY_UNIQUENESS_CONSTRAINT = "uniquenessConstraints";
+
+    public static final String KEY_MANDATORY = "mandatory";
+
+    public static final String KEY_MANDATORY_CONSTRAINTS = "mandatory constraints";
+
+    public static final String KEY_CONNECTORS = "connectors";
+
+    public static final String KEY_SUBTYPING_CONSTRAINT = "subtypingContraint";
+
+    public static final String KEY_ROLE_DECLARED_ON = "declared on";
+
+    /**
+     * Attributes in UML class
+     */
+    public static final String KEY_ATTRS = "attrs";
+
+    public static final String KEY_METHODS = "methods";
 
     // Regex
 
@@ -174,6 +218,12 @@ public class Constants {
     public static final String ASSOCIATION_EXPECTED_ERROR = "An association link was expected";
 
     public static final String RELATIONSHIP_EXPECTED_ERROR = "A relationship link was expected";
+
+    public static final String BINARY_FACT_TYPE_EXPECTED_ERROR = "A binary fact type link was expected";
+
+    public static final String RELATIONSHIP_DEFINITION_ERROR = "Relationship definition would be violated";
+
+    public static final String SUBSUMPTION_DEFINITION_ERROR = "Subsumption definition would be violated";
 
     // Exception Names
 

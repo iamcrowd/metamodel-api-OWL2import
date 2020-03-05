@@ -3,6 +3,7 @@ package com.gilia.metamodel.role;
 import com.gilia.exceptions.CardinalitySyntaxException;
 import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
+import com.gilia.metamodel.constraint.mandatory.Mandatory;
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.relationship.Relationship;
 import org.json.simple.JSONArray;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.gilia.utils.Constants.*;
+import static com.gilia.utils.Utils.getAlphaNumericString;
 
 /**
  * Representation of the Role class from the KF Metamodel
@@ -23,6 +25,7 @@ public class Role extends Entity {
     private EntityType entity;
     private Relationship relationship;
     private ArrayList<ObjectTypeCardinality> cardinalityConstraints;
+    private Mandatory mandatoryConstraint;
 
     /**
      * Creates a basic instance of a Role. It will be created without information. The only information generated will be an id.
@@ -70,11 +73,7 @@ public class Role extends Entity {
      * @see com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality
      */
     public Role(String name, EntityType entity, Relationship relationship, ObjectTypeCardinality cardinalityObject) {
-        super(name);
-        this.entity = entity;
-        this.relationship = relationship;
-        this.cardinalityConstraints = new ArrayList<ObjectTypeCardinality>();
-        cardinalityConstraints.add(cardinalityObject);
+        this(name, entity, relationship, cardinalityObject, null);
     }
 
     /**
@@ -88,10 +87,68 @@ public class Role extends Entity {
      * @see com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality
      */
     public Role(String name, EntityType entity, Relationship relationship, ArrayList<ObjectTypeCardinality> cardinalities) {
+        this(name, entity, relationship, cardinalities, null);
+    }
+
+    /**
+     * Creates an instance of a Role with a Mandatory constraint. This constructor receives a ObjectTypeCardinality object that represents the constraint imposed by
+     * the cardinality.
+     *
+     * @param name                String that represents the name of the role
+     * @param entity              EntityType object associated to the role to be created
+     * @param relationship        Relationship object associated to the role to be created
+     * @param cardinalityObject   ObjectTypeCardinality object that represents the cardinality constraint for the role to be created
+     * @param mandatoryConstraint Mandatory object that constraints the role
+     * @see com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality
+     */
+    public Role(String name, EntityType entity, Relationship relationship, ObjectTypeCardinality cardinalityObject, Mandatory mandatoryConstraint) {
+        super(name);
+        this.entity = entity;
+        this.relationship = relationship;
+        this.cardinalityConstraints = new ArrayList<ObjectTypeCardinality>();
+        try {
+            if (mandatoryConstraint != null && Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
+                cardinalityObject.setMinCardinality("1");
+            } else if (mandatoryConstraint == null && Integer.parseInt(cardinalityObject.getMinCardinality()) >= 1) {
+                mandatoryConstraint = new Mandatory("mandatory" + getAlphaNumericString(4), this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        cardinalityConstraints.add(cardinalityObject);
+        this.mandatoryConstraint = mandatoryConstraint;
+    }
+
+    /**
+     * Creates an instance of a Role with a Mandatory constraint. This constructor receives a ObjectTypeCardinality object that represents the constraint imposed by
+     * the cardinality.
+     *
+     * @param name                String that represents the name of the role
+     * @param entity              EntityType object associated to the role to be created
+     * @param relationship        Relationship object associated to the role to be created
+     * @param cardinalities       ArrayList of ObjectTypeCardinality object that represents the cardinalities constraints for the role to be created
+     * @param mandatoryConstraint Mandatory object that constraints the role
+     * @see com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality
+     */
+    public Role(String name, EntityType entity, Relationship relationship, ArrayList<ObjectTypeCardinality> cardinalities, Mandatory mandatoryConstraint) {
         super(name);
         this.entity = entity;
         this.relationship = relationship;
         this.cardinalityConstraints = cardinalities;
+        try {
+            if (mandatoryConstraint != null) {
+                for (ObjectTypeCardinality cardinalityObject : cardinalities) {
+                    if (mandatoryConstraint != null && Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
+                        cardinalityObject.setMinCardinality("1");
+                    } else if (mandatoryConstraint == null && Integer.parseInt(cardinalityObject.getMinCardinality()) >= 1) {
+                        mandatoryConstraint = new Mandatory("mandatory" + getAlphaNumericString(4), this);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.mandatoryConstraint = mandatoryConstraint;
     }
 
     public EntityType getEntity() {
@@ -118,6 +175,27 @@ public class Role extends Entity {
         this.cardinalityConstraints = cardinalityConstraint;
     }
 
+    public Mandatory getMandatoryConstraint() {
+        return mandatoryConstraint;
+    }
+
+    public void setMandatoryConstraint(Mandatory mandatoryConstraint) {
+        try {
+            if (mandatoryConstraint != null) {
+                for (ObjectTypeCardinality cardinalityObject : this.cardinalityConstraints) {
+                    if (mandatoryConstraint != null && Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
+                        cardinalityObject.setMinCardinality("1");
+                    } else if (mandatoryConstraint == null && Integer.parseInt(cardinalityObject.getMinCardinality()) >= 1) {
+                        mandatoryConstraint = new Mandatory("mandatory" + getAlphaNumericString(4), this);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.mandatoryConstraint = mandatoryConstraint;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -137,8 +215,8 @@ public class Role extends Entity {
     @Override
     public String toString() {
         return "Role{" +
-                "entity=" + entity +
-                ", relationship=" + relationship +
+                "entity=" + entity.getName() +
+                ", relationship=" + relationship.getName() +
                 ", cardinalityConstraint=" + cardinalityConstraints +
                 ", id='" + id + '\'' +
                 ", name='" + name + '\'' +
@@ -174,7 +252,9 @@ public class Role extends Entity {
         role.put(RELATIONSHIP_STRING, relationship.getName());
         role.put(KEY_ENTITY_TYPE, entity.getName());
         role.put(KEY_OBJECT_TYPE_CARDINALITY, cardinalities);
-
+        if (mandatoryConstraint != null) {
+            role.put(KEY_MANDATORY, mandatoryConstraint.getName());
+        }
         return role;
     }
 }
