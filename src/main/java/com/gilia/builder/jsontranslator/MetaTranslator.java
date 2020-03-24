@@ -69,7 +69,7 @@ public class MetaTranslator implements JSONTranslator {
             ArrayList newObjectsType = new ArrayList();
             for (Object metaObjectType : jsonObjectTypes) {
                 String entityName = (String) metaObjectType;
-                if (model.checkEntityExistence(entityName) == null) {
+                if (model.getEntity(entityName) == null) {
                     ObjectType newObjectType = new ObjectType(entityName);
                     newObjectsType.add(newObjectType);
                 } else {
@@ -98,7 +98,7 @@ public class MetaTranslator implements JSONTranslator {
                 ArrayList objectTypesInvolved = new ArrayList();
                 for (Object entity : entities) {
                     String entityName = (String) entity;
-                    ObjectType entityInvolved = (ObjectType) model.checkEntityExistence(entityName);
+                    ObjectType entityInvolved = (ObjectType) model.getEntity(entityName);
                     if (entityInvolved != null) {
                         objectTypesInvolved.add(entityInvolved);
                     } else {
@@ -171,7 +171,7 @@ public class MetaTranslator implements JSONTranslator {
                 ArrayList objectTypesInvolved = new ArrayList();
                 for (Object entity : entities) {
                     String entityName = (String) entity;
-                    ObjectType objectType = (ObjectType) model.checkEntityExistence(entityName);
+                    ObjectType objectType = (ObjectType) model.getEntity(entityName);
                     if (objectType != null) {
                         objectTypesInvolved.add(objectType);
                     } else {
@@ -193,7 +193,7 @@ public class MetaTranslator implements JSONTranslator {
                 ArrayList objectTypesInvolved = new ArrayList();
                 for (Object entity : entities) {
                     String entityName = (String) entity;
-                    ObjectType objectType = (ObjectType) model.checkEntityExistence(entityName);
+                    ObjectType objectType = (ObjectType) model.getEntity(entityName);
                     if (objectType != null) {
                         objectTypesInvolved.add(objectType);
                     } else {
@@ -216,8 +216,8 @@ public class MetaTranslator implements JSONTranslator {
                 JSONArray cardinalities = (JSONArray) jsonRole.get(KEY_OBJECT_TYPE_CARDINALITY);
                 String mandatory = (String) jsonRole.get(KEY_MANDATORY);
 
-                Relationship relationshipInvolved = (Relationship) model.checkEntityExistence(relationshipName);
-                EntityType entityInvolved = (EntityType) model.checkEntityExistence(entityName);
+                Relationship relationshipInvolved = (Relationship) model.getEntity(relationshipName);
+                EntityType entityInvolved = (EntityType) model.getEntity(entityName);
 
                 if (relationshipInvolved == null || entityInvolved == null) {
                     throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
@@ -226,7 +226,7 @@ public class MetaTranslator implements JSONTranslator {
                 ArrayList cardinalitiesInvolved = new ArrayList();
                 for (Object cardinality : cardinalities) {
                     String cardinalityName = (String) cardinality;
-                    ObjectTypeCardinality cardinalityInvolved = (ObjectTypeCardinality) model.checkEntityExistence(cardinalityName);
+                    ObjectTypeCardinality cardinalityInvolved = (ObjectTypeCardinality) model.getEntity(cardinalityName);
                     if (cardinalityInvolved != null) {
                         cardinalitiesInvolved.add(cardinalityInvolved);
                     } else {
@@ -236,7 +236,7 @@ public class MetaTranslator implements JSONTranslator {
 
                 Mandatory mandatoryInvolved = null;
                 if (mandatory != null) {
-                    mandatoryInvolved = (Mandatory) model.checkEntityExistence(mandatory);
+                    mandatoryInvolved = (Mandatory) model.getEntity(mandatory);
                 }
                 Role newRole = new Role(roleName, entityInvolved, relationshipInvolved, cardinalitiesInvolved, mandatoryInvolved);
                 relationshipInvolved.addRole(newRole);
@@ -259,8 +259,8 @@ public class MetaTranslator implements JSONTranslator {
                 String disjointnessName = (String) ((JSONObject) metaSubsumption).get(KEY_DISJOINTNESS_CONSTRAINT);
                 String completenessName = (String) ((JSONObject) metaSubsumption).get(KEY_COMPLETENESS_CONSTRAINT);
 
-                ObjectType parentInvolved = (ObjectType) model.checkEntityExistence(parentName);
-                ObjectType childInvolved = (ObjectType) model.checkEntityExistence(childName);
+                ObjectType parentInvolved = (ObjectType) model.getEntity(parentName);
+                ObjectType childInvolved = (ObjectType) model.getEntity(childName);
 
                 if (parentInvolved == null || childInvolved == null) {
                     throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
@@ -268,14 +268,14 @@ public class MetaTranslator implements JSONTranslator {
 
                 ArrayList constraintsInvolved = new ArrayList();
                 if (disjointnessName != null) {
-                    DisjointObjectType disjointnessConstraint = (DisjointObjectType) model.checkEntityExistence(disjointnessName);
+                    DisjointObjectType disjointnessConstraint = (DisjointObjectType) model.getEntity(disjointnessName);
                     if (disjointnessConstraint == null) {
                         throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
                     }
                     constraintsInvolved.add(disjointnessConstraint);
                 }
                 if (completenessName != null) {
-                    CompletenessConstraint completenessConstraint = (CompletenessConstraint) model.checkEntityExistence(completenessName);
+                    CompletenessConstraint completenessConstraint = (CompletenessConstraint) model.getEntity(completenessName);
                     if (completenessConstraint == null) {
                         throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
                     }

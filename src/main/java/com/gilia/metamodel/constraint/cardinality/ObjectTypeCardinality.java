@@ -173,5 +173,24 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
         return minCardinalityValue <= maxCardinalityValue;
     }
 
+    /**
+     * Checks if the constraint is mandatory, i.e, the min cardinality is greater than 0
+     *
+     * @return Boolean indicating if the constraint is mandatory
+     */
+    public boolean isMandatory() {
+        int minCardinalityValue;
+        if (minCardinality.equals("*")) {
+            minCardinalityValue = Integer.MAX_VALUE;
+        } else {
+            try {
+                minCardinalityValue = Integer.valueOf(minCardinality);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return minCardinalityValue > 0;
+    }
+
 
 }

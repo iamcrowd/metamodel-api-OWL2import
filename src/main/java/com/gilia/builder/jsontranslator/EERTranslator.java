@@ -62,7 +62,7 @@ public class EERTranslator implements JSONTranslator {
             ArrayList newObjectsType = new ArrayList();
             for (Object eerEntity : jsonEntities) {
                 String entityName = (String) ((JSONObject) eerEntity).get(KEY_NAME);
-                if (model.checkEntityExistence(entityName) == null) {
+                if (model.getEntity(entityName) == null) {
                     ObjectType newObjectType = new ObjectType(entityName);
                     newObjectsType.add(newObjectType);
                 } else {
@@ -94,13 +94,13 @@ public class EERTranslator implements JSONTranslator {
                 if (type.equals(RELATIONSHIP_STRING)) {
                     JSONObject relationship = (JSONObject) eerLink;
                     String relationshipName = (String) relationship.get(KEY_NAME);
-                    if (model.checkEntityExistence(relationshipName) == null) {
+                    if (model.getEntity(relationshipName) == null) {
                         // Check the existence of the entities involved and add the entities not present in the metamodel
                         JSONArray entities = (JSONArray) relationship.get(KEY_ENTITIES); // TODO: Check size of classes
                         ArrayList objectsType = new ArrayList();
                         for (Object jsonEntity : entities) {
                             String entityName = (String) jsonEntity;
-                            Entity entityFound = model.checkEntityExistence(entityName);
+                            Entity entityFound = model.getEntity(entityName);
                             if (entityFound != null) {
                                 if (entityFound.getClass().equals(ObjectType.class)) {
                                     objectsType.add(entityFound);
@@ -161,7 +161,7 @@ public class EERTranslator implements JSONTranslator {
                     String cardinality = (String) jsonCardinalities.get(i);
 
                     // Get the entity related to this new role. It should exist already
-                    ObjectType entity = (ObjectType) model.getEntity(entityName);
+                    ObjectType entity = (ObjectType) model.getEntityType(entityName);
                     // TODO: Change this to checkEntityExistence
                     if (entity.isNameless()) { // If the entity returned is nameless, then it does not exist or is not valid.
                         throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
@@ -212,7 +212,7 @@ public class EERTranslator implements JSONTranslator {
                 // Check the existence of the parent in the generalization
                 ObjectType parent;
                 String parentName = (String) isa.get(KEY_PARENT); // TODO: Check case of "undefined"
-                Entity entityFound = model.checkEntityExistence(parentName);
+                Entity entityFound = model.getEntity(parentName);
                 if (entityFound != null) {
                     if (entityFound.getClass().equals(ObjectType.class)) {
                         parent = (ObjectType) entityFound;
@@ -232,7 +232,7 @@ public class EERTranslator implements JSONTranslator {
                 ArrayList objectsType = new ArrayList();
                 for (Object jsonClass : classes) {
                     String className = (String) jsonClass;
-                    entityFound = model.checkEntityExistence(className);
+                    entityFound = model.getEntity(className);
                     if (entityFound != null) {
                         if (entityFound.getClass().equals(ObjectType.class)) {
                             objectsType.add(entityFound);
