@@ -180,6 +180,11 @@ public class EERTranslator implements JSONTranslator {
                     model.addConstraint(newCardinalityConstraint);
 
                     Role newRole = new Role(roleName, entity, relationship, newCardinalityConstraint);
+
+                    if (newRole.isMandatory() && !model.doesEntityExists(newRole.getMandatoryConstraint().getName())) {
+                        model.addConstraint(newRole.getMandatoryConstraint());
+                    }
+
                     newRoles.add(newRole);
                 }
             } else {
