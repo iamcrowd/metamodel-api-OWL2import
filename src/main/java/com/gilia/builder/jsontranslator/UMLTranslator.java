@@ -17,7 +17,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import static com.gilia.utils.Constants.*;
 import static com.gilia.utils.Utils.getAlphaNumericString;
@@ -65,7 +64,7 @@ public class UMLTranslator implements JSONTranslator {
             ArrayList newObjectsType = new ArrayList();
             for (Object umlClass : jsonClasses) {
                 String entityName = (String) ((JSONObject) umlClass).get(KEY_NAME);
-                if (model.checkEntityExistence(entityName) == null) {
+                if (model.getEntity(entityName) == null) {
                     ObjectType newObjectType = new ObjectType(entityName);
                     newObjectsType.add(newObjectType);
                 } else {
@@ -97,13 +96,13 @@ public class UMLTranslator implements JSONTranslator {
                 if (type.equals(KEY_ASSOCIATION)) {
                     JSONObject association = (JSONObject) umlLink;
                     String associationName = (String) association.get(KEY_NAME);
-                    if (model.checkEntityExistence(associationName) == null) {
+                    if (model.getEntity(associationName) == null) {
                         // Check the existence of the entities involved and add the entities not present in the metamodel
                         JSONArray classes = (JSONArray) association.get(KEY_CLASSES); // TODO: Check size of classes
                         ArrayList objectsType = new ArrayList();
                         for (Object jsonClass : classes) {
                             String className = (String) jsonClass;
-                            Entity entityFound = model.checkEntityExistence(className);
+                            Entity entityFound = model.getEntity(className);
                             if (entityFound != null) {
                                 if (entityFound.getClass().equals(ObjectType.class)) {
                                     objectsType.add(entityFound);
@@ -164,7 +163,7 @@ public class UMLTranslator implements JSONTranslator {
                     String cardinality = (String) jsonCardinalities.get(jsonRoles.size() - 1 - i);
 
                     // Get the entity related to this new role. It should exist already
-                    ObjectType entity = (ObjectType) model.getEntity(entityName);
+                    ObjectType entity = (ObjectType) model.getEntityType(entityName);
                     // TODO: Change this to checkEntityExistence
                     if (entity.isNameless()) { // If the entity returned is nameless, then it does not exist or is not valid.
                         throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
@@ -183,6 +182,11 @@ public class UMLTranslator implements JSONTranslator {
                     model.addConstraint(newCardinalityConstraint);
 
                     Role newRole = new Role(roleName, entity, relationship, newCardinalityConstraint);
+
+                    if (newRole.isMandatory() && !model.doesEntityExists(newRole.getMandatoryConstraint().getName())) {
+                        model.addConstraint(newRole.getMandatoryConstraint());
+                    }
+
                     newRoles.add(newRole);
                 }
             } else {
@@ -216,7 +220,7 @@ public class UMLTranslator implements JSONTranslator {
                 // Check the existence of the parent in the generalization
                 ObjectType parent;
                 String parentName = (String) subclass.get(KEY_PARENT);
-                Entity entityFound = model.checkEntityExistence(parentName);
+                Entity entityFound = model.getEntity(parentName);
                 if (entityFound != null) {
                     if (entityFound.getClass().equals(ObjectType.class)) {
                         parent = (ObjectType) entityFound;
@@ -236,7 +240,7 @@ public class UMLTranslator implements JSONTranslator {
                 ArrayList objectsType = new ArrayList();
                 for (Object jsonClass : classes) {
                     String className = (String) jsonClass;
-                    entityFound = model.checkEntityExistence(className);
+                    entityFound = model.getEntity(className);
                     if (entityFound != null) {
                         if (entityFound.getClass().equals(ObjectType.class)) {
                             objectsType.add(entityFound);
@@ -265,7 +269,7 @@ public class UMLTranslator implements JSONTranslator {
                     }
                 }
 
-                for (Object entity : objectsType){
+                for (Object entity : objectsType) {
                     Subsumption newSubsumption = new Subsumption(subclassRelationshipName + "_" + getAlphaNumericString(RANDOM_STRING_LENGTH), parent, (ObjectType) entity, completenessConstraint, disjointObjectType);
                     newSubsumptions.add(newSubsumption);
                 }

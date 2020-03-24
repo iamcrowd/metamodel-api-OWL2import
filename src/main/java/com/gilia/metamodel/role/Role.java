@@ -196,6 +196,15 @@ public class Role extends Entity {
         this.mandatoryConstraint = mandatoryConstraint;
     }
 
+    /**
+     * Checks if the constraint is mandatory, i.e, the min cardinality is greater than 0
+     *
+     * @return Boolean indicating if the constraint is mandatory
+     */
+    public boolean isMandatory() {
+        return mandatoryConstraint != null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

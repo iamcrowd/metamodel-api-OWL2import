@@ -156,7 +156,7 @@ public class Metamodel {
      * @param name String that represents the entity name
      * @return EntityType object that has the given name or a new ObjectType object if there is no match
      */
-    public EntityType getEntity(String name) {
+    public EntityType getEntityType(String name) {
         for (EntityType entity : entities) {
             if (entity.getName().equals(name)) {
                 return entity;
@@ -189,7 +189,7 @@ public class Metamodel {
      * @param entityName An entity name to be looked for
      * @return An EntityType, Relationship, Role or Constraint object of the given entityName if it exists in the metamodel. Otherwise returns null.
      */
-    public Entity checkEntityExistence(String entityName) {
+    public Entity getEntity(String entityName) {
         for (EntityType entity : entities) {
             if (entity.getName().equals(entityName)) {
                 return entity;
@@ -215,6 +215,10 @@ public class Metamodel {
         }
 
         return null;
+    }
+
+    public boolean doesEntityExists(String name) {
+        return getEntity(name) != null;
     }
 
     @Override

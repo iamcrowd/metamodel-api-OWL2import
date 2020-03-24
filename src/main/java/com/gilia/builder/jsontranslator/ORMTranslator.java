@@ -2,7 +2,6 @@ package com.gilia.builder.jsontranslator;
 
 import com.gilia.exceptions.AlreadyExistException;
 import com.gilia.exceptions.EntityNotValidException;
-import com.gilia.exceptions.InconsistentModelInformationException;
 import com.gilia.exceptions.InformationNotFoundException;
 import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.Metamodel;
@@ -62,7 +61,7 @@ public class ORMTranslator implements JSONTranslator {
             for (Object ormEntity : jsonEntities) {
                 String entityName = (String) ((JSONObject) ormEntity).get(KEY_NAME);
                 String entityType = (String) ((JSONObject) ormEntity).get(KEY_TYPE);
-                if (entityType.equals(ENTITY_STRING) && model.checkEntityExistence(entityName) == null) {
+                if (entityType.equals(ENTITY_STRING) && model.getEntity(entityName) == null) {
                     ObjectType newObjectType = new ObjectType(entityName);
                     newObjectsType.add(newObjectType);
                 } else {
@@ -87,13 +86,13 @@ public class ORMTranslator implements JSONTranslator {
                 if (type.equals(BINARY_FACT_TYPE_STRING)) {
                     JSONObject binaryFactType = (JSONObject) ormLink;
                     String binaryFactTypeName = (String) binaryFactType.get(KEY_NAME);
-                    if (model.checkEntityExistence(binaryFactTypeName) == null) {
+                    if (model.getEntity(binaryFactTypeName) == null) {
                         // Check the existence of the entities involved and add the entities not present in the metamodel
                         JSONArray classes = (JSONArray) binaryFactType.get(KEY_ENTITIES); // TODO: Check size of classes
                         ArrayList objectsType = new ArrayList();
                         for (Object jsonClass : classes) {
                             String className = (String) jsonClass;
-                            Entity entityFound = model.checkEntityExistence(className);
+                            Entity entityFound = model.getEntity(className);
                             if (entityFound != null) {
                                 if (entityFound.getClass().equals(ObjectType.class)) {
                                     objectsType.add(entityFound);
@@ -154,13 +153,13 @@ public class ORMTranslator implements JSONTranslator {
                     boolean isMandatory = jsonMandatory.contains(entityName);
 
                     // Get the entity related to this new role. It should exist already
-                    ObjectType entity = (ObjectType) model.checkEntityExistence(entityName);
+                    ObjectType entity = (ObjectType) model.getEntity(entityName);
                     if (entity == null) {
                         throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
                     }
 
                     // Get the relationship related to this new role. It should exist already
-                    Relationship relationship = (Relationship) model.checkEntityExistence(binaryFactTypeName);
+                    Relationship relationship = (Relationship) model.getEntity(binaryFactTypeName);
                     if (relationship == null) {
                         throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
                     }
@@ -210,7 +209,7 @@ public class ORMTranslator implements JSONTranslator {
                 // Check the existence of the parent in the generalization
                 Entity parent;
                 String parentName = (String) subclass.get(KEY_PARENT);
-                Entity entityFound = model.checkEntityExistence(parentName);
+                Entity entityFound = model.getEntity(parentName);
                 if (entityFound != null) {
                     if (entityFound.getClass().equals(ObjectType.class)) {
                         parent = entityFound;
@@ -229,7 +228,7 @@ public class ORMTranslator implements JSONTranslator {
                 ArrayList metamodelEntities = new ArrayList();
                 for (Object jsonClass : entities) {
                     String className = (String) jsonClass;
-                    entityFound = model.checkEntityExistence(className);
+                    entityFound = model.getEntity(className);
                     if (entityFound != null) {
                         if (entityFound.getClass().equals(ObjectType.class)) { // TODO: Check this
                             metamodelEntities.add(entityFound);
