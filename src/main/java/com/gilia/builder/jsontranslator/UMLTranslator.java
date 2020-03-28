@@ -9,9 +9,11 @@ import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
+import com.gilia.metamodel.entitytype.DataType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
+import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
 import com.gilia.metamodel.role.Role;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -67,6 +69,7 @@ public class UMLTranslator implements JSONTranslator {
                 if (model.getEntity(entityName) == null) {
                     ObjectType newObjectType = new ObjectType(entityName);
                     newObjectsType.add(newObjectType);
+                    identifyAttributes(model, newObjectType, (JSONObject) umlClass);
                 } else {
                     throw new AlreadyExistException(ALREADY_EXIST_ENTITY_ERROR);
                 }
@@ -74,6 +77,28 @@ public class UMLTranslator implements JSONTranslator {
             model.addEntities(newObjectsType);
         } else {
             throw new InformationNotFoundException(ENTITIES_INFORMATION_NOT_FOUND_ERROR);
+        }
+    }
+
+    private void identifyAttributes(Metamodel model, ObjectType objectType, JSONObject umlClass) {
+        if (umlClass != null) {
+            JSONArray attributes = (JSONArray) umlClass.get(KEY_ATTRS);
+            for (Object umlAttr : attributes) {
+                JSONObject umlAttrJSON = (JSONObject) umlAttr;
+                String name = (String) umlAttrJSON.get(KEY_NAME);
+                String type = (String) umlAttrJSON.get(KEY_UML_DATATYPE);
+                ArrayList domain = new ArrayList();
+                domain.add(objectType);
+
+                Entity datatype = model.getEntity(type);
+                if (datatype == null || datatype.getClass() != DataType.class) {
+                    datatype = new DataType(type);
+                    model.addEntity((DataType) datatype);
+                }
+
+                AttributiveProperty attributiveProperty = new AttributiveProperty(name, domain, (DataType) datatype);
+                model.addRelationship(attributiveProperty);
+            }
         }
     }
 

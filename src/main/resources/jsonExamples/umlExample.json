@@ -20,7 +20,20 @@
     },
     {
       "name": "http://crowd.fi.uncoma.edu.ar#Golden",
-      "attrs": [],
+      "attrs": [
+        {
+          "name": "http://crowd.fi.uncoma.edu.ar#Name",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string"
+        },
+        {
+          "name": "http://crowd.fi.uncoma.edu.ar#Age",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer"
+        },
+        {
+          "name": "http://crowd.fi.uncoma.edu.ar#Size",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string"
+        }
+      ],
       "methods": [],
       "position": {
         "x": 706,

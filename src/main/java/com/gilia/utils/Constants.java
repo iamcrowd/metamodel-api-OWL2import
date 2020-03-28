@@ -80,6 +80,8 @@ public class Constants {
 
     public static final String SUBTYPING_STRING = "subtyping";
 
+    public static final String UNDEFINED_STRING = "undefined";
+
 
     // JSON Keys
 
@@ -157,12 +159,25 @@ public class Constants {
 
     public static final String KEY_ROLE_DECLARED_ON = "declared on";
 
+    public static final String KEY_DOMAIN = "domain";
+
+    public static final String KEY_RANGE = "range";
+
+
+
     /**
      * Attributes in UML class
      */
     public static final String KEY_ATTRS = "attrs";
 
     public static final String KEY_METHODS = "methods";
+
+    public static final String KEY_UML_DATATYPE = "datatype";
+
+    /**
+     * Attributes in EER class
+     */
+    public static final String KEY_ATTRIBUTE = "attribute";
 
     // Regex
 
