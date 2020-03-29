@@ -62,7 +62,7 @@ public class MetaConverter implements MetaBuilder {
             if (Subsumption.class.equals(relation.getClass())) {
                 subsumptionsJSONArray.add(((Subsumption) relation).toJSONObject());
             } else if (AttributiveProperty.class.equals(relation.getClass())) {
-                // TODO: Implement class
+                attributePropertiesJSONArray.add(((AttributiveProperty) relation).toJSONObject());
             } else if (Relationship.class.equals(relation.getClass())) {
                 relationshipsJSONArray.add(((Relationship) relation).toJSONObject());
             }
