@@ -54,6 +54,8 @@ public class Constants {
 
     public static final String SUBSUMPTION_STRING = "subsumption";
 
+    public static final String ATTRIBUTIVE_PROPERTY_STRING = "attributive property";
+
     public static final String ROLE_STRING = "role";
 
     public static final String ISA_STRING = "isa";

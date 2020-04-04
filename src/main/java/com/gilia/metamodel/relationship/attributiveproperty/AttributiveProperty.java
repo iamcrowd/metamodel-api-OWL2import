@@ -41,6 +41,10 @@ public class AttributiveProperty extends Relationship {
         this.domain = domain;
     }
 
+    public void addDomain(ObjectType newDomain) {
+        this.domain.add(newDomain);
+    }
+
     public DataType getRange() {
         return range;
     }

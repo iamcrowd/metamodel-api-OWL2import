@@ -85,10 +85,8 @@ public class UMLTranslator implements JSONTranslator {
             JSONArray attributes = (JSONArray) umlClass.get(KEY_ATTRS);
             for (Object umlAttr : attributes) {
                 JSONObject umlAttrJSON = (JSONObject) umlAttr;
-                String name = (String) umlAttrJSON.get(KEY_NAME);
+                String attributeName = (String) umlAttrJSON.get(KEY_NAME);
                 String type = (String) umlAttrJSON.get(KEY_UML_DATATYPE);
-                ArrayList domain = new ArrayList();
-                domain.add(objectType);
 
                 Entity datatype = model.getEntity(type);
                 if (datatype == null || datatype.getClass() != DataType.class) {
@@ -96,8 +94,19 @@ public class UMLTranslator implements JSONTranslator {
                     model.addEntity((DataType) datatype);
                 }
 
-                AttributiveProperty attributiveProperty = new AttributiveProperty(name, domain, (DataType) datatype);
-                model.addRelationship(attributiveProperty);
+                // Checks if the attributive property already exists.
+                // If it exists, then a domain is added. Otherwise is created.
+                Entity attributiveProperty = model.getEntity(attributeName);
+                if (attributiveProperty == null || attributiveProperty.getClass() != AttributiveProperty.class || !((AttributiveProperty) attributiveProperty).getRange().equals(datatype)) {
+                    ArrayList domain = new ArrayList();
+                    domain.add(objectType);
+
+                    attributiveProperty = new AttributiveProperty(attributeName, domain, (DataType) datatype);
+                    model.addRelationship((AttributiveProperty) attributiveProperty);
+                } else if (attributiveProperty != null && attributiveProperty.getClass() == AttributiveProperty.class && ((AttributiveProperty) attributiveProperty).getRange().equals(datatype)) {
+                    ((AttributiveProperty) attributiveProperty).addDomain((ObjectType) objectType);
+                }
+
             }
         }
     }

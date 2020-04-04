@@ -72,7 +72,7 @@ public class MetaConverter implements MetaBuilder {
 
         relationship.put("Subsumption", subsumptionsJSONArray);
         relationship.put("Relationship", relationshipsJSONArray);
-        relationship.put("Attributive Property", attributePropertiesJSONArray);
+        relationship.put("Attributive property", attributePropertiesJSONArray);
 
         jsonMetamodel.put("Relationship", relationship);
 
