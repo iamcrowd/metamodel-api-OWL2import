@@ -8,13 +8,13 @@ import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
+import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.gilia.utils.Constants.KEY_CLASSES;
-import static com.gilia.utils.Constants.KEY_LINKS;
+import static com.gilia.utils.Constants.*;
 
 public class UMLConverter implements MetaBuilder {
 
@@ -26,10 +26,23 @@ public class UMLConverter implements MetaBuilder {
         ArrayList<EntityType> entities = metamodel.getEntities();
         ArrayList<Relationship> relationships = metamodel.getRelationships();
 
+
         // Classes
         JSONArray jsonClasses = new JSONArray();
         for (Object entity : entities) {
-            jsonClasses.add(((ObjectType) entity).toUML()); // With more entities implementation, this may change
+            if (entity.getClass() == ObjectType.class) {
+                JSONObject json = ((ObjectType) entity).toUML();
+                JSONArray attributes = new JSONArray();
+                for (Object attributiveProperty : relationships) {
+                    if (attributiveProperty.getClass() == AttributiveProperty.class) {
+                        if (((AttributiveProperty) attributiveProperty).getDomain().contains(entity)) {
+                            attributes.add(((AttributiveProperty) attributiveProperty).toUML());
+                        }
+                    }
+                }
+                json.replace(KEY_ATTRS, attributes);
+                jsonClasses.add(json); // With more entities implementation, this may change
+            }
         }
 
         // Links
