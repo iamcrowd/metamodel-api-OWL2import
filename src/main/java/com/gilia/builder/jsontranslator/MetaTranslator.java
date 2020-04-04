@@ -3,15 +3,18 @@ package com.gilia.builder.jsontranslator;
 import com.gilia.exceptions.AlreadyExistException;
 import com.gilia.exceptions.EntityNotValidException;
 import com.gilia.exceptions.InformationNotFoundException;
+import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
 import com.gilia.metamodel.constraint.mandatory.Mandatory;
+import com.gilia.metamodel.entitytype.DataType;
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
+import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
 import com.gilia.metamodel.role.Role;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
@@ -43,6 +46,7 @@ public class MetaTranslator implements JSONTranslator {
         JSONObject jsonRelationships = (JSONObject) json.get(StringUtils.capitalize(RELATIONSHIP_STRING));
         JSONArray jsonBinaryRelationships = (JSONArray) jsonRelationships.get(StringUtils.capitalize(RELATIONSHIP_STRING));
         JSONArray jsonSubsumptions = (JSONArray) jsonRelationships.get(StringUtils.capitalize(SUBSUMPTION_STRING));
+        JSONArray jsonAttributes = (JSONArray) jsonRelationships.get(StringUtils.capitalize(ATTRIBUTIVE_PROPERTY_STRING));
 
         JSONArray jsonRoles = (JSONArray) json.get(StringUtils.capitalize(ROLE_STRING));
         JSONObject jsonConstraints = (JSONObject) json.get(StringUtils.capitalize(KEY_CONSTRAINTS));
@@ -53,6 +57,7 @@ public class MetaTranslator implements JSONTranslator {
         identifyConstraints(newMetamodel, jsonConstraints);
         identifyRoles(newMetamodel, jsonRoles);
         identifySubclasses(newMetamodel, jsonSubsumptions);
+        identifyAttributes(newMetamodel, jsonAttributes);
 
         return newMetamodel;
     }
@@ -284,6 +289,39 @@ public class MetaTranslator implements JSONTranslator {
 
                 Subsumption newSubsumption = new Subsumption(subsumptionName, parentInvolved, childInvolved, constraintsInvolved);
                 model.addRelationship(newSubsumption);
+            }
+        } else {
+            throw new InformationNotFoundException(RELATIONSHIPS_INFORMATION_NOT_FOUND_ERROR);
+        }
+    }
+
+    private void identifyAttributes(Metamodel model, JSONArray jsonAttributes) {
+        if (jsonAttributes != null) {
+            for (Object metaAttributiveProperty : jsonAttributes) {
+                String attributivePropertyName = (String) ((JSONObject) metaAttributiveProperty).get(KEY_NAME);
+                String range = (String) ((JSONObject) metaAttributiveProperty).get(KEY_RANGE);
+                JSONArray domain = (JSONArray) ((JSONObject) metaAttributiveProperty).get(KEY_DOMAIN);
+                ArrayList entitiesInvolved = new ArrayList();
+                for (Object entity : domain) {
+                    String entityName = (String) entity;
+                    Entity entityInvolved = (Entity) model.getEntity(entityName);
+                    if (entityInvolved != null) {
+                        entitiesInvolved.add(entityInvolved);
+                    } else {
+                        throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                    }
+                }
+
+                Entity dataType = model.getEntity(range);
+                if (dataType == null) {
+                    dataType = new DataType(range);
+                    model.addEntity((EntityType) dataType);
+                } else if (dataType.getClass() != DataType.class) {
+                    throw new EntityNotValidException("");
+                }
+
+                AttributiveProperty attributiveProperty = new AttributiveProperty(attributivePropertyName, entitiesInvolved, (DataType) dataType);
+                model.addRelationship(attributiveProperty);
             }
         } else {
             throw new InformationNotFoundException(RELATIONSHIPS_INFORMATION_NOT_FOUND_ERROR);
