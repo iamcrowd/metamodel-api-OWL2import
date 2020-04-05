@@ -107,15 +107,54 @@ public class AttributiveProperty extends Relationship {
         return attribute;
     }
 
-    public JSONObject toEER() {
-        JSONObject attribute = new JSONObject();
-        JSONArray entitiesJSON = new JSONArray();
+
+    /**
+     * Returns the attributes links according to the EER schema. Note that this
+     * method returns a list of attributes due to the fact that an attributive property
+     * may have many domains, therefore, many links.
+     *
+     * @return
+     */
+    public List<JSONObject> toEERLinks() {
+        List<JSONObject> attributes = new ArrayList<>();
 
         for (Object entity : domain) {
-            entitiesJSON.add(((ObjectType) entity).getName());
+            JSONObject newAttribute = new JSONObject();
+            newAttribute.put(KEY_ATTRIBUTE, this.name);
+            newAttribute.put(ENTITY_STRING, ((ObjectType) entity).getName());
+            newAttribute.put(KEY_TYPE, KEY_ATTRIBUTE);
+            attributes.add(newAttribute);
         }
-        attribute.put(KEY_NAME, name);
-        attribute.put(KEY_DOMAIN, entitiesJSON);
-        return attribute;
+        return attributes;
+    }
+
+    /**
+     * Returns the attributes objects where datatype and attribute type is described according
+     * to the EER scheama. Note that this method returns a list of attributes due to the
+     * fact that an attributive property may have many domains, therefore, many attributes objects.
+     *    {
+     *       "name": "Name",
+     *       "type": "normal",
+     *       "datatype": "Integer",
+     *       "id": "c63",
+     *       "timestamp": "",
+     *       "position": {
+     *         "x": 550,
+     *         "y": 310
+     *       }
+     *     }
+     * @return
+     */
+    public List<JSONObject> toEERAttributes() {
+        List<JSONObject> attributes = new ArrayList<>();
+
+        for (Object entity : domain) {
+            JSONObject newAttribute = new JSONObject();
+            newAttribute.put(KEY_NAME, this.name);
+            newAttribute.put(KEY_UML_DATATYPE, this.range.getName());
+            newAttribute.put(KEY_TYPE, "normal"); // TODO: This is hardcoded for now
+            attributes.add(newAttribute);
+        }
+        return attributes;
     }
 }
