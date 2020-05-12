@@ -235,7 +235,7 @@ public class Relationship extends Entity {
         JSONArray jsonMultiplicity = new JSONArray();
         if (roles.size() >= 2) {
             for (Role role : roles) {
-                if ((role.getCardinalityConstraints() != null) && (role.getCardinalityConstraints().size() >= 1)) {
+                if ((role.getCardinalityConstraints() != null) ) { // && (role.getCardinalityConstraints().size() >= 1)
                     for (ObjectTypeCardinality cardinality : role.getCardinalityConstraints()) {
                         jsonMultiplicity.add(cardinality.getCardinality());
                     }
@@ -243,6 +243,7 @@ public class Relationship extends Entity {
                         jsonMandatory.add(role.getEntity().getName());
                     }
                 } else {
+                    // TODO: Every role has at least one cardinality constraint?
                     throw new MetamodelDefinitionCompromisedException("Can not generate ORM for Relationship " + name + ". Role definition has been violated.");
                 }
             }

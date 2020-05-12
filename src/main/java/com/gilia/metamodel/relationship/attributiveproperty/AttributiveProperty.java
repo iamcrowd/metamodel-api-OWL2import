@@ -1,8 +1,13 @@
 package com.gilia.metamodel.relationship.attributiveproperty;
 
+import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.entitytype.DataType;
+import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
+import com.gilia.metamodel.entitytype.valueproperty.ValueType;
 import com.gilia.metamodel.relationship.Relationship;
+import com.gilia.metamodel.relationship.attributiveproperty.attribute.MappedTo;
+import com.gilia.metamodel.role.Role;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -12,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.gilia.utils.Constants.*;
+import static com.gilia.utils.Utils.getAlphaNumericString;
 
 /**
  * @author Emiliano Rios Gavagnin
@@ -19,7 +25,7 @@ import static com.gilia.utils.Constants.*;
 public class AttributiveProperty extends Relationship {
 
     // TODO: Implement domain as Relationship or Object type
-    private List<ObjectType> domain; // Actually, this should be Object type or Relationship
+    private List<Entity> domain; // Actually, this should be Object type or Relationship
     private DataType range;
 
 
@@ -27,21 +33,21 @@ public class AttributiveProperty extends Relationship {
         super(name);
     }
 
-    public AttributiveProperty(String name, List<ObjectType> domain, DataType range) {
+    public AttributiveProperty(String name, List<Entity> domain, DataType range) {
         super(name, null, null);
         this.domain = domain;
         this.range = range;
     }
 
-    public List<ObjectType> getDomain() {
+    public List<Entity> getDomain() {
         return domain;
     }
 
-    public void setDomain(List<ObjectType> domain) {
+    public void setDomain(List<Entity> domain) {
         this.domain = domain;
     }
 
-    public void addDomain(ObjectType newDomain) {
+    public void addDomain(Entity newDomain) {
         this.domain.add(newDomain);
     }
 
@@ -132,17 +138,18 @@ public class AttributiveProperty extends Relationship {
      * Returns the attributes objects where datatype and attribute type is described according
      * to the EER scheama. Note that this method returns a list of attributes due to the
      * fact that an attributive property may have many domains, therefore, many attributes objects.
-     *    {
-     *       "name": "Name",
-     *       "type": "normal",
-     *       "datatype": "Integer",
-     *       "id": "c63",
-     *       "timestamp": "",
-     *       "position": {
-     *         "x": 550,
-     *         "y": 310
-     *       }
-     *     }
+     * {
+     * "name": "Name",
+     * "type": "normal",
+     * "datatype": "Integer",
+     * "id": "c63",
+     * "timestamp": "",
+     * "position": {
+     * "x": 550,
+     * "y": 310
+     * }
+     * }
+     *
      * @return
      */
     public List<JSONObject> toEERAttributes() {
@@ -156,5 +163,35 @@ public class AttributiveProperty extends Relationship {
             attributes.add(newAttribute);
         }
         return attributes;
+    }
+
+    /**
+     *
+     */
+    public List<Entity> toValueType() {
+        ValueType valueType = new ValueType(this.getName());
+        ArrayList<Entity> entities = new ArrayList();
+        entities.add(valueType);
+        MappedTo mappedTo = new MappedTo(getAlphaNumericString(6), (List<Entity>) entities.clone(), this.range);
+        List<Entity> entitiesGenerated = new ArrayList<>(); // Not the cleanest way to do this
+        entitiesGenerated.add(valueType);
+        //entitiesGenerated.add(mappedTo);
+
+        for (Entity entity : this.domain) {
+
+
+            entities = new ArrayList();
+            entities.add(valueType);
+            entities.add(entity);
+
+            Relationship relationship = new Relationship(getAlphaNumericString(6), entities);
+            List<Role> roles = new ArrayList();
+            roles.add(new Role(valueType.getName(), valueType, relationship));
+            roles.add(new Role(entity.getName(), (EntityType) entity, relationship));
+            relationship.addRoles(roles);
+            entitiesGenerated.add(relationship);
+        }
+
+        return entitiesGenerated; // Should the generated entities be included in the Metamodel instance? or its generated temporarily?
     }
 }

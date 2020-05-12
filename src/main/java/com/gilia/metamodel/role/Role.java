@@ -77,6 +77,21 @@ public class Role extends Entity {
     }
 
     /**
+     * Creates an instance of a Role. This constructor only includes entity and relationship
+     *
+     * @param name              String that represents the name of the role
+     * @param entity            EntityType object associated to the role to be created
+     * @param relationship      Relationship object associated to the role to be created
+     * @see com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality
+     */
+    public Role(String name, EntityType entity, Relationship relationship) { // TODO: Little messy, revise
+        super(name);
+        this.entity = entity;
+        this.relationship = relationship;
+        this.cardinalityConstraints = new ArrayList<ObjectTypeCardinality>();
+    }
+
+    /**
      * Creates an instance of a Role. This constructor receives a ObjectTypeCardinality object that represents the constraint imposed by
      * the cardinality.
      *

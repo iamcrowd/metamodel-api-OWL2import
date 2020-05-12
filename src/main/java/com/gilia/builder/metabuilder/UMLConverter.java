@@ -18,7 +18,6 @@ import static com.gilia.utils.Constants.*;
 
 public class UMLConverter implements MetaBuilder {
 
-
     @Override
     public JSONObject generateJSON(Metamodel metamodel) {
         JSONObject jsonUml = new JSONObject();
