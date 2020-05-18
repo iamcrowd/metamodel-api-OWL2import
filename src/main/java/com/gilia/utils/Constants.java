@@ -84,6 +84,8 @@ public class Constants {
 
     public static final String UNDEFINED_STRING = "undefined";
 
+    public static final String ENTITY_REF_MODE_STRING = "entityRefMode";
+
 
     // JSON Keys
 
@@ -92,6 +94,8 @@ public class Constants {
     public static final String KEY_ONTOLOGY_IRI = "ontologyIRI";
 
     public static final String KEY_VALUE = "value";
+
+    public static final String KEY_REF = "ref";
 
     public static final String KEY_NAME = "name";
 
