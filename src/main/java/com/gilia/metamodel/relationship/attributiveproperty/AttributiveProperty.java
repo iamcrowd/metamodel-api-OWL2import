@@ -96,7 +96,7 @@ public class AttributiveProperty extends Relationship {
         JSONArray domainJSON = new JSONArray();
 
         for (Object entity : domain) {
-            domainJSON.add(((ObjectType) entity).getName());
+            domainJSON.add(((Entity) entity).getName());
         }
 
         attributiveProperty.put(KEY_NAME, name);
@@ -166,7 +166,13 @@ public class AttributiveProperty extends Relationship {
     }
 
     /**
+     * Representation of the rule Att-to-VT from "Conceptual Model Interoperability: A Metamodel-driven Approach (Pablo Rubén Fillottrani and C. Maria Keet)".
+     * This method creates the required instances in order to transform an Attribute to a Value Type and its relationship to a given entity.
      *
+     * Note that it will generate the entities, and return them in a list, but it will not save this new instances in the current
+     * metamodel instance.
+     *
+     * @return A List of Entity objects that represent the transformation of an Attribute into a Value Type
      */
     public List<Entity> toValueType() {
         ValueType valueType = new ValueType(this.getName());
@@ -178,16 +184,14 @@ public class AttributiveProperty extends Relationship {
         //entitiesGenerated.add(mappedTo);
 
         for (Entity entity : this.domain) {
-
-
             entities = new ArrayList();
             entities.add(valueType);
             entities.add(entity);
 
             Relationship relationship = new Relationship(getAlphaNumericString(6), entities);
             List<Role> roles = new ArrayList();
-            roles.add(new Role(valueType.getName(), valueType, relationship));
-            roles.add(new Role(entity.getName(), (EntityType) entity, relationship));
+            roles.add(new Role(valueType.getName(), valueType, relationship, "0..1")); // TODO: Hardcoded. Figure out how should this scenario be handled
+            roles.add(new Role(entity.getName(), (EntityType) entity, relationship,"0..1"));
             relationship.addRoles(roles);
             entitiesGenerated.add(relationship);
         }

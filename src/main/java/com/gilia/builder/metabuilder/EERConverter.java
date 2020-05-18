@@ -21,8 +21,8 @@ public class EERConverter implements MetaBuilder {
     public JSONObject generateJSON(Metamodel metamodel) {
         JSONObject jsonEer = new JSONObject();
 
-        ArrayList<EntityType> entities = metamodel.getEntities();
-        ArrayList<Relationship> relationships = metamodel.getRelationships();
+        ArrayList<EntityType> entities = (ArrayList<EntityType>) metamodel.getEntities();
+        ArrayList<Relationship> relationships = (ArrayList<Relationship>) metamodel.getRelationships();
 
         // Entities
         JSONArray jsonEntities = new JSONArray();
@@ -62,7 +62,7 @@ public class EERConverter implements MetaBuilder {
                         jsonLinks.add(subsumption.toEER());
                     }
                 }
-            } else if (relationship.getClass() == AttributiveProperty.class) {
+            } else if (relationship.getClass() == AttributiveProperty.class) { // TODO: Add attributes from value types
                 jsonLinks.addAll(((AttributiveProperty) relationship).toEERLinks());
                 jsonAttributes.addAll(((AttributiveProperty) relationship).toEERAttributes());
             } else {
