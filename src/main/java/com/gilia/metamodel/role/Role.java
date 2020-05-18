@@ -2,6 +2,7 @@ package com.gilia.metamodel.role;
 
 import com.gilia.exceptions.CardinalitySyntaxException;
 import com.gilia.metamodel.Entity;
+import com.gilia.metamodel.constraint.Constraint;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.constraint.mandatory.Mandatory;
 import com.gilia.metamodel.entitytype.EntityType;
@@ -10,6 +11,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static com.gilia.utils.Constants.*;
@@ -182,7 +184,7 @@ public class Role extends Entity {
         this.relationship = relationship;
     }
 
-    public ArrayList<ObjectTypeCardinality> getCardinalityConstraints() {
+    public List<ObjectTypeCardinality> getCardinalityConstraints() {
         return cardinalityConstraints;
     }
 

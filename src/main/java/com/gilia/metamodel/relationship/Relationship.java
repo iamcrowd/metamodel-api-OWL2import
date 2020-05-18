@@ -1,8 +1,10 @@
 package com.gilia.metamodel.relationship;
 
+import com.gilia.enumerates.RelationshipType;
 import com.gilia.exceptions.MetamodelDefinitionCompromisedException;
 import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
+import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.role.Role;
 import org.json.simple.JSONArray;
@@ -22,6 +24,9 @@ import static com.gilia.utils.Constants.*;
 public class Relationship extends Entity {
     protected List<Entity> entities;
     protected List<Role> roles;
+
+    // Proposal: Add types to the relationship to identify whether is between Object Types or Value Types
+    protected RelationshipType type;
 
     /**
      * Creates a basic instance of a Relationship. It will be created without information. The only information generated will be an id.
@@ -84,6 +89,14 @@ public class Relationship extends Entity {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public RelationshipType getType() {
+        return type;
+    }
+
+    public void setType(RelationshipType type) {
+        this.type = type;
     }
 
     /**
@@ -164,7 +177,7 @@ public class Relationship extends Entity {
         JSONArray entitiesJSON = new JSONArray();
 
         for (Object entity : entities) {
-            entitiesJSON.add(((ObjectType) entity).getName());
+            entitiesJSON.add(((EntityType) entity).getName());
         }
 
         relationship.put(KEY_NAME, name);
@@ -235,7 +248,7 @@ public class Relationship extends Entity {
         JSONArray jsonMultiplicity = new JSONArray();
         if (roles.size() >= 2) {
             for (Role role : roles) {
-                if ((role.getCardinalityConstraints() != null) ) { // && (role.getCardinalityConstraints().size() >= 1)
+                if ((role.getCardinalityConstraints() != null)) { // TODO: Should this be considered? -> (role.getCardinalityConstraints().size() >= 1)
                     for (ObjectTypeCardinality cardinality : role.getCardinalityConstraints()) {
                         jsonMultiplicity.add(cardinality.getCardinality());
                     }

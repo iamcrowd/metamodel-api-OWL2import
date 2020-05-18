@@ -15,7 +15,7 @@ import static com.gilia.utils.Constants.KEY_NAME;
  *
  * @author Emiliano Rios Gavagnin
  */
-public class CompletenessConstraint extends Constraint { // TODO: The completeness is between siblings or between parent and each child?
+public class CompletenessConstraint extends Constraint {
 
     protected ArrayList<ObjectType> entities;
 
