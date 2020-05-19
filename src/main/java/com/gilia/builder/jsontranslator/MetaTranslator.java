@@ -46,7 +46,8 @@ public class MetaTranslator implements JSONTranslator {
         JSONObject jsonRelationships = (JSONObject) json.get(StringUtils.capitalize(RELATIONSHIP_STRING));
         JSONArray jsonBinaryRelationships = (JSONArray) jsonRelationships.get(StringUtils.capitalize(RELATIONSHIP_STRING));
         JSONArray jsonSubsumptions = (JSONArray) jsonRelationships.get(StringUtils.capitalize(SUBSUMPTION_STRING));
-        JSONArray jsonAttributes = (JSONArray) jsonRelationships.get(StringUtils.capitalize(ATTRIBUTIVE_PROPERTY_STRING));
+        JSONObject jsonAttributiveProperties = (JSONObject) jsonRelationships.get(StringUtils.capitalize(ATTRIBUTIVE_PROPERTY_STRING));
+        JSONArray innerJsonAttributiveProperties = (JSONArray) jsonAttributiveProperties.get(StringUtils.capitalize(ATTRIBUTIVE_PROPERTY_STRING));
 
         JSONArray jsonRoles = (JSONArray) json.get(StringUtils.capitalize(ROLE_STRING));
         JSONObject jsonConstraints = (JSONObject) json.get(StringUtils.capitalize(KEY_CONSTRAINTS));
@@ -57,7 +58,7 @@ public class MetaTranslator implements JSONTranslator {
         identifyConstraints(newMetamodel, jsonConstraints);
         identifyRoles(newMetamodel, jsonRoles);
         identifySubclasses(newMetamodel, jsonSubsumptions);
-        identifyAttributes(newMetamodel, jsonAttributes);
+        identifyAttributes(newMetamodel, innerJsonAttributiveProperties);
 
         return newMetamodel;
     }
