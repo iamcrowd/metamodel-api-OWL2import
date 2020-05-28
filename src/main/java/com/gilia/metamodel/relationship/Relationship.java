@@ -1,14 +1,17 @@
 package com.gilia.metamodel.relationship;
 
+import com.gilia.enumerates.RelationshipType;
 import com.gilia.exceptions.MetamodelDefinitionCompromisedException;
 import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
+import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.role.Role;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static com.gilia.utils.Constants.*;
@@ -19,8 +22,11 @@ import static com.gilia.utils.Constants.*;
  * @author Emiliano Rios Gavagnin
  */
 public class Relationship extends Entity {
-    protected ArrayList<ObjectType> entities;
-    protected ArrayList<Role> roles;
+    protected List<Entity> entities;
+    protected List<Role> roles;
+
+    // Proposal: Add types to the relationship to identify whether is between Object Types or Value Types
+    protected RelationshipType type;
 
     /**
      * Creates a basic instance of a Relationship. It will be created without information. The only information generated will be an id.
@@ -47,9 +53,9 @@ public class Relationship extends Entity {
      * and the entities involved in the relationship. By definition, a Relationship must have at least two roles.
      *
      * @param name     String that represents the name of the relationship
-     * @param entities ArrayList of ObjectType that represents the entities involved in the relationship
+     * @param entities List of ObjectType that represents the entities involved in the relationship
      */
-    public Relationship(String name, ArrayList<ObjectType> entities) {
+    public Relationship(String name, List<Entity> entities) {
         super(name);
         this.entities = entities;
         this.roles = new ArrayList();
@@ -60,29 +66,37 @@ public class Relationship extends Entity {
      * and the entities involved in the relationship
      *
      * @param name     String that represents the name of the relationship
-     * @param entities ArrayList of ObjectType that represents the entities involved in the relationship
-     * @param roles    ArrayList of Role that represents the roles involved in the relationship
+     * @param entities List of ObjectType that represents the entities involved in the relationship
+     * @param roles    List of Role that represents the roles involved in the relationship
      */
-    public Relationship(String name, ArrayList<ObjectType> entities, ArrayList<Role> roles) {
+    public Relationship(String name, List<Entity> entities, List<Role> roles) {
         super(name);
         this.entities = entities;
         this.roles = roles;
     }
 
-    public ArrayList<ObjectType> getEntities() {
+    public List<Entity> getEntities() {
         return entities;
     }
 
-    public void setEntities(ArrayList<ObjectType> entities) {
+    public void setEntities(List<Entity> entities) {
         this.entities = entities;
     }
 
-    public ArrayList<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(ArrayList<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public RelationshipType getType() {
+        return type;
+    }
+
+    public void setType(RelationshipType type) {
+        this.type = type;
     }
 
     /**
@@ -109,7 +123,7 @@ public class Relationship extends Entity {
      * @param roles Role object to be added to the relationship
      * @throws MetamodelDefinitionCompromisedException
      */
-    public void addRoles(ArrayList<Role> roles) throws MetamodelDefinitionCompromisedException {
+    public void addRoles(List<Role> roles) throws MetamodelDefinitionCompromisedException {
         if (roles.size() <= 2 && this.roles.size() == 0) {
             for (Role role : roles) {
                 this.roles.add(role);
@@ -163,7 +177,7 @@ public class Relationship extends Entity {
         JSONArray entitiesJSON = new JSONArray();
 
         for (Object entity : entities) {
-            entitiesJSON.add(((ObjectType) entity).getName());
+            entitiesJSON.add(((EntityType) entity).getName());
         }
 
         relationship.put(KEY_NAME, name);
@@ -234,7 +248,7 @@ public class Relationship extends Entity {
         JSONArray jsonMultiplicity = new JSONArray();
         if (roles.size() >= 2) {
             for (Role role : roles) {
-                if ((role.getCardinalityConstraints() != null) && (role.getCardinalityConstraints().size() >= 1)) {
+                if ((role.getCardinalityConstraints() != null)) { // TODO: Should this be considered? -> (role.getCardinalityConstraints().size() >= 1)
                     for (ObjectTypeCardinality cardinality : role.getCardinalityConstraints()) {
                         jsonMultiplicity.add(cardinality.getCardinality());
                     }
@@ -242,6 +256,7 @@ public class Relationship extends Entity {
                         jsonMandatory.add(role.getEntity().getName());
                     }
                 } else {
+                    // TODO: Every role has at least one cardinality constraint?
                     throw new MetamodelDefinitionCompromisedException("Can not generate ORM for Relationship " + name + ". Role definition has been violated.");
                 }
             }

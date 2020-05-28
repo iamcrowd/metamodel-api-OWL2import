@@ -1,0 +1,542 @@
+{
+  "namespaces": {
+    "ontologyIRI": [
+      {
+        "prefix": "bigeonto",
+        "value": "http://www.w3id.org/cenpat-gilia/bigeonto#"
+      }
+    ],
+    "defaultIRIs": [
+      {
+        "prefix": "rdf",
+        "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      },
+      {
+        "prefix": "rdfs",
+        "value": "http://www.w3.org/2000/01/rdf-schema#"
+      },
+      {
+        "prefix": "xsd",
+        "value": "http://www.w3.org/2001/XMLSchema#"
+      },
+      {
+        "prefix": "owl",
+        "value": "http://www.w3.org/2002/07/owl#"
+      }
+    ],
+    "IRIs": [
+      {
+        "prefix": "time",
+        "value": "http://www.w3.org/2006/time#"
+      },
+      {
+        "prefix": "dwc",
+        "value": "http://rs.tdwg.org/dwc/terms#"
+      },
+      {
+        "prefix": "dwciri",
+        "value": "http://rs.tdwg.org/dwc/iri#"
+      },
+      {
+        "prefix": "dc",
+        "value": "http://purl.org/dc/terms#"
+      },
+      {
+        "prefix": "foaf",
+        "value": "http://xmlns.com/foaf/0.1#"
+      },
+      {
+        "prefix": "geosparql",
+        "value": "http://www.opengis.net/ont/geosparql#"
+      },
+      {
+        "prefix": "sf",
+        "value": "http://www.opengis.net/ont/sf#"
+      },
+      {
+        "prefix": "envo",
+        "value": "http://purl.obolibrary.org/obo#"
+      },
+      {
+        "prefix": "void",
+        "value": "http://rdfs.org/ns/void#"
+      },
+      {
+        "prefix": "nerc",
+        "value": "http://vocab.nerc.ac.uk/collection/P06#"
+      },
+      {
+        "prefix": "dbr",
+        "value": "http://dbpedia.org/resource#"
+      },
+      {
+        "prefix": "ro",
+        "value": "http://purl.obolibrary.org/obo/ro.owl#"
+      }
+    ]
+  },
+  "classes": [
+    {
+      "name": "http://rs.tdwg.org/dwc/terms#Organism",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 170,
+        "y": 57
+      }
+    },
+    {
+      "name": "http://rs.tdwg.org/dwc/terms#Taxon",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 407,
+        "y": 54
+      }
+    },
+    {
+      "name": "http://rs.tdwg.org/dwc/terms#Occurrence",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 167,
+        "y": 230
+      }
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#BioEvent",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 166,
+        "y": 409
+      }
+    },
+    {
+      "name": "http://rdfs.org/ns/void#Dataset",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 702,
+        "y": 53
+      }
+    },
+    {
+      "name": "http://xmlns.com/foaf/0.1#Person",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 1026,
+        "y": 53
+      }
+    },
+    {
+      "name": "http://purl.org/dc/terms#Location",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 436,
+        "y": 341
+      }
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#Region",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 531,
+        "y": 486
+      }
+    },
+    {
+      "name": "http://rs.tdwg.org/dwc/terms#Event",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 45,
+        "y": 315
+      }
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#MeasurementOrFact",
+      "attrs": [
+        {
+          "name": "http://rs.tdwg.org/dwc/terms#measurementValue",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer"
+        },
+        {
+          "name": "http://rs.tdwg.org/dwc/terms#measurementType",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer"
+        },
+        {
+          "name": "http://rs.tdwg.org/dwc/terms#measurementUnit",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string"
+        },
+        {
+          "name": "http://rs.tdwg.org/dwc/terms#measurementUnitID",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string"
+        },
+        {
+          "name": "http://rs.tdwg.org/dwc/terms#measurementTypeID",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string"
+        }
+      ],
+      "methods": [],
+      "position": {
+        "x": 184,
+        "y": 683
+      }
+    },
+    {
+      "name": "http://www.w3.org/2006/time#DateTimeDescription",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 508,
+        "y": 710
+      }
+    },
+    {
+      "name": "http://www.opengis.net/ont/geosparql#Feature",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 925,
+        "y": 344
+      }
+    },
+    {
+      "name": "http://www.opengis.net/ont/geosparql#Geometry",
+      "attrs": [
+        {
+          "name": "http://www.opengis.net/ont/geosparql#asWKT",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string"
+        }
+      ],
+      "methods": [],
+      "position": {
+        "x": 1163,
+        "y": 339
+      }
+    },
+    {
+      "name": "http://www.opengis.net/ont/geosparql#SpatialObject",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 1062,
+        "y": 199
+      }
+    },
+    {
+      "name": "http://purl.obolibrary.org/obo#Environment",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 861,
+        "y": 631
+      }
+    },
+    {
+      "name": "http://purl.obolibrary.org/obo#Biome",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 1036,
+        "y": 740
+      }
+    },
+    {
+      "name": "http://purl.obolibrary.org/obo#EnvironmentalMaterial",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 1109,
+        "y": 507
+      }
+    },
+    {
+      "name": "http://purl.obolibrary.org/obo#EnvironmentalFeature",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 1151,
+        "y": 613
+      }
+    }
+  ],
+  "links": [
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#associated",
+      "classes": [
+        "http://rs.tdwg.org/dwc/terms#Occurrence",
+        "http://rs.tdwg.org/dwc/terms#Organism"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#occurrence",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#organism"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#belongsTo",
+      "classes": [
+        "http://rs.tdwg.org/dwc/terms#Organism",
+        "http://rs.tdwg.org/dwc/terms#Taxon"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#organism",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#taxon"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#hasEvent",
+      "classes": [
+        "http://rs.tdwg.org/dwc/terms#Occurrence",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#BioEvent"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#occurrence",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#bioevent"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://rs.tdwg.org/dwc/iri#inDataset",
+      "classes": [
+        "http://rs.tdwg.org/dwc/terms#Occurrence",
+        "http://rdfs.org/ns/void#Dataset"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#occurrence",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#dataset"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://rs.tdwg.org/dwc/iri#recordedBy",
+      "classes": [
+        "http://rs.tdwg.org/dwc/terms#Occurrence",
+        "http://xmlns.com/foaf/0.1#Person"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#occurrence",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#person"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#hasLocation",
+      "classes": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#BioEvent",
+        "http://purl.org/dc/terms#Location"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#bioevent",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#location"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#r1",
+      "classes": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#Region",
+        "http://purl.org/dc/terms#Location"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#region",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#location"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#hasMeasurementOrFact",
+      "classes": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#BioEvent",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#MeasurementOrFact"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#bioevent",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#measurementorfact"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://www.w3.org/2006/time#hasDateTimeDescription",
+      "classes": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#BioEvent",
+        "http://www.w3.org/2006/time#DateTimeDescription"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#bioevent",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#datetimedescription"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#r2",
+      "classes": [
+        "http://purl.org/dc/terms#Location",
+        "http://www.opengis.net/ont/geosparql#Feature"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#location",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#feature"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://www.opengis.net/ont/geosparql#hasGeometry",
+      "classes": [
+        "http://www.opengis.net/ont/geosparql#Feature",
+        "http://www.opengis.net/ont/geosparql#Geometry"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#feature",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#geometry"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#characterizes",
+      "classes": [
+        "http://purl.obolibrary.org/obo#Environment",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#Region"
+      ],
+      "multiplicity": [
+        "0..*",
+        "0..*"
+      ],
+      "roles": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#environment",
+        "http://www.w3id.org/cenpat-gilia/bigeonto#region"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#s1",
+      "parent": "http://rs.tdwg.org/dwc/terms#Event",
+      "classes": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#BioEvent"
+      ],
+      "multiplicity": null,
+      "roles": null,
+      "type": "generalization",
+      "constraint": [],
+      "position": {
+        "x": 104,
+        "y": 440
+      }
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#s2",
+      "parent": "http://www.opengis.net/ont/geosparql#SpatialObject",
+      "classes": [
+        "http://www.opengis.net/ont/geosparql#Feature"
+      ],
+      "multiplicity": null,
+      "roles": null,
+      "type": "generalization",
+      "constraint": [],
+      "position": {
+        "x": 963,
+        "y": 279
+      }
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#s3",
+      "parent": "http://www.opengis.net/ont/geosparql#SpatialObject",
+      "classes": [
+        "http://www.opengis.net/ont/geosparql#Geometry"
+      ],
+      "multiplicity": null,
+      "roles": null,
+      "type": "generalization",
+      "constraint": [],
+      "position": {
+        "x": 1147,
+        "y": 313
+      }
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#s4",
+      "parent": "http://www.opengis.net/ont/geosparql#Feature",
+      "classes": [
+        "http://www.w3id.org/cenpat-gilia/bigeonto#Region"
+      ],
+      "multiplicity": null,
+      "roles": null,
+      "type": "generalization",
+      "constraint": [],
+      "position": {
+        "x": 861,
+        "y": 464
+      }
+    },
+    {
+      "name": "http://www.w3id.org/cenpat-gilia/bigeonto#s5",
+      "parent": "http://purl.obolibrary.org/obo#Environment",
+      "classes": [
+        "http://purl.obolibrary.org/obo#EnvironmentalMaterial",
+        "http://purl.obolibrary.org/obo#EnvironmentalFeature",
+        "http://purl.obolibrary.org/obo#Biome"
+      ],
+      "multiplicity": null,
+      "roles": null,
+      "type": "generalization",
+      "constraint": [],
+      "position": {
+        "x": 1068,
+        "y": 651
+      }
+    }
+  ],
+  "owllink": [
+    "\n\n\n\n"
+  ]
+}

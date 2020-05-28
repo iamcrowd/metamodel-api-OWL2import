@@ -9,9 +9,11 @@ import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
+import com.gilia.metamodel.entitytype.DataType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
+import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
 import com.gilia.metamodel.role.Role;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -37,15 +39,15 @@ public class EERTranslator implements JSONTranslator {
 
         Metamodel newMetamodel = new Metamodel(ontologyIRI);
         JSONArray jsonEntities = (JSONArray) json.get(KEY_ENTITIES);
-        // JSONArray jsonAttributes = (JSONArray) json.get(KEY_ATTRIBUTES); // This is not a 1:1 Mapping
+        JSONArray jsonAttributes = (JSONArray) json.get(KEY_ATTRIBUTES); // This is not a 1:1 Mapping
         //JSONArray jsonRelationships = (JSONArray) json.get(KEY_RELATIONSHIPS);
         JSONArray jsonLinks = (JSONArray) json.get(KEY_LINKS);
 
         // The order of this calls is important (at least for now)
         identifyObjectTypes(newMetamodel, jsonEntities);
-        identifyRelationships(newMetamodel, jsonLinks); // TODO: Implement identifyRelationships
+        identifyAttributes(newMetamodel, jsonAttributes, jsonLinks); // Conditioned by the JSON structure
         identifySubclasses(newMetamodel, jsonLinks); // TODO: Implement identifySubclasses
-
+        identifySubclasses(newMetamodel, jsonLinks);
         return newMetamodel;
     }
 
@@ -72,6 +74,58 @@ public class EERTranslator implements JSONTranslator {
             model.addEntities(newObjectsType);
         } else {
             throw new InformationNotFoundException(ENTITIES_INFORMATION_NOT_FOUND_ERROR);
+        }
+    }
+
+    private void identifyAttributes(Metamodel model, JSONArray eerAttributes, JSONArray eerLinks) {
+        if (eerAttributes != null && eerLinks != null && !eerAttributes.isEmpty()) {
+            for (Object link : eerLinks) {
+                JSONObject eerLink = (JSONObject) link; // Gets the attribute link.
+                String typeLink = (String) eerLink.get(KEY_TYPE);
+                if (typeLink.equals(KEY_ATTRIBUTE)) {
+                    Entity entityObject = model.getEntity((String) eerLink.get(ENTITY_STRING));
+                    String attributeName = (String) eerLink.get(KEY_ATTRIBUTE);
+
+                    // Looks for the attribute in the attributes list.
+                    // This will give us information about the attribute.
+                    int i = 0;
+                    boolean attributeFound = false;
+                    String attributeType = "";
+                    while (!attributeFound && i < eerAttributes.size()) {
+                        JSONObject attribute = (JSONObject) eerAttributes.get(i);
+                        if (attribute.get(KEY_NAME).equals(attributeName)) {
+                            attributeType = (String) attribute.get(KEY_UML_DATATYPE);
+                            attributeFound = true;
+                        }
+                        i++;
+                    }
+
+                    if (!attributeFound) {
+
+                    }
+
+                    // Search for the DataType of the attribute. Creates it if it does not exist.
+                    Entity datatype = model.getEntity(attributeType);
+                    if (datatype == null || datatype.getClass() != DataType.class) {
+                        datatype = new DataType(attributeType);
+                        model.addEntity((DataType) datatype);
+                    }
+
+                    // Checks if the attributive property already exists.
+                    // If it exists, then a domain is added. Otherwise is created.
+                    Entity attributiveProperty = model.getEntity(attributeName);
+                    // This check is useless with the current JSON. There is no way to differentiate the attributes.
+                    if (attributiveProperty == null || attributiveProperty.getClass() != AttributiveProperty.class || !((AttributiveProperty) attributiveProperty).getRange().equals(datatype)) {
+                        ArrayList domain = new ArrayList();
+                        domain.add(entityObject);
+
+                        attributiveProperty = new AttributiveProperty(attributeName, domain, (DataType) datatype);
+                        model.addRelationship((AttributiveProperty) attributiveProperty);
+                    } else if (attributiveProperty != null && attributiveProperty.getClass() == AttributiveProperty.class && ((AttributiveProperty) attributiveProperty).getRange().equals(datatype)) {
+                        ((AttributiveProperty) attributiveProperty).addDomain((ObjectType) entityObject);
+                    }
+                }
+            }
         }
     }
 
@@ -266,7 +320,7 @@ public class EERTranslator implements JSONTranslator {
                     }
                 }
 
-                for (Object entity : objectsType){
+                for (Object entity : objectsType) {
                     Subsumption newSubsumption = new Subsumption(isaRelationshipName + "_" + getAlphaNumericString(RANDOM_STRING_LENGTH), parent, (ObjectType) entity, completenessConstraint, disjointObjectType);
                     newSubsumptions.add(newSubsumption);
                 }

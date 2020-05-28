@@ -46,7 +46,52 @@
       }
     }
   ],
-  "attributes": [],
+  "attributes": [
+    {
+      "name": "Name",
+      "type": "normal",
+      "datatype": "String",
+      "id": "c63",
+      "timestamp": "",
+      "position": {
+        "x": 550,
+        "y": 310
+      }
+    },
+    {
+      "name": "Name",
+      "type": "normal",
+      "datatype": "Integer",
+      "id": "c63",
+      "timestamp": "",
+      "position": {
+        "x": 550,
+        "y": 310
+      }
+    },
+    {
+      "name": "Age",
+      "type": "normal",
+      "datatype": "Integer",
+      "id": "c63",
+      "timestamp": "",
+      "position": {
+        "x": 550,
+        "y": 310
+      }
+    },
+    {
+      "name": "Size",
+      "type": "normal",
+      "datatype": "String",
+      "id": "c63",
+      "timestamp": "",
+      "position": {
+        "x": 550,
+        "y": 310
+      }
+    }
+  ],
   "relationships": [
     {
       "name": "owns",
@@ -114,6 +159,30 @@
         "toy"
       ],
       "type": "relationship"
+    },
+    {
+      "name": "c76",
+      "entity": "Person",
+      "attribute": "Name",
+      "type": "attribute"
+    },
+    {
+      "name": "c76",
+      "entity": "Dog",
+      "attribute": "Name",
+      "type": "attribute"
+    },
+    {
+      "name": "c76",
+      "entity": "Dog",
+      "attribute": "Age",
+      "type": "attribute"
+    },
+    {
+      "name": "c76",
+      "entity": "Dog",
+      "attribute": "Size",
+      "type": "attribute"
     }
   ]
 }

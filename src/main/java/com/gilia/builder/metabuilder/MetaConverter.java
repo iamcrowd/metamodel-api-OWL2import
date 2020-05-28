@@ -8,9 +8,12 @@ import com.gilia.metamodel.constraint.mandatory.Mandatory;
 import com.gilia.metamodel.entitytype.DataType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.entitytype.valueproperty.ValueProperty;
+import com.gilia.metamodel.entitytype.valueproperty.ValueType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
 import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
+import com.gilia.metamodel.relationship.attributiveproperty.attribute.Attribute;
+import com.gilia.metamodel.relationship.attributiveproperty.attribute.MappedTo;
 import com.gilia.metamodel.role.Role;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,58 +26,71 @@ public class MetaConverter implements MetaBuilder {
 
         JSONObject jsonMetamodel = new JSONObject();
 
-        ArrayList entities = metamodel.getEntities();
-        ArrayList relationships = metamodel.getRelationships();
-        ArrayList roles = metamodel.getRoles();
-        ArrayList constraints = metamodel.getConstraints();
+        ArrayList entities = (ArrayList) metamodel.getEntities();
+        ArrayList relationships = (ArrayList) metamodel.getRelationships();
+        ArrayList roles = (ArrayList) metamodel.getRoles();
+        ArrayList constraints = (ArrayList) metamodel.getConstraints();
 
 
         // Entity type
+        JSONObject entityType = new JSONObject();
         JSONArray objectTypes = new JSONArray();
         JSONArray dataTypes = new JSONArray();
-        JSONArray valueProperties = new JSONArray();
+        JSONObject valueProperties = new JSONObject();
+        JSONArray valueTypes = new JSONArray();
+
+        valueProperties.put("Value type", valueTypes);
+        entityType.put("Object type", objectTypes);
+        entityType.put("Data type", dataTypes);
+        entityType.put("Value property", valueProperties);
+        jsonMetamodel.put("Entity type", entityType);
 
         for (Object entity : entities) {
             if (ObjectType.class.equals(entity.getClass())) {
                 objectTypes.add(((ObjectType) entity).getName());
             } else if (DataType.class.equals(entity.getClass())) {
                 dataTypes.add(((DataType) entity).getName());
-            } else if (ValueProperty.class.equals(entity.getClass())) {
-                valueProperties.add(((ValueProperty) entity).getName());
+            } else if (ValueProperty.class.isAssignableFrom(entity.getClass())) {
+                if (ValueType.class.equals(entity.getClass())) {
+                    valueTypes.add(((ValueType) entity).getName());
+                }
             }
         }
 
-        JSONObject entityType = new JSONObject();
-
-        entityType.put("Object type", objectTypes);
-        entityType.put("Data type", dataTypes);
-        entityType.put("Value property", valueProperties);
-
-        jsonMetamodel.put("Entity type", entityType);
-
-
         // Relationship
+        JSONObject relationship = new JSONObject();
         JSONArray subsumptionsJSONArray = new JSONArray();
         JSONArray relationshipsJSONArray = new JSONArray();
+        JSONObject attributePropertiesJSONObject = new JSONObject();
         JSONArray attributePropertiesJSONArray = new JSONArray();
+        JSONObject attributeJSONObject = new JSONObject();
+        JSONArray attributeJSONArray = new JSONArray();
+        JSONArray mappedToJSONArray = new JSONArray();
+
+        relationship.put("Subsumption", subsumptionsJSONArray);
+        relationship.put("Relationship", relationshipsJSONArray);
+        relationship.put("Attributive property", attributePropertiesJSONObject);
+        attributePropertiesJSONObject.put("Attributive property", attributePropertiesJSONArray);
+        attributePropertiesJSONObject.put("Attribute", attributeJSONObject);
+        attributeJSONObject.put("Attribute", attributeJSONArray);
+        attributeJSONObject.put("Mapped to", mappedToJSONArray);
+        jsonMetamodel.put("Relationship", relationship);
 
         for (Object relation : relationships) {
             if (Subsumption.class.equals(relation.getClass())) {
                 subsumptionsJSONArray.add(((Subsumption) relation).toJSONObject());
-            } else if (AttributiveProperty.class.equals(relation.getClass())) {
-                // TODO: Implement class
+            } else if (AttributiveProperty.class.isAssignableFrom(relation.getClass())) {
+                if (AttributiveProperty.class.equals(relation.getClass())) {
+                    attributePropertiesJSONArray.add(((AttributiveProperty) relation).toJSONObject());
+                } else if (Attribute.class.equals(relation.getClass())) {
+                    attributeJSONArray.add(((Attribute) relation).toJSONObject());
+                } else if (MappedTo.class.equals(relation.getClass())) {
+                    mappedToJSONArray.add(((MappedTo) relation).toJSONObject());
+                }
             } else if (Relationship.class.equals(relation.getClass())) {
                 relationshipsJSONArray.add(((Relationship) relation).toJSONObject());
             }
         }
-
-        JSONObject relationship = new JSONObject();
-
-        relationship.put("Subsumption", subsumptionsJSONArray);
-        relationship.put("Relationship", relationshipsJSONArray);
-        relationship.put("Attributive Property", attributePropertiesJSONArray);
-
-        jsonMetamodel.put("Relationship", relationship);
 
 
         // Role

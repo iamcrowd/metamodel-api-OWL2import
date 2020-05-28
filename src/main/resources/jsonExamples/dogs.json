@@ -1,0 +1,141 @@
+{
+  "namespaces": {
+    "ontologyIRI": [
+      {
+        "prefix": "crowd",
+        "value": "http://crowd.fi.uncoma.edu.ar#"
+      }
+    ],
+    "defaultIRIs": [
+      {
+        "prefix": "rdf",
+        "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      },
+      {
+        "prefix": "rdfs",
+        "value": "http://www.w3.org/2000/01/rdf-schema#"
+      },
+      {
+        "prefix": "xsd",
+        "value": "http://www.w3.org/2001/XMLSchema#"
+      },
+      {
+        "prefix": "owl",
+        "value": "http://www.w3.org/2002/07/owl#"
+      }
+    ],
+    "IRIs": []
+  },
+  "classes": [
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Owner",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 534,
+        "y": 581
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Person",
+      "attrs": [
+        {
+          "name": "http://crowd.fi.uncoma.edu.ar#Name",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string"
+        }
+      ],
+      "methods": [],
+      "position": {
+        "x": 535,
+        "y": 354
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Dog",
+      "attrs": [
+        {
+          "name": "http://crowd.fi.uncoma.edu.ar#Name",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string"
+        }
+      ],
+      "methods": [],
+      "position": {
+        "x": 973,
+        "y": 360
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Urban free-ranging",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 1075,
+        "y": 581
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#Owned",
+      "attrs": [],
+      "methods": [],
+      "position": {
+        "x": 868,
+        "y": 582
+      }
+    }
+  ],
+  "links": [
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#own",
+      "classes": [
+        "http://crowd.fi.uncoma.edu.ar#Owner",
+        "http://crowd.fi.uncoma.edu.ar#Owned"
+      ],
+      "multiplicity": [
+        "1..*",
+        "1..*"
+      ],
+      "roles": [
+        "http://crowd.fi.uncoma.edu.ar#owns",
+        "http://crowd.fi.uncoma.edu.ar#owned by"
+      ],
+      "type": "association"
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#s1",
+      "parent": "http://crowd.fi.uncoma.edu.ar#Dog",
+      "classes": [
+        "http://crowd.fi.uncoma.edu.ar#Urban free-ranging",
+        "http://crowd.fi.uncoma.edu.ar#Owned"
+      ],
+      "multiplicity": null,
+      "roles": null,
+      "type": "generalization",
+      "constraint": [
+        "disjoint",
+        "covering"
+      ],
+      "position": {
+        "x": 1018,
+        "y": 527
+      }
+    },
+    {
+      "name": "http://crowd.fi.uncoma.edu.ar#s2",
+      "parent": "http://crowd.fi.uncoma.edu.ar#Person",
+      "classes": [
+        "http://crowd.fi.uncoma.edu.ar#Owner"
+      ],
+      "multiplicity": null,
+      "roles": null,
+      "type": "generalization",
+      "constraint": [],
+      "position": {
+        "x": 577,
+        "y": 498
+      }
+    }
+  ],
+  "owllink": [
+    ""
+  ]
+}

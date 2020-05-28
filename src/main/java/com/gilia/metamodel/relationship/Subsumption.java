@@ -11,7 +11,7 @@ import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static com.gilia.utils.Constants.*;
@@ -87,7 +87,7 @@ public class Subsumption extends Relationship {
         this.disjointness = disjointness;
     }
 
-    public Subsumption(String name, Entity parent, Entity child, ArrayList<Constraint> constraints) {
+    public Subsumption(String name, Entity parent, Entity child, List<Constraint> constraints) {
         super(name, null, null);
         if (!isValidEntityForSubsumption(parent) || !isValidEntityForSubsumption(child)) {
             throw new MetamodelDefinitionCompromisedException(SUBSUMPTION_DEFINITION_ERROR);
