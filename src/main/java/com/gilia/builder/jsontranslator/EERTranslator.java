@@ -46,7 +46,7 @@ public class EERTranslator implements JSONTranslator {
         // The order of this calls is important (at least for now)
         identifyObjectTypes(newMetamodel, jsonEntities);
         identifyAttributes(newMetamodel, jsonAttributes, jsonLinks); // Conditioned by the JSON structure
-        identifySubclasses(newMetamodel, jsonLinks); // TODO: Implement identifySubclasses
+        identifyRelationships(newMetamodel, jsonLinks); // TODO: Implement identifySubclasses
         identifySubclasses(newMetamodel, jsonLinks);
         return newMetamodel;
     }
