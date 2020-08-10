@@ -43,32 +43,6 @@ public class SubClassOf extends ClassAxiom {
 	 */
 	public static void owlSubClassAxiom2Subsumptions(Metamodel kf, OWLOntology onto) {
 		Iterator<OWLClass> iteraclasses = onto.classesInSignature().iterator();
-		
-/**		for (OWLSubClassOfAxiom subclassof : onto.axioms(AxiomType.SUBCLASS_OF)) {
-			OWLClassExpression superclassexpr = subclassof.getSuperClass();
-			
-			switch (superclassexpr.getClassExpressionType()) {
-			case OWL_CLASS:
-				
-				break;
-
-			default:
-				break;
-			}
-		}
-		
-		for (OWLSubClassOfAxiom subClasse : onto.axioms(AxiomType.SUBCLASS_OF)) {
-			OWLClassExpression classexpr = subClasse.getSubClass();
-			
-			switch (classexpr.getClassExpressionType()) {
-			case OWL_CLASS:
-				
-				break;
-
-			default:
-				break;
-			}
-		}*/
 
 		while (iteraclasses.hasNext()) {
 			OWLClass anclass = iteraclasses.next();
@@ -88,7 +62,7 @@ public class SubClassOf extends ClassAxiom {
 					if (!anclasschild.equals(anclass)){
 						String anclasschild_iri = anclasschild.toStringID();
 						ObjectType ot_child = new ObjectType(anclasschild_iri);
-						kf.addEntity(ot_child);
+						//kf.addEntity(ot_child);
 					
 						if (onto.getOntologyID().getOntologyIRI().isPresent()){
 							Subsumption sub = new Subsumption(

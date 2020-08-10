@@ -45,8 +45,8 @@ public class Importer {
 	
 	/**
 	 * 
-	 * @param filePath
-	 * @param precompute
+	 * @param iri, a String containing an Ontology URI 
+	 * @param precompute, true if you want reasoning over ontology before importing. Otherwise, false.
 	 */
 	public Importer(String filePath, Boolean precompute) {
 		try {
@@ -58,7 +58,7 @@ public class Importer {
 			
 			if (precompute) {
 				ReasonerFactory factory = new ReasonerFactory();
-				OWLReasoner reasoner = factory.createReasoner(man.loadOntologyFromOntologyDocument(file));
+				OWLReasoner reasoner = factory.createReasoner(this.onto);
 				reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY,
 					  					  InferenceType.CLASS_ASSERTIONS,
             							  InferenceType.DISJOINT_CLASSES, 
@@ -78,8 +78,8 @@ public class Importer {
 	
 	/**
 	 * 
-	 * @param iri
-	 * @param precompute
+	 * @param iri, a String containing an Ontology URI 
+	 * @param precompute, true if you want reasoning over ontology before importing. Otherwise, false.
 	 */
 	public Importer(IRI iri, Boolean precompute) {
 		try {
@@ -90,7 +90,7 @@ public class Importer {
 	        
 			if (precompute) {
 				ReasonerFactory factory = new ReasonerFactory();
-				OWLReasoner reasoner = factory.createReasoner(man.loadOntologyFromOntologyDocument(iri));
+				OWLReasoner reasoner = factory.createReasoner(this.onto);
 				reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY,
 					  					  InferenceType.CLASS_ASSERTIONS,
             							  InferenceType.DISJOINT_CLASSES, 
