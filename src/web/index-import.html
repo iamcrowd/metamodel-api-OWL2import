@@ -27,9 +27,8 @@
                         <option>One OWL SubClass to Metamodel</option>
                         <option>Show Ontology</option>
                     </select>
-        </div>
-        <div class="row">
-            <div class="col">
+                <div class="row">            
+                   <div class="col">
                     <div class="form-group">
                     	<div>
                         	<label for="jsonInput">Onto URL</label>
@@ -39,33 +38,40 @@
                         		<option>http://protege.stanford.edu/ontologies/camera.owl</option>
                         		<option>http://protege.stanford.edu/ontologies/koala.owl</option>
                         		<option>http://protege.stanford.edu/ontologies/travel.owl</option>
-                        		<option>http://www.w3.org/TR/owl-guide/wine.rdf</option>                        		               
+                        		<option>http://www.w3.org/TR/owl-guide/wine.rdf</option>  
+                                <option>https://raw.githubusercontent.com/w3c/sdw/gh-pages/time/rdf/time.ttl</option>     
+                                <option>http://schemas.opengis.net/geosparql/1.0/geosparql_vocab_all.rdf</option>
+                                <option>http://vocab.deri.ie/void.rdf</void>     
+                                <option>www.w3.org/ns/ssn/</option>    
+                                <option>http://purl.org/spar/fabio.xml</option>        		               
                     		</select>
                     	</div>
                     	<div>
                         	<label for="jsonInput2">IRI Entity</label>
                         	<textarea class="form-control" id="jsonInput2" rows="1"></textarea>
-
-                    	</div></br>
-                                <div>
-                                    <input type="checkbox" name="precompute" id="reasoning" checked>
-                                    <label for="precompute">Precompute (Hermit)</label><br>
-                                </div>
+                    	</div>
+                        </br>
+                        <div>
+                           <input type="checkbox" name="precompute" id="reasoning" checked>
+                           <label for="precompute">Precompute (Hermit)</label><br>
                         </div>
-                    <input type="button" class="btn btn-primary" id="send" value="Import" />
-                </form>
-            </div>
+                     </div>
+                        <input type="button" class="btn btn-primary" id="send" value="Import" />
+                        </form>
+                  </div>
+                </div>
+                </div>
 
-            <div class="col-md-6">
+              <div class="col-md-6">
                 <div class="form-group">
                     <label for="jsonInput">Output</label>
                     <textarea class="form-control" id="jsonOutput" rows="30"></textarea>
                     </br>
            		<!-- <input type="button" class="btn btn-primary" onclick="beautify()" value="Beautify" /> -->
             	</div>
-        	</div>
-    	</div>
-    </div>
+        	  </div>
+    	    </div>
+        </div>
 </body>
 
 </html>

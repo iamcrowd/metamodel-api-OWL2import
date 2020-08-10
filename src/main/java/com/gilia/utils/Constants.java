@@ -65,6 +65,8 @@ public class Constants {
 
     public static final String SUBSUMPTION_STRING = "subsumption";
 
+    public static final String ATTRIBUTIVE_PROPERTY_STRING = "attributive property";
+
     public static final String ROLE_STRING = "role";
 
     public static final String ISA_STRING = "isa";
@@ -91,6 +93,10 @@ public class Constants {
 
     public static final String SUBTYPING_STRING = "subtyping";
 
+    public static final String UNDEFINED_STRING = "undefined";
+
+    public static final String ENTITY_REF_MODE_STRING = "entityRefMode";
+
 
     // JSON Keys
 
@@ -99,6 +105,8 @@ public class Constants {
     public static final String KEY_ONTOLOGY_IRI = "ontologyIRI";
 
     public static final String KEY_VALUE = "value";
+
+    public static final String KEY_REF = "ref";
 
     public static final String KEY_NAME = "name";
 
@@ -168,12 +176,25 @@ public class Constants {
 
     public static final String KEY_ROLE_DECLARED_ON = "declared on";
 
+    public static final String KEY_DOMAIN = "domain";
+
+    public static final String KEY_RANGE = "range";
+
+
+
     /**
      * Attributes in UML class
      */
     public static final String KEY_ATTRS = "attrs";
 
     public static final String KEY_METHODS = "methods";
+
+    public static final String KEY_UML_DATATYPE = "datatype";
+
+    /**
+     * Attributes in EER class
+     */
+    public static final String KEY_ATTRIBUTE = "attribute";
 
     // Regex
 

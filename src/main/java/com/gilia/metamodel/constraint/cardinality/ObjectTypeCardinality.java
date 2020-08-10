@@ -2,6 +2,7 @@ package com.gilia.metamodel.constraint.cardinality;
 
 import com.gilia.exceptions.CardinalityRangeException;
 import com.gilia.exceptions.CardinalitySyntaxException;
+import com.gilia.utils.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 
@@ -20,7 +21,7 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
     private String maxCardinality;
 
     public ObjectTypeCardinality(String cardinality) throws CardinalitySyntaxException, CardinalityRangeException {
-        super();
+        super(Utils.getAlphaNumericString(6));
         validateCardinalityString(cardinality);
     }
 
@@ -171,6 +172,25 @@ public class ObjectTypeCardinality extends CardinalityConstraint {
         }
 
         return minCardinalityValue <= maxCardinalityValue;
+    }
+
+    /**
+     * Checks if the constraint is mandatory, i.e, the min cardinality is greater than 0
+     *
+     * @return Boolean indicating if the constraint is mandatory
+     */
+    public boolean isMandatory() {
+        int minCardinalityValue;
+        if (minCardinality.equals("*")) {
+            minCardinalityValue = Integer.MAX_VALUE;
+        } else {
+            try {
+                minCardinalityValue = Integer.valueOf(minCardinality);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return minCardinalityValue > 0;
     }
 
 

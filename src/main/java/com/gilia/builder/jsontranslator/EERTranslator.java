@@ -9,9 +9,11 @@ import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
+import com.gilia.metamodel.entitytype.DataType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
+import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
 import com.gilia.metamodel.role.Role;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -37,15 +39,15 @@ public class EERTranslator implements JSONTranslator {
 
         Metamodel newMetamodel = new Metamodel(ontologyIRI);
         JSONArray jsonEntities = (JSONArray) json.get(KEY_ENTITIES);
-        // JSONArray jsonAttributes = (JSONArray) json.get(KEY_ATTRIBUTES); // This is not a 1:1 Mapping
+        JSONArray jsonAttributes = (JSONArray) json.get(KEY_ATTRIBUTES); // This is not a 1:1 Mapping
         //JSONArray jsonRelationships = (JSONArray) json.get(KEY_RELATIONSHIPS);
         JSONArray jsonLinks = (JSONArray) json.get(KEY_LINKS);
 
         // The order of this calls is important (at least for now)
         identifyObjectTypes(newMetamodel, jsonEntities);
-        identifyRelationships(newMetamodel, jsonLinks); // TODO: Implement identifyRelationships
-        identifySubclasses(newMetamodel, jsonLinks); // TODO: Implement identifySubclasses
-
+        identifyAttributes(newMetamodel, jsonAttributes, jsonLinks); // Conditioned by the JSON structure
+        identifyRelationships(newMetamodel, jsonLinks); // TODO: Implement identifySubclasses
+        identifySubclasses(newMetamodel, jsonLinks);
         return newMetamodel;
     }
 
@@ -62,7 +64,7 @@ public class EERTranslator implements JSONTranslator {
             ArrayList newObjectsType = new ArrayList();
             for (Object eerEntity : jsonEntities) {
                 String entityName = (String) ((JSONObject) eerEntity).get(KEY_NAME);
-                if (model.checkEntityExistence(entityName) == null) {
+                if (model.getEntity(entityName) == null) {
                     ObjectType newObjectType = new ObjectType(entityName);
                     newObjectsType.add(newObjectType);
                 } else {
@@ -72,6 +74,58 @@ public class EERTranslator implements JSONTranslator {
             model.addEntities(newObjectsType);
         } else {
             throw new InformationNotFoundException(ENTITIES_INFORMATION_NOT_FOUND_ERROR);
+        }
+    }
+
+    private void identifyAttributes(Metamodel model, JSONArray eerAttributes, JSONArray eerLinks) {
+        if (eerAttributes != null && eerLinks != null && !eerAttributes.isEmpty()) {
+            for (Object link : eerLinks) {
+                JSONObject eerLink = (JSONObject) link; // Gets the attribute link.
+                String typeLink = (String) eerLink.get(KEY_TYPE);
+                if (typeLink.equals(KEY_ATTRIBUTE)) {
+                    Entity entityObject = model.getEntity((String) eerLink.get(ENTITY_STRING));
+                    String attributeName = (String) eerLink.get(KEY_ATTRIBUTE);
+
+                    // Looks for the attribute in the attributes list.
+                    // This will give us information about the attribute.
+                    int i = 0;
+                    boolean attributeFound = false;
+                    String attributeType = "";
+                    while (!attributeFound && i < eerAttributes.size()) {
+                        JSONObject attribute = (JSONObject) eerAttributes.get(i);
+                        if (attribute.get(KEY_NAME).equals(attributeName)) {
+                            attributeType = (String) attribute.get(KEY_UML_DATATYPE);
+                            attributeFound = true;
+                        }
+                        i++;
+                    }
+
+                    if (!attributeFound) {
+
+                    }
+
+                    // Search for the DataType of the attribute. Creates it if it does not exist.
+                    Entity datatype = model.getEntity(attributeType);
+                    if (datatype == null || datatype.getClass() != DataType.class) {
+                        datatype = new DataType(attributeType);
+                        model.addEntity((DataType) datatype);
+                    }
+
+                    // Checks if the attributive property already exists.
+                    // If it exists, then a domain is added. Otherwise is created.
+                    Entity attributiveProperty = model.getEntity(attributeName);
+                    // This check is useless with the current JSON. There is no way to differentiate the attributes.
+                    if (attributiveProperty == null || attributiveProperty.getClass() != AttributiveProperty.class || !((AttributiveProperty) attributiveProperty).getRange().equals(datatype)) {
+                        ArrayList domain = new ArrayList();
+                        domain.add(entityObject);
+
+                        attributiveProperty = new AttributiveProperty(attributeName, domain, (DataType) datatype);
+                        model.addRelationship((AttributiveProperty) attributiveProperty);
+                    } else if (attributiveProperty != null && attributiveProperty.getClass() == AttributiveProperty.class && ((AttributiveProperty) attributiveProperty).getRange().equals(datatype)) {
+                        ((AttributiveProperty) attributiveProperty).addDomain((ObjectType) entityObject);
+                    }
+                }
+            }
         }
     }
 
@@ -94,13 +148,13 @@ public class EERTranslator implements JSONTranslator {
                 if (type.equals(RELATIONSHIP_STRING)) {
                     JSONObject relationship = (JSONObject) eerLink;
                     String relationshipName = (String) relationship.get(KEY_NAME);
-                    if (model.checkEntityExistence(relationshipName) == null) {
+                    if (model.getEntity(relationshipName) == null) {
                         // Check the existence of the entities involved and add the entities not present in the metamodel
                         JSONArray entities = (JSONArray) relationship.get(KEY_ENTITIES); // TODO: Check size of classes
                         ArrayList objectsType = new ArrayList();
                         for (Object jsonEntity : entities) {
                             String entityName = (String) jsonEntity;
-                            Entity entityFound = model.checkEntityExistence(entityName);
+                            Entity entityFound = model.getEntity(entityName);
                             if (entityFound != null) {
                                 if (entityFound.getClass().equals(ObjectType.class)) {
                                     objectsType.add(entityFound);
@@ -161,7 +215,7 @@ public class EERTranslator implements JSONTranslator {
                     String cardinality = (String) jsonCardinalities.get(i);
 
                     // Get the entity related to this new role. It should exist already
-                    ObjectType entity = (ObjectType) model.getEntity(entityName);
+                    ObjectType entity = (ObjectType) model.getEntityType(entityName);
                     // TODO: Change this to checkEntityExistence
                     if (entity.isNameless()) { // If the entity returned is nameless, then it does not exist or is not valid.
                         throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
@@ -180,6 +234,11 @@ public class EERTranslator implements JSONTranslator {
                     model.addConstraint(newCardinalityConstraint);
 
                     Role newRole = new Role(roleName, entity, relationship, newCardinalityConstraint);
+
+                    if (newRole.isMandatory() && !model.doesEntityExists(newRole.getMandatoryConstraint().getName())) {
+                        model.addConstraint(newRole.getMandatoryConstraint());
+                    }
+
                     newRoles.add(newRole);
                 }
             } else {
@@ -212,7 +271,7 @@ public class EERTranslator implements JSONTranslator {
                 // Check the existence of the parent in the generalization
                 ObjectType parent;
                 String parentName = (String) isa.get(KEY_PARENT); // TODO: Check case of "undefined"
-                Entity entityFound = model.checkEntityExistence(parentName);
+                Entity entityFound = model.getEntity(parentName);
                 if (entityFound != null) {
                     if (entityFound.getClass().equals(ObjectType.class)) {
                         parent = (ObjectType) entityFound;
@@ -232,7 +291,7 @@ public class EERTranslator implements JSONTranslator {
                 ArrayList objectsType = new ArrayList();
                 for (Object jsonClass : classes) {
                     String className = (String) jsonClass;
-                    entityFound = model.checkEntityExistence(className);
+                    entityFound = model.getEntity(className);
                     if (entityFound != null) {
                         if (entityFound.getClass().equals(ObjectType.class)) {
                             objectsType.add(entityFound);
@@ -261,7 +320,7 @@ public class EERTranslator implements JSONTranslator {
                     }
                 }
 
-                for (Object entity : objectsType){
+                for (Object entity : objectsType) {
                     Subsumption newSubsumption = new Subsumption(isaRelationshipName + "_" + getAlphaNumericString(RANDOM_STRING_LENGTH), parent, (ObjectType) entity, completenessConstraint, disjointObjectType);
                     newSubsumptions.add(newSubsumption);
                 }

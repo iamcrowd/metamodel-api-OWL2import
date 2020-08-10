@@ -2,6 +2,7 @@ package com.gilia.metamodel.role;
 
 import com.gilia.exceptions.CardinalitySyntaxException;
 import com.gilia.metamodel.Entity;
+import com.gilia.metamodel.constraint.Constraint;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.constraint.mandatory.Mandatory;
 import com.gilia.metamodel.entitytype.EntityType;
@@ -10,6 +11,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static com.gilia.utils.Constants.*;
@@ -74,6 +76,21 @@ public class Role extends Entity {
      */
     public Role(String name, EntityType entity, Relationship relationship, ObjectTypeCardinality cardinalityObject) {
         this(name, entity, relationship, cardinalityObject, null);
+    }
+
+    /**
+     * Creates an instance of a Role. This constructor only includes entity and relationship
+     *
+     * @param name              String that represents the name of the role
+     * @param entity            EntityType object associated to the role to be created
+     * @param relationship      Relationship object associated to the role to be created
+     * @see com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality
+     */
+    public Role(String name, EntityType entity, Relationship relationship) { // TODO: Little messy, revise
+        super(name);
+        this.entity = entity;
+        this.relationship = relationship;
+        this.cardinalityConstraints = new ArrayList<ObjectTypeCardinality>();
     }
 
     /**
@@ -167,7 +184,7 @@ public class Role extends Entity {
         this.relationship = relationship;
     }
 
-    public ArrayList<ObjectTypeCardinality> getCardinalityConstraints() {
+    public List<ObjectTypeCardinality> getCardinalityConstraints() {
         return cardinalityConstraints;
     }
 
@@ -194,6 +211,15 @@ public class Role extends Entity {
             e.printStackTrace();
         }
         this.mandatoryConstraint = mandatoryConstraint;
+    }
+
+    /**
+     * Checks if the constraint is mandatory, i.e, the min cardinality is greater than 0
+     *
+     * @return Boolean indicating if the constraint is mandatory
+     */
+    public boolean isMandatory() {
+        return mandatoryConstraint != null;
     }
 
     @Override

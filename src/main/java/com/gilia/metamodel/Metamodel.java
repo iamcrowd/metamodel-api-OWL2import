@@ -8,6 +8,7 @@ import com.gilia.metamodel.role.Role;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -18,10 +19,10 @@ import java.util.Objects;
 public class Metamodel {
 
     private String ontologyIRI;
-    private ArrayList<EntityType> entities;
-    private ArrayList<Relationship> relationships;
-    private ArrayList<Role> roles;
-    private ArrayList<Constraint> constraints;
+    private List<EntityType> entities;
+    private List<Relationship> relationships;
+    private List<Role> roles;
+    private List<Constraint> constraints;
 
     /**
      *
@@ -54,15 +55,15 @@ public class Metamodel {
         this.ontologyIRI = ontologyIRI;
     }
 
-    public ArrayList<EntityType> getEntities() {
+    public List<EntityType> getEntities() {
         return entities;
     }
 
-    public void setEntities(ArrayList<EntityType> entities) {
+    public void setEntities(List<EntityType> entities) {
         this.entities = entities;
     }
 
-    public ArrayList<Relationship> getRelationships() {
+    public List<Relationship> getRelationships() {
         return relationships;
     }
 
@@ -70,7 +71,7 @@ public class Metamodel {
         this.relationships = relationships;
     }
 
-    public ArrayList<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
@@ -78,11 +79,11 @@ public class Metamodel {
         this.roles = roles;
     }
 
-    public ArrayList<Constraint> getConstraints() {
+    public List<Constraint> getConstraints() {
         return constraints;
     }
 
-    public void setConstraints(ArrayList<Constraint> constraints) {
+    public void setConstraints(List<Constraint> constraints) {
         this.constraints = constraints;
     }
 
@@ -100,7 +101,7 @@ public class Metamodel {
      *
      * @param entities ArrayList of EntityType objects to be added
      */
-    public void addEntities(ArrayList<EntityType> entities) {
+    public void addEntities(List<EntityType> entities) {
         this.entities.addAll(entities);
     }
 
@@ -118,7 +119,7 @@ public class Metamodel {
      *
      * @param relationships ArrayList of Relationship objects to be added
      */
-    public void addRelationships(ArrayList<Relationship> relationships) {
+    public void addRelationships(List<Relationship> relationships) {
         this.relationships.addAll(relationships);
     }
 
@@ -136,7 +137,7 @@ public class Metamodel {
      *
      * @param roles ArrayList of Role objects to be added
      */
-    public void addRoles(ArrayList<Role> roles) {
+    public void addRoles(List<Role> roles) {
         this.roles.addAll(roles);
     }
 
@@ -150,13 +151,19 @@ public class Metamodel {
     }
 
     /**
+     *  Adds a collection of constraints (Contraint objects) to the Metamodel instance
+     * @param constraints List of Constraint objects to be added
+     */
+    public void addConstraints(List<Constraint> constraints) { this.constraints.addAll(constraints); }
+
+    /**
      * Search for an entity (EntityType object) in the Metamodel according to its name. Returns a new empty ObjectType
      * object if there is no EntityType object with the given name.
      *
      * @param name String that represents the entity name
      * @return EntityType object that has the given name or a new ObjectType object if there is no match
      */
-    public EntityType getEntity(String name) {
+    public EntityType getEntityType(String name) {
         for (EntityType entity : entities) {
             if (entity.getName().equals(name)) {
                 return entity;
@@ -189,7 +196,7 @@ public class Metamodel {
      * @param entityName An entity name to be looked for
      * @return An EntityType, Relationship, Role or Constraint object of the given entityName if it exists in the metamodel. Otherwise returns null.
      */
-    public Entity checkEntityExistence(String entityName) {
+    public Entity getEntity(String entityName) {
         for (EntityType entity : entities) {
             if (entity.getName().equals(entityName)) {
                 return entity;
@@ -215,6 +222,10 @@ public class Metamodel {
         }
 
         return null;
+    }
+
+    public boolean doesEntityExists(String name) {
+        return getEntity(name) != null;
     }
 
     @Override
@@ -247,7 +258,7 @@ public class Metamodel {
      * @return
      */
     public JSONObject toJSONObject() {
-        // TODO: Implement? This is already done by MetaConverter/generateJSON
+        // TODO: Implement? This is already done by MetaConverter.generateJSON
         return new JSONObject();
     }
 }

@@ -25,20 +25,12 @@
         },
         "Value property": {
           "description": "",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "domain": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "value type": {
+          "type": "object",
+          "properties": {
+            "Value type": {
+              "description": "",
+              "type": "array",
+              "items": {
                 "type": "string"
               }
             }
@@ -116,10 +108,42 @@
             }
           }
         },
-        "Attributive Property": {
+        "Attributive property": {
           "description": "",
-          "type": "array",
-          "items": true
+          "type": "object",
+          "properties": {
+            "Attributive property": {
+              "description": "",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "domain": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "range": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "Attribute": {
+              "description": "",
+              "type": "object",
+              "properties": {
+                "Attribute": {
+
+                },
+                "Mapped to": {
+
+                }
+              }
+            }
+          }
         }
       }
     },

@@ -1,35 +1,60 @@
 package com.gilia.builder.metabuilder;
 
+import com.gilia.enumerates.RelationshipType;
+import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
 import com.gilia.metamodel.constraint.Constraint;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
+import com.gilia.metamodel.entitytype.valueproperty.ValueType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
+import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
+import com.gilia.metamodel.relationship.attributiveproperty.attribute.MappedTo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.gilia.utils.Constants.KEY_CLASSES;
-import static com.gilia.utils.Constants.KEY_LINKS;
+import static com.gilia.utils.Constants.*;
 
 public class UMLConverter implements MetaBuilder {
-
 
     @Override
     public JSONObject generateJSON(Metamodel metamodel) {
         JSONObject jsonUml = new JSONObject();
 
-        ArrayList<EntityType> entities = metamodel.getEntities();
-        ArrayList<Relationship> relationships = metamodel.getRelationships();
+        ArrayList<EntityType> entities = (ArrayList<EntityType>) metamodel.getEntities();
+        ArrayList<Relationship> relationships = (ArrayList<Relationship>) metamodel.getRelationships();
+
 
         // Classes
         JSONArray jsonClasses = new JSONArray();
         for (Object entity : entities) {
-            jsonClasses.add(((ObjectType) entity).toUML()); // With more entities implementation, this may change
+            if (entity.getClass() == ObjectType.class) {
+                JSONObject json = ((ObjectType) entity).toUML();
+                JSONArray attributes = new JSONArray();
+                for (Object relationship : relationships) {
+                    if (relationship.getClass() == AttributiveProperty.class) {
+                        if (((AttributiveProperty) relationship).getDomain().contains(entity)) {
+                            attributes.add(((AttributiveProperty) relationship).toUML());
+                        }
+                    } else if (relationship.getClass() == MappedTo.class) {
+                        for (Entity objectType : ((MappedTo) relationship).getDomain()) {
+                            ValueType valueType = (ValueType) objectType;
+                            if (valueType.getDomain().contains(entity)) {
+                                AttributiveProperty attributiveProperty = (valueType).toAttributiveProperty();
+                                attributes.add((attributiveProperty).toUML());
+                            }
+                        }
+
+                    }
+                }
+                json.replace(KEY_ATTRS, attributes);
+                jsonClasses.add(json); // With more entities implementation, this may change
+            }
         }
 
         // Links
@@ -65,8 +90,10 @@ public class UMLConverter implements MetaBuilder {
                         jsonLinks.add(subsumption.toUML());
                     }
                 }
-            } else {
-                jsonLinks.add(((Relationship) relationship).toUML());
+            } else if (relationship.getClass() == Relationship.class) {
+                if (((Relationship) relationship).getType() == null || !((Relationship) relationship).getType().equals(RelationshipType.VALUE_TYPE)) {
+                    jsonLinks.add(((Relationship) relationship).toUML());
+                }
             }
         }
 
