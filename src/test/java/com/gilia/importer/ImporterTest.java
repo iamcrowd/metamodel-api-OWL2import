@@ -23,6 +23,8 @@ import static com.gilia.utils.ImportUtils.validateOWL;
 import com.gilia.metamodel.*;
 import com.gilia.builder.metabuilder.*;
 import com.gilia.owlimporter.importer.Importer;
+import static com.gilia.owlimporter.importer.Importer.normalizeToImport;
+
 
 import com.gilia.owlimporter.importer.classExpression.Class;
 import com.gilia.owlimporter.importer.axiom.classAxiom.SubClassOf;
@@ -58,6 +60,21 @@ public class ImporterTest {
     	  	OWLOntology onto = importer.getOntology();
     	  	assertTrue(onto.isOntology());
     	  	assertEquals("Metamodel empty", meta.toString(), "Metamodel{entities=[], relationships=[], roles=[], constraints=[]}");
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+	
+	@Test
+    public void testCreateAnEmptyKFandLoadOntoFromIRIAndShowNormalized() {
+    	try {
+    		IRI ontoiri = IRI.create("https://protege.stanford.edu/ontologies/pizza/pizza.owl");
+    	  	Importer importer = new Importer(ontoiri,true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.normalizeToImport(onto);
+    
     	}
     	catch (Exception e){
         	e.printStackTrace();
