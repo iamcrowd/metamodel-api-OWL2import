@@ -31,6 +31,15 @@
     			</exclusion>
     		</exclusions>
     	</dependency>
+
+
+		<dependency>
+    		<groupId>ontologyutils</groupId>
+    		<artifactId>ontologyutils</artifactId>
+    		<version>0.0.1-SNAPSHOT</version>
+    		<scope>system</scope>
+    		<systemPath>${project.basedir}/lib/ontologyutils-0.0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/com.hermit-reasoner/org.semanticweb.hermit -->
   		<dependency>
@@ -38,6 +47,18 @@
     		<artifactId>org.semanticweb.hermit</artifactId>
     		<version>1.4.5.519</version>
     		<!-- <scope>test</scope>  -->
+		</dependency>
+		
+		<dependency>
+  			<groupId>net.sourceforge.owlapi</groupId>
+  			<artifactId>jfact</artifactId>
+  			<version>5.0.1</version>
+  		</dependency>
+    	
+    	<dependency>
+    		<groupId>com.github.galigator.openllet</groupId>
+    		<artifactId>openllet-pellint</artifactId>
+    		<version>2.6.3</version>
 		</dependency>
     	
     	<!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owllink-owlapi-parent -->
