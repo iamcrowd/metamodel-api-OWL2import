@@ -121,6 +121,7 @@ public class Importer {
 		}
 	}
 	
+	
 	/**
 	 * Starting to loop over ontology axioms to normalise
 	 * Filter axiom types http://owlcs.github.io/owlapi/apidocs_5/org/semanticweb/owlapi/model/AxiomType.html
@@ -130,7 +131,7 @@ public class Importer {
 	 * @param ontology
 	 * @return a normalised ontology to be imported
 	 */
-	public static void normalizeToImport(OWLOntology ontology) {
+	public OWLOntology normalizeToImport(OWLOntology ontology) {
 		FreshAtoms.resetFreshAtomsEquivalenceAxioms(); // optional; for verification purpose
 
 		OWLOntology copy = Utils.newEmptyOntology();
@@ -257,6 +258,15 @@ public class Importer {
 	public void OWLSubClassesImport(IRI anIRI) {
    	  	SubClassOf import_subclasses = new SubClassOf();
 	  	import_subclasses.owlSubClassAxiomForGivenOWLClass2Subsumptions(this.kfimported, this.onto, anIRI);
+	  	MetaBuilder builder = new MetaConverter();
+	  	builder.generateJSON(this.kfimported);
+	}
+	
+	public void importNormalisedOntology() {
+		OWLOntology normalOnto = null;
+		normalOnto = this.normalizeToImport(this.onto);
+		NormalFormTools tools = new NormalFormTools();
+		tools.asKF(this.kfimported, normalOnto);
 	  	MetaBuilder builder = new MetaConverter();
 	  	builder.generateJSON(this.kfimported);
 	}
