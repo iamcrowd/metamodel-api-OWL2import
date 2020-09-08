@@ -23,7 +23,6 @@ import static com.gilia.utils.ImportUtils.validateOWL;
 import com.gilia.metamodel.*;
 import com.gilia.builder.metabuilder.*;
 import com.gilia.owlimporter.importer.Importer;
-import static com.gilia.owlimporter.importer.Importer.normalizeToImport;
 
 
 import com.gilia.owlimporter.importer.classExpression.Class;
@@ -73,8 +72,23 @@ public class ImporterTest {
     	  	Importer importer = new Importer(ontoiri,true);
     	  	Metamodel meta = importer.getKFInstance();
     	  	OWLOntology onto = importer.getOntology();
-    	  	importer.normalizeToImport(onto);
+    	  	OWLOntology naive = importer.normalizeToImport(onto);
     
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+	
+	@Test
+    public void testImportAxiomsType1asKF() {
+    	try {
+    		IRI ontoiri = IRI.create("https://protege.stanford.edu/ontologies/pizza/pizza.owl");
+    	  	Importer importer = new Importer(ontoiri,true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importNormalisedOntology();
+    	  	System.out.println(importer.toJSON());
     	}
     	catch (Exception e){
         	e.printStackTrace();
