@@ -269,4 +269,43 @@ public class Importer {
 	  	builder.generateJSON(this.kfimported);
 	}
 	
+	public void importType1AfromOntology() {
+		NormalFormTools tools = new NormalFormTools();
+		tools.type1ANormalisedasKF(this.kfimported, this.onto);
+	  	MetaBuilder builder = new MetaConverter();
+	  	builder.generateJSON(this.kfimported);
+	}
+	
+	public void importType1BfromOntology() {
+		NormalFormTools tools = new NormalFormTools();
+		tools.type1BNormalisedasKF(this.kfimported, this.onto);
+	  	MetaBuilder builder = new MetaConverter();
+	  	builder.generateJSON(this.kfimported);
+	}
+	
+	public void importType1CfromOntology() {
+		NormalFormTools tools = new NormalFormTools();
+		tools.type1CNormalisedasKF(this.kfimported, this.onto);
+	  	MetaBuilder builder = new MetaConverter();
+	  	builder.generateJSON(this.kfimported);
+	}
+	
+	public void importType1DfromOntology() {
+	}
+	
+	public void importType1fromOntology() {
+	}
+	
+	public void importType2fromOntology() {
+
+	}
+	
+	public void importType3fromOntology() {
+
+	}
+	
+	public void importType4fromOntology() {
+
+	}
+	
 }

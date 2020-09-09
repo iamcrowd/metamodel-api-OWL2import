@@ -93,7 +93,9 @@ public class Metamodel {
      * @param entity EntityType object to be added
      */
     public void addEntity(EntityType entity) {
-        this.entities.add(entity);
+    	if (!this.entities.contains(entity)) {
+            this.entities.add(entity);
+    	}
     }
 
     /**
