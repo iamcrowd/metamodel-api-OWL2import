@@ -191,7 +191,6 @@ public class Importer {
 
 	}
 	
-	
 	public Metamodel getKFInstance() {
 		return this.kfimported;
 	}
@@ -262,11 +261,10 @@ public class Importer {
 	  	builder.generateJSON(this.kfimported);
 	}
 	
+	
 	public void importNormalisedOntology() {
-		OWLOntology normalOnto = null;
-		normalOnto = this.normalizeToImport(this.onto);
 		NormalFormTools tools = new NormalFormTools();
-		tools.asKF(this.kfimported, normalOnto);
+		tools.asKF(this.kfimported, this.onto);
 	  	MetaBuilder builder = new MetaConverter();
 	  	builder.generateJSON(this.kfimported);
 	}

@@ -1,6 +1,7 @@
 package com.gilia.owlimporter.importer;
 
 import com.gilia.metamodel.*;
+import com.gilia.metamodel.constraint.CompletenessConstraint;
 
 import org.json.simple.JSONObject;
 
@@ -14,16 +15,12 @@ import org.semanticweb.HermiT.*;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.ClassExpressionType;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-
 import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -86,190 +83,273 @@ public class NormalFormTools {
 	}
 	
 	/**
-	 * Import OWL Classes and generate a KF instance with the respective set of ObjectTypes
+	 * Starting to loop over ontology axioms to normalise
+	 * Filter axiom types http://owlcs.github.io/owlapi/apidocs_5/org/semanticweb/owlapi/model/AxiomType.html
 	 * 
-	 * @see KF metamodel ObjectType
+	 * @implNote we remove unsupported class expressions not removed by ontology utils dependency
+	 * 
+	 * @param ontology
+	 * @return a normalised ontology to be imported
 	 */
-	public void asKF (Metamodel kf, OWLOntology normalOnto) {
+	public void asKF(Metamodel kf, OWLOntology ontology) {
+		FreshAtoms.resetFreshAtomsEquivalenceAxioms(); // optional; for verification purpose
+
+		OWLOntology copy = Utils.newEmptyOntology();
+		copy.addAxioms(ontology.axioms());
 		
-		Stream<OWLAxiom> tBoxAxioms = normalOnto.tboxAxioms(Imports.EXCLUDED);
-		
+		OWLOntology unsupported = Utils.newEmptyOntology();
+
+		Stream<OWLAxiom> tBoxAxioms = copy.tboxAxioms(Imports.EXCLUDED);
 		tBoxAxioms.forEach((ax) -> {
+			copy.remove(ax);
+
 			try {
+				OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
+				OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
 				
-				if (NormalForm.isNormalFormTBoxAxiom(ax)) {
-					OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
-					OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
-					
-					System.out.println("************************************ LEFT");
-					System.out.println(left.toString());
-					System.out.println("************************************");
-					
-					System.out.println("************************************ RIGHT");
-					System.out.println(right.toString());
-					System.out.println("************************************");
-					// Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
-					// A \sqsubseteq B or A \sqcap B \sqsubseteq C or 
-					
-						if (NormalForm.typeOneSubClassAxiom(left, right)) {
-							System.out.println("************************************");
-							System.out.println("Im type 1");
-							System.out.println("************************************");
-							
-							if ((!left.toString().contains("FRESH#")) &&
-									(!right.toString().contains("FRESH#"))) {
-								
-								System.out.println("Im type 1 (a)");
-								
-								this.type1asKF(kf, normalOnto, left, right);
-								
-							} else if ((left.toString().contains("FRESH#")) &&
-									(!right.toString().contains("FRESH#"))) {
-								
-								System.out.println("Im type 1 (b)");
-								System.out.println(left.toString().substring(left.toString().indexOf('[') + 1, 
-																						  left.toString().indexOf(']')));
-								
-							} else if ((!left.toString().contains("FRESH#")) &&
-									(right.toString().contains("FRESH#"))) {
-								
-								System.out.println("Im type 1 (c)");
-								System.out.println(right.toString().substring(right.toString().indexOf('[') + 1, 
-										right.toString().indexOf(']')));
-								
-							} else if ((left.toString().contains("FRESH#")) &&
-									(right.toString().contains("FRESH#"))) {
-								
-								System.out.println("Im type 1 (d)");
-								System.out.println(left.toString().substring(left.toString().indexOf('[') + 1, 
-										left.toString().indexOf('[')));
-								System.out.println(right.toString().substring(right.toString().indexOf('[') + 1, 
-										right.toString().indexOf(']')));
-								
-							}
-							
-						}
-						if (NormalForm.typeTwoSubClassAxiom(left, right)) {
-							System.out.println("************************************");
-							System.out.println("Im type 2");
-							System.out.println("************************************");
-						}
-						if (NormalForm.typeThreeSubClassAxiom(left, right)) {
-							System.out.println("************************************");
-							System.out.println("Im type 3");
-							System.out.println("************************************");
-						}
-						if (NormalForm.typeFourSubClassAxiom(left, right)) {
-							System.out.println("************************************");
-							System.out.println("Im type 4");
-							System.out.println("************************************");
-						}
-				}
-				else {
-					System.out.println("Do nothing:" + ax.toString());
+				if ((left.getClassExpressionType() == ClassExpressionType.OBJECT_HAS_VALUE) || 
+							(right.getClassExpressionType() == ClassExpressionType.OBJECT_HAS_VALUE)) {
+						
+						unsupported.addAxiom(ax);
+				} else {
+					copy.addAxioms(NormalizationTools.asSubClassOfAxioms(ax));
 				}
 			}
 			catch (Exception f) {
-					f.printStackTrace();
 					System.out.println("Unsupported axioms:" + ax.toString());
 			}
 		
 		});
+		
+		System.out.println("\nNaive Normalized TBox");
+
+		OWLOntology naive = Utils.newEmptyOntology();
+		
+		naive.addAxioms(ontology.rboxAxioms(Imports.EXCLUDED));
+		naive.addAxioms(ontology.aboxAxioms(Imports.EXCLUDED));
+		
+		Set<OWLAxiom> tBoxAxiomsCopy = copy.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
+		
+		OWLReasoner reasoner = Utils.getHermitReasoner(ontology);
+
+		tBoxAxiomsCopy.forEach(
+				(ax) -> {
+					
+					Collection<OWLSubClassOfAxiom> ax_n = NormalizationTools.normalizeSubClassAxiom((OWLSubClassOfAxiom) ax);
+					System.out.println("\n ************ Axiom Normalised \n" + ax_n.toString());
+					
+					ax_n.forEach(
+							(ax_sub) -> {
+								if (NormalForm.isNormalFormTBoxAxiom(ax_sub)) {
+															
+									OWLClassExpression left = ((OWLSubClassOfAxiom) ax_sub).getSubClass();
+									OWLClassExpression right = ((OWLSubClassOfAxiom) ax_sub).getSuperClass();
+									
+									System.out.println("************************************ LEFT");
+									System.out.println(left.toString());
+									System.out.println("************************************");
+									
+									System.out.println("************************************ RIGHT");
+									System.out.println(right.toString());
+									System.out.println("************************************");
+									// Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
+									// A \sqsubseteq B or A \sqcap B \sqsubseteq C or 
+									
+										if (NormalForm.typeOneSubClassAxiom(left, right)) {
+											System.out.println("************************************");
+											System.out.println("Im type 1");
+											System.out.println("************************************");
+											
+											// atom atom
+											if (NormalForm.isAtom(left) && NormalForm.isAtom(right)) {
+												System.out.println("Im type 1 (a)");
+												
+												this.type1AasKF(kf, left, right);
+											
+											// atom disj	
+											} else if (NormalForm.isAtom(left) && NormalForm.isDisjunctionOfAtoms(right)) {
+												System.out.println("Im type 1 (b)");
+												
+												this.type1BasKF(kf, left, right);
+												
+											// conj atom	
+											} else if (NormalForm.isConjunctionOfAtoms(left) && NormalForm.isAtom(right)) {
+												System.out.println("Im type 1 (c)");
+												
+											// conj disj
+											} else if (NormalForm.isConjunctionOfAtoms(left) && NormalForm.isDisjunctionOfAtoms(right)) {	
+												System.out.println("Im type 1 (d)");
+											}
+										}
+										if (NormalForm.typeTwoSubClassAxiom(left, right)) {
+											System.out.println("************************************");
+											System.out.println("Im type 2");
+											System.out.println("************************************");
+										}
+										if (NormalForm.typeThreeSubClassAxiom(left, right)) {
+											System.out.println("************************************");
+											System.out.println("Im type 3");
+											System.out.println("************************************");
+										}
+										if (NormalForm.typeFourSubClassAxiom(left, right)) {
+											System.out.println("************************************");
+											System.out.println("Im type 4");
+											System.out.println("************************************");
+										}
+								}
+								else {
+									System.out.println("Do nothing:" + ax.toString());
+								}
+							});
+					
+					naive.addAxioms(ax_n);
+				});
+		
+		//System.out.println("\n ************ Axioms Normalised \n");
+		
+		//naive.tboxAxioms(Imports.EXCLUDED).forEach(ax_e -> System.out.println(Utils.pretty("-- " + ax_e.toString())));
+		
+		//System.out.println("\n ************List Unsupported ClassExpressions and Axioms in Normalization App\n");
+		// After normalize, copy again the unsupported axioms
+		//unsupported.axioms().forEach(System.out::println);
+		
+		/*
+		//naive.addAxioms(unsupported.axioms());
+		
+		
+		OWLReasoner reasoner = Utils.getHermitReasoner(naive);
+		//assert (ontology.axioms().allMatch(ax -> reasoner.isEntailed(ax)));
+		
+		copy.addAxioms(unsupported.axioms());
+		
+		// check every axiom of naive is entailed in the copy of the original ontology
+		// with extended signature
+		copy.addAxioms(FreshAtoms.getFreshAtomsEquivalenceAxioms());
+		OWLReasoner reasonerBis = Utils.getHermitReasoner(copy);
+		assert (naive.axioms().allMatch(ax -> reasonerBis.isEntailed(ax)));	
+		
+		naive.tboxAxioms(Imports.EXCLUDED).forEach(ax -> System.out.println(Utils.pretty("-- " + ax.toString())));
+		
+		return naive;*/
+
 	}
 	
 	
 	/**
 	 * Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
 	 *  - A \sqsubseteq B or  (atom, atom)
-	 *  - A \sqcap B \sqsubseteq C or (conjuction of atoms, atom)
+	 * @param kf
+	 * @param left
+	 * @param right
+	 */
+	public void type1AasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
+			
+		String left_iri = left.asOWLClass().toStringID();
+		String right_iri = right.asOWLClass().toStringID();
+		ObjectType ot_child = new ObjectType(left_iri);
+		ObjectType ot_parent = new ObjectType(right_iri);
+		
+		kf.addEntity(ot_child);
+		kf.addEntity(ot_parent);
+		
+		Subsumption sub = new Subsumption(
+									getAlphaNumericString(3), 
+									ot_parent, 
+									ot_child);
+		
+		kf.addRelationship(sub);
+	}
+	
+	/**
+	 * Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
 	 *  - A \sqsubseteq B \sqcup C (atom, disjunction of atoms)
+	 * @param kf
+	 * @param left
+	 * @param right
+	 */
+	public void type1BasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
+			
+		String left_iri = left.asOWLClass().toStringID();
+		ObjectType ot_left = new ObjectType(left_iri);
+		
+		Set<OWLClassExpression> disjunctions = right.asDisjunctSet();
+		ObjectType ot_fresh = new ObjectType("http://crowd.fi.uncoma.edu.ar/KF#" + right.toString());
+		
+		ArrayList<ObjectType> cc_list = new ArrayList();
+		CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(3));
+		
+		for (OWLClassExpression d : disjunctions) {
+			if (NormalForm.isAtom(d)) {
+				String d_iri = d.asOWLClass().toStringID();
+				ObjectType ot = new ObjectType(d_iri);
+				
+				kf.addEntity(ot);
+				cc_list.add(ot);
+				
+				Subsumption sub_fresh = new Subsumption(
+						getAlphaNumericString(3), 
+						ot_fresh, 
+						ot,
+						cc);
+				kf.addRelationship(sub_fresh);
+			}
+		}
+		
+		cc.setEntities(cc_list);
+		kf.addConstraint(cc);
+		
+		kf.addEntity(ot_left);
+		kf.addEntity(ot_fresh);
+		
+		Subsumption sub = new Subsumption(
+									getAlphaNumericString(3), 
+									ot_fresh, 
+									ot_left);
+		kf.addRelationship(sub);
+	}
+	
+	/**
+	 * Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
+	 *  - A \sqcap B \sqsubseteq C or (conjuction of atoms, atom)
+	 * @param kf
+	 * @param left
+	 * @param right
+	 */
+	public void type1CasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
+			
+		String left_iri = left.asOWLClass().toStringID();
+		String right_iri = right.asOWLClass().toStringID();
+		ObjectType ot_child = new ObjectType(left_iri);
+		ObjectType ot_parent = new ObjectType(right_iri);
+		
+		Subsumption sub = new Subsumption(
+									getAlphaNumericString(3), 
+									ot_parent, 
+									ot_child);
+		
+		kf.addRelationship(sub);
+	}
+	
+	/**
+	 * Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
 	 *  - A \sqcap B \sqsubseteq C \sqcup D (conjunction of atoms, disjunction of atoms)
 	 * @param kf
 	 * @param left
 	 * @param right
 	 */
-	public void type1asKF (Metamodel kf, OWLOntology onto, OWLClassExpression left, OWLClassExpression right) {
-
-		//A \sqsubseteq B or  (atom, atom)
-		if ((left.isClassExpressionLiteral()) && (right.isClassExpressionLiteral())) {
+	public void type1DasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 			
-			String left_iri = left.asOWLClass().toStringID();
-			String right_iri = right.asOWLClass().toStringID();
-			ObjectType ot_child = new ObjectType(left_iri);
-			ObjectType ot_parent = new ObjectType(right_iri);
+		String left_iri = left.asOWLClass().toStringID();
+		String right_iri = right.asOWLClass().toStringID();
+		ObjectType ot_child = new ObjectType(left_iri);
+		ObjectType ot_parent = new ObjectType(right_iri);
 		
-			if (onto.getOntologyID().getOntologyIRI().isPresent()){
-				Subsumption sub = new Subsumption(
-						onto.getOntologyID().getOntologyIRI().get().toString() + "/" + getAlphaNumericString(3), 
-						ot_parent, 
-						ot_child);
-				
-				kf.addRelationship(sub);
-			}
-			else {
-				Subsumption sub = new Subsumption(
-						getAlphaNumericString(3), 
-						ot_parent, 
-						ot_child);
-				kf.addRelationship(sub);
-			}
-			
-			//if (e.isOWLClass() || e.isTopEntity() || e.isBottomEntity();
-		}
+		Subsumption sub = new Subsumption(
+									getAlphaNumericString(3), 
+									ot_parent, 
+									ot_child);
+		
+		kf.addRelationship(sub);
 	}
-	
-/*	static boolean isConjunctionOfAtoms(OWLClassExpression e) {
-		if (!(e.getClassExpressionType() == ClassExpressionType.OBJECT_INTERSECTION_OF)) {
-			return false;
-		}
-		Set<OWLClassExpression> conjunctions = e.asConjunctSet();
-		for (OWLClassExpression c : conjunctions) {
-			if (!isAtom(c)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	static boolean isDisjunctionOfAtoms(OWLClassExpression e) {
-		if (!(e.getClassExpressionType() == ClassExpressionType.OBJECT_UNION_OF)) {
-			return false;
-		}
-		Set<OWLClassExpression> disjunctions = e.asDisjunctSet();
-		for (OWLClassExpression d : disjunctions) {
-			if (!isAtom(d)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	@SuppressWarnings("unchecked")
-	static boolean isExistentialOfAtom(OWLClassExpression e) {
-		if (!(e.getClassExpressionType() == ClassExpressionType.OBJECT_SOME_VALUES_FROM)) {
-			return false;
-		}
-
-		OWLClassExpression filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) e).getFiller();
-
-		if (!isAtom(filler)) {
-			return false;
-		}
-		return true;
-	}
-
-	@SuppressWarnings("unchecked")
-	static boolean isUniversalOfAtom(OWLClassExpression e) {
-		if (!(e.getClassExpressionType() == ClassExpressionType.OBJECT_ALL_VALUES_FROM)) {
-			return false;
-		}
-
-		OWLClassExpression filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) e).getFiller();
-
-		if (!isAtom(filler)) {
-			return false;
-		}
-		return true;
-	}*/
 	
 }
