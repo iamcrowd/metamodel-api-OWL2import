@@ -1,0 +1,1116 @@
+{
+    "Entity type": {
+        "Value property": {
+            "Value type": []
+        },
+        "Data type": [],
+        "Object type": [
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTyGglc0gi#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORT8J3NGyfU#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTqUnVGbTI#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTNhiBhdU8#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTqG7HfV6Y#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORT9SSmtAHb#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORThhyq8pg4#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTdLi0DoOt#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTJTpwRpuX#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORT7jFqMZXx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTFnOC5XeG#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTbGeVGfVP#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTxxPuezU6#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTSPmK9xKT#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORT8aexDTMO#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTnQfvgbDv#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTyc4YUQHL#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTINqcwP0U#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTTc6JZ9Sh#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTMh4xONa3#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTJm9gDQP1#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping",
+            "http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping",
+            "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTkeEbMasx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+        ]
+    },
+    "Role": [],
+    "Constraints": {
+        "Cardinality constraints": {
+            "Attibutive property cardinality": [],
+            "Object type cardinality": []
+        },
+        "Disjointness constraints": {
+            "Disjoint object type": [],
+            "Disjoint role": []
+        },
+        "Completeness constraints": [
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "7S5ElmLg"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "t4cBS0IJ"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "5QIyhmAh"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "4gh9LXav"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "rn3uZHZj"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "PHtvQ2uW"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "MaYOzEx0"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "rJ1YSBKi"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "J494C1Kk"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "EDTRcpqa"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "od01iIH4"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "IyeVr90G"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "ilY2zSfb"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "IOSCWflT"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "YzXYWSsI"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "saaWC1fH"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "v8BQc6IJ"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "sPxtLh1V"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "T3aqQoFE"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "nxjdmuOL"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "VADd2rZ2"
+            },
+            {
+                "entities": [
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping",
+                    "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping"
+                ],
+                "name": "AlJUJVJV"
+            }
+        ],
+        "Mandatory constraints": {
+            "Mandatory": []
+        }
+    },
+    "Relationship": {
+        "Attributive property": {
+            "Attributive property": [],
+            "Attribute": {
+                "Attribute": [],
+                "Mapped to": []
+            }
+        },
+        "Subsumption": [
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping",
+                "completeness constraints": "7S5ElmLg",
+                "name": "NXnOqaeQ",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyGglc0gi#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping",
+                "completeness constraints": "7S5ElmLg",
+                "name": "Ghbcks5f",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyGglc0gi#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping",
+                "completeness constraints": "7S5ElmLg",
+                "name": "ItOGytua",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyGglc0gi#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "7S5ElmLg",
+                "name": "r4zfX2iv",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyGglc0gi#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                "completeness constraints": "7S5ElmLg",
+                "name": "jzcVmC7B",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyGglc0gi#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping",
+                "completeness constraints": "7S5ElmLg",
+                "name": "gbgqffA1",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyGglc0gi#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "7S5ElmLg",
+                "name": "YupnKmNt",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyGglc0gi#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "1hdmTxX6",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyGglc0gi#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping",
+                "completeness constraints": "t4cBS0IJ",
+                "name": "6BS4cp7p",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8J3NGyfU#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "t4cBS0IJ",
+                "name": "Sc58aQau",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8J3NGyfU#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                "completeness constraints": "t4cBS0IJ",
+                "name": "EDRR9e7u",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8J3NGyfU#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping",
+                "completeness constraints": "t4cBS0IJ",
+                "name": "FqbSBC4F",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8J3NGyfU#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping",
+                "completeness constraints": "t4cBS0IJ",
+                "name": "DXqG89uu",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8J3NGyfU#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "t4cBS0IJ",
+                "name": "JR64zUUT",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8J3NGyfU#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "oahdiJoC",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8J3NGyfU#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping",
+                "completeness constraints": "5QIyhmAh",
+                "name": "SaZiXyjB",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqUnVGbTI#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "5QIyhmAh",
+                "name": "iuevxVQE",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqUnVGbTI#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                "completeness constraints": "5QIyhmAh",
+                "name": "ko6TfphK",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqUnVGbTI#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping",
+                "completeness constraints": "5QIyhmAh",
+                "name": "WfMDAG2s",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqUnVGbTI#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping",
+                "completeness constraints": "5QIyhmAh",
+                "name": "Qh9KpYl2",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqUnVGbTI#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "5QIyhmAh",
+                "name": "mbbwLd6S",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqUnVGbTI#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "3z5sI0zO",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqUnVGbTI#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "4gh9LXav",
+                "name": "E43Q06Sb",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTNhiBhdU8#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping",
+                "completeness constraints": "4gh9LXav",
+                "name": "Fzy7LAvJ",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTNhiBhdU8#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping",
+                "completeness constraints": "4gh9LXav",
+                "name": "fBjPCN3c",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTNhiBhdU8#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping",
+                "completeness constraints": "4gh9LXav",
+                "name": "mWxbs08p",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTNhiBhdU8#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce",
+                "completeness constraints": "4gh9LXav",
+                "name": "kkfw0PQX",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTNhiBhdU8#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "4gh9LXav",
+                "name": "9tfeUMDv",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTNhiBhdU8#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "ggBRDi9Y",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTNhiBhdU8#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping",
+                "completeness constraints": "rn3uZHZj",
+                "name": "zAjKnlwF",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqG7HfV6Y#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping",
+                "completeness constraints": "rn3uZHZj",
+                "name": "XxS3j7uk",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqG7HfV6Y#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "rn3uZHZj",
+                "name": "9eD0aaPY",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqG7HfV6Y#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping",
+                "completeness constraints": "rn3uZHZj",
+                "name": "GhhDbQSD",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqG7HfV6Y#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "rn3uZHZj",
+                "name": "yIqT0ELX",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqG7HfV6Y#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "bErtKWJA",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqG7HfV6Y#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping",
+                "completeness constraints": "PHtvQ2uW",
+                "name": "EXwAUvIB",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT9SSmtAHb#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping",
+                "completeness constraints": "PHtvQ2uW",
+                "name": "dp98Yw29",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT9SSmtAHb#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "PHtvQ2uW",
+                "name": "vtNTf1yD",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT9SSmtAHb#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "aWrPlyDF",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT9SSmtAHb#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping",
+                "completeness constraints": "MaYOzEx0",
+                "name": "1QPdj1gx",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORThhyq8pg4#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "MaYOzEx0",
+                "name": "8TIi05UD",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORThhyq8pg4#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "MaYOzEx0",
+                "name": "3QvSkWce",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORThhyq8pg4#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "e1GhCXeL",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORThhyq8pg4#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping",
+                "completeness constraints": "rJ1YSBKi",
+                "name": "oKAFuY9d",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTdLi0DoOt#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "rJ1YSBKi",
+                "name": "WfRNgKwz",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTdLi0DoOt#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping",
+                "completeness constraints": "rJ1YSBKi",
+                "name": "SYbp6x3n",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTdLi0DoOt#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                "completeness constraints": "rJ1YSBKi",
+                "name": "ZBvKZtCe",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTdLi0DoOt#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "rJ1YSBKi",
+                "name": "39WxC5IU",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTdLi0DoOt#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "HatKUOWL",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTdLi0DoOt#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping",
+                "completeness constraints": "J494C1Kk",
+                "name": "NDur28Gd",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTJTpwRpuX#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "J494C1Kk",
+                "name": "7uqUWy9S",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTJTpwRpuX#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "ghC6TcUg",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTJTpwRpuX#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping",
+                "completeness constraints": "EDTRcpqa",
+                "name": "FLDvwfk8",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT7jFqMZXx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping",
+                "completeness constraints": "EDTRcpqa",
+                "name": "so5LzGix",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT7jFqMZXx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping",
+                "completeness constraints": "EDTRcpqa",
+                "name": "15Aaipo9",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT7jFqMZXx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "EDTRcpqa",
+                "name": "Y9m1DUFC",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT7jFqMZXx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping",
+                "completeness constraints": "EDTRcpqa",
+                "name": "0b7eWvmm",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT7jFqMZXx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping",
+                "completeness constraints": "EDTRcpqa",
+                "name": "VXvBBW6U",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT7jFqMZXx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "EDTRcpqa",
+                "name": "sLUbGc5C",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT7jFqMZXx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "ubJaxuu4",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT7jFqMZXx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping",
+                "completeness constraints": "od01iIH4",
+                "name": "200I8HjY",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTFnOC5XeG#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "od01iIH4",
+                "name": "L0RnZ1bh",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTFnOC5XeG#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                "completeness constraints": "od01iIH4",
+                "name": "zfn2BapC",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTFnOC5XeG#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping",
+                "completeness constraints": "od01iIH4",
+                "name": "wQw0pQsp",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTFnOC5XeG#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels",
+                "completeness constraints": "od01iIH4",
+                "name": "x5rX8iaA",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTFnOC5XeG#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping",
+                "completeness constraints": "od01iIH4",
+                "name": "XZvKIoKk",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTFnOC5XeG#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "od01iIH4",
+                "name": "4sCDhhfF",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTFnOC5XeG#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "jyhQpPEW",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTFnOC5XeG#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping",
+                "completeness constraints": "IyeVr90G",
+                "name": "x6ZZud6G",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTbGeVGfVP#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping",
+                "completeness constraints": "IyeVr90G",
+                "name": "82yfScgs",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTbGeVGfVP#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "IyeVr90G",
+                "name": "Ust8dOCz",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTbGeVGfVP#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                "completeness constraints": "IyeVr90G",
+                "name": "TfwkQu3O",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTbGeVGfVP#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "IyeVr90G",
+                "name": "mtP80Oz7",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTbGeVGfVP#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "ALGHAkd3",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTbGeVGfVP#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping",
+                "completeness constraints": "ilY2zSfb",
+                "name": "QHER5Ljg",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTxxPuezU6#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping",
+                "completeness constraints": "ilY2zSfb",
+                "name": "I3KZ9xVO",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTxxPuezU6#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "ilY2zSfb",
+                "name": "MbA20Fcx",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTxxPuezU6#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping",
+                "completeness constraints": "ilY2zSfb",
+                "name": "ht3HTwmB",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTxxPuezU6#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                "completeness constraints": "ilY2zSfb",
+                "name": "ic9ETkRl",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTxxPuezU6#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping",
+                "completeness constraints": "ilY2zSfb",
+                "name": "uVRwnd66",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTxxPuezU6#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "ilY2zSfb",
+                "name": "oIviIAPF",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTxxPuezU6#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "4HYeZ4Nm",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTxxPuezU6#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping",
+                "completeness constraints": "IOSCWflT",
+                "name": "w3uJkIXe",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTSPmK9xKT#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping",
+                "completeness constraints": "IOSCWflT",
+                "name": "s5wxjJJp",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTSPmK9xKT#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "IOSCWflT",
+                "name": "j997yJEr",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTSPmK9xKT#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping",
+                "completeness constraints": "IOSCWflT",
+                "name": "MEhTyQIw",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTSPmK9xKT#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "IOSCWflT",
+                "name": "NzNWvqBg",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTSPmK9xKT#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "IOkxfUGi",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTSPmK9xKT#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping",
+                "completeness constraints": "YzXYWSsI",
+                "name": "OHfhLlug",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8aexDTMO#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping",
+                "completeness constraints": "YzXYWSsI",
+                "name": "k3X5pLYH",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8aexDTMO#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping",
+                "completeness constraints": "YzXYWSsI",
+                "name": "e9oZwHhi",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8aexDTMO#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping",
+                "completeness constraints": "YzXYWSsI",
+                "name": "b5tSr4fO",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8aexDTMO#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "YzXYWSsI",
+                "name": "wNm2En69",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8aexDTMO#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                "completeness constraints": "YzXYWSsI",
+                "name": "H2HU5IzG",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8aexDTMO#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "YzXYWSsI",
+                "name": "EFYQpoGt",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8aexDTMO#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "PLSMWv6j",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORT8aexDTMO#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "saaWC1fH",
+                "name": "E3dpLUMv",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTnQfvgbDv#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping",
+                "completeness constraints": "saaWC1fH",
+                "name": "z0obG7NZ",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTnQfvgbDv#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "saaWC1fH",
+                "name": "ZGTKXy7b",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTnQfvgbDv#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "cDKgpQRX",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTnQfvgbDv#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping",
+                "completeness constraints": "v8BQc6IJ",
+                "name": "fkx6YFsq",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyc4YUQHL#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "v8BQc6IJ",
+                "name": "PaJzxUlO",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyc4YUQHL#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping",
+                "completeness constraints": "v8BQc6IJ",
+                "name": "DdOFsBQe",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyc4YUQHL#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping",
+                "completeness constraints": "v8BQc6IJ",
+                "name": "xJQssHMM",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyc4YUQHL#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping",
+                "completeness constraints": "v8BQc6IJ",
+                "name": "vpbTxjeN",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyc4YUQHL#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping",
+                "completeness constraints": "v8BQc6IJ",
+                "name": "S3Axcr4j",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyc4YUQHL#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping",
+                "completeness constraints": "v8BQc6IJ",
+                "name": "ZRbYuk5w",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyc4YUQHL#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "v8BQc6IJ",
+                "name": "i5RAbvKa",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyc4YUQHL#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "XL3LLOGS",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTyc4YUQHL#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping",
+                "completeness constraints": "sPxtLh1V",
+                "name": "O1GRXyqo",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTINqcwP0U#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "sPxtLh1V",
+                "name": "j3tyOBRU",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTINqcwP0U#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping",
+                "completeness constraints": "sPxtLh1V",
+                "name": "pprZV74w",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTINqcwP0U#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping",
+                "completeness constraints": "sPxtLh1V",
+                "name": "za1meOBy",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTINqcwP0U#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "sPxtLh1V",
+                "name": "g9VjU74B",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTINqcwP0U#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "t4XavMRb",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTINqcwP0U#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "T3aqQoFE",
+                "name": "9a0k7PET",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTTc6JZ9Sh#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping",
+                "completeness constraints": "T3aqQoFE",
+                "name": "IeyH65DB",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTTc6JZ9Sh#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "T3aqQoFE",
+                "name": "A4DSI7nY",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTTc6JZ9Sh#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "MoAfv2pf",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTTc6JZ9Sh#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "nxjdmuOL",
+                "name": "IJLwTf1R",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTMh4xONa3#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "nxjdmuOL",
+                "name": "BthT8kMD",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTMh4xONa3#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "ULebxqDK",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTMh4xONa3#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping",
+                "completeness constraints": "VADd2rZ2",
+                "name": "bAKPRvXU",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTJm9gDQP1#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "VADd2rZ2",
+                "name": "vAkABltN",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTJm9gDQP1#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping",
+                "completeness constraints": "VADd2rZ2",
+                "name": "UtUmvF6L",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTJm9gDQP1#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "VADd2rZ2",
+                "name": "vsPYOMTZ",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTJm9gDQP1#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "maN5OPvk",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTJm9gDQP1#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping",
+                "completeness constraints": "AlJUJVJV",
+                "name": "5NuzFfLZ",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTkeEbMasx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping",
+                "completeness constraints": "AlJUJVJV",
+                "name": "dYyXPQMV",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTkeEbMasx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping",
+                "completeness constraints": "AlJUJVJV",
+                "name": "HCsaR7La",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTkeEbMasx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping",
+                "completeness constraints": "AlJUJVJV",
+                "name": "9CorLTNO",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTkeEbMasx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping",
+                "completeness constraints": "AlJUJVJV",
+                "name": "MIkJQimL",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTkeEbMasx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/NORMALFRESH#[ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)]",
+                "name": "8kmZp1sQ",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTkeEbMasx#ObjectUnionOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping> <http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping>)"
+            }
+        ],
+        "Relationship": []
+    }
+}

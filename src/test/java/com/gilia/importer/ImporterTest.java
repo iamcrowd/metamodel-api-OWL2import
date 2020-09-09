@@ -66,14 +66,14 @@ public class ImporterTest {
     }
 	
 	@Test
-    public void testCreateAnEmptyKFandLoadOntoFromIRIAndShowNormalized() {
+    public void testImportAxiomsType1AasKF() {
     	try {
     		IRI ontoiri = IRI.create("https://protege.stanford.edu/ontologies/pizza/pizza.owl");
     	  	Importer importer = new Importer(ontoiri,true);
     	  	Metamodel meta = importer.getKFInstance();
     	  	OWLOntology onto = importer.getOntology();
-    	  	OWLOntology naive = importer.normalizeToImport(onto);
-    
+    	  	importer.importType1AfromOntology();
+    	  	System.out.println(importer.toJSON());
     	}
     	catch (Exception e){
         	e.printStackTrace();
@@ -81,7 +81,37 @@ public class ImporterTest {
     }
 	
 	@Test
-    public void testImportAxiomsType1asKF() {
+    public void testImportAxiomsType1BasKF() {
+    	try {
+    		IRI ontoiri = IRI.create("https://protege.stanford.edu/ontologies/pizza/pizza.owl");
+    	  	Importer importer = new Importer(ontoiri,true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType1BfromOntology();
+    	  	System.out.println(importer.toJSON());
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+
+	@Test
+    public void testImportAxiomsType1CasKF() {
+    	try {
+    		IRI ontoiri = IRI.create("https://protege.stanford.edu/ontologies/pizza/pizza.owl");
+    	  	Importer importer = new Importer(ontoiri,true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType1CfromOntology();
+    	  	System.out.println(importer.toJSON());
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+	
+	@Test
+    public void testImportAxiomsAllasKF() {
     	try {
     		IRI ontoiri = IRI.create("https://protege.stanford.edu/ontologies/pizza/pizza.owl");
     	  	Importer importer = new Importer(ontoiri,true);
