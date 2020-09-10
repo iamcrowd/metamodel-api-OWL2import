@@ -111,6 +111,21 @@ public class ImporterTest {
     }
 	
 	@Test
+    public void testImportAxiomsType1DasKF() {
+    	try {
+    		IRI ontoiri = IRI.create("https://protege.stanford.edu/ontologies/pizza/pizza.owl");
+    	  	Importer importer = new Importer(ontoiri,true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType1DfromOntology();
+    	  	System.out.println(importer.toJSON());
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+	
+	@Test
     public void testImportAxiomsAllasKF() {
     	try {
     		IRI ontoiri = IRI.create("https://protege.stanford.edu/ontologies/pizza/pizza.owl");

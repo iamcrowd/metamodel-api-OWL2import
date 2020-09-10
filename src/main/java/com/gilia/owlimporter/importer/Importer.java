@@ -291,6 +291,10 @@ public class Importer {
 	}
 	
 	public void importType1DfromOntology() {
+		NormalFormTools tools = new NormalFormTools();
+		tools.type1DNormalisedasKF(this.kfimported, this.onto);
+	  	MetaBuilder builder = new MetaConverter();
+	  	builder.generateJSON(this.kfimported);
 	}
 	
 	public void importType1fromOntology() {

@@ -75,7 +75,7 @@ public class NormalFormTools {
 	 *  *      A TBox axiom in normal form can be of one of four types:
 	 *         
 	 *         Type 1: Subclass(atom or conjunction of atoms, atom or
-	 *         disjunction of atoms)
+	 *         disjunction of atoms) 1a atom atom 1b atom disj
 	 *         Type 2: Subclass(atom, exists property atom)
 	 *         Type 3: Subclass(atom, forall property atom)
 	 *         Type 4: Subclass(exists property atom, atom)
@@ -265,6 +265,58 @@ public class NormalFormTools {
 	}
 	
 	/**
+	 * Only axioms type 1 (D) (conj, disj) are imported
+	 * 
+	 * Filter axiom types http://owlcs.github.io/owlapi/apidocs_5/org/semanticweb/owlapi/model/AxiomType.html
+	 * 
+	 * @implNote we remove unsupported class expressions not removed by ontology utils dependency
+	 * 
+	 * @param ontology
+	 */
+	public void type1DNormalisedasKF(Metamodel kf, OWLOntology ontology) {
+		FreshAtoms.resetFreshAtomsEquivalenceAxioms(); // optional; for verification purpose
+		
+		this.prepareOntology(ontology);
+		
+		this.naive.addAxioms(ontology.rboxAxioms(Imports.EXCLUDED));
+		this.naive.addAxioms(ontology.aboxAxioms(Imports.EXCLUDED));
+		
+		Set<OWLAxiom> tBoxAxiomsCopy = this.copy.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
+		
+		tBoxAxiomsCopy.forEach(
+				(ax) -> {
+					try {
+						Collection<OWLSubClassOfAxiom> ax_n = NormalizationTools.normalizeSubClassAxiom((OWLSubClassOfAxiom) ax);
+						ax_n.forEach(
+							(ax_sub) -> {
+								if (NormalForm.isNormalFormTBoxAxiom(ax_sub)) {
+									OWLClassExpression left = ((OWLSubClassOfAxiom) ax_sub).getSubClass();
+									OWLClassExpression right = ((OWLSubClassOfAxiom) ax_sub).getSuperClass();
+									
+									// Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
+									// A \sqsubseteq B or A \sqcap B \sqsubseteq C or 
+									
+									if (NormalForm.typeOneSubClassAxiom(left, right)) {											
+										// conj atom
+										if (NormalForm.isConjunctionOfAtoms(left) && NormalForm.isDisjunctionOfAtoms(right)) {
+											this.type1DasKF(kf, left, right);	
+										}
+									}
+								}
+								else {
+									System.out.println("Do nothing:" + ax.toString());
+								}
+							});
+						this.naive.addAxioms(ax_n);
+					}
+					catch (Exception fex) {
+						System.out.println("Unsupported axioms:" + ax.toString());
+						this.unsupported.addAxiom(ax);
+					}
+				});
+	}
+	
+	/**
 	 * All type of normalised axioms are imported
 	 * 
 	 * Filter axiom types http://owlcs.github.io/owlapi/apidocs_5/org/semanticweb/owlapi/model/AxiomType.html
@@ -314,7 +366,7 @@ public class NormalFormTools {
 												this.type1CasKF(kf, left, right);	
 											// conj disj
 											} else if (NormalForm.isConjunctionOfAtoms(left) && NormalForm.isDisjunctionOfAtoms(right)) {	
-												System.out.println("Im type 1 (d)");
+												this.type1DasKF(kf, left, right);	
 											}
 										}
 									
@@ -474,7 +526,7 @@ public class NormalFormTools {
 		
 		ObjectType ot_right = new ObjectType(right_iri);
 		
-		Set<OWLClassExpression> conjunctions = right.asConjunctSet();
+		Set<OWLClassExpression> conjunctions = left.asConjunctSet();
 		ObjectType ot_fresh = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#" + left.toString());
 		
 		for (OWLClassExpression c : conjunctions) {
@@ -511,17 +563,62 @@ public class NormalFormTools {
 	 * @param right
 	 */
 	public void type1DasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
-			
-		String left_iri = left.asOWLClass().toStringID();
-		String right_iri = right.asOWLClass().toStringID();
-		ObjectType ot_child = new ObjectType(left_iri);
-		ObjectType ot_parent = new ObjectType(right_iri);
+		
+		Set<OWLClassExpression> disjunctions = right.asDisjunctSet();
+		ObjectType ot_fresh_d = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#" + right.toString());
+		
+		ArrayList<ObjectType> cc_list = new ArrayList();
+		CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));
+		
+		for (OWLClassExpression d : disjunctions) {
+			if (NormalForm.isAtom(d)) {
+				String d_iri = d.asOWLClass().toStringID();
+				if (isFresh(d)) { d_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + d.asOWLClass().toStringID(); }
+				ObjectType ot = new ObjectType(d_iri);
+				
+				kf.addEntity(ot);
+				cc_list.add(ot);
+				
+				Subsumption sub_fresh_d = new Subsumption(
+						getAlphaNumericString(8), 
+						ot_fresh_d, 
+						ot,
+						cc);
+				
+				kf.addRelationship(sub_fresh_d);
+			}
+		}
+		
+		cc.setEntities(cc_list);
+		kf.addConstraint(cc);
+		kf.addEntity(ot_fresh_d);
+		
+		Set<OWLClassExpression> conjunctions = left.asConjunctSet();
+		ObjectType ot_fresh_c = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#" + left.toString());
+		
+		for (OWLClassExpression c : conjunctions) {
+			if (NormalForm.isAtom(c)) {
+				String c_iri = c.asOWLClass().toStringID();
+				if (isFresh(c)) { c_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + c.asOWLClass().toStringID(); }
+				ObjectType ot = new ObjectType(c_iri);
+				
+				kf.addEntity(ot);
+				
+				Subsumption sub_fresh_c = new Subsumption(
+						getAlphaNumericString(8), 
+						ot, 
+						ot_fresh_c);
+				
+				kf.addRelationship(sub_fresh_c);
+			}
+		}
+		
+		kf.addEntity(ot_fresh_c);
 		
 		Subsumption sub = new Subsumption(
-									getAlphaNumericString(3), 
-									ot_parent, 
-									ot_child);
-		
+									getAlphaNumericString(8), 
+									ot_fresh_d,
+									ot_fresh_c);
 		kf.addRelationship(sub);
 	}
 	
