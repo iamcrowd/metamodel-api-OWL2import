@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.json.simple.JSONObject;
 
@@ -75,8 +77,12 @@ public class ImporterTest {
     	  	Metamodel meta = importer.getKFInstance();
     	  	OWLOntology onto = importer.getOntology();
     	  	importer.importType1AfromOntology();
+    	  	
     	  	System.out.println(importer.toJSON());
     	  	
+    	  	/*Path fileName = Path.of(new String(ImporterTest.class.getClassLoader().getResource("metamodels/1a.json").toString()));
+    	  	String actual = Files.readString(fileName);
+    	  	assertEquals("Normalised Axiom 1A", importer.toJSON(), actual);	*/
     	}
     	catch (Exception e){
         	e.printStackTrace();
@@ -126,6 +132,23 @@ public class ImporterTest {
     	  	Metamodel meta = importer.getKFInstance();
     	  	OWLOntology onto = importer.getOntology();
     	  	importer.importType1DfromOntology();
+    	  	System.out.println(importer.toJSON());
+    	  	
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+	
+	@Test
+    public void testOnlyImport2asKF() {
+    	try {
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/2.owl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType2fromOntology();
     	  	System.out.println(importer.toJSON());
     	  	
     	}
