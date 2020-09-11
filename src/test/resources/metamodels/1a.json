@@ -1,0 +1,44 @@
+{
+    "Entity type": {
+        "Value property": {
+            "Value type": []
+        },
+        "Data type": [],
+        "Object type": [
+            "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B",
+            "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A"
+        ]
+    },
+    "Role": [],
+    "Constraints": {
+        "Cardinality constraints": {
+            "Attibutive property cardinality": [],
+            "Object type cardinality": []
+        },
+        "Disjointness constraints": {
+            "Disjoint object type": [],
+            "Disjoint role": []
+        },
+        "Completeness constraints": [],
+        "Mandatory constraints": {
+            "Mandatory": []
+        }
+    },
+    "Relationship": {
+        "Attributive property": {
+            "Attributive property": [],
+            "Attribute": {
+                "Attribute": [],
+                "Mapped to": []
+            }
+        },
+        "Subsumption": [
+            {
+                "entity child": "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B",
+                "name": "08t6I3qg",
+                "entity parent": "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A"
+            }
+        ],
+        "Relationship": []
+    }
+}

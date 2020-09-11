@@ -65,6 +65,75 @@ public class ImporterTest {
     	}
     }
 	
+	
+	@Test
+    public void testOnlyImport1AasKF() {
+    	try {
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/1a.owl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType1AfromOntology();
+    	  	System.out.println(importer.toJSON());
+    	  	
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+	
+	@Test
+    public void testOnlyImport1BasKF() {
+    	try {
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/1b.owl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType1BfromOntology();
+    	  	System.out.println(importer.toJSON());
+    	  	
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+	
+	@Test
+    public void testOnlyImport1CasKF() {
+    	try {
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/1c.owl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType1CfromOntology();
+    	  	System.out.println(importer.toJSON());
+    	  	
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+	
+	@Test
+    public void testOnlyImport1DasKF() {
+    	try {
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/1d.owl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType1DfromOntology();
+    	  	System.out.println(importer.toJSON());
+    	  	
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+	
 	@Test
     public void testImportAxiomsType1AasKF() {
     	try {

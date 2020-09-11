@@ -1,0 +1,66 @@
+{
+    "Entity type": {
+        "Value property": {
+            "Value type": []
+        },
+        "Data type": [],
+        "Object type": [
+            "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B",
+            "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#C",
+            "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTlFV4yAfZ#ObjectUnionOf(<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B> <http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#C>)"
+        ]
+    },
+    "Role": [],
+    "Constraints": {
+        "Cardinality constraints": {
+            "Attibutive property cardinality": [],
+            "Object type cardinality": []
+        },
+        "Disjointness constraints": {
+            "Disjoint object type": [],
+            "Disjoint role": []
+        },
+        "Completeness constraints": [
+            {
+                "entities": [
+                    "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B",
+                    "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#C"
+                ],
+                "name": "hGiQU6Ux"
+            }
+        ],
+        "Mandatory constraints": {
+            "Mandatory": []
+        }
+    },
+    "Relationship": {
+        "Attributive property": {
+            "Attributive property": [],
+            "Attribute": {
+                "Attribute": [],
+                "Mapped to": []
+            }
+        },
+        "Subsumption": [
+            {
+                "entity child": "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B",
+                "completeness constraints": "hGiQU6Ux",
+                "name": "KWcRTSHa",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTlFV4yAfZ#ObjectUnionOf(<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B> <http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#C>)"
+            },
+            {
+                "entity child": "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#C",
+                "completeness constraints": "hGiQU6Ux",
+                "name": "6o6xhBax",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTlFV4yAfZ#ObjectUnionOf(<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B> <http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#C>)"
+            },
+            {
+                "entity child": "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A",
+                "name": "8qaJEh7U",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTlFV4yAfZ#ObjectUnionOf(<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B> <http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#C>)"
+            }
+        ],
+        "Relationship": []
+    }
+}
