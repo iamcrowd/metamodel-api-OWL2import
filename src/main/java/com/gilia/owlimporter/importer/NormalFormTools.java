@@ -147,8 +147,9 @@ public class NormalFormTools {
 		
 		tBoxAxiomsCopy.forEach(
 				(ax) -> {
-					Collection<OWLSubClassOfAxiom> ax_n = NormalizationTools.normalizeSubClassAxiom((OWLSubClassOfAxiom) ax);
-					ax_n.forEach(
+					try {
+						Collection<OWLSubClassOfAxiom> ax_n = NormalizationTools.normalizeSubClassAxiom((OWLSubClassOfAxiom) ax);
+						ax_n.forEach(
 							(ax_sub) -> {
 								if (NormalForm.isNormalFormTBoxAxiom(ax_sub)) {
 									OWLClassExpression left = ((OWLSubClassOfAxiom) ax_sub).getSubClass();
@@ -168,8 +169,13 @@ public class NormalFormTools {
 									System.out.println("Do nothing:" + ax.toString());
 								}
 							});
-					this.naive.addAxioms(ax_n);
-					});
+						this.naive.addAxioms(ax_n);
+					}
+					catch (Exception fex) {
+						System.out.println("Unsupported axioms:" + ax.toString());
+						this.unsupported.addAxiom(ax);
+					}
+				});
 	}
 	
 	/**
@@ -193,8 +199,9 @@ public class NormalFormTools {
 		
 		tBoxAxiomsCopy.forEach(
 				(ax) -> {
-					Collection<OWLSubClassOfAxiom> ax_n = NormalizationTools.normalizeSubClassAxiom((OWLSubClassOfAxiom) ax);
-					ax_n.forEach(
+					try {
+						Collection<OWLSubClassOfAxiom> ax_n = NormalizationTools.normalizeSubClassAxiom((OWLSubClassOfAxiom) ax);
+						ax_n.forEach(
 							(ax_sub) -> {
 								if (NormalForm.isNormalFormTBoxAxiom(ax_sub)) {
 									OWLClassExpression left = ((OWLSubClassOfAxiom) ax_sub).getSubClass();
@@ -214,8 +221,13 @@ public class NormalFormTools {
 									System.out.println("Do nothing:" + ax.toString());
 								}
 							});
-					this.naive.addAxioms(ax_n);
-					});
+						this.naive.addAxioms(ax_n);
+					}
+					catch (Exception fex) {
+						System.out.println("Unsupported axioms:" + ax.toString());
+						this.unsupported.addAxiom(ax);
+					}
+				});
 	}
 	
 	/**
@@ -239,8 +251,9 @@ public class NormalFormTools {
 		
 		tBoxAxiomsCopy.forEach(
 				(ax) -> {
-					Collection<OWLSubClassOfAxiom> ax_n = NormalizationTools.normalizeSubClassAxiom((OWLSubClassOfAxiom) ax);
-					ax_n.forEach(
+					try {
+						Collection<OWLSubClassOfAxiom> ax_n = NormalizationTools.normalizeSubClassAxiom((OWLSubClassOfAxiom) ax);
+						ax_n.forEach(
 							(ax_sub) -> {
 								if (NormalForm.isNormalFormTBoxAxiom(ax_sub)) {
 									OWLClassExpression left = ((OWLSubClassOfAxiom) ax_sub).getSubClass();
@@ -260,8 +273,13 @@ public class NormalFormTools {
 									System.out.println("Do nothing:" + ax.toString());
 								}
 							});
-					this.naive.addAxioms(ax_n);
-					});
+						this.naive.addAxioms(ax_n);
+					}
+					catch (Exception fex) {
+						System.out.println("Unsupported axioms:" + ax.toString());
+						this.unsupported.addAxiom(ax);
+					}
+				});
 	}
 	
 	/**
