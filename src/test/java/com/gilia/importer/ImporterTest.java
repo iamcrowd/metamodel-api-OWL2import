@@ -158,6 +158,23 @@ public class ImporterTest {
     }
 	
 	@Test
+    public void testOnlyImport4asKF() {
+    	try {
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/4.owl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType4fromOntology();
+    	  	System.out.println(importer.toJSON());
+    	  	
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+	
+	@Test
     public void testImportAxiomsType1AasKF() {
     	try {
     		IRI ontoiri = IRI.create("https://protege.stanford.edu/ontologies/pizza/pizza.owl");

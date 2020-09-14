@@ -1,0 +1,197 @@
+{
+    "Entity type": {
+        "Value property": {
+            "Value type": []
+        },
+        "Data type": [],
+        "Object type": [
+            "http://crowd.fi.uncoma.edu.ar/IMPORTzavRlzC3#O",
+            "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A",
+            "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTMe8W7l7b#CPAB",
+            "http://crowd.fi.uncoma.edu.ar/IMPORTqbxslcnV#CP"
+        ]
+    },
+    "Role": [
+        {
+            "object type cardinality": [
+                "iv6DxrnY"
+            ],
+            "rolename": "http://crowd.fi.uncoma.edu.ar/IMPORTtDIQzJqg#RoleCPAB1",
+            "entity type": "http://crowd.fi.uncoma.edu.ar/IMPORTMe8W7l7b#CPAB",
+            "relationship": "http://crowd.fi.uncoma.edu.ar/IMPORT64OLjISv#PAB1",
+            "mandatory": "mandatoryJ019"
+        },
+        {
+            "object type cardinality": [
+                "0uwaBRl6"
+            ],
+            "rolename": "http://crowd.fi.uncoma.edu.ar/IMPORT3XcsLm8h#RoleAPAB1",
+            "entity type": "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A",
+            "relationship": "http://crowd.fi.uncoma.edu.ar/IMPORT64OLjISv#PAB1"
+        },
+        {
+            "object type cardinality": [
+                "jFkuEGAv"
+            ],
+            "rolename": "http://crowd.fi.uncoma.edu.ar/IMPORTHMr7sVEX#RoleCPAB2",
+            "entity type": "http://crowd.fi.uncoma.edu.ar/IMPORTMe8W7l7b#CPAB",
+            "relationship": "http://crowd.fi.uncoma.edu.ar/IMPORTNgqAIFtl#PAB2",
+            "mandatory": "mandatoryMiga"
+        },
+        {
+            "object type cardinality": [
+                "EHisF0jJ"
+            ],
+            "rolename": "http://crowd.fi.uncoma.edu.ar/IMPORTUYXlu8Qv#RoleBPAB2",
+            "entity type": "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B",
+            "relationship": "http://crowd.fi.uncoma.edu.ar/IMPORTNgqAIFtl#PAB2",
+            "mandatory": "mandatorymWsl"
+        },
+        {
+            "object type cardinality": [
+                "nFsujqZD"
+            ],
+            "rolename": "http://crowd.fi.uncoma.edu.ar/IMPORTDUmGHe1z#RoleCPP1",
+            "entity type": "http://crowd.fi.uncoma.edu.ar/IMPORTqbxslcnV#CP",
+            "relationship": "http://crowd.fi.uncoma.edu.ar/IMPORTaBYD1xxm#P1",
+            "mandatory": "mandatoryZkHe"
+        },
+        {
+            "object type cardinality": [
+                "pfYUUmRQ"
+            ],
+            "rolename": "http://crowd.fi.uncoma.edu.ar/IMPORTT5SCj9S2#RoleOCP1",
+            "entity type": "http://crowd.fi.uncoma.edu.ar/IMPORTzavRlzC3#O",
+            "relationship": "http://crowd.fi.uncoma.edu.ar/IMPORTaBYD1xxm#P1"
+        },
+        {
+            "object type cardinality": [
+                "YjWCYakW"
+            ],
+            "rolename": "http://crowd.fi.uncoma.edu.ar/IMPORTp1OfbfKp#RoleCPP2",
+            "entity type": "http://crowd.fi.uncoma.edu.ar/IMPORTqbxslcnV#CP",
+            "relationship": "http://crowd.fi.uncoma.edu.ar/IMPORT4AWScFMt#P2",
+            "mandatory": "mandatoryccYJ"
+        },
+        {
+            "object type cardinality": [
+                "JFUfM7Hc"
+            ],
+            "rolename": "http://crowd.fi.uncoma.edu.ar/IMPORTgDAuAvvg#RoleOCP2",
+            "entity type": "http://crowd.fi.uncoma.edu.ar/IMPORTzavRlzC3#O",
+            "relationship": "http://crowd.fi.uncoma.edu.ar/IMPORT4AWScFMt#P2"
+        }
+    ],
+    "Constraints": {
+        "Cardinality constraints": {
+            "Attibutive property cardinality": [],
+            "Object type cardinality": [
+                {
+                    "name": "iv6DxrnY",
+                    "maximum": "1",
+                    "minimum": "1"
+                },
+                {
+                    "name": "0uwaBRl6",
+                    "maximum": "*",
+                    "minimum": "0"
+                },
+                {
+                    "name": "jFkuEGAv",
+                    "maximum": "1",
+                    "minimum": "1"
+                },
+                {
+                    "name": "EHisF0jJ",
+                    "maximum": "*",
+                    "minimum": "1"
+                },
+                {
+                    "name": "nFsujqZD",
+                    "maximum": "1",
+                    "minimum": "1"
+                },
+                {
+                    "name": "pfYUUmRQ",
+                    "maximum": "*",
+                    "minimum": "0"
+                },
+                {
+                    "name": "YjWCYakW",
+                    "maximum": "1",
+                    "minimum": "1"
+                },
+                {
+                    "name": "JFUfM7Hc",
+                    "maximum": "*",
+                    "minimum": "0"
+                }
+            ]
+        },
+        "Disjointness constraints": {
+            "Disjoint object type": [],
+            "Disjoint role": []
+        },
+        "Completeness constraints": [],
+        "Mandatory constraints": {
+            "Mandatory": []
+        }
+    },
+    "Relationship": {
+        "Attributive property": {
+            "Attributive property": [],
+            "Attribute": {
+                "Attribute": [],
+                "Mapped to": []
+            }
+        },
+        "Subsumption": [
+            {
+                "entity child": "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A",
+                "name": "xDB3hpxz",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTzavRlzC3#O"
+            },
+            {
+                "entity child": "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B",
+                "name": "ptJe88p8",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTzavRlzC3#O"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar/IMPORTMe8W7l7b#CPAB",
+                "name": "tbBxWKB1",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar/IMPORTqbxslcnV#CP"
+            }
+        ],
+        "Relationship": [
+            {
+                "entities": [
+                    "http://crowd.fi.uncoma.edu.ar/IMPORTMe8W7l7b#CPAB",
+                    "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A"
+                ],
+                "name": "http://crowd.fi.uncoma.edu.ar/IMPORT64OLjISv#PAB1"
+            },
+            {
+                "entities": [
+                    "http://crowd.fi.uncoma.edu.ar/IMPORTMe8W7l7b#CPAB",
+                    "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B"
+                ],
+                "name": "http://crowd.fi.uncoma.edu.ar/IMPORTNgqAIFtl#PAB2"
+            },
+            {
+                "entities": [
+                    "http://crowd.fi.uncoma.edu.ar/IMPORTqbxslcnV#CP",
+                    "http://crowd.fi.uncoma.edu.ar/IMPORTzavRlzC3#O"
+                ],
+                "name": "http://crowd.fi.uncoma.edu.ar/IMPORTaBYD1xxm#P1"
+            },
+            {
+                "entities": [
+                    "http://crowd.fi.uncoma.edu.ar/IMPORTqbxslcnV#CP",
+                    "http://crowd.fi.uncoma.edu.ar/IMPORTzavRlzC3#O"
+                ],
+                "name": "http://crowd.fi.uncoma.edu.ar/IMPORT4AWScFMt#P2"
+            }
+        ]
+    }
+}
