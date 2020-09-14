@@ -309,7 +309,10 @@ public class Importer {
 	}
 	
 	public void importType4fromOntology() {
-
+		NormalFormTools tools = new NormalFormTools();
+		tools.type4NormalisedasKF(this.kfimported, this.onto);
+	  	MetaBuilder builder = new MetaConverter();
+	  	builder.generateJSON(this.kfimported);
 	}
 	
 }
