@@ -545,7 +545,7 @@ public class NormalFormTools {
 		ObjectType ot_left = new ObjectType(left_iri);
 		
 		Set<OWLClassExpression> disjunctions = right.asDisjunctSet();
-		ObjectType ot_fresh = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#" + right.toString());
+		ObjectType ot_fresh = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PatternAorB");
 		
 		ArrayList<ObjectType> cc_list = new ArrayList();
 		CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));
@@ -596,7 +596,7 @@ public class NormalFormTools {
 		ObjectType ot_right = new ObjectType(right_iri);
 		
 		Set<OWLClassExpression> conjunctions = left.asConjunctSet();
-		ObjectType ot_fresh = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#" + left.toString());
+		ObjectType ot_fresh = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PatternAandB");
 		
 		for (OWLClassExpression c : conjunctions) {
 			if (NormalForm.isAtom(c)) {
@@ -634,7 +634,7 @@ public class NormalFormTools {
 	public void type1DasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 		
 		Set<OWLClassExpression> disjunctions = right.asDisjunctSet();
-		ObjectType ot_fresh_d = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#" + right.toString());
+		ObjectType ot_fresh_d = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PatternAorB");
 		
 		ArrayList<ObjectType> cc_list = new ArrayList();
 		CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));
@@ -663,7 +663,7 @@ public class NormalFormTools {
 		kf.addEntity(ot_fresh_d);
 		
 		Set<OWLClassExpression> conjunctions = left.asConjunctSet();
-		ObjectType ot_fresh_c = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#" + left.toString());
+		ObjectType ot_fresh_c = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PatternAandB");
 		
 		for (OWLClassExpression c : conjunctions) {
 			if (NormalForm.isAtom(c)) {
