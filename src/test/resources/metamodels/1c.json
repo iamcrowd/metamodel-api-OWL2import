@@ -8,7 +8,7 @@
             "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A",
             "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B",
             "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#C",
-            "http://crowd.fi.uncoma.edu.ar/IMPORT65SJ36kI#ObjectIntersectionOf(<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A> <http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B>)"
+            "http://crowd.fi.uncoma.edu.ar/IMPORTTf42d3NW#PatternAandB"
         ]
     },
     "Role": [],
@@ -36,18 +36,18 @@
         },
         "Subsumption": [
             {
-                "entity child": "http://crowd.fi.uncoma.edu.ar/IMPORT65SJ36kI#ObjectIntersectionOf(<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A> <http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B>)",
-                "name": "hX9YRB3V",
+                "entity child": "http://crowd.fi.uncoma.edu.ar/IMPORTTf42d3NW#PatternAandB",
+                "name": "A8BRVhOs",
                 "entity parent": "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A"
             },
             {
-                "entity child": "http://crowd.fi.uncoma.edu.ar/IMPORT65SJ36kI#ObjectIntersectionOf(<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A> <http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B>)",
-                "name": "gk3XGuTr",
+                "entity child": "http://crowd.fi.uncoma.edu.ar/IMPORTTf42d3NW#PatternAandB",
+                "name": "ha9lbux6",
                 "entity parent": "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B"
             },
             {
-                "entity child": "http://crowd.fi.uncoma.edu.ar/IMPORT65SJ36kI#ObjectIntersectionOf(<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#A> <http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#B>)",
-                "name": "0lyYjJwz",
+                "entity child": "http://crowd.fi.uncoma.edu.ar/IMPORTTf42d3NW#PatternAandB",
+                "name": "e93UQuSg",
                 "entity parent": "http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#C"
             }
         ],
