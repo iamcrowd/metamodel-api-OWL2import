@@ -10,8 +10,8 @@ Ontology(<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33>
 
 Declaration(Class(:A))
 Declaration(Class(:B))
-Declaration(ObjectProperty(:R))
+Declaration(ObjectProperty(:P))
 
 
-SubClassOf(ObjectSomeValuesFrom(:R :B) :A)
+SubClassOf(ObjectSomeValuesFrom(:P :B) :A)
 )
