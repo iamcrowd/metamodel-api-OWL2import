@@ -62,6 +62,143 @@ $(document).ready(function () {
                         }
                     };
                 break;
+             case "Normalised":
+                url = "http://localhost:3333/owlnormalisedtometa";
+                var settings = {
+                        "url": url,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                        },
+                        "data": {
+                        	onto: $('#jsonInput')[0].value.toString(),
+                        	entity: $('#jsonInput2')[0].value.toString(),
+                            reasoning: $('#reasoning').is(":checked")
+                        }
+                    };
+                break; 
+
+             case "Normalised 1-A":
+                url = "http://localhost:3333/owlnormalised1atometa";
+                var settings = {
+                        "url": url,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                        },
+                        "data": {
+                        	onto: $('#jsonInput')[0].value.toString(),
+                        	entity: $('#jsonInput2')[0].value.toString(),
+                            reasoning: $('#reasoning').is(":checked")
+                        }
+                    };
+                break; 
+
+
+             case "Normalised 1-B":
+                url = "http://localhost:3333/owlnormalised1btometa";
+                var settings = {
+                        "url": url,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                        },
+                        "data": {
+                        	onto: $('#jsonInput')[0].value.toString(),
+                        	entity: $('#jsonInput2')[0].value.toString(),
+                            reasoning: $('#reasoning').is(":checked")
+                        }
+                    };
+                break; 
+
+             case "Normalised 1-C":
+                url = "http://localhost:3333/owlnormalised1ctometa";
+                var settings = {
+                        "url": url,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                        },
+                        "data": {
+                        	onto: $('#jsonInput')[0].value.toString(),
+                        	entity: $('#jsonInput2')[0].value.toString(),
+                            reasoning: $('#reasoning').is(":checked")
+                        }
+                    };
+                break; 
+
+             case "Normalised 1-D":
+                url = "http://localhost:3333/owlnormalised1dtometa";
+                var settings = {
+                        "url": url,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                        },
+                        "data": {
+                        	onto: $('#jsonInput')[0].value.toString(),
+                        	entity: $('#jsonInput2')[0].value.toString(),
+                            reasoning: $('#reasoning').is(":checked")
+                        }
+                    };
+                break; 
+
+             case "Normalised 2":
+                url = "http://localhost:3333/owlnormalised2tometa";
+                var settings = {
+                        "url": url,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                        },
+                        "data": {
+                        	onto: $('#jsonInput')[0].value.toString(),
+                        	entity: $('#jsonInput2')[0].value.toString(),
+                            reasoning: $('#reasoning').is(":checked")
+                        }
+                    };
+                break; 
+
+             case "Normalised 3":
+                url = "http://localhost:3333/owlnormalised3tometa";
+                var settings = {
+                        "url": url,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                        },
+                        "data": {
+                        	onto: $('#jsonInput')[0].value.toString(),
+                        	entity: $('#jsonInput2')[0].value.toString(),
+                            reasoning: $('#reasoning').is(":checked")
+                        }
+                    };
+                break;          
+ 
+             case "Normalised 4":
+                url = "http://localhost:3333/owlnormalised4tometa";
+                var settings = {
+                        "url": url,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                        },
+                        "data": {
+                        	onto: $('#jsonInput')[0].value.toString(),
+                        	entity: $('#jsonInput2')[0].value.toString(),
+                            reasoning: $('#reasoning').is(":checked")
+                        }
+                    };
+                break; 
+               
             case "ORM to Metamodel":
                 url = "http://localhost:8080/ormtometa";
                 break;
