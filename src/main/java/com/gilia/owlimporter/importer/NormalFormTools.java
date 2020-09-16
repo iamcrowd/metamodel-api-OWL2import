@@ -1071,7 +1071,7 @@ public class NormalFormTools {
 			String role_fresh_APAB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleAPAB1";
 			
 			ObjectTypeCardinality otc_RoleCPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleAPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "*");
+			ObjectTypeCardinality otc_RoleAPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
 			
 			kf.addConstraint(otc_RoleCPAB1);
 			kf.addConstraint(otc_RoleAPAB1);
@@ -1092,7 +1092,40 @@ public class NormalFormTools {
 			r1.add(role_fresh_CPAB1);
 			r1.add(role_fresh_APAB1);
 			
-			r_fresh_PAB1.setRoles(r1); 
+			r_fresh_PAB1.setRoles(r1);
+			
+			//
+			
+			String rel_fresh_PAcB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PAcB1";
+			
+			String role_fresh_CPAcB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPAcB1";
+			String role_fresh_AcPAcB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleAcPAcB1";
+			
+			ObjectTypeCardinality otc_RoleCPAcB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
+			ObjectTypeCardinality otc_RoleAcPAcB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
+			
+			kf.addConstraint(otc_RoleCPAcB1);
+			kf.addConstraint(otc_RoleAcPAcB1);
+			
+			ArrayList<Entity> e2 = new ArrayList();
+			e2.add(ot_fresh_C_PABc);
+			e2.add(ot_complement_left);
+			
+			Relationship r_fresh_PAcB1 = new Relationship(rel_fresh_PAcB1_iri, e2); 
+			
+			Role role_fresh_CPAcB1 = new Role(role_fresh_CPAcB1_iri, ot_fresh_C_PABc, r_fresh_PAcB1, otc_RoleCPAcB1); 
+			Role role_fresh_AcPAcB1 = new Role(role_fresh_AcPAcB1_iri, ot_complement_left, r_fresh_PAcB1, otc_RoleAcPAcB1); 
+			
+			kf.addRole(role_fresh_CPAcB1);
+			kf.addRole(role_fresh_AcPAcB1);
+			
+			ArrayList<Role> r2 = new ArrayList();
+			r2.add(role_fresh_CPAcB1);
+			r2.add(role_fresh_AcPAcB1);
+			
+			r_fresh_PAcB1.setRoles(r2);
+			
+			//
 			
 			String rel_fresh_PAB2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PAB2";
 			
@@ -1105,11 +1138,11 @@ public class NormalFormTools {
 			kf.addConstraint(otc_RoleCPAB2);
 			kf.addConstraint(otc_RoleBPAB2);
 			
-			ArrayList<Entity> e2 = new ArrayList();
-			e2.add(ot_fresh_C_PAB);
-			e2.add(ot_filler);
+			ArrayList<Entity> e3 = new ArrayList();
+			e3.add(ot_fresh_C_PAB);
+			e3.add(ot_filler);
 			
-			Relationship r_fresh_PAB2 = new Relationship(rel_fresh_PAB2_iri, e2);
+			Relationship r_fresh_PAB2 = new Relationship(rel_fresh_PAB2_iri, e3);
 			
 			Role role_fresh_CPAB2 = new Role(role_fresh_CPAB2_iri, ot_fresh_C_PAB, r_fresh_PAB2, otc_RoleCPAB2); 
 			Role role_fresh_BPAB2 = new Role(role_fresh_BPAB2_iri, ot_filler, r_fresh_PAB2, otc_RoleBPAB2);
@@ -1117,11 +1150,11 @@ public class NormalFormTools {
 			kf.addRole(role_fresh_CPAB2);
 			kf.addRole(role_fresh_BPAB2);
 			
-			ArrayList<Role> r2 = new ArrayList();
-			r2.add(role_fresh_CPAB2);
-			r2.add(role_fresh_BPAB2);
+			ArrayList<Role> r3 = new ArrayList();
+			r3.add(role_fresh_CPAB2);
+			r3.add(role_fresh_BPAB2);
 			
-			r_fresh_PAB2.setRoles(r2);
+			r_fresh_PAB2.setRoles(r3);
 			
 			kf.addRelationship(r_fresh_PAB1);
 			kf.addRelationship(r_fresh_PAB2);
@@ -1138,11 +1171,11 @@ public class NormalFormTools {
 			kf.addConstraint(otc_RoleCPP1);
 			kf.addConstraint(otc_RoleOCP1);
 			
-			ArrayList<Entity> e3 = new ArrayList();
-			e3.add(ot_C_P);
-			e3.add(ot_fresh_O);
+			ArrayList<Entity> e4 = new ArrayList();
+			e4.add(ot_C_P);
+			e4.add(ot_fresh_O);
 			
-			Relationship r_P1 = new Relationship(rel_P1_iri, e3); 
+			Relationship r_P1 = new Relationship(rel_P1_iri, e4); 
 			
 			Role role_fresh_CPP1 = new Role(role_fresh_CPP1_iri, ot_C_P, r_P1, otc_RoleCPP1); 
 			Role role_fresh_OCP1 = new Role(role_fresh_OCP1_iri, ot_fresh_O, r_P1, otc_RoleOCP1); 
@@ -1150,11 +1183,11 @@ public class NormalFormTools {
 			kf.addRole(role_fresh_CPP1);
 			kf.addRole(role_fresh_OCP1);
 			
-			ArrayList<Role> r3 = new ArrayList();
-			r3.add(role_fresh_CPP1);
-			r3.add(role_fresh_OCP1);
+			ArrayList<Role> r4 = new ArrayList();
+			r4.add(role_fresh_CPP1);
+			r4.add(role_fresh_OCP1);
 			
-			r_P1.setRoles(r3); 
+			r_P1.setRoles(r4); 
 			
 			String rel_P2_iri = prop_iri + "2"; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P2";
 			
@@ -1167,7 +1200,7 @@ public class NormalFormTools {
 			kf.addConstraint(otc_RoleCPP2);
 			kf.addConstraint(otc_RoleOCP2);
 			
-			Relationship r_P2 = new Relationship(rel_P2_iri, e3); 
+			Relationship r_P2 = new Relationship(rel_P2_iri, e4); 
 			
 			Role role_fresh_CPP2 = new Role(role_fresh_CPP2_iri, ot_C_P, r_P2, otc_RoleCPP2); 
 			Role role_fresh_OCP2 = new Role(role_fresh_OCP2_iri, ot_fresh_O, r_P2, otc_RoleOCP2); 
@@ -1175,14 +1208,16 @@ public class NormalFormTools {
 			kf.addRole(role_fresh_CPP2);
 			kf.addRole(role_fresh_OCP2);
 			
-			ArrayList<Role> r4 = new ArrayList();
-			r4.add(role_fresh_CPP2);
-			r4.add(role_fresh_OCP2);
+			ArrayList<Role> r5 = new ArrayList();
+			r5.add(role_fresh_CPP2);
+			r5.add(role_fresh_OCP2);
 			
-			r_P2.setRoles(r4);
+			r_P2.setRoles(r5);
 			
 			kf.addRelationship(r_P1);
 			kf.addRelationship(r_P2);
+			
+			// add roles subsumptions
 		
 		}
 	}
