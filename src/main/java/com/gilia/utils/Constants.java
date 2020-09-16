@@ -23,12 +23,18 @@ public class Constants {
     // Importer Endpoints
     
     public static final String OWL_SHOW_ONTOLOGY_ROUTE = "/showontology";
-    
     public static final String OWL_CLASSES_TO_META_ROUTE = "/owlclassestometa";
-    
     public static final String OWL_SUBCLASSES_TO_META_ROUTE = "/owlallsubstometa";
-    
     public static final String OWL_ONE_SUBCLASS_TO_META_ROUTE = "/owlonesubstometa";
+   
+    public static final String OWL_NORMAL_TO_META_ROUTE = "/owlnormalisedtometa";
+    public static final String OWL_NORMAL1A_TO_META_ROUTE = "/owlnormalised1atometa";
+    public static final String OWL_NORMAL1B_TO_META_ROUTE = "/owlnormalised1btometa";
+    public static final String OWL_NORMAL1C_TO_META_ROUTE = "/owlnormalised1ctometa";
+    public static final String OWL_NORMAL1D_TO_META_ROUTE = "/owlnormalised1dtometa";
+    public static final String OWL_NORMAL2_TO_META_ROUTE = "/owlnormalised2tometa";
+    public static final String OWL_NORMAL3_TO_META_ROUTE = "/owlnormalised3tometa";
+    public static final String OWL_NORMAL4_TO_META_ROUTE = "/owlnormalised4tometa";
     
     public static final String ORM_TO_UML_ROUTE = "/ormtouml";
     public static final String ORM_TO_EER_ROUTE = "/ormtoeer";
