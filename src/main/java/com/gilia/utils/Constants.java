@@ -82,6 +82,10 @@ public class Constants {
 
     public static final String SUBTYPING_STRING = "subtyping";
 
+
+
+    public static final String SUBSET_CONSTRAINT = "subset";
+
     public static final String UNDEFINED_STRING = "undefined";
 
     public static final String ENTITY_REF_MODE_STRING = "entityRefMode";
@@ -168,6 +172,12 @@ public class Constants {
     public static final String KEY_DOMAIN = "domain";
 
     public static final String KEY_RANGE = "range";
+
+    public static final String KEY_ROLE_CONSTRAINT = "roleConstraint";
+
+    public static final String KEY_FACT_PARENT = "factParent";
+
+    public static final String KEY_FACT_TYPES = "factTypes";
 
 
 

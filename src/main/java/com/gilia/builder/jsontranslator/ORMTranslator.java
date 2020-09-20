@@ -4,6 +4,7 @@ import com.gilia.enumerates.RelationshipType;
 import com.gilia.exceptions.AlreadyExistException;
 import com.gilia.exceptions.EntityNotValidException;
 import com.gilia.exceptions.InformationNotFoundException;
+import com.gilia.exceptions.OperationNotSupportedException;
 import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
@@ -49,6 +50,7 @@ public class ORMTranslator implements JSONTranslator {
         identifyEntityTypes(newMetamodel, jsonEntities);
         identifyRelationships(newMetamodel, jsonRelationships); // Roles and Cardinalities are identified by this method as well
         identifySubclasses(newMetamodel, jsonConnectors);
+        identifySubsetConstraints(newMetamodel, jsonConnectors);
 
         return newMetamodel;
     }
@@ -310,6 +312,63 @@ public class ORMTranslator implements JSONTranslator {
             }
         }
         model.addRelationships(newSubsumptions);
+    }
+
+    private void identifySubsetConstraints(Metamodel model, JSONArray jsonLinks) {
+        ArrayList newSubsumptions = new ArrayList();
+        for (Object ormLink : jsonLinks) {
+            String type = (String) ((JSONObject) ormLink).get(KEY_TYPE);
+            if (type.equals(KEY_ROLE_CONSTRAINT)) {
+                JSONObject roleConstraint = (JSONObject) ormLink;
+                String roleConstraintType = (String) roleConstraint.get(KEY_ROLE_CONSTRAINT);
+                if (roleConstraintType.equals(SUBSET_CONSTRAINT)) {
+                    String subsetName = (String) roleConstraint.get(KEY_NAME);
+                    JSONArray factParents = (JSONArray) roleConstraint.get(KEY_FACT_PARENT);
+                    JSONArray factTypes = (JSONArray) roleConstraint.get(KEY_FACT_TYPES);
+
+                    if(factParents.size() > 1 || factTypes.size() > 1 ){
+                        throw new OperationNotSupportedException("Multiple subset constrains not supported yet");
+                    }
+
+                    for (Object factParent : factParents) {
+                        Entity parent;
+                        String factParentString = (String) factParent;
+                        Entity entityFound = model.getEntity(factParentString);
+
+                        if (entityFound != null) {
+                            if (entityFound.getClass().equals(Relationship.class)) {
+                                parent = entityFound;
+                            } else {
+                                throw new EntityNotValidException("Entity " + factParentString + " not valid for subset " + subsetName);
+                            }
+                        } else {
+                            // TODO: The non existence of the entity is an exception or should be created?
+                            throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                        }
+
+                        for (Object factType : factTypes) {
+                            Entity child;
+                            String factTypeString = (String) factType;
+                            entityFound = model.getEntity(factTypeString);
+
+                            if (entityFound != null) {
+                                if (entityFound.getClass().equals(Relationship.class)) {
+                                    child = entityFound;
+                                } else {
+                                    throw new EntityNotValidException("Entity " + factTypeString + " not valid for subset " + subsetName);
+                                }
+                            } else {
+                                // TODO: The non existence of the entity is an exception or should be created?
+                                throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                            }
+
+                           Subsumption newSubsumption = new Subsumption(subsetName + "_" + getAlphaNumericString(RANDOM_STRING_LENGTH), parent, child);
+                           model.addRelationship(newSubsumption);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }
