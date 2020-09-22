@@ -33,7 +33,7 @@ public class GenericController {
             String fromLanguage = languages[0];
             String toLanguage = languages[1];
             String schemaPath = SCHEMAS_PATH + fromLanguage + "Schema.json";
-            
+
             try {
                 validateJSON(payload, schemaPath);
                 JSONObject jsonPayload = (JSONObject) parser.parse(payload);
@@ -47,15 +47,19 @@ public class GenericController {
                 return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
             } catch (ValidationException e) {
                 StringBuilder stringBuilder = new StringBuilder();
-                e.getCausingExceptions().stream()
-                        .map(ValidationException::getMessage)
-                        .forEach(stringBuilder::append);
+                stringBuilder.append(e.getMessage());
+                if (e.getCausingExceptions().size() > 0) {
+                    e.getCausingExceptions()
+                            .stream()
+                            .map(validationException -> validationException.getMessage())
+                            .forEach(message -> stringBuilder.append(message));
+                }
                 ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), stringBuilder.toString());
                 return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
             } catch (MetamodelException e) {
                 ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
                 return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
-            } catch (NotValidLanguageException e){
+            } catch (NotValidLanguageException e) {
                 ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
                 return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
             }
