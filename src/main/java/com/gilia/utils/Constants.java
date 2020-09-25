@@ -59,6 +59,9 @@ public class Constants {
     public static final String SUBSET_CONSTRAINT = "subset";
     public static final String UNDEFINED_STRING = "undefined";
     public static final String ENTITY_REF_MODE_STRING = "entityRefMode";
+    public static final String CENTER_STRING = "center";
+    public static final String LEFT_STRING = "left";
+    public static final String RIGHT_STRING = "right";
 
     // JSON Keys
     public static final String KEY_NAMESPACES = "namespaces";
@@ -104,6 +107,8 @@ public class Constants {
     public static final String KEY_ROLE_CONSTRAINT = "roleConstraint";
     public static final String KEY_FACT_PARENT = "factParent";
     public static final String KEY_FACT_TYPES = "factTypes";
+    public static final String KEY_FACT_PARENT_POSITION = "factParentPosition";
+    public static final String KEY_FACT_TYPES_POSITION = "factPosition";
 
     //Attributes in UML class
     public static final String KEY_ATTRS = "attrs";
@@ -141,7 +146,8 @@ public class Constants {
     public static final String BINARY_FACT_TYPE_EXPECTED_ERROR = "A binary fact type link was expected";
     public static final String RELATIONSHIP_DEFINITION_ERROR = "Relationship definition would be violated";
     public static final String SUBSUMPTION_DEFINITION_ERROR = "Subsumption definition would be violated";
-    public static final String MODEL_CONVERSION_NOT_SUPPORTED = "Model conversion not supported";
+    public static final String MODEL_CONVERSION_NOT_SUPPORTED_ERROR = "Model conversion not supported";
+    public static final String INVALID_OPERATION_ERROR = "Operation not valid";
 
     // Exception Names
     public static final String VALIDATION_EXCEPTION_NAME = "ValidationException";

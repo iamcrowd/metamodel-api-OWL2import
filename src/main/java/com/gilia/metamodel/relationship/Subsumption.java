@@ -311,6 +311,10 @@ public class Subsumption extends Relationship {
      * @return Boolean indicating whether the entity is valid or not.
      */
     private boolean isValidEntityForSubsumption(Entity entity) {
-        return !((entity.getClass() == QualifiedRelationship.class) || (entity.getClass() == AttributiveProperty.class) || (entity.getClass() == Subsumption.class) || (entity.getClass() == Qualifier.class) || (entity.getClass() == Constraint.class));
+        return !((entity.getClass() == QualifiedRelationship.class)
+                || (entity.getClass() == AttributiveProperty.class)
+                || (entity.getClass() == Subsumption.class)
+                || (entity.getClass() == Qualifier.class)
+                || (entity.getClass() == Constraint.class));
     }
 }

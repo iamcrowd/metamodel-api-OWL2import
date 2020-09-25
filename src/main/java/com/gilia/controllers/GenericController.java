@@ -65,7 +65,7 @@ public class GenericController {
             }
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
-            ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), MODEL_CONVERSION_NOT_SUPPORTED);
+            ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), MODEL_CONVERSION_NOT_SUPPORTED_ERROR);
             return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
         }
     }
