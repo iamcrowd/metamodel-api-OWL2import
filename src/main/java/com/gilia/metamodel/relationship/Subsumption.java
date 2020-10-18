@@ -214,6 +214,8 @@ public class Subsumption extends Relationship {
     @Override
     public JSONObject toUML() {
         JSONObject jsonObject = new JSONObject();
+
+        // For now, the representation of Relationship/Role subsumptions will remain the same as Object types subsumptions
         jsonObject.put(KEY_NAME, this.name);
         jsonObject.put(KEY_PARENT, this.parent.getName());
         jsonObject.put(KEY_TYPE, KEY_GENERALIZATION);
@@ -261,7 +263,7 @@ public class Subsumption extends Relationship {
                 parentsPosition.add(CENTER_STRING);
             } else {
                 // TODO: Implement a precise way to identify whether the position is right or left
-                parentName = ((Role)parent).getRelationship().getName();
+                parentName = ((Role) parent).getRelationship().getName();
                 if (parentName.contains("role0")) {
                     parentsPosition.add(LEFT_STRING);
                 } else {
@@ -273,7 +275,7 @@ public class Subsumption extends Relationship {
                 childrenPosition.add(CENTER_STRING);
             } else {
                 // TODO: Implement a precise way to identify whether the position is right or left
-                childName = ((Role)child).getRelationship().getName();
+                childName = ((Role) child).getRelationship().getName();
                 if (childName.contains("role0")) {
                     childrenPosition.add(LEFT_STRING);
                 } else {
@@ -325,6 +327,7 @@ public class Subsumption extends Relationship {
     @Override
     public JSONObject toEER() {
         JSONObject jsonObject = new JSONObject();
+        // For now, the representation of Relationship/Role subsumptions will remain the same as Object types subsumptions
         jsonObject.put(KEY_NAME, this.name);
         jsonObject.put(KEY_PARENT, this.parent.getName());
         jsonObject.put(KEY_TYPE, ISA_STRING);
