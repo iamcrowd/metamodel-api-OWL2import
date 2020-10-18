@@ -8,6 +8,7 @@ import com.gilia.metamodel.constraint.Constraint;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
 import com.gilia.metamodel.entitytype.Qualifier;
 import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
+import com.gilia.metamodel.role.Role;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -246,27 +247,72 @@ public class Subsumption extends Relationship {
     @Override
     public JSONObject toORM() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(KEY_NAME, this.name);
-        jsonObject.put(KEY_PARENT, this.parent.getName());
-        jsonObject.put(KEY_TYPE, SUBTYPING_STRING);
 
-        // Classes involved
-        JSONArray jsonClasses = new JSONArray();
-        jsonClasses.add(this.child.getName());
-        jsonObject.put(KEY_ENTITIES, jsonClasses);
+        if (parent.getClass().equals(Relationship.class) || parent.getClass().equals(Role.class)) {
+            JSONArray parents = new JSONArray();
+            JSONArray children = new JSONArray();
+            JSONArray parentsPosition = new JSONArray();
+            JSONArray childrenPosition = new JSONArray();
 
-        // Constraints
-        JSONArray jsonConstraints = new JSONArray();
-        if (disjointness != null) {
-            jsonConstraints.add(EXCLUSIVE_STRING);
+            String parentName = parent.getName();
+            String childName = child.getName();
+
+            if (parent.getClass().equals(Relationship.class)) {
+                parentsPosition.add(CENTER_STRING);
+            } else {
+                // TODO: Implement a precise way to identify whether the position is right or left
+                parentName = ((Role)parent).getRelationship().getName();
+                if (parentName.contains("role0")) {
+                    parentsPosition.add(LEFT_STRING);
+                } else {
+                    parentsPosition.add(RIGHT_STRING);
+                }
+            }
+
+            if (children.getClass().equals(Relationship.class)) {
+                childrenPosition.add(CENTER_STRING);
+            } else {
+                // TODO: Implement a precise way to identify whether the position is right or left
+                childName = ((Role)child).getRelationship().getName();
+                if (childName.contains("role0")) {
+                    childrenPosition.add(LEFT_STRING);
+                } else {
+                    childrenPosition.add(RIGHT_STRING);
+                }
+            }
+
+            parents.add(parentName);
+            children.add(childName);
+
+            jsonObject.put(KEY_NAME, this.name);
+            jsonObject.put(KEY_FACT_PARENT, parents);
+            jsonObject.put(KEY_FACT_TYPES, children);
+            jsonObject.put(KEY_FACT_PARENT_POSITION, parentsPosition);
+            jsonObject.put(KEY_FACT_TYPES_POSITION, childrenPosition);
+            jsonObject.put(KEY_TYPE, KEY_ROLE_CONSTRAINT);
+            jsonObject.put(KEY_ROLE_CONSTRAINT, SUBSET_CONSTRAINT);
+        } else {
+            jsonObject.put(KEY_NAME, this.name);
+            jsonObject.put(KEY_PARENT, this.parent.getName());
+            jsonObject.put(KEY_TYPE, SUBTYPING_STRING);
+
+            // Classes involved
+            JSONArray jsonClasses = new JSONArray();
+            jsonClasses.add(this.child.getName());
+            jsonObject.put(KEY_ENTITIES, jsonClasses);
+
+            // Constraints
+            JSONArray jsonConstraints = new JSONArray();
+            if (disjointness != null) {
+                jsonConstraints.add(EXCLUSIVE_STRING);
+            }
+
+            if (completeness != null) {
+                jsonConstraints.add(UNION_STRING);
+            }
+
+            jsonObject.put(KEY_SUBTYPING_CONSTRAINT, jsonConstraints);
         }
-
-        if (completeness != null) {
-            jsonConstraints.add(UNION_STRING);
-        }
-
-        jsonObject.put(KEY_SUBTYPING_CONSTRAINT, jsonConstraints);
-
         return jsonObject;
     }
 
