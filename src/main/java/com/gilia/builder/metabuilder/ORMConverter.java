@@ -26,6 +26,7 @@ public class ORMConverter implements MetaBuilder {
 
         ArrayList<EntityType> entities = (ArrayList<EntityType>) metamodel.getEntities();
         ArrayList<Relationship> relationships = (ArrayList<Relationship>) metamodel.getRelationships();
+        ArrayList<Relationship> connectors = (ArrayList<Relationship>) metamodel.getRelationships();
 
         // Entities
         JSONArray jsonEntities = new JSONArray();

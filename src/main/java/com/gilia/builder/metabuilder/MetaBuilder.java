@@ -3,6 +3,8 @@ package com.gilia.builder.metabuilder;
 import com.gilia.metamodel.Metamodel;
 import org.json.simple.JSONObject;
 
+import java.util.logging.Logger;
+
 /**
  * Interface that allows a class to generate a JSONObject that represents a model in a modeling language from the Metamodel.
  * The JSON must represent a model in a modeling language such as UML, EER, ORM or even the Metamodel itself.
@@ -12,7 +14,6 @@ import org.json.simple.JSONObject;
  * @author Emiliano Rios Gavagnin
  */
 public interface MetaBuilder {
-
     /**
      * Generates the JSONObject according to the instance of the metamodel given.
      * The translation is determined by the destination modeling language desired.

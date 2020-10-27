@@ -3,6 +3,7 @@ package com.gilia.builder;
 import com.gilia.builder.jsontranslator.*;
 import com.gilia.builder.metabuilder.*;
 import com.gilia.exceptions.NoMetamodelCreatedException;
+import com.gilia.exceptions.NotValidLanguageException;
 import com.gilia.metamodel.Metamodel;
 import org.json.simple.JSONObject;
 
@@ -36,6 +37,40 @@ public class MetaDirector {
 
     public MetaBuilder getBuilder() {
         return builder;
+    }
+
+    public void createMetamodel(JSONObject model, String fromLanguage) throws NotValidLanguageException {
+        switch (fromLanguage) {
+            case "uml":
+                createMetamodelFromUML(model);
+                break;
+            case "eer":
+                createMetamodelFromEER(model);
+                break;
+            case "orm":
+                createMetamodelFromORM(model);
+                break;
+            case "meta":
+                createMetamodelFromMeta(model);
+                break;
+            default:
+                throw new NotValidLanguageException(fromLanguage + " is not a valid language");
+        }
+    }
+
+    public JSONObject generateModel(String toLanguage) {
+        switch (toLanguage) {
+            case "uml":
+                return generateUML();
+            case "eer":
+                return generateEER();
+            case "orm":
+                return generateORM();
+            case "meta":
+                return generateMeta();
+            default:
+                throw new NotValidLanguageException(toLanguage + " is not a valid language");
+        }
     }
 
     public void createMetamodelFromUML(JSONObject json) {

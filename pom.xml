@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.gilia</groupId>
+    <groupId>org.gilia.crowd</groupId>
     <artifactId>MetamodelAPI</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>MetamodelAPI</name>

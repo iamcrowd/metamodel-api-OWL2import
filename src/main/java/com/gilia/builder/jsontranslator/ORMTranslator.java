@@ -4,6 +4,7 @@ import com.gilia.enumerates.RelationshipType;
 import com.gilia.exceptions.AlreadyExistException;
 import com.gilia.exceptions.EntityNotValidException;
 import com.gilia.exceptions.InformationNotFoundException;
+import com.gilia.exceptions.OperationNotSupportedException;
 import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
@@ -22,6 +23,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.gilia.utils.Constants.*;
 import static com.gilia.utils.Utils.getAlphaNumericString;
@@ -49,6 +51,7 @@ public class ORMTranslator implements JSONTranslator {
         identifyEntityTypes(newMetamodel, jsonEntities);
         identifyRelationships(newMetamodel, jsonRelationships); // Roles and Cardinalities are identified by this method as well
         identifySubclasses(newMetamodel, jsonConnectors);
+        identifySubsetConstraints(newMetamodel, jsonConnectors);
 
         return newMetamodel;
     }
@@ -310,6 +313,85 @@ public class ORMTranslator implements JSONTranslator {
             }
         }
         model.addRelationships(newSubsumptions);
+    }
+
+    private void identifySubsetConstraints(Metamodel model, JSONArray jsonLinks) {
+        for (Object ormLink : jsonLinks) {
+            String type = (String) ((JSONObject) ormLink).get(KEY_TYPE);
+            if (type.equals(KEY_ROLE_CONSTRAINT)) {
+                JSONObject roleConstraint = (JSONObject) ormLink;
+                String roleConstraintType = (String) roleConstraint.get(KEY_ROLE_CONSTRAINT);
+                if (roleConstraintType.equals(SUBSET_CONSTRAINT)) {
+
+                    String subsetName = (String) roleConstraint.get(KEY_NAME);
+                    JSONArray factParents = (JSONArray) roleConstraint.get(KEY_FACT_PARENT);
+                    JSONArray factTypes = (JSONArray) roleConstraint.get(KEY_FACT_TYPES);
+
+                    JSONArray factParentsPosition = (JSONArray) roleConstraint.get(KEY_FACT_PARENT_POSITION);
+                    JSONArray factTypesPosition = (JSONArray) roleConstraint.get(KEY_FACT_TYPES_POSITION);
+
+                    if (factParents.size() > 1 || factTypes.size() > 1 || factParentsPosition.size() > 1 || factTypesPosition.size() > 1) {
+                        throw new OperationNotSupportedException("Multiple subset constrains not supported yet");
+                    }
+
+                    for (int i = 0; i < factParents.size(); i++) {
+                        Entity parent;
+                        Entity child;
+                        String factParentString = (String) factParents.get(i);
+                        Entity entityFound = model.getEntity(factParentString);
+                        String position = (String) factParentsPosition.get(i);
+                        if (position.contains(CENTER_STRING)) {
+                            if (entityFound.getClass().equals(Relationship.class)) { // If parent center -> Sup Relationship
+                                parent = entityFound;
+                            } else {
+                                throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                            }
+                        } else if (position.contains(LEFT_STRING) || position.contains(RIGHT_STRING)) { // If parent left/right -> Sup Role
+                            if (entityFound.getClass().equals(Relationship.class)) {
+                                List<Role> roles = ((Relationship) entityFound).getRoles();
+                                if (position.contains(LEFT_STRING)) {
+                                    parent = roles.get(0);
+                                } else {
+                                    parent = roles.get(1);
+                                }
+                            } else {
+                                throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                            }
+                        } else {
+                            throw new OperationNotSupportedException(INVALID_OPERATION_ERROR);
+                        }
+
+                        for (int j = 0; j < factParents.size(); j++) {
+                            String factTypeString = (String) factTypes.get(j);
+                            entityFound = model.getEntity(factTypeString);
+                            position = (String) factTypesPosition.get(i);
+                            if (position.contains(CENTER_STRING)) {  // If child center -> Sub Relationship
+                                if (entityFound.getClass().equals(Relationship.class)) {
+                                    child = entityFound;
+                                } else {
+                                    throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                                }
+                            } else if (position.contains(LEFT_STRING) || position.contains(RIGHT_STRING)) { // If child left/right -> Sub Role
+                                if (entityFound.getClass().equals(Relationship.class)) {
+                                    List<Role> roles = ((Relationship) entityFound).getRoles();
+                                    if (position.contains(LEFT_STRING)) {
+                                        child = roles.get(0);
+                                    } else {
+                                        child = roles.get(1);
+                                    }
+                                } else {
+                                    throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                                }
+                            } else {
+                                throw new OperationNotSupportedException(INVALID_OPERATION_ERROR);
+                            }
+                            Subsumption newSubsumption = new Subsumption(subsetName + "_" + getAlphaNumericString(RANDOM_STRING_LENGTH), parent, child);
+                            model.addRelationship(newSubsumption);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }
