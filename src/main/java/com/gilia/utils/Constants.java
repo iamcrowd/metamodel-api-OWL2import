@@ -1,5 +1,7 @@
 package com.gilia.utils;
 
+import www.ontologyutils.normalization.NormalForm;
+
 /**
  * It encapsulates every constant use in the application.
  * The only purpose of this class is to organize the constants (specially string constants)
@@ -255,6 +257,25 @@ public class Constants {
     // Exception Names
 
     public static final String VALIDATION_EXCEPTION_NAME = "ValidationException";
+    
+    
+    // NormalForm names
+    
+    public static final String TYPE2_SUBCLASS_AXIOM = "typeTwoSubClassAxiom";
+    
+    public static final String TYPE2_MIN_CARD_AXIOM = "typeTwoMinCardAxiom";
+    
+    public static final String TYPE2_MAX_CARD_AXIOM = "typeTwoMaxCardAxiom";
+    
+    public static final String TYPE2_EXACT_CARD_AXIOM = "typeTwoExactCardAxiom";
+    
+    public static final String TYPE2_DATA_SUBCLASS_AXIOM = "typeTwoDataSubClassAxiom";
+    
+    public static final String TYPE2_DATA_MIN_CARD_AXIOM = "typeTwoDataMinCardAxiom";
+    
+    public static final String TYPE2_DATA_MAX_CARD_AXIOM = "typeTwoDataMaxCardAxiom";
+    
+    public static final String TYPE2_DATA_EXACT_CARD_AXIOM = "typeTwoDataExactCardAxiom";
 
 
 }
