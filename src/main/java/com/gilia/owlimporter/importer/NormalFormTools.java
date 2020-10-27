@@ -43,6 +43,7 @@ import com.google.common.base.CaseFormat;
 //import com.sun.tools.javac.util.List;
 import com.gilia.owlimporter.importer.classExpression.Class;
 
+import uk.ac.manchester.cs.owl.owlapi.OWLCardinalityRestrictionImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLQuantifiedRestrictionImpl;
 
 import com.gilia.owlimporter.importer.axiom.classAxiom.SubClassOf;
@@ -61,6 +62,14 @@ import www.ontologyutils.toolbox.Utils;
 import www.ontologyutils.normalization.NormalizationTools;
 import www.ontologyutils.normalization.NormalForm;
 
+import static com.gilia.utils.Constants.TYPE2_SUBCLASS_AXIOM;
+import static com.gilia.utils.Constants.TYPE2_MIN_CARD_AXIOM;
+import static com.gilia.utils.Constants.TYPE2_MAX_CARD_AXIOM;
+import static com.gilia.utils.Constants.TYPE2_EXACT_CARD_AXIOM;
+import static com.gilia.utils.Constants.TYPE2_DATA_SUBCLASS_AXIOM;
+import static com.gilia.utils.Constants.TYPE2_DATA_MIN_CARD_AXIOM;
+import static com.gilia.utils.Constants.TYPE2_DATA_MAX_CARD_AXIOM;
+import static com.gilia.utils.Constants.TYPE2_DATA_EXACT_CARD_AXIOM;
 
 /**
  * This class identifies each normal form in ontology normalised being imported and creates the respective KF primitives
@@ -371,8 +380,29 @@ public class NormalFormTools {
 									// Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
 									// A \sqsubseteq B or A \sqcap B \sqsubseteq C or 
 									
-									if (NormalForm.typeTwoSubClassAxiom(left, right)) {											
-										this.type2asKF(kf, left, right);	
+									if (NormalForm.typeTwoSubClassAxiom(left, right)) {	//Object		 								
+										this.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);	
+									} 
+									else if (NormalForm.typeTwoMinCardAxiom(left, right)) {
+										this.type2asKF(kf, left, right, TYPE2_MIN_CARD_AXIOM);	
+									}
+									else if (NormalForm.typeTwoMaxCardAxiom(left, right)) {
+										this.type2asKF(kf, left, right, TYPE2_MAX_CARD_AXIOM);	
+									}
+									else if (NormalForm.typeTwoExactCardAxiom(left, right)) {
+										this.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);	
+									}
+									else if (NormalForm.typeTwoDataSubClassAxiom(left, right)) { //Data
+										this.type2asKF(kf, left, right, TYPE2_DATA_SUBCLASS_AXIOM);	
+									}
+									else if (NormalForm.typeTwoDataMinCardAxiom(left, right)) {
+										this.type2asKF(kf, left, right, TYPE2_DATA_MIN_CARD_AXIOM);	
+									}
+									else if (NormalForm.typeTwoDataMaxCardAxiom(left, right)) {
+										this.type2asKF(kf, left, right, TYPE2_DATA_MAX_CARD_AXIOM);	
+									}
+									else if (NormalForm.typeTwoDataExactCardAxiom(left, right)) {
+										this.type2asKF(kf, left, right, TYPE2_DATA_EXACT_CARD_AXIOM);	
 									}
 								}
 								else {
@@ -539,9 +569,31 @@ public class NormalFormTools {
 											}
 										}
 									
-										if (NormalForm.typeTwoSubClassAxiom(left, right)) {
-											this.type2asKF(kf, left, right);
+										if (NormalForm.typeTwoSubClassAxiom(left, right)) {	//Object		 								
+											this.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);	
+										} 
+										else if (NormalForm.typeTwoMinCardAxiom(left, right)) {
+											this.type2asKF(kf, left, right, TYPE2_MIN_CARD_AXIOM);	
 										}
+										else if (NormalForm.typeTwoMaxCardAxiom(left, right)) {
+											this.type2asKF(kf, left, right, TYPE2_MAX_CARD_AXIOM);	
+										}
+										else if (NormalForm.typeTwoExactCardAxiom(left, right)) {
+											this.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);	
+										}
+										else if (NormalForm.typeTwoDataSubClassAxiom(left, right)) { //Data
+											this.type2asKF(kf, left, right, TYPE2_DATA_SUBCLASS_AXIOM);	
+										}
+										else if (NormalForm.typeTwoDataMinCardAxiom(left, right)) {
+											this.type2asKF(kf, left, right, TYPE2_DATA_MIN_CARD_AXIOM);	
+										}
+										else if (NormalForm.typeTwoDataMaxCardAxiom(left, right)) {
+											this.type2asKF(kf, left, right, TYPE2_DATA_MAX_CARD_AXIOM);	
+										}
+										else if (NormalForm.typeTwoDataExactCardAxiom(left, right)) {
+											this.type2asKF(kf, left, right, TYPE2_DATA_EXACT_CARD_AXIOM);	
+										}
+										
 										if (NormalForm.typeThreeSubClassAxiom(left, right)) {
 											this.type3asKF(kf, left, right);
 										}
@@ -792,7 +844,7 @@ public class NormalFormTools {
 	 * @param left
 	 * @param right
 	 */
-	public void type2asKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
+	public void type2asKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right, String TYPE) {
 		
 		String left_iri = left.asOWLClass().toStringID();
 		if (isFresh(left)) { left_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + left.asOWLClass().toStringID(); }
@@ -852,7 +904,62 @@ public class NormalFormTools {
 			String role_fresh_APAB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleAPAB1";
 			
 			ObjectTypeCardinality otc_RoleCPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleAPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "*");
+			
+			Integer cardinality;
+			String min = "1";
+			String max = "*";
+			
+			switch (TYPE) {
+				case TYPE2_SUBCLASS_AXIOM:
+					min = "1";
+					max = "*";
+				
+				break;
+				case TYPE2_MIN_CARD_AXIOM:
+					cardinality = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getCardinality();
+					if (cardinality == 1) {
+						min = "1";
+						max = "*";
+					}
+					else if (cardinality > 1) {
+						min = cardinality.toString();
+						max = "*";
+					}
+					
+				
+				break;
+				case TYPE2_MAX_CARD_AXIOM:
+					cardinality = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getCardinality();
+					min = "0";
+					max = cardinality.toString();
+					
+				break;
+				case TYPE2_EXACT_CARD_AXIOM:
+					cardinality = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getCardinality();
+					min = cardinality.toString();
+					max = cardinality.toString();
+				
+				break;
+				case TYPE2_DATA_SUBCLASS_AXIOM:
+				
+				break;
+				case TYPE2_DATA_MIN_CARD_AXIOM:
+				
+				break;
+				case TYPE2_DATA_MAX_CARD_AXIOM:
+				
+				break;
+				case TYPE2_DATA_EXACT_CARD_AXIOM:
+				
+				break;
+				
+			default:
+				min = "1";
+				max = "*";
+				break;
+			}
+			
+			ObjectTypeCardinality otc_RoleAPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), min, max);
 			
 			kf.addConstraint(otc_RoleCPAB1);
 			kf.addConstraint(otc_RoleAPAB1);
