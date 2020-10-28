@@ -380,7 +380,7 @@ public class NormalFormTools {
 									// Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
 									// A \sqsubseteq B or A \sqcap B \sqsubseteq C or 
 									
-									if (NormalForm.typeTwoSubClassAxiom(left, right)) {	//Object		 								
+									if (NormalForm.typeTwoSubClassAxiom(left, right)) {	//Object
 										this.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);	
 									} 
 									else if (NormalForm.typeTwoMinCardAxiom(left, right)) {
@@ -393,16 +393,20 @@ public class NormalFormTools {
 										this.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);	
 									}
 									else if (NormalForm.typeTwoDataSubClassAxiom(left, right)) { //Data
-										this.type2asKF(kf, left, right, TYPE2_DATA_SUBCLASS_AXIOM);	
+										System.out.println("typeTwoDataSubClassAxiom");
+										//this.type2asKF(kf, left, right, TYPE2_DATA_SUBCLASS_AXIOM);	
 									}
 									else if (NormalForm.typeTwoDataMinCardAxiom(left, right)) {
-										this.type2asKF(kf, left, right, TYPE2_DATA_MIN_CARD_AXIOM);	
+										System.out.println("typeTwoDataMinCardAxiom");
+										//this.type2asKF(kf, left, right, TYPE2_DATA_MIN_CARD_AXIOM);	
 									}
 									else if (NormalForm.typeTwoDataMaxCardAxiom(left, right)) {
-										this.type2asKF(kf, left, right, TYPE2_DATA_MAX_CARD_AXIOM);	
+										System.out.println("typeTwoDataMaxCardAxiom");
+										//this.type2asKF(kf, left, right, TYPE2_DATA_MAX_CARD_AXIOM);	
 									}
 									else if (NormalForm.typeTwoDataExactCardAxiom(left, right)) {
-										this.type2asKF(kf, left, right, TYPE2_DATA_EXACT_CARD_AXIOM);	
+										System.out.println("typeTwoDataExactCardAxiom");
+										//this.type2asKF(kf, left, right, TYPE2_DATA_EXACT_CARD_AXIOM);	
 									}
 								}
 								else {
@@ -582,16 +586,16 @@ public class NormalFormTools {
 											this.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);	
 										}
 										else if (NormalForm.typeTwoDataSubClassAxiom(left, right)) { //Data
-											this.type2asKF(kf, left, right, TYPE2_DATA_SUBCLASS_AXIOM);	
+											//this.type2asKF(kf, left, right, TYPE2_DATA_SUBCLASS_AXIOM);	
 										}
 										else if (NormalForm.typeTwoDataMinCardAxiom(left, right)) {
-											this.type2asKF(kf, left, right, TYPE2_DATA_MIN_CARD_AXIOM);	
+											//this.type2asKF(kf, left, right, TYPE2_DATA_MIN_CARD_AXIOM);	
 										}
 										else if (NormalForm.typeTwoDataMaxCardAxiom(left, right)) {
-											this.type2asKF(kf, left, right, TYPE2_DATA_MAX_CARD_AXIOM);	
+											//this.type2asKF(kf, left, right, TYPE2_DATA_MAX_CARD_AXIOM);	
 										}
 										else if (NormalForm.typeTwoDataExactCardAxiom(left, right)) {
-											this.type2asKF(kf, left, right, TYPE2_DATA_EXACT_CARD_AXIOM);	
+											//this.type2asKF(kf, left, right, TYPE2_DATA_EXACT_CARD_AXIOM);	
 										}
 										
 										if (NormalForm.typeThreeSubClassAxiom(left, right)) {
@@ -849,12 +853,26 @@ public class NormalFormTools {
 		String left_iri = left.asOWLClass().toStringID();
 		if (isFresh(left)) { left_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + left.asOWLClass().toStringID(); }
 		
-		OWLClassExpression filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
-		OWLPropertyExpression property = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getProperty();
-	
-		String prop_iri = property.asOWLObjectProperty().toStringID();		
+		OWLClassExpression filler = null;
+		OWLPropertyExpression property = null;
+		String prop_iri = "";
 		
+		if (TYPE == TYPE2_SUBCLASS_AXIOM) {
+			filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
+			property = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getProperty();
+			prop_iri = property.asOWLObjectProperty().toStringID();
+			
+		} else if ((TYPE == TYPE2_MIN_CARD_AXIOM) ||
+				   (TYPE == TYPE2_MAX_CARD_AXIOM) ||
+				   (TYPE == TYPE2_EXACT_CARD_AXIOM)) {
+			filler = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getFiller();
+			property = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getProperty();
+			prop_iri = property.asOWLObjectProperty().toStringID();
+			
+		}
+	
 		if (NormalForm.isAtom(filler)) {
+			
 			String filler_iri = filler.asOWLClass().toStringID();
 			if (isFresh(filler)) { filler_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + filler.asOWLClass().toStringID(); }
 			
