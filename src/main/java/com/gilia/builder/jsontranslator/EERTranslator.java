@@ -1,9 +1,6 @@
 package com.gilia.builder.jsontranslator;
 
-import com.gilia.exceptions.AlreadyExistException;
-import com.gilia.exceptions.EntityNotValidException;
-import com.gilia.exceptions.InconsistentModelInformationException;
-import com.gilia.exceptions.InformationNotFoundException;
+import com.gilia.exceptions.*;
 import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
@@ -269,15 +266,11 @@ public class EERTranslator implements JSONTranslator {
                 JSONArray constraints = (JSONArray) isa.get(KEY_CONSTRAINT);
 
                 // Check the existence of the parent in the generalization
-                ObjectType parent;
+                Entity parent;
                 String parentName = (String) isa.get(KEY_PARENT); // TODO: Check case of "undefined"
                 Entity entityFound = model.getEntity(parentName);
                 if (entityFound != null) {
-                    if (entityFound.getClass().equals(ObjectType.class)) {
-                        parent = (ObjectType) entityFound;
-                    } else {
-                        throw new EntityNotValidException("Entity " + parentName + " not valid for isa relationship " + isaRelationshipName);
-                    }
+                    parent = entityFound;
                 } else {
                     // TODO: The non existence of the entity is an exception or should be created?
                     /*parent = new ObjectType(parentName);
@@ -288,20 +281,16 @@ public class EERTranslator implements JSONTranslator {
 
                 // Check the existence of the entities involved and add the entities not present in the metamodel
                 JSONArray classes = (JSONArray) isa.get(KEY_ENTITIES); // TODO: Check size of classes
-                ArrayList objectsType = new ArrayList();
+                ArrayList childEntities = new ArrayList();
                 for (Object jsonClass : classes) {
                     String className = (String) jsonClass;
                     entityFound = model.getEntity(className);
                     if (entityFound != null) {
-                        if (entityFound.getClass().equals(ObjectType.class)) {
-                            objectsType.add(entityFound);
-                        } else {
-                            throw new EntityNotValidException("Entity " + className + " not valid for generalization " + isaRelationshipName);
-                        }
+                        childEntities.add(entityFound);
                     } else {
                         // TODO: The non existence of the entity is an exception or should be created?
                         /*ObjectType newObjectType = new ObjectType(className);
-                        objectsType.add(newObjectType);
+                        childEntities.add(newObjectType);
                         model.addEntity(newObjectType);*/
                         throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
                     }
@@ -312,16 +301,16 @@ public class EERTranslator implements JSONTranslator {
                 for (Object o : constraints) {
                     String constraint = (String) o;
                     if (constraint.equals(EXCLUSIVE_STRING)) {
-                        disjointObjectType = new DisjointObjectType(model.getOntologyIRI() + "dc" + (model.getConstraints().size() + 1), objectsType);
+                        disjointObjectType = new DisjointObjectType(model.getOntologyIRI() + "dc" + (model.getConstraints().size() + 1), childEntities);
                         model.addConstraint(disjointObjectType);
                     } else if (constraint.equals(UNION_STRING)) {
-                        completenessConstraint = new CompletenessConstraint(model.getOntologyIRI() + "cc" + (model.getConstraints().size() + 1), objectsType);
+                        completenessConstraint = new CompletenessConstraint(model.getOntologyIRI() + "cc" + (model.getConstraints().size() + 1), childEntities);
                         model.addConstraint(completenessConstraint);
                     }
                 }
 
-                for (Object entity : objectsType) {
-                    Subsumption newSubsumption = new Subsumption(isaRelationshipName + "_" + getAlphaNumericString(RANDOM_STRING_LENGTH), parent, (ObjectType) entity, completenessConstraint, disjointObjectType);
+                for (Object entity : childEntities) {
+                    Subsumption newSubsumption = new Subsumption(isaRelationshipName + "_" + getAlphaNumericString(RANDOM_STRING_LENGTH), parent, (Entity) entity, completenessConstraint, disjointObjectType);
                     newSubsumptions.add(newSubsumption);
                 }
             }

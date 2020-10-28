@@ -265,8 +265,8 @@ public class MetaTranslator implements JSONTranslator {
                 String disjointnessName = (String) ((JSONObject) metaSubsumption).get(KEY_DISJOINTNESS_CONSTRAINT);
                 String completenessName = (String) ((JSONObject) metaSubsumption).get(KEY_COMPLETENESS_CONSTRAINT);
 
-                ObjectType parentInvolved = (ObjectType) model.getEntity(parentName);
-                ObjectType childInvolved = (ObjectType) model.getEntity(childName);
+                Entity parentInvolved = model.getEntity(parentName);
+                Entity childInvolved = model.getEntity(childName);
 
                 if (parentInvolved == null || childInvolved == null) {
                     throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);

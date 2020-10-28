@@ -29,21 +29,18 @@ public class Metamodel {
      */
     public Metamodel() {
         this.ontologyIRI = "";
-        this.entities = new ArrayList();
-        this.relationships = new ArrayList();
-        this.roles = new ArrayList();
-        this.constraints = new ArrayList();
+        this.entities = new ArrayList<EntityType>();
+        this.relationships = new ArrayList<Relationship>();
+        this.roles = new ArrayList<Role>();
+        this.constraints = new ArrayList<Constraint>();
     }
 
     /**
      *
      */
     public Metamodel(String ontologyIRI) {
+        this();
         this.ontologyIRI = ontologyIRI;
-        this.entities = new ArrayList();
-        this.relationships = new ArrayList();
-        this.roles = new ArrayList();
-        this.constraints = new ArrayList();
     }
 
 
