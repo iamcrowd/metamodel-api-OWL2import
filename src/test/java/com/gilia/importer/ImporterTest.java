@@ -156,6 +156,91 @@ public class ImporterTest {
         	e.printStackTrace();
     	}
     }
+
+	@Test
+    public void testOnlyImport2MinCardAsKF() {
+    	try {
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/2-mincard.owl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType2fromOntology();
+    	  	System.out.println(importer.toJSON());
+    	  	
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+
+	@Test
+    public void testOnlyImport2MinCardMAsKF() {
+    	try {
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/2-mincardm.owl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType2fromOntology();
+    	  	System.out.println(importer.toJSON());
+    	  	
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+
+	@Test
+    public void testOnlyImport2MaxCardAsKF() {
+    	try {
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/2-maxcard.owl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType2fromOntology();
+    	  	System.out.println(importer.toJSON());
+    	  	
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+
+	@Test
+    public void testOnlyImport2MaxCardMAsKF() {
+    	try {
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/2-maxcardm.owl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType2fromOntology();
+    	  	System.out.println(importer.toJSON());
+    	  	
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+
+	@Test
+    public void testOnlyImport2ExactCardAsKF() {
+    	try {
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/2-exactcard.owl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType2fromOntology();
+    	  	System.out.println(importer.toJSON());
+    	  	
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
 	
 	@Test
     public void testOnlyImport3asKF() {
