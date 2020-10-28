@@ -271,7 +271,7 @@ public class Subsumption extends Relationship {
                 }
             }
 
-            if (children.getClass().equals(Relationship.class)) {
+            if (child.getClass().equals(Relationship.class)) {
                 childrenPosition.add(CENTER_STRING);
             } else {
                 // TODO: Implement a precise way to identify whether the position is right or left
