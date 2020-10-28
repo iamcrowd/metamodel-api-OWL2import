@@ -254,7 +254,7 @@ public class ImporterTest {
 	@Test
     public void testImportAxiomsType2asKF() {
     	try {
-    		IRI ontoiri = IRI.create("https://protege.stanford.edu/ontologies/pizza/pizza.owl");
+    		IRI ontoiri = IRI.create("http://www.w3.org/2006/time#");
     	  	Importer importer = new Importer(ontoiri,true);
     	  	Metamodel meta = importer.getKFInstance();
     	  	OWLOntology onto = importer.getOntology();
