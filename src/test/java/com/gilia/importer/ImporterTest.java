@@ -158,6 +158,23 @@ public class ImporterTest {
     }
 
 	@Test
+    public void testOnlyImport2asKFrepeted() {
+    	try {
+    		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/2-repeted.owl").toString());
+    		String[] owlfilepath = path.split(":", 2);
+    	  	Importer importer = new Importer(owlfilepath[1],true);
+    	  	Metamodel meta = importer.getKFInstance();
+    	  	OWLOntology onto = importer.getOntology();
+    	  	importer.importType2fromOntology();
+    	  	System.out.println(importer.toJSON());
+    	  	
+    	}
+    	catch (Exception e){
+        	e.printStackTrace();
+    	}
+    }
+
+	@Test
     public void testOnlyImport2MinCardAsKF() {
     	try {
     		String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/2-mincard.owl").toString());
