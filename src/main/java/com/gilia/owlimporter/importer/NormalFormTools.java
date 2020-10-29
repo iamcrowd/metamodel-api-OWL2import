@@ -666,8 +666,8 @@ public class NormalFormTools {
 		String left_iri = left.asOWLClass().toStringID();
 		String right_iri = right.asOWLClass().toStringID();
 		
-		if (isFresh(left)) { left_iri = left_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + left.asOWLClass().toStringID(); }
-		if (isFresh(right)) { right_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + right.asOWLClass().toStringID(); }	
+		if (isFresh(left)) { left_iri = left_iri = URI_NORMAL_CONCEPT + left.asOWLClass().toStringID(); }
+		if (isFresh(right)) { right_iri = URI_NORMAL_CONCEPT + right.asOWLClass().toStringID(); }	
 
 		ObjectType ot_child = new ObjectType(left_iri);
 		ObjectType ot_parent = new ObjectType(right_iri);
@@ -693,12 +693,12 @@ public class NormalFormTools {
 	public void type1BasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 		
 		String left_iri = left.asOWLClass().toStringID();
-		if (isFresh(left)) { left_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + left.asOWLClass().toStringID(); }
+		if (isFresh(left)) { left_iri = URI_NORMAL_CONCEPT + left.asOWLClass().toStringID(); }
 		
 		ObjectType ot_left = new ObjectType(left_iri);
 		
 		Set<OWLClassExpression> disjunctions = right.asDisjunctSet();
-		ObjectType ot_fresh = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PatternAorB");
+		ObjectType ot_fresh = new ObjectType(URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PatternAorB");
 		
 		ArrayList<ObjectType> cc_list = new ArrayList();
 		CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));
@@ -706,7 +706,7 @@ public class NormalFormTools {
 		for (OWLClassExpression d : disjunctions) {
 			if (NormalForm.isAtom(d)) {
 				String d_iri = d.asOWLClass().toStringID();
-				if (isFresh(d)) { d_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + d.asOWLClass().toStringID(); }
+				if (isFresh(d)) { d_iri = URI_NORMAL_CONCEPT + d.asOWLClass().toStringID(); }
 				ObjectType ot = new ObjectType(d_iri);
 				
 				kf.addEntity(ot);
@@ -744,17 +744,17 @@ public class NormalFormTools {
 	public void type1CasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 		
 		String right_iri = right.asOWLClass().toStringID();
-		if (isFresh(right)) { right_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + right.asOWLClass().toStringID(); }
+		if (isFresh(right)) { right_iri = URI_NORMAL_CONCEPT + right.asOWLClass().toStringID(); }
 		
 		ObjectType ot_right = new ObjectType(right_iri);
 		
 		Set<OWLClassExpression> conjunctions = left.asConjunctSet();
-		ObjectType ot_fresh = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PatternAandB");
+		ObjectType ot_fresh = new ObjectType(URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PatternAandB");
 		
 		for (OWLClassExpression c : conjunctions) {
 			if (NormalForm.isAtom(c)) {
 				String c_iri = c.asOWLClass().toStringID();
-				if (isFresh(c)) { c_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + c.asOWLClass().toStringID(); }
+				if (isFresh(c)) { c_iri = URI_NORMAL_CONCEPT + c.asOWLClass().toStringID(); }
 				ObjectType ot = new ObjectType(c_iri);
 				
 				kf.addEntity(ot);
@@ -787,7 +787,7 @@ public class NormalFormTools {
 	public void type1DasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 		
 		Set<OWLClassExpression> disjunctions = right.asDisjunctSet();
-		ObjectType ot_fresh_d = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PatternAorB");
+		ObjectType ot_fresh_d = new ObjectType(URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PatternAorB");
 		
 		ArrayList<ObjectType> cc_list = new ArrayList();
 		CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));
@@ -795,7 +795,7 @@ public class NormalFormTools {
 		for (OWLClassExpression d : disjunctions) {
 			if (NormalForm.isAtom(d)) {
 				String d_iri = d.asOWLClass().toStringID();
-				if (isFresh(d)) { d_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + d.asOWLClass().toStringID(); }
+				if (isFresh(d)) { d_iri = URI_NORMAL_CONCEPT + d.asOWLClass().toStringID(); }
 				ObjectType ot = new ObjectType(d_iri);
 				
 				kf.addEntity(ot);
@@ -816,12 +816,12 @@ public class NormalFormTools {
 		kf.addEntity(ot_fresh_d);
 		
 		Set<OWLClassExpression> conjunctions = left.asConjunctSet();
-		ObjectType ot_fresh_c = new ObjectType("http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PatternAandB");
+		ObjectType ot_fresh_c = new ObjectType(URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PatternAandB");
 		
 		for (OWLClassExpression c : conjunctions) {
 			if (NormalForm.isAtom(c)) {
 				String c_iri = c.asOWLClass().toStringID();
-				if (isFresh(c)) { c_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + c.asOWLClass().toStringID(); }
+				if (isFresh(c)) { c_iri = URI_NORMAL_CONCEPT + c.asOWLClass().toStringID(); }
 				ObjectType ot = new ObjectType(c_iri);
 				
 				kf.addEntity(ot);
@@ -1105,7 +1105,7 @@ public class NormalFormTools {
 	public void type3asKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 		
 		String left_iri = left.asOWLClass().toStringID();
-		if (isFresh(left)) { left_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + left.asOWLClass().toStringID(); }
+		if (isFresh(left)) { left_iri = URI_NORMAL_CONCEPT + left.asOWLClass().toStringID(); }
 		
 		OWLClassExpression filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
 		OWLPropertyExpression property = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getProperty();
@@ -1117,10 +1117,10 @@ public class NormalFormTools {
 		
 		if (NormalForm.isAtom(filler)) {
 			String filler_iri = filler.asOWLClass().toStringID();
-			if (isFresh(filler)) { filler_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + filler.asOWLClass().toStringID(); }
+			if (isFresh(filler)) { filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID(); }
 			
 			//add subsumptions
-			String fresh_O = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#O";
+			String fresh_O = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#O";
 			ObjectType ot_fresh_O = new ObjectType(fresh_O);
 			
 			ObjectType ot_left = new ObjectType(left_iri);
@@ -1155,9 +1155,9 @@ public class NormalFormTools {
 			kf.addRelationship(sub_fresh_leftORcomplement_2);
 			
 			//add subsumption CP
-			String fresh_C_PAB = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#CPAB";
-			String fresh_C_PABc = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#CPABc";
-			String fresh_C_P = prop_iri; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#CP";
+			String fresh_C_PAB = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPAB";
+			String fresh_C_PABc = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPABc";
+			String fresh_C_P = prop_iri;
 			
 			ObjectType ot_fresh_C_PAB = new ObjectType(fresh_C_PAB);
 			ObjectType ot_fresh_C_PABc = new ObjectType(fresh_C_PABc);
@@ -1192,10 +1192,10 @@ public class NormalFormTools {
 			
 			//add fresh relationships
 			
-			String rel_fresh_PAB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PAB1";
+			String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB1";
 			
-			String role_fresh_CPAB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPAB1";
-			String role_fresh_APAB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleAPAB1";
+			String role_fresh_CPAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB1";
+			String role_fresh_APAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAPAB1";
 			
 			ObjectTypeCardinality otc_RoleCPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleAPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -1223,10 +1223,10 @@ public class NormalFormTools {
 			
 			//
 			
-			String rel_fresh_PAcB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PAcB1";
+			String rel_fresh_PAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAcB1";
 			
-			String role_fresh_CPAcB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPAcB1";
-			String role_fresh_AcPAcB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleAcPAcB1";
+			String role_fresh_CPAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAcB1";
+			String role_fresh_AcPAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAcPAcB1";
 			
 			ObjectTypeCardinality otc_RoleCPAcB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleAcPAcB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -1254,10 +1254,10 @@ public class NormalFormTools {
 			
 			//
 			
-			String rel_fresh_PAB2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PAB2";
+			String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB2";
 			
-			String role_fresh_CPAB2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPAB2";
-			String role_fresh_BPAB2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleBPAB2";
+			String role_fresh_CPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB2";
+			String role_fresh_BPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RBPAB2";
 			
 			ObjectTypeCardinality otc_RoleCPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleBPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -1289,8 +1289,8 @@ public class NormalFormTools {
 			//add original relationships
 			String rel_P1_iri = prop_iri + "1"; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P1";
 			
-			String role_fresh_CPP1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPP1";
-			String role_fresh_OCP1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleOCP1";
+			String role_fresh_CPP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP1";
+			String role_fresh_OCP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP1";
 			
 			ObjectTypeCardinality otc_RoleCPP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleOCP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -1318,8 +1318,8 @@ public class NormalFormTools {
 			
 			String rel_P2_iri = prop_iri + "2"; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P2";
 			
-			String role_fresh_CPP2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPP2";
-			String role_fresh_OCP2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleOCP2";
+			String role_fresh_CPP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP2";
+			String role_fresh_OCP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP2";
 			
 			ObjectTypeCardinality otc_RoleCPP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleOCP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -1359,7 +1359,7 @@ public class NormalFormTools {
 	public void type4asKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 		
 		String right_iri = right.asOWLClass().toStringID();
-		if (isFresh(right)) { right_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + right.asOWLClass().toStringID(); }
+		if (isFresh(right)) { right_iri = URI_NORMAL_CONCEPT + right.asOWLClass().toStringID(); }
 		
 		OWLClassExpression filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) left).getFiller();
 		OWLPropertyExpression property = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) left).getProperty();
@@ -1368,10 +1368,10 @@ public class NormalFormTools {
 		
 		if (NormalForm.isAtom(filler)) {
 			String filler_iri = filler.asOWLClass().toStringID();
-			if (isFresh(filler)) { filler_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + filler.asOWLClass().toStringID(); }
+			if (isFresh(filler)) { filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID(); }
 			
 			//add subsumptions
-			String fresh_O = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#O";
+			String fresh_O = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#O";
 			ObjectType ot_fresh_O = new ObjectType(fresh_O);
 			
 			ObjectType ot_right = new ObjectType(right_iri);
@@ -1393,7 +1393,7 @@ public class NormalFormTools {
 			kf.addRelationship(sub_fresh_rightORfiller);
 			kf.addRelationship(sub_fresh_rightORfiller_2);
 			
-			String fresh_C_PAB = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#CPAB";
+			String fresh_C_PAB = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPAB";
 			String fresh_C_P = prop_iri; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#CP";
 			
 			ObjectType ot_fresh_C_PAB = new ObjectType(fresh_C_PAB);
@@ -1410,10 +1410,10 @@ public class NormalFormTools {
 			
 			//add fresh relationships
 			
-			String rel_fresh_PAB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PAB1";
+			String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB1";
 			
-			String role_fresh_CPAB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPAB1";
-			String role_fresh_APAB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleAPAB1";
+			String role_fresh_CPAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB1";
+			String role_fresh_APAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAPAB1";
 			
 			ObjectTypeCardinality otc_RoleCPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleAPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -1439,10 +1439,10 @@ public class NormalFormTools {
 			
 			r_fresh_PAB1.setRoles(r1); 
 			
-			String rel_fresh_PAB2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PAB2";
+			String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB2";
 			
-			String role_fresh_CPAB2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPAB2";
-			String role_fresh_BPAB2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleBPAB2";
+			String role_fresh_CPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB2";
+			String role_fresh_BPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RBPAB2";
 			
 			ObjectTypeCardinality otc_RoleCPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleBPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "*");
@@ -1474,8 +1474,8 @@ public class NormalFormTools {
 			//add original relationships
 			String rel_P1_iri = prop_iri + 1; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P1";
 			
-			String role_fresh_CPP1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPP1";
-			String role_fresh_OCP1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleOCP1";
+			String role_fresh_CPP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP1";
+			String role_fresh_OCP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP1";
 			
 			ObjectTypeCardinality otc_RoleCPP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleOCP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -1503,8 +1503,8 @@ public class NormalFormTools {
 			
 			String rel_P2_iri = prop_iri + 2; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P2";
 			
-			String role_fresh_CPP2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPP2";
-			String role_fresh_OCP2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleOCP2";
+			String role_fresh_CPP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP2";
+			String role_fresh_OCP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP2";
 			
 			ObjectTypeCardinality otc_RoleCPP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleOCP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
