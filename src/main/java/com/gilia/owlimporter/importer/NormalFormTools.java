@@ -71,6 +71,9 @@ import static com.gilia.utils.Constants.TYPE2_DATA_MIN_CARD_AXIOM;
 import static com.gilia.utils.Constants.TYPE2_DATA_MAX_CARD_AXIOM;
 import static com.gilia.utils.Constants.TYPE2_DATA_EXACT_CARD_AXIOM;
 
+import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
+import static com.gilia.utils.Constants.URI_NORMAL_CONCEPT;
+
 /**
  * This class identifies each normal form in ontology normalised being imported and creates the respective KF primitives
  * 
@@ -851,7 +854,7 @@ public class NormalFormTools {
 	public void type2asKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right, String TYPE) {
 		
 		String left_iri = left.asOWLClass().toStringID();
-		if (isFresh(left)) { left_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + left.asOWLClass().toStringID(); }
+		if (isFresh(left)) { left_iri = URI_NORMAL_CONCEPT + left.asOWLClass().toStringID(); }
 		
 		OWLClassExpression filler = null;
 		OWLPropertyExpression property = null;
@@ -874,10 +877,10 @@ public class NormalFormTools {
 		if (NormalForm.isAtom(filler)) {
 			
 			String filler_iri = filler.asOWLClass().toStringID();
-			if (isFresh(filler)) { filler_iri = "http://crowd.fi.uncoma.edu.ar/NORMAL" + filler.asOWLClass().toStringID(); }
+			if (isFresh(filler)) { filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID(); }
 			
 			//add subsumptions
-			String fresh_O = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#O";
+			String fresh_O = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#O";
 			ObjectType ot_fresh_O = new ObjectType(fresh_O);
 			
 			ObjectType ot_left = new ObjectType(left_iri);
@@ -899,8 +902,8 @@ public class NormalFormTools {
 			kf.addRelationship(sub_fresh_leftORfiller);
 			kf.addRelationship(sub_fresh_leftORfiller_2);
 			
-			String fresh_C_PAB = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#CPAB";
-			String fresh_C_P = prop_iri; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#CP";
+			String fresh_C_PAB = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPAB";
+			String fresh_C_P = prop_iri;
 			
 			ObjectType ot_fresh_C_PAB = new ObjectType(fresh_C_PAB);
 			ObjectType ot_C_P = new ObjectType(fresh_C_P);
@@ -916,10 +919,10 @@ public class NormalFormTools {
 			
 			//add fresh relationships
 			
-			String rel_fresh_PAB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PAB1";
+			String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB1";
 			
-			String role_fresh_CPAB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPAB1";
-			String role_fresh_APAB1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleAPAB1";
+			String role_fresh_CPAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB1";
+			String role_fresh_APAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAPAB1";
 			
 			ObjectTypeCardinality otc_RoleCPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			
@@ -943,7 +946,6 @@ public class NormalFormTools {
 						min = cardinality.toString();
 						max = "*";
 					}
-					
 				
 				break;
 				case TYPE2_MAX_CARD_AXIOM:
@@ -1000,10 +1002,10 @@ public class NormalFormTools {
 			
 			r_fresh_PAB1.setRoles(r1); 
 			
-			String rel_fresh_PAB2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#PAB2";
+			String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB2";
 			
-			String role_fresh_CPAB2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPAB2";
-			String role_fresh_BPAB2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleBPAB2";
+			String role_fresh_CPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB2";
+			String role_fresh_BPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RBPAB2";
 			
 			ObjectTypeCardinality otc_RoleCPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleBPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -1033,10 +1035,10 @@ public class NormalFormTools {
 			kf.addRelationship(r_fresh_PAB2);
 			
 			//add original relationships
-			String rel_P1_iri = prop_iri + "1"; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P1";
+			String rel_P1_iri = prop_iri + "_" + getAlphaNumericString(8); 
 			
-			String role_fresh_CPP1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPP1";
-			String role_fresh_OCP1_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleOCP1";
+			String role_fresh_CPP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP1";
+			String role_fresh_OCP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP1";
 			
 			ObjectTypeCardinality otc_RoleCPP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleOCP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -1062,10 +1064,10 @@ public class NormalFormTools {
 			
 			r_P1.setRoles(r3); 
 			
-			String rel_P2_iri = prop_iri + "2"; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P2";
+			String rel_P2_iri = prop_iri + "_" + getAlphaNumericString(8);
 			
-			String role_fresh_CPP2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleCPP2";
-			String role_fresh_OCP2_iri = "http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#RoleOCP2";
+			String role_fresh_CPP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP2";
+			String role_fresh_OCP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP2";
 			
 			ObjectTypeCardinality otc_RoleCPP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleOCP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");

@@ -175,20 +175,19 @@ public class Constants {
     // NormalForm names
     
     public static final String TYPE2_SUBCLASS_AXIOM = "typeTwoSubClassAxiom";
-    
     public static final String TYPE2_MIN_CARD_AXIOM = "typeTwoMinCardAxiom";
-    
     public static final String TYPE2_MAX_CARD_AXIOM = "typeTwoMaxCardAxiom";
-    
     public static final String TYPE2_EXACT_CARD_AXIOM = "typeTwoExactCardAxiom";
-    
     public static final String TYPE2_DATA_SUBCLASS_AXIOM = "typeTwoDataSubClassAxiom";
-    
     public static final String TYPE2_DATA_MIN_CARD_AXIOM = "typeTwoDataMinCardAxiom";
-    
     public static final String TYPE2_DATA_MAX_CARD_AXIOM = "typeTwoDataMaxCardAxiom";
-    
     public static final String TYPE2_DATA_EXACT_CARD_AXIOM = "typeTwoDataExactCardAxiom";
+    
+    // URIs import concepts are created when new concepts are needed for KF importing purpuses
+    public static final String URI_IMPORT_CONCEPT = "http://crowd.fi.uncoma.edu.ar/IMPORT/";
+    
+    // URIs fresh concepts identify concepts created during the normalization
+    public static final String URI_NORMAL_CONCEPT = "http://crowd.fi.uncoma.edu.ar/NORMAL/";
 
 
 }
