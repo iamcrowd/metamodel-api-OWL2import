@@ -52,6 +52,7 @@ public class ValueType extends ValueProperty {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(KEY_NAME, this.name);
         jsonObject.put(KEY_TYPE, KEY_VALUE);
+        jsonObject.put(KEY_ORM_DATATYPE, mappedTo.getRange().getName());
         return jsonObject;
     }
 
