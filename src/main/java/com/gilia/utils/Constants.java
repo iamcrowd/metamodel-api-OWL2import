@@ -96,6 +96,9 @@ public class Constants {
     public static final String KEY_DISJOINT_OBJECT_TYPE_CONSTRAINT = "disjoint object type";
     public static final String KEY_CARDINALITY = "cardinality";
     public static final String KEY_OBJECT_TYPE = "object type";
+    public static final String KEY_DATA_TYPE = "data type";
+    public static final String KEY_VALUE_TYPE = "value type";
+    public static final String KEY_VALUE_PROPERTY = "value property";
     public static final String KEY_UNIQUENESS_CONSTRAINT = "uniquenessConstraints";
     public static final String KEY_MANDATORY = "mandatory";
     public static final String KEY_MANDATORY_CONSTRAINTS = "mandatory constraints";
@@ -131,7 +134,7 @@ public class Constants {
     public static final int RANDOM_STRING_LENGTH = 4;
 
     // Error Messages
-    public static final String ALREADY_EXIST_ENTITY_ERROR = "The given entity already exists in the metamodel";
+    public static final String ALREADY_EXIST_ENTITY_ERROR = "Entity '%s' already exists in the metamodel";
     public static final String ALREADY_EXIST_RELATIONSHIP_ERROR = "The given relationship already exists in the metamodel";
     public static final String CARDINALITY_SYNTAX_ERROR = "Cardinality syntax error creating";
     public static final String CARDINALITY_RANGE_ERROR = "Cardinality range error creating";
