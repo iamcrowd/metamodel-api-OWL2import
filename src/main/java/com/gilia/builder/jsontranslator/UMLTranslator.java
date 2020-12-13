@@ -71,7 +71,7 @@ public class UMLTranslator implements JSONTranslator {
                     newObjectsType.add(newObjectType);
                     identifyAttributes(model, newObjectType, (JSONObject) umlClass);
                 } else {
-                    throw new AlreadyExistException(ALREADY_EXIST_ENTITY_ERROR);
+                    throw new AlreadyExistException(String.format(ALREADY_EXIST_ENTITY_ERROR, entityName));
                 }
             }
             model.addEntities(newObjectsType);
