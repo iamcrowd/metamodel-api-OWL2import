@@ -240,6 +240,7 @@ public class Relationship extends Entity {
 
         // Classes involved
         JSONArray jsonEntities = new JSONArray();
+        JSONArray jsonRoles = new JSONArray();
         this.entities.forEach(entity -> jsonEntities.add(entity.getName()));
         jsonObject.put(KEY_ENTITIES, jsonEntities);
 
@@ -248,6 +249,7 @@ public class Relationship extends Entity {
         JSONArray jsonMultiplicity = new JSONArray();
         if (roles.size() >= 2) {
             for (Role role : roles) {
+                jsonRoles.add(role.getName());
                 if ((role.getCardinalityConstraints() != null)) { // TODO: Should this be considered? -> (role.getCardinalityConstraints().size() >= 1)
                     for (ObjectTypeCardinality cardinality : role.getCardinalityConstraints()) {
                         jsonMultiplicity.add(cardinality.getCardinality());
@@ -265,6 +267,7 @@ public class Relationship extends Entity {
         }
         jsonObject.put(KEY_MANDATORY, jsonMandatory);
         jsonObject.put(KEY_UNIQUENESS_CONSTRAINT, jsonMultiplicity);
+        jsonObject.put(KEY_ROLES, jsonRoles);
 
         return jsonObject;
     }
