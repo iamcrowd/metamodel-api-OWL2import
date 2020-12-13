@@ -148,10 +148,13 @@ public class Metamodel {
     }
 
     /**
-     *  Adds a collection of constraints (Contraint objects) to the Metamodel instance
+     * Adds a collection of constraints (Contraint objects) to the Metamodel instance
+     *
      * @param constraints List of Constraint objects to be added
      */
-    public void addConstraints(List<Constraint> constraints) { this.constraints.addAll(constraints); }
+    public void addConstraints(List<Constraint> constraints) {
+        this.constraints.addAll(constraints);
+    }
 
     /**
      * Search for an entity (EntityType object) in the Metamodel according to its name. Returns a new empty ObjectType

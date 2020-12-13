@@ -16,6 +16,7 @@ import com.gilia.metamodel.entitytype.valueproperty.ValueType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
 import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
+import com.gilia.metamodel.relationship.attributiveproperty.attribute.MappedTo;
 import com.gilia.metamodel.role.Role;
 import com.gilia.builder.jsonparser.MetamodelJSONParser;
 import org.apache.commons.lang3.StringUtils;
@@ -23,6 +24,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.gilia.utils.Constants.*;
 
@@ -54,6 +56,8 @@ public class MetaTranslator implements JSONTranslator {
         JSONArray jsonSubsumptions = (JSONArray) jsonRelationships.get(StringUtils.capitalize(SUBSUMPTION_STRING));
         JSONObject jsonAttributiveProperties = (JSONObject) jsonRelationships.get(StringUtils.capitalize(ATTRIBUTIVE_PROPERTY_STRING));
         JSONArray innerJsonAttributiveProperties = (JSONArray) jsonAttributiveProperties.get(StringUtils.capitalize(ATTRIBUTIVE_PROPERTY_STRING));
+        JSONObject jsonAttributes = (JSONObject) jsonAttributiveProperties.get(StringUtils.capitalize(KEY_ATTRIBUTE));
+        JSONArray jsonMappedTo = (JSONArray) jsonAttributes.get(StringUtils.capitalize(KEY_MAPPED_TO));
 
         JSONArray jsonRoles = (JSONArray) json.get(StringUtils.capitalize(ROLE_STRING));
         JSONObject jsonConstraints = (JSONObject) json.get(StringUtils.capitalize(KEY_CONSTRAINTS));
@@ -67,6 +71,7 @@ public class MetaTranslator implements JSONTranslator {
         identifyRoles(metamodel, jsonRoles);
         identifySubclasses(metamodel, jsonSubsumptions);
         identifyAttributes(metamodel, innerJsonAttributiveProperties);
+        identifyMappedTo(jsonMappedTo);
 
         return metamodel;
     }
@@ -367,6 +372,30 @@ public class MetaTranslator implements JSONTranslator {
             }
         } else {
             throw new InformationNotFoundException(RELATIONSHIPS_INFORMATION_NOT_FOUND_ERROR);
+        }
+    }
+
+    private void identifyMappedTo(JSONArray jsonArrayMappedTo) {
+        if (jsonArrayMappedTo != null) {
+            for (Object jsonMappedTo : jsonArrayMappedTo) {
+                JSONObject mappedTo = (JSONObject) jsonMappedTo;
+
+                JSONArray jsonDomains = (JSONArray) mappedTo.get(KEY_DOMAIN);
+                List<Entity> domains = new ArrayList<>();
+                for (Object domainName : jsonDomains) {
+                    domains.add((ValueType) metamodel.getEntity((String) domainName));
+                }
+
+                String mappedToName = (String) mappedTo.get(KEY_NAME);
+                String range = (String) mappedTo.get(KEY_RANGE);
+                DataType dataType = (DataType) metamodel.getEntityType(range);
+                MappedTo newMappedTo = new MappedTo(mappedToName, domains, dataType);
+
+                for (Entity domain : domains) {
+                    ((ValueType) domain).setMappedTo(newMappedTo);
+                }
+                metamodel.addRelationship(newMappedTo);
+            }
         }
     }
 
