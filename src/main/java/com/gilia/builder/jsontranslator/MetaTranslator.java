@@ -1,8 +1,10 @@
 package com.gilia.builder.jsontranslator;
 
+import com.gilia.enumerates.RelationshipType;
 import com.gilia.exceptions.AlreadyExistException;
 import com.gilia.exceptions.EntityNotValidException;
 import com.gilia.exceptions.InformationNotFoundException;
+import com.gilia.exceptions.MetamodelDefinitionCompromisedException;
 import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
@@ -145,22 +147,42 @@ public class MetaTranslator implements JSONTranslator {
         if (jsonRelationships != null) {
             ArrayList newRelationships = new ArrayList();
             for (Object metaRelationship : jsonRelationships) {
+                RelationshipType relationshipType = RelationshipType.OBJECT_TYPE;
                 String relationshipName = (String) ((JSONObject) metaRelationship).get(KEY_NAME);
                 JSONArray entities = (JSONArray) ((JSONObject) metaRelationship).get(KEY_ENTITIES);
-                ArrayList objectTypesInvolved = new ArrayList();
-                for (Object entity : entities) {
-                    String entityName = (String) entity;
-                    EntityType entityInvolved = (EntityType) model.getEntity(entityName);
-                    if (entityInvolved != null) {
-                        objectTypesInvolved.add(entityInvolved);
+                if (entities.size() == 2) {
+                    String firstEntity = (String) entities.get(0);
+                    String secondEntity = (String) entities.get(1);
+                    ArrayList objectTypesInvolved = new ArrayList();
+
+                    Entity firstEntityInvolved = model.getEntity(firstEntity);
+                    Entity secondEntityInvolved = model.getEntity(secondEntity);
+
+                    if (firstEntityInvolved != null) {
+                        if (secondEntityInvolved != null) {
+                            if (firstEntityInvolved.getClass() == ValueType.class) {
+                                relationshipType = RelationshipType.VALUE_TYPE;
+                                ((ValueType) firstEntityInvolved).addDomain((ObjectType) secondEntityInvolved);
+                            } else if (secondEntityInvolved.getClass() == ValueType.class) {
+                                relationshipType = RelationshipType.VALUE_TYPE;
+                                ((ValueType) secondEntityInvolved).addDomain((ObjectType) firstEntityInvolved);
+                            }
+                            objectTypesInvolved.add(firstEntityInvolved);
+                            objectTypesInvolved.add(secondEntityInvolved);
+                        } else {
+                            throw new EntityNotValidException(String.format(ENTITY_NOT_FOUND_ERROR, secondEntity));
+                        }
                     } else {
-                        throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                        throw new EntityNotValidException(String.format(ENTITY_NOT_FOUND_ERROR, firstEntity));
                     }
+
+                    Relationship newRelationship = new Relationship(relationshipName, objectTypesInvolved);
+                    newRelationship.setType(relationshipType);
+                    model.addRelationship(newRelationship);
+                } else {
+                    throw new MetamodelDefinitionCompromisedException(RELATIONSHIP_DEFINITION_ERROR);
                 }
-                Relationship newRelationship = new Relationship(relationshipName, objectTypesInvolved);
-                newRelationships.add(newRelationship);
             }
-            model.addRelationships(newRelationships);
         } else {
             throw new InformationNotFoundException(RELATIONSHIPS_INFORMATION_NOT_FOUND_ERROR);
         }
@@ -351,7 +373,7 @@ public class MetaTranslator implements JSONTranslator {
                 ArrayList entitiesInvolved = new ArrayList();
                 for (Object entity : domain) {
                     String entityName = (String) entity;
-                    Entity entityInvolved = (Entity) model.getEntity(entityName);
+                    Entity entityInvolved = model.getEntity(entityName);
                     if (entityInvolved != null) {
                         entitiesInvolved.add(entityInvolved);
                     } else {
@@ -383,7 +405,7 @@ public class MetaTranslator implements JSONTranslator {
                 JSONArray jsonDomains = (JSONArray) mappedTo.get(KEY_DOMAIN);
                 List<Entity> domains = new ArrayList<>();
                 for (Object domainName : jsonDomains) {
-                    domains.add((ValueType) metamodel.getEntity((String) domainName));
+                    domains.add(metamodel.getEntity((String) domainName));
                 }
 
                 String mappedToName = (String) mappedTo.get(KEY_NAME);
