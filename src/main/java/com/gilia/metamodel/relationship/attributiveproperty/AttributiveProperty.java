@@ -126,6 +126,7 @@ public class AttributiveProperty extends Relationship {
 
         for (Object entity : domain) {
             JSONObject newAttribute = new JSONObject();
+            newAttribute.put(KEY_NAME, this.name);
             newAttribute.put(KEY_ATTRIBUTE, this.name);
             newAttribute.put(ENTITY_STRING, ((ObjectType) entity).getName());
             newAttribute.put(KEY_TYPE, KEY_ATTRIBUTE);
