@@ -126,6 +126,7 @@ public class AttributiveProperty extends Relationship {
 
         for (Object entity : domain) {
             JSONObject newAttribute = new JSONObject();
+            newAttribute.put(KEY_NAME, this.name);
             newAttribute.put(KEY_ATTRIBUTE, this.name);
             newAttribute.put(ENTITY_STRING, ((ObjectType) entity).getName());
             newAttribute.put(KEY_TYPE, KEY_ATTRIBUTE);
@@ -168,7 +169,7 @@ public class AttributiveProperty extends Relationship {
     /**
      * Representation of the rule Att-to-VT from "Conceptual Model Interoperability: A Metamodel-driven Approach (Pablo Rubén Fillottrani and C. Maria Keet)".
      * This method creates the required instances in order to transform an Attribute to a Value Type and its relationship to a given entity.
-     *
+     * <p>
      * Note that it will generate the entities, and return them in a list, but it will not save this new instances in the current
      * metamodel instance.
      *
@@ -178,10 +179,11 @@ public class AttributiveProperty extends Relationship {
         ValueType valueType = new ValueType(this.getName());
         ArrayList<Entity> entities = new ArrayList();
         entities.add(valueType);
-        MappedTo mappedTo = new MappedTo(getAlphaNumericString(6), (List<Entity>) entities.clone(), this.range);
+        MappedTo mappedTo = new MappedTo(this.getName() + "_mappedTo", (List<Entity>) entities.clone(), this.range);
+        valueType.setMappedTo(mappedTo);
         List<Entity> entitiesGenerated = new ArrayList<>(); // Not the cleanest way to do this
         entitiesGenerated.add(valueType);
-        //entitiesGenerated.add(mappedTo);
+        entitiesGenerated.add(mappedTo);
 
         for (Entity entity : this.domain) {
             entities = new ArrayList();
@@ -191,7 +193,7 @@ public class AttributiveProperty extends Relationship {
             Relationship relationship = new Relationship(getAlphaNumericString(6), entities);
             List<Role> roles = new ArrayList();
             roles.add(new Role(valueType.getName(), valueType, relationship, "0..1")); // TODO: Hardcoded. Figure out how should this scenario be handled
-            roles.add(new Role(entity.getName(), (EntityType) entity, relationship,"0..1"));
+            roles.add(new Role(entity.getName(), (EntityType) entity, relationship, "0..1"));
             relationship.addRoles(roles);
             entitiesGenerated.add(relationship);
         }

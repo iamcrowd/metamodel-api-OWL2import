@@ -1,8 +1,10 @@
 package com.gilia.builder.jsontranslator;
 
+import com.gilia.enumerates.RelationshipType;
 import com.gilia.exceptions.AlreadyExistException;
 import com.gilia.exceptions.EntityNotValidException;
 import com.gilia.exceptions.InformationNotFoundException;
+import com.gilia.exceptions.MetamodelDefinitionCompromisedException;
 import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
@@ -12,15 +14,19 @@ import com.gilia.metamodel.constraint.mandatory.Mandatory;
 import com.gilia.metamodel.entitytype.DataType;
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
+import com.gilia.metamodel.entitytype.valueproperty.ValueType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
 import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
+import com.gilia.metamodel.relationship.attributiveproperty.attribute.MappedTo;
 import com.gilia.metamodel.role.Role;
+import com.gilia.builder.jsonparser.MetamodelJSONParser;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.gilia.utils.Constants.*;
 
@@ -30,8 +36,14 @@ import static com.gilia.utils.Constants.*;
  */
 public class MetaTranslator implements JSONTranslator {
 
+    // TODO: Implement a Logger
+
+    private MetamodelJSONParser metamodelJSONParser;
+    private Metamodel metamodel = new Metamodel();
+
     @Override
     public Metamodel createMetamodel(JSONObject json) {
+        metamodelJSONParser = new MetamodelJSONParser(json);
         String ontologyIRI = "";
         try {
             ontologyIRI = (String) ((JSONObject) ((JSONObject) json.get(KEY_NAMESPACES)).get(KEY_ONTOLOGY_IRI)).get(KEY_VALUE);
@@ -39,52 +51,88 @@ public class MetaTranslator implements JSONTranslator {
             System.out.println("WARNING: ontologyIRI was not obtained");
         }
 
-        Metamodel newMetamodel = new Metamodel(ontologyIRI);
-        JSONObject jsonEntities = (JSONObject) json.get(StringUtils.capitalize(KEY_ENTITY_TYPE));
-        JSONArray jsonObjectTypes = (JSONArray) jsonEntities.get(StringUtils.capitalize(KEY_OBJECT_TYPE));
+        JSONObject jsonEntityTypes = metamodelJSONParser.getMetamodelJSONEntityTypes();
 
         JSONObject jsonRelationships = (JSONObject) json.get(StringUtils.capitalize(RELATIONSHIP_STRING));
         JSONArray jsonBinaryRelationships = (JSONArray) jsonRelationships.get(StringUtils.capitalize(RELATIONSHIP_STRING));
         JSONArray jsonSubsumptions = (JSONArray) jsonRelationships.get(StringUtils.capitalize(SUBSUMPTION_STRING));
         JSONObject jsonAttributiveProperties = (JSONObject) jsonRelationships.get(StringUtils.capitalize(ATTRIBUTIVE_PROPERTY_STRING));
         JSONArray innerJsonAttributiveProperties = (JSONArray) jsonAttributiveProperties.get(StringUtils.capitalize(ATTRIBUTIVE_PROPERTY_STRING));
+        JSONObject jsonAttributes = (JSONObject) jsonAttributiveProperties.get(StringUtils.capitalize(KEY_ATTRIBUTE));
+        JSONArray jsonMappedTo = (JSONArray) jsonAttributes.get(StringUtils.capitalize(KEY_MAPPED_TO));
 
         JSONArray jsonRoles = (JSONArray) json.get(StringUtils.capitalize(ROLE_STRING));
         JSONObject jsonConstraints = (JSONObject) json.get(StringUtils.capitalize(KEY_CONSTRAINTS));
 
         // The order of this calls is important (at least for now)
-        identifyObjectTypes(newMetamodel, jsonObjectTypes);
-        identifyRelationships(newMetamodel, jsonBinaryRelationships); // Does not include subsumptions, roles, nor constraints
-        identifyConstraints(newMetamodel, jsonConstraints);
-        identifyRoles(newMetamodel, jsonRoles);
-        identifySubclasses(newMetamodel, jsonSubsumptions);
-        identifyAttributes(newMetamodel, innerJsonAttributiveProperties);
+        identifyEntityTypesAndAddToMetamodel(jsonEntityTypes);
 
-        return newMetamodel;
+
+        identifyRelationships(metamodel, jsonBinaryRelationships); // Does not include subsumptions, roles, nor constraints
+        identifyConstraints(metamodel, jsonConstraints);
+        identifyRoles(metamodel, jsonRoles);
+        identifySubclasses(metamodel, jsonSubsumptions);
+        identifyAttributes(metamodel, innerJsonAttributiveProperties);
+        identifyMappedTo(jsonMappedTo);
+
+        return metamodel;
     }
 
     /**
-     * Identifies each class from a JSONArray of entities obtained from the Metamodel JSON and generates every object type given.
-     * After identifying each object type, it generates the corresponding metamodel class and incorporates it to the metamodel instance.
+     * Identifies each entity from a JSONObject of entities obtained from the Metamodel JSON and generates every entity type (and specializations) given.
+     * After identifying an entity type, it generates the corresponding metamodel class and incorporates it to the metamodel instance.
      *
-     * @param model           Metamodel instance that will incorporate the object types generated by this method
-     * @param jsonObjectTypes JSONArray with the name of the entities represented within the model.
+     * @param jsonEntityTypes JSONObject with the name of the entities represented within the model.
      */
-    private void identifyObjectTypes(Metamodel model, JSONArray jsonObjectTypes) {
-        if (jsonObjectTypes != null) {
-            ArrayList newObjectsType = new ArrayList();
-            for (Object metaObjectType : jsonObjectTypes) {
-                String entityName = (String) metaObjectType;
-                if (model.getEntity(entityName) == null) {
-                    ObjectType newObjectType = new ObjectType(entityName);
-                    newObjectsType.add(newObjectType);
-                } else {
-                    throw new AlreadyExistException(ALREADY_EXIST_ENTITY_ERROR);
-                }
-            }
-            model.addEntities(newObjectsType);
+    private void identifyEntityTypesAndAddToMetamodel(JSONObject jsonEntityTypes) {
+        if (jsonEntityTypes != null) {
+            JSONArray jsonObjectTypes = metamodelJSONParser.getMetamodelJSONObjectTypes();
+            JSONArray jsonDataTypes = metamodelJSONParser.getMetamodelJSONDataTypes();
+            JSONArray jsonValueTypes = metamodelJSONParser.getMetamodelJSONValueTypes();
+
+            // TODO: This 3 functions do pretty much the same thing. Maybe change for a factory
+            identifyObjectTypesAndAddToMetamodel(jsonObjectTypes);
+            identifyDataTypesAndAddToMetamodel(jsonDataTypes);
+            identifyValueTypesAndAddToMetamodel(jsonValueTypes);
+
         } else {
             throw new InformationNotFoundException(ENTITIES_INFORMATION_NOT_FOUND_ERROR);
+        }
+    }
+
+    private void identifyObjectTypesAndAddToMetamodel(JSONArray jsonObjectTypes) {
+        for (Object objectType : jsonObjectTypes) {
+            String entityName = (String) objectType;
+            if (metamodel.getEntity(entityName) == null) {
+                ObjectType newObjectType = new ObjectType(entityName);
+                metamodel.addEntity(newObjectType);
+            } else {
+                throw new AlreadyExistException(String.format(ALREADY_EXIST_ENTITY_ERROR, entityName));
+            }
+        }
+    }
+
+    private void identifyDataTypesAndAddToMetamodel(JSONArray jsonDataTypes) {
+        for (Object dataType : jsonDataTypes) {
+            String entityName = (String) dataType;
+            if (metamodel.getEntity(entityName) == null) {
+                DataType newDataType = new DataType(entityName);
+                metamodel.addEntity(newDataType);
+            } else {
+                throw new AlreadyExistException(String.format(ALREADY_EXIST_ENTITY_ERROR, entityName));
+            }
+        }
+    }
+
+    private void identifyValueTypesAndAddToMetamodel(JSONArray jsonValueTypes) {
+        for (Object valueType : jsonValueTypes) {
+            String entityName = (String) valueType;
+            if (metamodel.getEntity(entityName) == null) {
+                ValueType newValueType = new ValueType(entityName);
+                metamodel.addEntity(newValueType);
+            } else {
+                throw new AlreadyExistException(String.format(ALREADY_EXIST_ENTITY_ERROR, entityName));
+            }
         }
     }
 
@@ -99,22 +147,42 @@ public class MetaTranslator implements JSONTranslator {
         if (jsonRelationships != null) {
             ArrayList newRelationships = new ArrayList();
             for (Object metaRelationship : jsonRelationships) {
+                RelationshipType relationshipType = RelationshipType.OBJECT_TYPE;
                 String relationshipName = (String) ((JSONObject) metaRelationship).get(KEY_NAME);
                 JSONArray entities = (JSONArray) ((JSONObject) metaRelationship).get(KEY_ENTITIES);
-                ArrayList objectTypesInvolved = new ArrayList();
-                for (Object entity : entities) {
-                    String entityName = (String) entity;
-                    ObjectType entityInvolved = (ObjectType) model.getEntity(entityName);
-                    if (entityInvolved != null) {
-                        objectTypesInvolved.add(entityInvolved);
+                if (entities.size() == 2) {
+                    String firstEntity = (String) entities.get(0);
+                    String secondEntity = (String) entities.get(1);
+                    ArrayList objectTypesInvolved = new ArrayList();
+
+                    Entity firstEntityInvolved = model.getEntity(firstEntity);
+                    Entity secondEntityInvolved = model.getEntity(secondEntity);
+
+                    if (firstEntityInvolved != null) {
+                        if (secondEntityInvolved != null) {
+                            if (firstEntityInvolved.getClass() == ValueType.class) {
+                                relationshipType = RelationshipType.VALUE_TYPE;
+                                ((ValueType) firstEntityInvolved).addDomain((ObjectType) secondEntityInvolved);
+                            } else if (secondEntityInvolved.getClass() == ValueType.class) {
+                                relationshipType = RelationshipType.VALUE_TYPE;
+                                ((ValueType) secondEntityInvolved).addDomain((ObjectType) firstEntityInvolved);
+                            }
+                            objectTypesInvolved.add(firstEntityInvolved);
+                            objectTypesInvolved.add(secondEntityInvolved);
+                        } else {
+                            throw new EntityNotValidException(String.format(ENTITY_NOT_FOUND_ERROR, secondEntity));
+                        }
                     } else {
-                        throw new EntityNotValidException(ENTITY_NOT_FOUND_ERROR);
+                        throw new EntityNotValidException(String.format(ENTITY_NOT_FOUND_ERROR, firstEntity));
                     }
+
+                    Relationship newRelationship = new Relationship(relationshipName, objectTypesInvolved);
+                    newRelationship.setType(relationshipType);
+                    model.addRelationship(newRelationship);
+                } else {
+                    throw new MetamodelDefinitionCompromisedException(RELATIONSHIP_DEFINITION_ERROR);
                 }
-                Relationship newRelationship = new Relationship(relationshipName, objectTypesInvolved);
-                newRelationships.add(newRelationship);
             }
-            model.addRelationships(newRelationships);
         } else {
             throw new InformationNotFoundException(RELATIONSHIPS_INFORMATION_NOT_FOUND_ERROR);
         }
@@ -305,7 +373,7 @@ public class MetaTranslator implements JSONTranslator {
                 ArrayList entitiesInvolved = new ArrayList();
                 for (Object entity : domain) {
                     String entityName = (String) entity;
-                    Entity entityInvolved = (Entity) model.getEntity(entityName);
+                    Entity entityInvolved = model.getEntity(entityName);
                     if (entityInvolved != null) {
                         entitiesInvolved.add(entityInvolved);
                     } else {
@@ -326,6 +394,30 @@ public class MetaTranslator implements JSONTranslator {
             }
         } else {
             throw new InformationNotFoundException(RELATIONSHIPS_INFORMATION_NOT_FOUND_ERROR);
+        }
+    }
+
+    private void identifyMappedTo(JSONArray jsonArrayMappedTo) {
+        if (jsonArrayMappedTo != null) {
+            for (Object jsonMappedTo : jsonArrayMappedTo) {
+                JSONObject mappedTo = (JSONObject) jsonMappedTo;
+
+                JSONArray jsonDomains = (JSONArray) mappedTo.get(KEY_DOMAIN);
+                List<Entity> domains = new ArrayList<>();
+                for (Object domainName : jsonDomains) {
+                    domains.add(metamodel.getEntity((String) domainName));
+                }
+
+                String mappedToName = (String) mappedTo.get(KEY_NAME);
+                String range = (String) mappedTo.get(KEY_RANGE);
+                DataType dataType = (DataType) metamodel.getEntityType(range);
+                MappedTo newMappedTo = new MappedTo(mappedToName, domains, dataType);
+
+                for (Entity domain : domains) {
+                    ((ValueType) domain).setMappedTo(newMappedTo);
+                }
+                metamodel.addRelationship(newMappedTo);
+            }
         }
     }
 

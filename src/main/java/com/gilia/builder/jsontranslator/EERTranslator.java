@@ -65,7 +65,7 @@ public class EERTranslator implements JSONTranslator {
                     ObjectType newObjectType = new ObjectType(entityName);
                     newObjectsType.add(newObjectType);
                 } else {
-                    throw new AlreadyExistException(ALREADY_EXIST_ENTITY_ERROR);
+                    throw new AlreadyExistException(String.format(ALREADY_EXIST_ENTITY_ERROR, entityName));
                 }
             }
             model.addEntities(newObjectsType);

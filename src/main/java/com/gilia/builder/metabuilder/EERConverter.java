@@ -1,11 +1,15 @@
 package com.gilia.builder.metabuilder;
 
+import com.gilia.enumerates.RelationshipType;
+import com.gilia.exceptions.EntityNotValidException;
+import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.Metamodel;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
 import com.gilia.metamodel.constraint.Constraint;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
+import com.gilia.metamodel.entitytype.valueproperty.ValueType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
 import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
@@ -13,6 +17,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.gilia.utils.Constants.*;
 
@@ -65,8 +70,24 @@ public class EERConverter implements MetaBuilder {
             } else if (relationship.getClass() == AttributiveProperty.class) { // TODO: Add attributes from value types
                 jsonLinks.addAll(((AttributiveProperty) relationship).toEERLinks());
                 jsonAttributes.addAll(((AttributiveProperty) relationship).toEERAttributes());
-            } else {
-                jsonLinks.add(((Relationship) relationship).toEER());
+            } else if (relationship.getClass() == Relationship.class) {
+                Relationship relation = ((Relationship) relationship);
+                if (relation.getType() == RelationshipType.VALUE_TYPE) {
+                    List<Entity> relationEntities = relation.getEntities();
+                    Entity firstEntity = relationEntities.get(0);
+                    Entity secondEntity = relationEntities.get(1);
+                    if (firstEntity.getClass() == ValueType.class) {
+                        AttributiveProperty attribute = ((ValueType) firstEntity).toAttributiveProperty();
+                        jsonLinks.addAll(attribute.toEERLinks());
+                        jsonAttributes.addAll(attribute.toEERAttributes());
+                    } else if (secondEntity.getClass() == ValueType.class) {
+                        AttributiveProperty attribute = ((ValueType) secondEntity).toAttributiveProperty();
+                        jsonLinks.addAll(attribute.toEERLinks());
+                        jsonAttributes.addAll(attribute.toEERAttributes());
+                    }
+                } else {
+                    jsonLinks.add(((Relationship) relationship).toEER());
+                }
             }
         }
 

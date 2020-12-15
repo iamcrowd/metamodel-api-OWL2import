@@ -9,29 +9,8 @@ package com.gilia.utils;
  */
 public class Constants {
 
-    // Endpoints
-    public static final String UML_TO_META_ROUTE = "/umltometa";
-    public static final String UML_TO_ORM_ROUTE = "/umltoorm";
-    public static final String UML_TO_EER_ROUTE = "/umltoeer";
-
-    public static final String EER_TO_META_ROUTE = "/eertometa";
-    public static final String EER_TO_UML_ROUTE = "/eertouml";
-    public static final String EER_TO_ORM_ROUTE = "/eertoorm";
-
-    public static final String ORM_TO_META_ROUTE = "/ormtometa";
-    public static final String ORM_TO_UML_ROUTE = "/ormtouml";
-    public static final String ORM_TO_EER_ROUTE = "/ormtoeer";
-
-    public static final String META_TO_UML_ROUTE = "/metatouml";
-    public static final String META_TO_ORM_ROUTE = "/metatoorm";
-    public static final String META_TO_EER_ROUTE = "/metatoeer";
-
     // Schemas
     public static final String SCHEMAS_PATH = "src/main/resources/schemas/";
-    public static final String UML_SCHEMA_PATH = "src/main/resources/schemas/umlSchema.json";
-    public static final String EER_SCHEMA_PATH = "src/main/resources/schemas/eerSchema.json";
-    public static final String ORM_SCHEMA_PATH = "src/main/resources/schemas/ormSchema.json";
-    public static final String META_SCHEMA_PATH = "src/main/resources/schemas/metaSchema.json";
 
     // Common Strings
     public static final String CHARSET = "UTF-8";
@@ -96,6 +75,9 @@ public class Constants {
     public static final String KEY_DISJOINT_OBJECT_TYPE_CONSTRAINT = "disjoint object type";
     public static final String KEY_CARDINALITY = "cardinality";
     public static final String KEY_OBJECT_TYPE = "object type";
+    public static final String KEY_DATA_TYPE = "data type";
+    public static final String KEY_VALUE_TYPE = "value type";
+    public static final String KEY_VALUE_PROPERTY = "value property";
     public static final String KEY_UNIQUENESS_CONSTRAINT = "uniquenessConstraints";
     public static final String KEY_MANDATORY = "mandatory";
     public static final String KEY_MANDATORY_CONSTRAINTS = "mandatory constraints";
@@ -109,6 +91,8 @@ public class Constants {
     public static final String KEY_FACT_TYPES = "factTypes";
     public static final String KEY_FACT_PARENT_POSITION = "factParentPosition";
     public static final String KEY_FACT_TYPES_POSITION = "factPosition";
+    public static final String KEY_ORM_DATATYPE = "datatype";
+    public static final String KEY_MAPPED_TO = "mapped to";
 
     //Attributes in UML class
     public static final String KEY_ATTRS = "attrs";
@@ -121,7 +105,7 @@ public class Constants {
     // Regex
     public static final String RANDOM_STRING_REGEX = "[^A-Za-z0-9]";
     public static final String OPERATIONS_REGEX = "(uml|eer|orm|meta)to(uml|eer|orm|meta)";
-    public static final String ENDPOINT_REGEX = "/"+ OPERATIONS_REGEX;
+    public static final String ENDPOINT_REGEX = "/" + OPERATIONS_REGEX;
     public static final String CARDINALITY_DIVIDER_REGEX = "\\.\\.";
     public static final String CARDINALITY_LEFT_COMPONENT_REGEX = "(\\d+|N|\\*)";
     public static final String CARDINALITY_RIGHT_COMPONENT_REGEX = "(\\d+|N|M|\\*)";
@@ -131,12 +115,13 @@ public class Constants {
     public static final int RANDOM_STRING_LENGTH = 4;
 
     // Error Messages
-    public static final String ALREADY_EXIST_ENTITY_ERROR = "The given entity already exists in the metamodel";
+    public static final String ALREADY_EXIST_ENTITY_ERROR = "Entity '%s' already exists in the metamodel";
     public static final String ALREADY_EXIST_RELATIONSHIP_ERROR = "The given relationship already exists in the metamodel";
     public static final String CARDINALITY_SYNTAX_ERROR = "Cardinality syntax error creating";
     public static final String CARDINALITY_RANGE_ERROR = "Cardinality range error creating";
     public static final String INCONSISTENT_ROLES_WITH_CARDINALITIES_ERROR = "The number of roles is inconsistent with the number of cardinalities";
-    public static final String ENTITY_NOT_FOUND_ERROR = "The given entity was not found or is not valid";
+    public static final String ENTITY_NOT_FOUND_ERROR = "Entity '%s' was not found or is not valid";
+    public static final String VALUE_TYPE_NOT_FOUND_ERROR = "Value type was not found";
     public static final String ENTITIES_INFORMATION_NOT_FOUND_ERROR = "Information about the entities was not found";
     public static final String RELATIONSHIPS_INFORMATION_NOT_FOUND_ERROR = "Information about the relationships was not found";
     public static final String ROLES_INFORMATION_NOT_FOUND_ERROR = "Information about the roles was not found";

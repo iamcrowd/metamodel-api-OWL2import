@@ -31,8 +31,8 @@ public class ORMConverter implements MetaBuilder {
         // Entities
         JSONArray jsonEntities = new JSONArray();
         for (Object entity : entities) {
-            if (entity.getClass() == ObjectType.class) {
-                jsonEntities.add(((ObjectType) entity).toORM()); // With more entities implementation, this may change
+            if (entity.getClass() == ObjectType.class || entity.getClass() == ValueType.class) {
+                jsonEntities.add(((EntityType) entity).toORM()); // With more entities implementation, this may change
             }
         }
 
@@ -80,7 +80,7 @@ public class ORMConverter implements MetaBuilder {
                         jsonRelationships.add(((Relationship) entity).toORM());
                     }
                 }
-            } else {
+            } else if (relationship.getClass() == Relationship.class) { // Attributes -> Val
                 jsonRelationships.add(((Relationship) relationship).toORM());
             }
         }
