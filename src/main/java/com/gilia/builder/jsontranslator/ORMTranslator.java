@@ -445,6 +445,7 @@ public class ORMTranslator implements JSONTranslator {
         public static EntityType createEntityType(String name, String type) {
             EntityType entity = null;
             switch (type) {
+                case "entityRefMode":
                 case "entity":
                     entity = new ObjectType(name);
                     break;
