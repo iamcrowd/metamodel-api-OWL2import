@@ -192,8 +192,8 @@ public class AttributiveProperty extends Relationship {
 
             Relationship relationship = new Relationship(getAlphaNumericString(6), entities);
             List<Role> roles = new ArrayList();
-            roles.add(new Role(valueType.getName(), valueType, relationship, "0..1")); // TODO: Hardcoded. Figure out how should this scenario be handled
-            roles.add(new Role(entity.getName(), (EntityType) entity, relationship, "0..1"));
+            roles.add(new Role(valueType.getName(), valueType, relationship, "1..1")); // TODO: Hardcoded. Figure out how should this scenario be handled
+            roles.add(new Role(entity.getName(), (EntityType) entity, relationship, "1..1"));
             relationship.addRoles(roles);
             entitiesGenerated.add(relationship);
         }
