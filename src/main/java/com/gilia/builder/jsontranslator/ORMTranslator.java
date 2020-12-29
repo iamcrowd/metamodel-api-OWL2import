@@ -95,18 +95,19 @@ public class ORMTranslator implements JSONTranslator {
     }
 
     private void createDataTypeAndMappedToForValueType(ValueType valueType, String dataTypeName) {
-        DataType dataType = createDataType(dataTypeName);
+        DataType dataType = (DataType) metamodel.getEntity(dataTypeName);
+
+        if (dataType == null) {
+            dataType = createDataType(dataTypeName);
+            metamodel.addEntity(dataType);
+        }
+
         MappedTo mappedTo = createMappedTo(valueType, dataType);
 
-        if (metamodel.getEntity(dataType.getName()) == null) {
-            if (metamodel.getEntity(mappedTo.getName()) == null) {
-                metamodel.addEntity(dataType);
-                metamodel.addRelationship(mappedTo);
-            } else {
-                throw new AlreadyExistException(String.format(ALREADY_EXIST_ENTITY_ERROR, mappedTo.getName()));
-            }
+        if (metamodel.getEntity(mappedTo.getName()) == null) {
+            metamodel.addRelationship(mappedTo);
         } else {
-            throw new AlreadyExistException(String.format(ALREADY_EXIST_ENTITY_ERROR, dataType.getName()));
+            throw new AlreadyExistException(String.format(ALREADY_EXIST_ENTITY_ERROR, mappedTo.getName()));
         }
     }
 
