@@ -196,12 +196,14 @@ public class AttributiveProperty extends Relationship {
             relationship.setType(RelationshipType.VALUE_TYPE);
             List<Role> roles = new ArrayList();
 
-            Role valueTypeRole = new Role.Builder(valueType)
+            Role valueTypeRole = new Role.Builder(valueType.getName())
+                    .withEntity(valueType)
                     .withRelationship(relationship)
                     .withStringCardinality("1..1")
                     .build();
 
-            Role entityRole = new Role.Builder((EntityType) entity)
+            Role entityRole = new Role.Builder(entity.getName())
+                    .withEntity((EntityType) entity)
                     .withRelationship(relationship)
                     .withStringCardinality("1..1")
                     .build();

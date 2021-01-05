@@ -284,7 +284,7 @@ public class Role extends Entity {
     }
 
     public Role(Builder builder) {
-        super(builder.entity.getName());
+        super(builder.roleName);
         this.entity = builder.entity;
         this.relationship = builder.relationship;
         this.cardinalityConstraints = builder.cardinalityConstraints;
@@ -292,13 +292,14 @@ public class Role extends Entity {
     }
 
     public static class Builder {
+        private String roleName;
         private EntityType entity;
         private Relationship relationship;
         private List<ObjectTypeCardinality> cardinalityConstraints = new ArrayList<>();
         private Mandatory mandatoryConstraint;
 
-        public Builder(EntityType entity) {
-            this.entity = entity;
+        public Builder(String roleName) {
+            this.roleName = roleName;
         }
 
         public Builder withEntity(EntityType entity) {
