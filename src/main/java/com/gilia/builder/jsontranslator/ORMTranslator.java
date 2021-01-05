@@ -164,7 +164,17 @@ public class ORMTranslator implements JSONTranslator {
 
     private void createRoles(Relationship relationship, List<Entity> entities, JSONArray roles, JSONArray cardinalities) {
         for (int i = 0; i < entities.size(); i++) {
-            Role role = new Role((String) roles.get(i), (EntityType) entities.get(i), relationship, (String) cardinalities.get(i));
+            Role role = new Role.Builder((String) roles.get(i))
+                    .withEntity((EntityType) entities.get(i))
+                    .withRelationship(relationship)
+                    .withStringCardinality((String) cardinalities.get(i))
+                    .build();
+
+            if (role.hasMandatoryConstraint()) {
+                role.getMandatoryConstraint().setDeclaredOn(role);
+                metamodel.addConstraint(role.getMandatoryConstraint());
+            }
+
             relationship.addRole(role);
             metamodel.addConstraint(role.getCardinalityConstraints().get(0));
             metamodel.addRole(role);
