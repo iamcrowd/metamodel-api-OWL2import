@@ -200,10 +200,9 @@ public class Role extends Entity {
         try {
             if (mandatoryConstraint != null) {
                 for (ObjectTypeCardinality cardinalityObject : this.cardinalityConstraints) {
-                    if (mandatoryConstraint != null && Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
+                    if (Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
                         cardinalityObject.setMinCardinality("1");
-                    } else if (mandatoryConstraint == null && Integer.parseInt(cardinalityObject.getMinCardinality()) >= 1) {
-                        mandatoryConstraint = new Mandatory("mandatory" + getAlphaNumericString(4), this);
+                    } else {
                     }
                 }
             }
@@ -221,7 +220,7 @@ public class Role extends Entity {
     public boolean hasMandatoryConstraint() {
         return mandatoryConstraint != null;
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
