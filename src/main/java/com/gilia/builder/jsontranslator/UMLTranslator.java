@@ -217,7 +217,7 @@ public class UMLTranslator implements JSONTranslator {
 
                     Role newRole = new Role(roleName, entity, relationship, newCardinalityConstraint);
 
-                    if (newRole.isMandatory() && !model.doesEntityExists(newRole.getMandatoryConstraint().getName())) {
+                    if (newRole.hasMandatoryConstraint() && !model.doesEntityExists(newRole.getMandatoryConstraint().getName())) {
                         model.addConstraint(newRole.getMandatoryConstraint());
                     }
 

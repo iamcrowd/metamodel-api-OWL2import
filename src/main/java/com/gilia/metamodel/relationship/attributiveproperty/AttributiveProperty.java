@@ -1,6 +1,8 @@
 package com.gilia.metamodel.relationship.attributiveproperty;
 
+import com.gilia.enumerates.RelationshipType;
 import com.gilia.metamodel.Entity;
+import com.gilia.metamodel.constraint.mandatory.Mandatory;
 import com.gilia.metamodel.entitytype.DataType;
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
@@ -191,9 +193,25 @@ public class AttributiveProperty extends Relationship {
             entities.add(entity);
 
             Relationship relationship = new Relationship(getAlphaNumericString(6), entities);
+            relationship.setType(RelationshipType.VALUE_TYPE);
             List<Role> roles = new ArrayList();
-            roles.add(new Role(valueType.getName(), valueType, relationship, "1..1")); // TODO: Hardcoded. Figure out how should this scenario be handled
-            roles.add(new Role(entity.getName(), (EntityType) entity, relationship, "1..1"));
+
+            Role valueTypeRole = new Role.Builder(valueType)
+                    .withRelationship(relationship)
+                    .withStringCardinality("1..1")
+                    .build();
+
+            Role entityRole = new Role.Builder((EntityType) entity)
+                    .withRelationship(relationship)
+                    .withStringCardinality("1..1")
+                    .build();
+
+            valueTypeRole.getMandatoryConstraint().setDeclaredOn(valueTypeRole);
+            entityRole.getMandatoryConstraint().setDeclaredOn(entityRole);
+
+            roles.add(valueTypeRole);
+            roles.add(entityRole);
+
             relationship.addRoles(roles);
             entitiesGenerated.add(relationship);
         }
