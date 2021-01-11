@@ -121,6 +121,10 @@ public class Constants {
     public static final String CARDINALITY_RANGE_ERROR = "Cardinality range error creating";
     public static final String INCONSISTENT_ROLES_WITH_CARDINALITIES_ERROR = "The number of roles is inconsistent with the number of cardinalities";
     public static final String ENTITY_NOT_FOUND_ERROR = "Entity '%s' was not found or is not valid";
+    public static final String ENTITY_TYPE_NOT_FOUND_ERROR = "Entity Type '%s' was not found or is not valid";
+    public static final String RELATIONSHIP_NOT_FOUND_ERROR = "Relationship '%s' was not found or is not valid";
+    public static final String CONSTRAINT_NOT_FOUND_ERROR = "Constraint '%s' was not found or is not valid";
+    public static final String ROLE_NOT_FOUND_ERROR = "Role '%s' was not found or is not valid";
     public static final String VALUE_TYPE_NOT_FOUND_ERROR = "Value type was not found";
     public static final String ENTITIES_INFORMATION_NOT_FOUND_ERROR = "Information about the entities was not found";
     public static final String RELATIONSHIPS_INFORMATION_NOT_FOUND_ERROR = "Information about the relationships was not found";
