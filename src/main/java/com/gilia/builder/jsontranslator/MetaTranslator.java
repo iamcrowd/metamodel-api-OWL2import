@@ -310,7 +310,7 @@ public class MetaTranslator implements JSONTranslator {
 
                 Mandatory mandatoryInvolved = null;
                 if (mandatory != null) {
-                    mandatoryInvolved = (Mandatory) model.getEntity(mandatory);
+                    mandatoryInvolved = (Mandatory) model.getConstraint(mandatory);
                 }
                 Role newRole = new Role(roleName, entityInvolved, relationshipInvolved, cardinalitiesInvolved, mandatoryInvolved);
                 relationshipInvolved.addRole(newRole);
