@@ -71,7 +71,7 @@ public class UMLTranslator implements JSONTranslator {
                     newObjectsType.add(newObjectType);
                     identifyAttributes(model, newObjectType, (JSONObject) umlClass);
                 } else {
-                    throw new AlreadyExistException(ALREADY_EXIST_ENTITY_ERROR);
+                    throw new AlreadyExistException(String.format(ALREADY_EXIST_ENTITY_ERROR, entityName));
                 }
             }
             model.addEntities(newObjectsType);
@@ -217,7 +217,7 @@ public class UMLTranslator implements JSONTranslator {
 
                     Role newRole = new Role(roleName, entity, relationship, newCardinalityConstraint);
 
-                    if (newRole.isMandatory() && !model.doesEntityExists(newRole.getMandatoryConstraint().getName())) {
+                    if (newRole.hasMandatoryConstraint() && !model.doesEntityExists(newRole.getMandatoryConstraint().getName())) {
                         model.addConstraint(newRole.getMandatoryConstraint());
                     }
 

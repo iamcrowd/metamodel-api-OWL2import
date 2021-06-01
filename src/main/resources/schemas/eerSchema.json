@@ -38,12 +38,7 @@
             "type": "string"
           },
           "datatype": {
-            "type": "string",
-            "enum": [
-              "String",
-              "Boolean",
-              "Integer"
-            ]
+            "type": "string"
           }
         }
       }

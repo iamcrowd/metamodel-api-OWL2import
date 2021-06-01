@@ -26,7 +26,7 @@ public class Role extends Entity {
 
     private EntityType entity;
     private Relationship relationship;
-    private ArrayList<ObjectTypeCardinality> cardinalityConstraints;
+    private List<ObjectTypeCardinality> cardinalityConstraints;
     private Mandatory mandatoryConstraint;
 
     /**
@@ -81,9 +81,9 @@ public class Role extends Entity {
     /**
      * Creates an instance of a Role. This constructor only includes entity and relationship
      *
-     * @param name              String that represents the name of the role
-     * @param entity            EntityType object associated to the role to be created
-     * @param relationship      Relationship object associated to the role to be created
+     * @param name         String that represents the name of the role
+     * @param entity       EntityType object associated to the role to be created
+     * @param relationship Relationship object associated to the role to be created
      * @see com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality
      */
     public Role(String name, EntityType entity, Relationship relationship) { // TODO: Little messy, revise
@@ -200,10 +200,9 @@ public class Role extends Entity {
         try {
             if (mandatoryConstraint != null) {
                 for (ObjectTypeCardinality cardinalityObject : this.cardinalityConstraints) {
-                    if (mandatoryConstraint != null && Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
+                    if (Integer.parseInt(cardinalityObject.getMinCardinality()) == 0) {
                         cardinalityObject.setMinCardinality("1");
-                    } else if (mandatoryConstraint == null && Integer.parseInt(cardinalityObject.getMinCardinality()) >= 1) {
-                        mandatoryConstraint = new Mandatory("mandatory" + getAlphaNumericString(4), this);
+                    } else {
                     }
                 }
             }
@@ -218,7 +217,7 @@ public class Role extends Entity {
      *
      * @return Boolean indicating if the constraint is mandatory
      */
-    public boolean isMandatory() {
+    public boolean hasMandatoryConstraint() {
         return mandatoryConstraint != null;
     }
 
@@ -282,5 +281,75 @@ public class Role extends Entity {
             role.put(KEY_MANDATORY, mandatoryConstraint.getName());
         }
         return role;
+    }
+
+    public Role(Builder builder) {
+        super(builder.roleName);
+        this.entity = builder.entity;
+        this.relationship = builder.relationship;
+        this.cardinalityConstraints = builder.cardinalityConstraints;
+        this.mandatoryConstraint = builder.mandatoryConstraint;
+    }
+
+    public static class Builder {
+        private String roleName;
+        private EntityType entity;
+        private Relationship relationship;
+        private List<ObjectTypeCardinality> cardinalityConstraints = new ArrayList<>();
+        private Mandatory mandatoryConstraint;
+
+        public Builder(String roleName) {
+            this.roleName = roleName;
+        }
+
+        public Builder withEntity(EntityType entity) {
+            this.entity = entity;
+            return this;
+        }
+
+        public Builder withRelationship(Relationship relationship) {
+            this.relationship = relationship;
+            return this;
+        }
+
+        public Builder withObjectTypeCardinality(ObjectTypeCardinality cardinalityConstraint) {
+            cardinalityConstraints.add(cardinalityConstraint);
+            addMandatoryGivenCurrentCardinality();
+            return this;
+        }
+
+        public Builder withStringCardinality(String cardinality) {
+            cardinalityConstraints.add(new ObjectTypeCardinality(cardinality));
+            addMandatoryGivenCurrentCardinality();
+            return this;
+        }
+
+        public Builder withMandatory(Mandatory mandatoryConstraint) {
+            this.mandatoryConstraint = mandatoryConstraint;
+            return this;
+        }
+
+        private void addMandatoryGivenCurrentCardinality() {
+            if (isMandatory()) {
+                addMandatoryConstraint();
+            }
+        }
+
+        private boolean isMandatory() {
+            for (ObjectTypeCardinality objectTypeCardinality : cardinalityConstraints) {
+                if (Integer.parseInt(objectTypeCardinality.getMinCardinality()) >= 1) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void addMandatoryConstraint() {
+            this.mandatoryConstraint = new Mandatory(entity.getName());
+        }
+
+        public Role build() {
+            return new Role(this);
+        }
     }
 }

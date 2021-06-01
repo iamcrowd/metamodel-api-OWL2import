@@ -1,5 +1,6 @@
 package com.gilia.metamodel;
 
+import com.gilia.exceptions.EntityNotValidException;
 import com.gilia.metamodel.constraint.Constraint;
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
@@ -10,6 +11,9 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.gilia.utils.Constants.CONSTRAINT_NOT_FOUND_ERROR;
+import static com.gilia.utils.Constants.ENTITY_NOT_FOUND_ERROR;
 
 /**
  * Representation of a Metamodel instance. This class encapsulates all the entities, relationships, roles and constraints generated from a UML/EER/ORM model.
@@ -150,10 +154,13 @@ public class Metamodel {
     }
 
     /**
-     *  Adds a collection of constraints (Contraint objects) to the Metamodel instance
+     * Adds a collection of constraints (Contraint objects) to the Metamodel instance
+     *
      * @param constraints List of Constraint objects to be added
      */
-    public void addConstraints(List<Constraint> constraints) { this.constraints.addAll(constraints); }
+    public void addConstraints(List<Constraint> constraints) {
+        this.constraints.addAll(constraints);
+    }
 
     /**
      * Search for an entity (EntityType object) in the Metamodel according to its name. Returns a new empty ObjectType
@@ -185,6 +192,23 @@ public class Metamodel {
             }
         }
         return new Relationship();
+    }
+
+    /**
+     * Search for a relationship (Relationship object) in the Metamodel according to its name. Returns a new empty Relationship
+     * object if there is no Relationship object with the given name.
+     *
+     * @param name String that represents the constraint name
+     * @return Constraint object that has the given name
+     * @throws EntityNotValidException if the given name is not a valid for a constraint or if the constraint is not found
+     */
+    public Constraint getConstraint(String name) throws EntityNotValidException {
+        for (Constraint constraint : constraints) {
+            if (constraint.getName().equals(name)) {
+                return constraint;
+            }
+        }
+        throw new EntityNotValidException(String.format(CONSTRAINT_NOT_FOUND_ERROR, name));
     }
 
     /**
@@ -220,7 +244,7 @@ public class Metamodel {
             }
         }
 
-        return null;
+        return null; // TODO: Change this for an exception
     }
 
     public boolean doesEntityExists(String name) {
