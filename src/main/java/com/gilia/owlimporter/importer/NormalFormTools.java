@@ -104,6 +104,10 @@ public class NormalFormTools {
 		this.naive = Utils.newEmptyOntology();
 		this.unsupported = Utils.newEmptyOntology();
 	}
+
+	public OWLOntology getNaive() {
+		return this.naive;
+	}
 	
 	/**
 	 * Check of an OWLClassExpression is a fresh concept generated during normalisation
@@ -880,7 +884,7 @@ public class NormalFormTools {
 			if (isFresh(filler)) { filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID(); }
 			
 			//add subsumptions
-			String fresh_O = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#O";
+			String fresh_O = URI_IMPORT_CONCEPT + "#O";
 			ObjectType ot_fresh_O = new ObjectType(fresh_O);
 			
 			ObjectType ot_left = new ObjectType(left_iri);
@@ -1120,7 +1124,7 @@ public class NormalFormTools {
 			if (isFresh(filler)) { filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID(); }
 			
 			//add subsumptions
-			String fresh_O = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#O";
+			String fresh_O = URI_IMPORT_CONCEPT + "#O";
 			ObjectType ot_fresh_O = new ObjectType(fresh_O);
 			
 			ObjectType ot_left = new ObjectType(left_iri);
@@ -1371,7 +1375,7 @@ public class NormalFormTools {
 			if (isFresh(filler)) { filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID(); }
 			
 			//add subsumptions
-			String fresh_O = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#O";
+			String fresh_O = URI_IMPORT_CONCEPT + "#O";
 			ObjectType ot_fresh_O = new ObjectType(fresh_O);
 			
 			ObjectType ot_right = new ObjectType(right_iri);

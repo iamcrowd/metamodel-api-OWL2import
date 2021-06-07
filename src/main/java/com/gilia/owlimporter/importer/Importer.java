@@ -48,6 +48,7 @@ public class Importer {
   private MetaConverter metabuilder;
   private OWLOntology onto;
   private OWLOntologyManager man;
+  private OWLOntology naive;
 
   /**
    *
@@ -244,9 +245,17 @@ public class Importer {
     return this.onto;
   }
 
+  public OWLOntology getNaive() {
+    return this.naive;
+  }
+
   public JSONObject showOntology() {
+    return this.showOntology(this.onto);
+  }
+
+  public JSONObject showOntology(OWLOntology ontology) {
     JSONObject jsonAx = new JSONObject();
-    Iterator<OWLAxiom> axs = this.onto.axioms().iterator();
+    Iterator<OWLAxiom> axs = ontology.axioms().iterator();
     while (axs.hasNext()) {
       OWLAxiom ax = axs.next();
       jsonAx.put(ax.getAxiomType().toString(), ax.toString());
@@ -310,6 +319,7 @@ public class Importer {
     tools.asKF(this.kfimported, this.onto);
     MetaBuilder builder = new MetaConverter();
     builder.generateJSON(this.kfimported);
+    this.naive = tools.getNaive();
   }
 
   public void importType1AfromOntology() {

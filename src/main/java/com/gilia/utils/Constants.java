@@ -25,6 +25,7 @@ public class Constants {
     // Importer Endpoints
     
     public static final String OWL_SHOW_ONTOLOGY_ROUTE = "/showontology";
+    public static final String OWL_SHOW_NORMALISED_ONTOLOGY_ROUTE = "/shownormalisedontology";
     public static final String OWL_CLASSES_TO_META_ROUTE = "/owlclassestometa";
     public static final String OWL_SUBCLASSES_TO_META_ROUTE = "/owlallsubstometa";
     public static final String OWL_ONE_SUBCLASS_TO_META_ROUTE = "/owlonesubstometa";

@@ -12,6 +12,9 @@ $(document).ready(function () {
             case "Show Ontology":
                 url = "http://localhost:3333/showontology";
                 break;
+            case "Show Normalised Ontology":
+                url = "http://localhost:3333/shownormalisedontology";
+                break;
             case "OWL Classes to Metamodel":
                 url = "http://localhost:3333/owlclassestometa";
                 break;

@@ -6,7 +6,6 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-12">
-    <Prefix name="" IRI="http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-12"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
@@ -14,9 +13,6 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
         <Class IRI="#man"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#sd"/>
     </Declaration>
     <Declaration>
         <Class IRI="#van"/>
@@ -31,28 +27,15 @@
         <ObjectProperty IRI="#drives"/>
     </Declaration>
     <EquivalentClasses>
-        <Class IRI="#wt"/>
-        <ObjectUnionOf>
-            <Class IRI="#man"/>
-            <ObjectIntersectionOf>
-                <Class IRI="#sd"/>
-                <Class IRI="#van"/>
-            </ObjectIntersectionOf>
-        </ObjectUnionOf>
-    </EquivalentClasses>
-    <EquivalentClasses>
         <Class IRI="#wvm"/>
         <ObjectIntersectionOf>
             <Class IRI="#man"/>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#drives"/>
-                <ObjectUnionOf>
+                <ObjectIntersectionOf>
                     <Class IRI="#van"/>
-                    <ObjectIntersectionOf>
-                        <Class IRI="#sd"/>
-                        <Class IRI="#wt"/>
-                    </ObjectIntersectionOf>
-                </ObjectUnionOf>
+                    <Class IRI="#wt"/>
+                </ObjectIntersectionOf>
             </ObjectSomeValuesFrom>
         </ObjectIntersectionOf>
     </EquivalentClasses>
