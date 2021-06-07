@@ -1,204 +1,50 @@
 $(document).ready(function () {
     $('#send').click(function () {
-        switch($('#convertid')[0].value){
+        url = "http://localhost:3333/owlnormalisedtometa";
+        file = $("#ontoFile")[0].files[0] ? $("#ontoFile")[0].files[0] : null;
+        var formData = new FormData();
+        formData.append('onto', $('#jsonInput')[0].value.toString());
+        formData.append('ontoFile', file);
+        formData.append('entity', $('#jsonInput2')[0].value.toString());
+        formData.append('reasoning', $('#reasoning').is(":checked"));
+
+        switch ($('#convertid')[0].value) {
             case "Show Ontology":
                 url = "http://localhost:3333/showontology";
-                var settings = {
-                        "url": url,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        },
-                        "data": {
-                        	onto: $('#jsonInput')[0].value.toString(),
-                            reasoning: $('#reasoning').is(":checked")
-                        }
-                    };
                 break;
             case "OWL Classes to Metamodel":
                 url = "http://localhost:3333/owlclassestometa";
-                var settings = {
-                        "url": url,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        },
-                        "data": {
-                        	onto: $('#jsonInput')[0].value.toString(),
-                            reasoning: $('#reasoning').is(":checked")
-                        }
-                    };
                 break;
             case "All OWL SubClasses to Metamodel":
                 url = "http://localhost:3333/owlallsubstometa";
-                var settings = {
-                        "url": url,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        },
-                        "data": {
-                        	onto: $('#jsonInput')[0].value.toString(),
-                            reasoning: $('#reasoning').is(":checked")
-                        }
-                    };
                 break;
             case "One OWL SubClass to Metamodel":
                 url = "http://localhost:3333/owlonesubstometa";
-                var settings = {
-                        "url": url,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        },
-                        "data": {
-                        	onto: $('#jsonInput')[0].value.toString(),
-                        	entity: $('#jsonInput2')[0].value.toString(),
-                            reasoning: $('#reasoning').is(":checked")
-                        }
-                    };
                 break;
-             case "Normalised":
+            case "Normalised":
                 url = "http://localhost:3333/owlnormalisedtometa";
-                var settings = {
-                        "url": url,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        },
-                        "data": {
-                        	onto: $('#jsonInput')[0].value.toString(),
-                        	entity: $('#jsonInput2')[0].value.toString(),
-                            reasoning: $('#reasoning').is(":checked")
-                        }
-                    };
-                break; 
-
-             case "Normalised 1-A":
+                break;
+            case "Normalised 1-A":
                 url = "http://localhost:3333/owlnormalised1atometa";
-                var settings = {
-                        "url": url,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        },
-                        "data": {
-                        	onto: $('#jsonInput')[0].value.toString(),
-                        	entity: $('#jsonInput2')[0].value.toString(),
-                            reasoning: $('#reasoning').is(":checked")
-                        }
-                    };
-                break; 
-
-
-             case "Normalised 1-B":
+                break;
+            case "Normalised 1-B":
                 url = "http://localhost:3333/owlnormalised1btometa";
-                var settings = {
-                        "url": url,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        },
-                        "data": {
-                        	onto: $('#jsonInput')[0].value.toString(),
-                        	entity: $('#jsonInput2')[0].value.toString(),
-                            reasoning: $('#reasoning').is(":checked")
-                        }
-                    };
-                break; 
-
-             case "Normalised 1-C":
+                break;
+            case "Normalised 1-C":
                 url = "http://localhost:3333/owlnormalised1ctometa";
-                var settings = {
-                        "url": url,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        },
-                        "data": {
-                        	onto: $('#jsonInput')[0].value.toString(),
-                        	entity: $('#jsonInput2')[0].value.toString(),
-                            reasoning: $('#reasoning').is(":checked")
-                        }
-                    };
-                break; 
-
-             case "Normalised 1-D":
+                break;
+            case "Normalised 1-D":
                 url = "http://localhost:3333/owlnormalised1dtometa";
-                var settings = {
-                        "url": url,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        },
-                        "data": {
-                        	onto: $('#jsonInput')[0].value.toString(),
-                        	entity: $('#jsonInput2')[0].value.toString(),
-                            reasoning: $('#reasoning').is(":checked")
-                        }
-                    };
-                break; 
-
-             case "Normalised 2":
+                break;
+            case "Normalised 2":
                 url = "http://localhost:3333/owlnormalised2tometa";
-                var settings = {
-                        "url": url,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        },
-                        "data": {
-                        	onto: $('#jsonInput')[0].value.toString(),
-                        	entity: $('#jsonInput2')[0].value.toString(),
-                            reasoning: $('#reasoning').is(":checked")
-                        }
-                    };
-                break; 
-
-             case "Normalised 3":
+                break;
+            case "Normalised 3":
                 url = "http://localhost:3333/owlnormalised3tometa";
-                var settings = {
-                        "url": url,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        },
-                        "data": {
-                        	onto: $('#jsonInput')[0].value.toString(),
-                        	entity: $('#jsonInput2')[0].value.toString(),
-                            reasoning: $('#reasoning').is(":checked")
-                        }
-                    };
-                break;          
- 
-             case "Normalised 4":
+                break;
+            case "Normalised 4":
                 url = "http://localhost:3333/owlnormalised4tometa";
-                var settings = {
-                        "url": url,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        },
-                        "data": {
-                        	onto: $('#jsonInput')[0].value.toString(),
-                        	entity: $('#jsonInput2')[0].value.toString(),
-                            reasoning: $('#reasoning').is(":checked")
-                        }
-                    };
-                break; 
-               
+                break;
             case "ORM to Metamodel":
                 url = "http://localhost:8080/ormtometa";
                 break;
@@ -216,8 +62,15 @@ $(document).ready(function () {
                 break;
         };
 
-
-        $.ajax(settings).done(function (response) {
+        $.ajax({
+            url: url,
+            method: "POST",
+            enctype: 'multipart/form-data',
+            processData: false, // tell jQuery not to process the data
+            contentType: false, // tell jQuery not to set contentType
+            cache: false,
+            data: formData
+        }).done(function (response) {
             console.log(response);
             $(jsonOutput)[0].value = JSON.stringify(response, undefined, 4);
         });
