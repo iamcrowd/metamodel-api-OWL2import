@@ -7,6 +7,8 @@ import com.gilia.exceptions.EmptyOntologyException;
 import com.gilia.metamodel.*;
 import com.gilia.owlimporter.importer.ClassExpressionTools;
 import com.gilia.owlimporter.importer.axiom.classAxiom.SubClassOf;
+import static com.gilia.utils.Utils.getAlphaNumericString;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,6 +37,7 @@ import www.ontologyutils.normalization.NormalizationTools;
 import www.ontologyutils.toolbox.AnnotateOrigin;
 import www.ontologyutils.toolbox.FreshAtoms;
 import www.ontologyutils.toolbox.Utils;
+
 
 /**
  * An importer is a KF metamodel instance of an OWL 2 specification
@@ -232,6 +235,7 @@ public class Importer {
 
     return naive;
   }
+  
 
   public Metamodel getKFInstance() {
     return this.kfimported;
@@ -255,11 +259,19 @@ public class Importer {
 
   public JSONObject showOntology(OWLOntology ontology) {
     JSONObject jsonAx = new JSONObject();
-    Iterator<OWLAxiom> axs = ontology.axioms().iterator();
+    ontology.
+    	tboxAxioms(Imports.EXCLUDED).
+    	forEach(
+    		(ax) -> {
+    			jsonAx.put(getAlphaNumericString(8), ax.toString());
+    		}
+    	);
+    
+    /*Iterator<OWLAxiom> axs = ontology.axioms().iterator();
     while (axs.hasNext()) {
       OWLAxiom ax = axs.next();
       jsonAx.put(ax.getAxiomType().toString(), ax.toString());
-    }
+    }*/
     return jsonAx;
   }
 
@@ -276,6 +288,7 @@ public class Importer {
    * Import OWL Classes and generate a KF instance with the respective set of ObjectTypes
    *
    * @see KF metamodel ObjectType
+   * @deprecated
    */
   public void class2KF() {
     ClassExpressionTools import_classes = new ClassExpressionTools();
@@ -289,6 +302,7 @@ public class Importer {
    * Subsumptions
    *
    * @see KF metamodel ObjectType
+   * @deprecated
    */
   public void OWLSubClassesImport() {
     SubClassOf import_subclasses = new SubClassOf();
@@ -302,6 +316,7 @@ public class Importer {
    * Subsumptions
    *
    * @see KF metamodel ObjectType
+   * @deprecated
    */
   public void OWLSubClassesImport(IRI anIRI) {
     SubClassOf import_subclasses = new SubClassOf();
@@ -314,6 +329,10 @@ public class Importer {
     builder.generateJSON(this.kfimported);
   }
 
+  
+  /**
+   * Normalise full ontology
+   */
   public void importNormalisedOntology() {
     NormalFormTools tools = new NormalFormTools();
     tools.asKF(this.kfimported, this.onto);
