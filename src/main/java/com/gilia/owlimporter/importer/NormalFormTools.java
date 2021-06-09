@@ -624,33 +624,6 @@ public class NormalFormTools {
 								this.unsupported.addAxiom(ax);
 							}
 						});
-		
-		//System.out.println("\n ************ Axioms Normalised \n");
-		
-		//naive.tboxAxioms(Imports.EXCLUDED).forEach(ax_e -> System.out.println(Utils.pretty("-- " + ax_e.toString())));
-		
-		//System.out.println("\n ************List Unsupported ClassExpressions and Axioms in Normalization App\n");
-		// After normalize, copy again the unsupported axioms
-		//unsupported.axioms().forEach(System.out::println);
-		
-		/*
-		//naive.addAxioms(unsupported.axioms());
-		
-		
-		OWLReasoner reasoner = Utils.getHermitReasoner(naive);
-		//assert (ontology.axioms().allMatch(ax -> reasoner.isEntailed(ax)));
-		
-		copy.addAxioms(unsupported.axioms());
-		
-		// check every axiom of naive is entailed in the copy of the original ontology
-		// with extended signature
-		copy.addAxioms(FreshAtoms.getFreshAtomsEquivalenceAxioms());
-		OWLReasoner reasonerBis = Utils.getHermitReasoner(copy);
-		assert (naive.axioms().allMatch(ax -> reasonerBis.isEntailed(ax)));	
-		
-		naive.tboxAxioms(Imports.EXCLUDED).forEach(ax -> System.out.println(Utils.pretty("-- " + ax.toString())));
-		
-		return naive;*/
 
 	}
 	

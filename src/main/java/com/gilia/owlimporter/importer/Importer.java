@@ -165,6 +165,7 @@ public class Importer {
    *
    * @param ontology
    * @return a normalised ontology to be imported
+   * @deprecated
    */
   public OWLOntology normalizeToImport(OWLOntology ontology) {
     FreshAtoms.resetFreshAtomsEquivalenceAxioms(); // optional; for verification purpose
@@ -266,12 +267,6 @@ public class Importer {
     			jsonAx.put(getAlphaNumericString(8), ax.toString());
     		}
     	);
-    
-    /*Iterator<OWLAxiom> axs = ontology.axioms().iterator();
-    while (axs.hasNext()) {
-      OWLAxiom ax = axs.next();
-      jsonAx.put(ax.getAxiomType().toString(), ax.toString());
-    }*/
     return jsonAx;
   }
 
