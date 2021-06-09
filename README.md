@@ -22,6 +22,7 @@ The project is built with the Java framework *Spring boot*, and its dependencies
 
 Once you fulfil the requeriments listed above, clone this repository. Run the following commands from the root folder of the project to run the API and deploy it locally with port *8080*:
 ```
+$ mvn install:install-file -Dfile=metamodelapi-owlimport\lib\ontologyutils-viz-0.0.1-SNAPSHOT.jar
 $ mvn clean compile
 $ mvn package
 $ mvn exec:java
