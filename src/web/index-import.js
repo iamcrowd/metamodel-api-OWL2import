@@ -15,15 +15,6 @@ $(document).ready(function () {
             case "Show Normalised Ontology":
                 url = "http://localhost:3333/shownormalisedontology";
                 break;
-            case "OWL Classes to Metamodel":
-                url = "http://localhost:3333/owlclassestometa";
-                break;
-            case "All OWL SubClasses to Metamodel":
-                url = "http://localhost:3333/owlallsubstometa";
-                break;
-            case "One OWL SubClass to Metamodel":
-                url = "http://localhost:3333/owlonesubstometa";
-                break;
             case "Normalised":
                 url = "http://localhost:3333/owlnormalisedtometa";
                 break;
@@ -47,18 +38,6 @@ $(document).ready(function () {
                 break;
             case "Normalised 4":
                 url = "http://localhost:3333/owlnormalised4tometa";
-                break;
-            case "ORM to Metamodel":
-                url = "http://localhost:8080/ormtometa";
-                break;
-            case "Metamodel to UML":
-                url = "http://localhost:8080/metatouml";
-                break;
-            case "Metamodel to ORM":
-                url = "http://localhost:8080/metatoorm";
-                break;
-            case "Metamodel to EER":
-                url = "http://localhost:8080/metatoeer";
                 break;
             default:
                 url = "http://localhost:3333/owlclassestometa";
