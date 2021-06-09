@@ -27,9 +27,6 @@ import com.gilia.builder.metabuilder.*;
 import com.gilia.owlimporter.importer.Importer;
 
 
-import com.gilia.owlimporter.importer.classExpression.Class;
-import com.gilia.owlimporter.importer.axiom.classAxiom.SubClassOf;
-
 /**
 mvn clean test -Dtest=UtilsTest -DfailIfNoTests=false
 */
