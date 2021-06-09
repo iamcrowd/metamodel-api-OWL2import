@@ -41,12 +41,9 @@ import com.gilia.metamodel.role.Role;
 import static com.gilia.utils.Utils.getAlphaNumericString;
 import com.google.common.base.CaseFormat;
 //import com.sun.tools.javac.util.List;
-import com.gilia.owlimporter.importer.classExpression.Class;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLCardinalityRestrictionImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLQuantifiedRestrictionImpl;
-
-import com.gilia.owlimporter.importer.axiom.classAxiom.SubClassOf;
 
 
 import com.gilia.exceptions.EmptyOntologyException;
@@ -109,20 +106,6 @@ public class NormalFormTools {
 		return this.naive;
 	}
 	
-	/**
-	 * Check of an OWLClassExpression is a fresh concept generated during normalisation
-	 * @param expr an OWLClassExpression
-	 * @return true if expr is a fresh concept
-	 */
-	private boolean isFresh(OWLClassExpression expr) {
-		
-		if (expr.toString().contains("FRESH#")) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 	
 	/**
 	 * This function prepares input ontology to be normalised and classifies axioms that could not be normalised
@@ -182,7 +165,8 @@ public class NormalFormTools {
 									if (NormalForm.typeOneSubClassAxiom(left, right)) {											
 										// atom atom
 										if (NormalForm.isAtom(left) && NormalForm.isAtom(right)) {
-											this.type1AasKF(kf, left, right);	
+											Ax1A ax1AasKF = new Ax1A();
+											ax1AasKF.type1AasKF(kf, left, right);	
 										}
 									}
 								}
@@ -234,7 +218,8 @@ public class NormalFormTools {
 									if (NormalForm.typeOneSubClassAxiom(left, right)) {											
 										// atom disj
 										if (NormalForm.isAtom(left) && NormalForm.isDisjunctionOfAtoms(right)) {
-											this.type1BasKF(kf, left, right);	
+											Ax1B ax1BasKF = new Ax1B();
+											ax1BasKF.type1BasKF(kf, left, right);	
 										}
 									}
 								}
@@ -286,7 +271,8 @@ public class NormalFormTools {
 									if (NormalForm.typeOneSubClassAxiom(left, right)) {											
 										// conj atom
 										if (NormalForm.isConjunctionOfAtoms(left) && NormalForm.isAtom(right)) {
-											this.type1CasKF(kf, left, right);	
+											Ax1C ax1CasKF = new Ax1C();
+											ax1CasKF.type1CasKF(kf, left, right);	
 										}
 									}
 								}
@@ -338,7 +324,8 @@ public class NormalFormTools {
 									if (NormalForm.typeOneSubClassAxiom(left, right)) {											
 										// conj atom
 										if (NormalForm.isConjunctionOfAtoms(left) && NormalForm.isDisjunctionOfAtoms(right)) {
-											this.type1DasKF(kf, left, right);	
+											Ax1D ax1DasKF = new Ax1D();
+											ax1DasKF.type1DasKF(kf, left, right);	
 										}
 									}
 								}
@@ -388,16 +375,20 @@ public class NormalFormTools {
 									// A \sqsubseteq B or A \sqcap B \sqsubseteq C or 
 									
 									if (NormalForm.typeTwoSubClassAxiom(left, right)) {	//Object
-										this.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);	
+										Ax2 ax2asKF = new Ax2();
+										ax2asKF.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);
 									} 
 									else if (NormalForm.typeTwoMinCardAxiom(left, right)) {
-										this.type2asKF(kf, left, right, TYPE2_MIN_CARD_AXIOM);	
+										Ax2 ax2asKF = new Ax2();
+										ax2asKF.type2asKF(kf, left, right, TYPE2_MIN_CARD_AXIOM);
 									}
 									else if (NormalForm.typeTwoMaxCardAxiom(left, right)) {
-										this.type2asKF(kf, left, right, TYPE2_MAX_CARD_AXIOM);	
+										Ax2 ax2asKF = new Ax2();
+										ax2asKF.type2asKF(kf, left, right, TYPE2_MAX_CARD_AXIOM);
 									}
 									else if (NormalForm.typeTwoExactCardAxiom(left, right)) {
-										this.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);	
+										Ax2 ax2asKF = new Ax2();
+										ax2asKF.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);	
 									}
 									else if (NormalForm.typeTwoDataSubClassAxiom(left, right)) { //Data
 										System.out.println("typeTwoDataSubClassAxiom");
@@ -460,8 +451,9 @@ public class NormalFormTools {
 									
 									// Subclass(atom, forall property filler)
 									
-									if (NormalForm.typeThreeSubClassAxiom(left, right)) {											
-										this.type3asKF(kf, left, right);	
+									if (NormalForm.typeThreeSubClassAxiom(left, right)) {
+										Ax3 ax3asKF = new Ax3();
+										ax3asKF.type3asKF(kf, left, right);	
 									}
 								}
 								else {
@@ -509,8 +501,9 @@ public class NormalFormTools {
 									// Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
 									// A \sqsubseteq B or A \sqcap B \sqsubseteq C or 
 									
-									if (NormalForm.typeFourSubClassAxiom(left, right)) {											
-										this.type4asKF(kf, left, right);	
+									if (NormalForm.typeFourSubClassAxiom(left, right)) {
+										Ax4 ax4asKF = new Ax4();
+										ax4asKF.type4asKF(kf, left, right);	
 									}
 								}
 								else {
@@ -567,30 +560,38 @@ public class NormalFormTools {
 
 										// atom atom
 											if (NormalForm.isAtom(left) && NormalForm.isAtom(right)) {
-												this.type1AasKF(kf, left, right);	
+												Ax1A ax1AasKF = new Ax1A();
+												ax1AasKF.type1AasKF(kf, left, right);	
 											// atom disj	
 											} else if (NormalForm.isAtom(left) && NormalForm.isDisjunctionOfAtoms(right)) {
-													this.type1BasKF(kf, left, right);
+												Ax1B ax1BasKF = new Ax1B();
+												ax1BasKF.type1BasKF(kf, left, right);
 											// conj atom	
 											} else if (NormalForm.isConjunctionOfAtoms(left) && NormalForm.isAtom(right)) {
-												this.type1CasKF(kf, left, right);	
+												Ax1C ax1CasKF = new Ax1C();
+												ax1CasKF.type1CasKF(kf, left, right);	
 											// conj disj
 											} else if (NormalForm.isConjunctionOfAtoms(left) && NormalForm.isDisjunctionOfAtoms(right)) {	
-												this.type1DasKF(kf, left, right);	
+												Ax1D ax1DasKF = new Ax1D();
+												ax1DasKF.type1DasKF(kf, left, right);	
 											}
 										}
 									
 										if (NormalForm.typeTwoSubClassAxiom(left, right)) {	//Object		 								
-											this.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);	
+											Ax2 ax2asKF = new Ax2();
+											ax2asKF.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);	
 										} 
 										else if (NormalForm.typeTwoMinCardAxiom(left, right)) {
-											this.type2asKF(kf, left, right, TYPE2_MIN_CARD_AXIOM);	
+											Ax2 ax2asKF = new Ax2();
+											ax2asKF.type2asKF(kf, left, right, TYPE2_MIN_CARD_AXIOM);	
 										}
 										else if (NormalForm.typeTwoMaxCardAxiom(left, right)) {
-											this.type2asKF(kf, left, right, TYPE2_MAX_CARD_AXIOM);	
+											Ax2 ax2asKF = new Ax2();
+											ax2asKF.type2asKF(kf, left, right, TYPE2_MAX_CARD_AXIOM);
 										}
 										else if (NormalForm.typeTwoExactCardAxiom(left, right)) {
-											this.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);	
+											Ax2 ax2asKF = new Ax2();
+											ax2asKF.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);		
 										}
 										else if (NormalForm.typeTwoDataSubClassAxiom(left, right)) { //Data
 											//this.type2asKF(kf, left, right, TYPE2_DATA_SUBCLASS_AXIOM);	
@@ -606,10 +607,12 @@ public class NormalFormTools {
 										}
 										
 										if (NormalForm.typeThreeSubClassAxiom(left, right)) {
-											this.type3asKF(kf, left, right);
+											Ax3 ax3asKF = new Ax3();
+											ax3asKF.type3asKF(kf, left, right);	
 										}
 										if (NormalForm.typeFourSubClassAxiom(left, right)) {
-											this.type4asKF(kf, left, right);
+											Ax4 ax4asKF = new Ax4();
+											ax4asKF.type4asKF(kf, left, right);
 										}
 									}
 									else {
@@ -627,886 +630,5 @@ public class NormalFormTools {
 
 	}
 	
-	
-	/**
-	 * Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
-	 *  - A \sqsubseteq B or  (atom, atom)
-	 * 
-	 * if OWLClassExpression is a FRESH concept, we generated a new IRI for such FRESH by adding a URL
-	 * 
-	 * @param kf
-	 * @param left
-	 * @param right
-	 */
-	public void type1AasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
-		
-		String left_iri = left.asOWLClass().toStringID();
-		String right_iri = right.asOWLClass().toStringID();
-		
-		if (isFresh(left)) { left_iri = left_iri = URI_NORMAL_CONCEPT + left.asOWLClass().toStringID(); }
-		if (isFresh(right)) { right_iri = URI_NORMAL_CONCEPT + right.asOWLClass().toStringID(); }	
-
-		ObjectType ot_child = new ObjectType(left_iri);
-		ObjectType ot_parent = new ObjectType(right_iri);
-		
-		kf.addEntity(ot_child);
-		kf.addEntity(ot_parent);
-		
-		Subsumption sub = new Subsumption(
-									getAlphaNumericString(8), 
-									ot_parent, 
-									ot_child);
-		
-		kf.addRelationship(sub);
-	}
-	
-	/**
-	 * Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
-	 *  - A \sqsubseteq B \sqcup C (atom, disjunction of atoms)
-	 * @param kf
-	 * @param left
-	 * @param right
-	 */
-	public void type1BasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
-		
-		String left_iri = left.asOWLClass().toStringID();
-		if (isFresh(left)) { left_iri = URI_NORMAL_CONCEPT + left.asOWLClass().toStringID(); }
-		
-		ObjectType ot_left = new ObjectType(left_iri);
-		
-		Set<OWLClassExpression> disjunctions = right.asDisjunctSet();
-		ObjectType ot_fresh = new ObjectType(URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PatternAorB");
-		
-		ArrayList<ObjectType> cc_list = new ArrayList();
-		CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));
-		
-		for (OWLClassExpression d : disjunctions) {
-			if (NormalForm.isAtom(d)) {
-				String d_iri = d.asOWLClass().toStringID();
-				if (isFresh(d)) { d_iri = URI_NORMAL_CONCEPT + d.asOWLClass().toStringID(); }
-				ObjectType ot = new ObjectType(d_iri);
-				
-				kf.addEntity(ot);
-				cc_list.add(ot);
-				
-				Subsumption sub_fresh = new Subsumption(
-						getAlphaNumericString(8), 
-						ot_fresh, 
-						ot,
-						cc);
-				kf.addRelationship(sub_fresh);
-			}
-		}
-		
-		cc.setEntities(cc_list);
-		kf.addConstraint(cc);
-		
-		kf.addEntity(ot_left);
-		kf.addEntity(ot_fresh);
-		
-		Subsumption sub = new Subsumption(
-									getAlphaNumericString(8), 
-									ot_fresh, 
-									ot_left);
-		kf.addRelationship(sub);
-	}
-	
-	/**
-	 * Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
-	 *  - A \sqcap B \sqsubseteq C or (conjuction of atoms, atom)
-	 * @param kf
-	 * @param left
-	 * @param right
-	 */
-	public void type1CasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
-		
-		String right_iri = right.asOWLClass().toStringID();
-		if (isFresh(right)) { right_iri = URI_NORMAL_CONCEPT + right.asOWLClass().toStringID(); }
-		
-		ObjectType ot_right = new ObjectType(right_iri);
-		
-		Set<OWLClassExpression> conjunctions = left.asConjunctSet();
-		ObjectType ot_fresh = new ObjectType(URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PatternAandB");
-		
-		for (OWLClassExpression c : conjunctions) {
-			if (NormalForm.isAtom(c)) {
-				String c_iri = c.asOWLClass().toStringID();
-				if (isFresh(c)) { c_iri = URI_NORMAL_CONCEPT + c.asOWLClass().toStringID(); }
-				ObjectType ot = new ObjectType(c_iri);
-				
-				kf.addEntity(ot);
-				
-				Subsumption sub_fresh = new Subsumption(
-						getAlphaNumericString(8), 
-						ot, 
-						ot_fresh);
-				kf.addRelationship(sub_fresh);
-			}
-		}
-		
-		kf.addEntity(ot_right);
-		kf.addEntity(ot_fresh);
-		
-		Subsumption sub = new Subsumption(
-									getAlphaNumericString(8), 
-									ot_right,
-									ot_fresh);
-		kf.addRelationship(sub);
-	}
-	
-	/**
-	 * Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
-	 *  - A \sqcap B \sqsubseteq C \sqcup D (conjunction of atoms, disjunction of atoms)
-	 * @param kf
-	 * @param left
-	 * @param right
-	 */
-	public void type1DasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
-		
-		Set<OWLClassExpression> disjunctions = right.asDisjunctSet();
-		ObjectType ot_fresh_d = new ObjectType(URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PatternAorB");
-		
-		ArrayList<ObjectType> cc_list = new ArrayList();
-		CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));
-		
-		for (OWLClassExpression d : disjunctions) {
-			if (NormalForm.isAtom(d)) {
-				String d_iri = d.asOWLClass().toStringID();
-				if (isFresh(d)) { d_iri = URI_NORMAL_CONCEPT + d.asOWLClass().toStringID(); }
-				ObjectType ot = new ObjectType(d_iri);
-				
-				kf.addEntity(ot);
-				cc_list.add(ot);
-				
-				Subsumption sub_fresh_d = new Subsumption(
-						getAlphaNumericString(8), 
-						ot_fresh_d, 
-						ot,
-						cc);
-				
-				kf.addRelationship(sub_fresh_d);
-			}
-		}
-		
-		cc.setEntities(cc_list);
-		kf.addConstraint(cc);
-		kf.addEntity(ot_fresh_d);
-		
-		Set<OWLClassExpression> conjunctions = left.asConjunctSet();
-		ObjectType ot_fresh_c = new ObjectType(URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PatternAandB");
-		
-		for (OWLClassExpression c : conjunctions) {
-			if (NormalForm.isAtom(c)) {
-				String c_iri = c.asOWLClass().toStringID();
-				if (isFresh(c)) { c_iri = URI_NORMAL_CONCEPT + c.asOWLClass().toStringID(); }
-				ObjectType ot = new ObjectType(c_iri);
-				
-				kf.addEntity(ot);
-				
-				Subsumption sub_fresh_c = new Subsumption(
-						getAlphaNumericString(8), 
-						ot, 
-						ot_fresh_c);
-				
-				kf.addRelationship(sub_fresh_c);
-			}
-		}
-		
-		kf.addEntity(ot_fresh_c);
-		
-		Subsumption sub = new Subsumption(
-									getAlphaNumericString(8), 
-									ot_fresh_d,
-									ot_fresh_c);
-		kf.addRelationship(sub);
-	}
-	
-	/**
-	 * Subclass(atom, exists property atom)
-	 * 
-	 * @param kf
-	 * @param left
-	 * @param right
-	 */
-	public void type2asKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right, String TYPE) {
-		
-		String left_iri = left.asOWLClass().toStringID();
-		if (isFresh(left)) { left_iri = URI_NORMAL_CONCEPT + left.asOWLClass().toStringID(); }
-		
-		OWLClassExpression filler = null;
-		OWLPropertyExpression property = null;
-		String prop_iri = "";
-		
-		if (TYPE == TYPE2_SUBCLASS_AXIOM) {
-			filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
-			property = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getProperty();
-			prop_iri = property.asOWLObjectProperty().toStringID();
-			
-		} else if ((TYPE == TYPE2_MIN_CARD_AXIOM) ||
-				   (TYPE == TYPE2_MAX_CARD_AXIOM) ||
-				   (TYPE == TYPE2_EXACT_CARD_AXIOM)) {
-			filler = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getFiller();
-			property = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getProperty();
-			prop_iri = property.asOWLObjectProperty().toStringID();
-			
-		}
-	
-		if (NormalForm.isAtom(filler)) {
-			
-			String filler_iri = filler.asOWLClass().toStringID();
-			if (isFresh(filler)) { filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID(); }
-			
-			//add subsumptions
-			String fresh_O = URI_IMPORT_CONCEPT + "#O";
-			ObjectType ot_fresh_O = new ObjectType(fresh_O);
-			
-			ObjectType ot_left = new ObjectType(left_iri);
-			ObjectType ot_filler = new ObjectType(filler_iri);
-			
-			Subsumption sub_fresh_leftORfiller = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_fresh_O, 
-					ot_left);
-			
-			Subsumption sub_fresh_leftORfiller_2 = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_fresh_O, 
-					ot_filler);
-			
-			kf.addEntity(ot_fresh_O);
-			kf.addEntity(ot_left);
-			kf.addEntity(ot_filler);
-			kf.addRelationship(sub_fresh_leftORfiller);
-			kf.addRelationship(sub_fresh_leftORfiller_2);
-			
-			String fresh_C_PAB = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPAB";
-			String fresh_C_P = prop_iri;
-			
-			ObjectType ot_fresh_C_PAB = new ObjectType(fresh_C_PAB);
-			ObjectType ot_C_P = new ObjectType(fresh_C_P);
-			
-			Subsumption sub_fresh_CP_CPAB = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_C_P, 
-					ot_fresh_C_PAB);
-			
-			kf.addEntity(ot_fresh_C_PAB);
-			kf.addEntity(ot_C_P);
-			kf.addRelationship(sub_fresh_CP_CPAB);
-			
-			//add fresh relationships
-			
-			String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB1";
-			
-			String role_fresh_CPAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB1";
-			String role_fresh_APAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAPAB1";
-			
-			ObjectTypeCardinality otc_RoleCPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			
-			Integer cardinality;
-			String min = "1";
-			String max = "*";
-			
-			switch (TYPE) {
-				case TYPE2_SUBCLASS_AXIOM:
-					min = "1";
-					max = "*";
-				
-				break;
-				case TYPE2_MIN_CARD_AXIOM:
-					cardinality = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getCardinality();
-					if (cardinality == 1) {
-						min = "1";
-						max = "*";
-					}
-					else if (cardinality > 1) {
-						min = cardinality.toString();
-						max = "*";
-					}
-				
-				break;
-				case TYPE2_MAX_CARD_AXIOM:
-					cardinality = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getCardinality();
-					min = "0";
-					max = cardinality.toString();
-					
-				break;
-				case TYPE2_EXACT_CARD_AXIOM:
-					cardinality = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getCardinality();
-					min = cardinality.toString();
-					max = cardinality.toString();
-				
-				break;
-				case TYPE2_DATA_SUBCLASS_AXIOM:
-				
-				break;
-				case TYPE2_DATA_MIN_CARD_AXIOM:
-				
-				break;
-				case TYPE2_DATA_MAX_CARD_AXIOM:
-				
-				break;
-				case TYPE2_DATA_EXACT_CARD_AXIOM:
-				
-				break;
-				
-			default:
-				min = "1";
-				max = "*";
-				break;
-			}
-			
-			ObjectTypeCardinality otc_RoleAPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), min, max);
-			
-			kf.addConstraint(otc_RoleCPAB1);
-			kf.addConstraint(otc_RoleAPAB1);
-			
-			ArrayList<Entity> e1 = new ArrayList();
-			e1.add(ot_fresh_C_PAB);
-			e1.add(ot_left);
-			
-			Relationship r_fresh_PAB1 = new Relationship(rel_fresh_PAB1_iri, e1); 
-			
-			Role role_fresh_CPAB1 = new Role(role_fresh_CPAB1_iri, ot_fresh_C_PAB, r_fresh_PAB1, otc_RoleCPAB1); 
-			Role role_fresh_APAB1 = new Role(role_fresh_APAB1_iri, ot_left, r_fresh_PAB1, otc_RoleAPAB1); 
-			
-			kf.addRole(role_fresh_CPAB1);
-			kf.addRole(role_fresh_APAB1);
-			
-			ArrayList<Role> r1 = new ArrayList();
-			r1.add(role_fresh_CPAB1);
-			r1.add(role_fresh_APAB1);
-			
-			r_fresh_PAB1.setRoles(r1); 
-			
-			String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB2";
-			
-			String role_fresh_CPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB2";
-			String role_fresh_BPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RBPAB2";
-			
-			ObjectTypeCardinality otc_RoleCPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleBPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
-			
-			kf.addConstraint(otc_RoleCPAB2);
-			kf.addConstraint(otc_RoleBPAB2);
-			
-			ArrayList<Entity> e2 = new ArrayList();
-			e2.add(ot_fresh_C_PAB);
-			e2.add(ot_filler);
-			
-			Relationship r_fresh_PAB2 = new Relationship(rel_fresh_PAB2_iri, e2);
-			
-			Role role_fresh_CPAB2 = new Role(role_fresh_CPAB2_iri, ot_fresh_C_PAB, r_fresh_PAB2, otc_RoleCPAB2); 
-			Role role_fresh_BPAB2 = new Role(role_fresh_BPAB2_iri, ot_filler, r_fresh_PAB2, otc_RoleBPAB2);
-			
-			kf.addRole(role_fresh_CPAB2);
-			kf.addRole(role_fresh_BPAB2);
-			
-			ArrayList<Role> r2 = new ArrayList();
-			r2.add(role_fresh_CPAB2);
-			r2.add(role_fresh_BPAB2);
-			
-			r_fresh_PAB2.setRoles(r2);
-			
-			kf.addRelationship(r_fresh_PAB1);
-			kf.addRelationship(r_fresh_PAB2);
-			
-			//add original relationships
-			String rel_P1_iri = prop_iri + "_" + getAlphaNumericString(8); 
-			
-			String role_fresh_CPP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP1";
-			String role_fresh_OCP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP1";
-			
-			ObjectTypeCardinality otc_RoleCPP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleOCP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
-			
-			kf.addConstraint(otc_RoleCPP1);
-			kf.addConstraint(otc_RoleOCP1);
-			
-			ArrayList<Entity> e3 = new ArrayList();
-			e3.add(ot_C_P);
-			e3.add(ot_fresh_O);
-			
-			Relationship r_P1 = new Relationship(rel_P1_iri, e3); 
-			
-			Role role_fresh_CPP1 = new Role(role_fresh_CPP1_iri, ot_C_P, r_P1, otc_RoleCPP1); 
-			Role role_fresh_OCP1 = new Role(role_fresh_OCP1_iri, ot_fresh_O, r_P1, otc_RoleOCP1); 
-			
-			kf.addRole(role_fresh_CPP1);
-			kf.addRole(role_fresh_OCP1);
-			
-			ArrayList<Role> r3 = new ArrayList();
-			r3.add(role_fresh_CPP1);
-			r3.add(role_fresh_OCP1);
-			
-			r_P1.setRoles(r3); 
-			
-			String rel_P2_iri = prop_iri + "_" + getAlphaNumericString(8);
-			
-			String role_fresh_CPP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP2";
-			String role_fresh_OCP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP2";
-			
-			ObjectTypeCardinality otc_RoleCPP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleOCP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
-			
-			kf.addConstraint(otc_RoleCPP2);
-			kf.addConstraint(otc_RoleOCP2);
-			
-			Relationship r_P2 = new Relationship(rel_P2_iri, e3); 
-			
-			Role role_fresh_CPP2 = new Role(role_fresh_CPP2_iri, ot_C_P, r_P2, otc_RoleCPP2); 
-			Role role_fresh_OCP2 = new Role(role_fresh_OCP2_iri, ot_fresh_O, r_P2, otc_RoleOCP2); 
-			
-			kf.addRole(role_fresh_CPP2);
-			kf.addRole(role_fresh_OCP2);
-			
-			ArrayList<Role> r4 = new ArrayList();
-			r4.add(role_fresh_CPP2);
-			r4.add(role_fresh_OCP2);
-			
-			r_P2.setRoles(r4);
-			
-			kf.addRelationship(r_P1);
-			kf.addRelationship(r_P2);
-		
-		}
-	}
-	
-	/**
-	 * Subclass(atom, forall property atom)
-	 * 
-	 * @param kf
-	 * @param left
-	 * @param right
-	 */
-	public void type3asKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
-		
-		String left_iri = left.asOWLClass().toStringID();
-		if (isFresh(left)) { left_iri = URI_NORMAL_CONCEPT + left.asOWLClass().toStringID(); }
-		
-		OWLClassExpression filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
-		OWLPropertyExpression property = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getProperty();
-	
-		String prop_iri = property.asOWLObjectProperty().toStringID();		
-		
-		ArrayList<ObjectType> dot_list = new ArrayList();
-		DisjointObjectType dot = new DisjointObjectType(getAlphaNumericString(8));
-		
-		if (NormalForm.isAtom(filler)) {
-			String filler_iri = filler.asOWLClass().toStringID();
-			if (isFresh(filler)) { filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID(); }
-			
-			//add subsumptions
-			String fresh_O = URI_IMPORT_CONCEPT + "#O";
-			ObjectType ot_fresh_O = new ObjectType(fresh_O);
-			
-			ObjectType ot_left = new ObjectType(left_iri);
-			ObjectType ot_complement_left = new ObjectType(left_iri + "c");
-			
-			ObjectType ot_filler = new ObjectType(filler_iri);
-			
-			dot_list.add(ot_left);
-			dot_list.add(ot_complement_left);
-			
-			dot.setEntities(dot_list);
-			
-			Subsumption sub_fresh_leftORcomplement = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_fresh_O, 
-					ot_left,
-					dot);
-			
-			Subsumption sub_fresh_leftORcomplement_2 = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_fresh_O, 
-					ot_complement_left,
-					dot);
-			
-			kf.addEntity(ot_fresh_O);
-			kf.addEntity(ot_left);
-			kf.addEntity(ot_complement_left);
-			kf.addEntity(ot_filler);
-			kf.addConstraint(dot);
-			
-			kf.addRelationship(sub_fresh_leftORcomplement);
-			kf.addRelationship(sub_fresh_leftORcomplement_2);
-			
-			//add subsumption CP
-			String fresh_C_PAB = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPAB";
-			String fresh_C_PABc = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPABc";
-			String fresh_C_P = prop_iri;
-			
-			ObjectType ot_fresh_C_PAB = new ObjectType(fresh_C_PAB);
-			ObjectType ot_fresh_C_PABc = new ObjectType(fresh_C_PABc);
-			ObjectType ot_C_P = new ObjectType(fresh_C_P);
-			
-			ArrayList<ObjectType> cc_list = new ArrayList();
-			CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));
-			
-			cc_list.add(ot_fresh_C_PAB);
-			cc_list.add(ot_fresh_C_PABc);
-			
-			cc.setEntities(cc_list);
-			
-			Subsumption sub_fresh_CP_CPAB = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_C_P, 
-					ot_fresh_C_PAB,
-					cc);
-			
-			Subsumption sub_fresh_CP_CPABc = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_C_P, 
-					ot_fresh_C_PABc,
-					cc);
-			
-			kf.addConstraint(cc);
-			kf.addEntity(ot_fresh_C_PAB);
-			kf.addEntity(ot_fresh_C_PABc);
-			kf.addEntity(ot_C_P);
-			kf.addRelationship(sub_fresh_CP_CPAB);
-			kf.addRelationship(sub_fresh_CP_CPABc);
-			
-			//add fresh relationships
-			
-			String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB1";
-			
-			String role_fresh_CPAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB1";
-			String role_fresh_APAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAPAB1";
-			
-			ObjectTypeCardinality otc_RoleCPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleAPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
-			
-			kf.addConstraint(otc_RoleCPAB1);
-			kf.addConstraint(otc_RoleAPAB1);
-			
-			ArrayList<Entity> e1 = new ArrayList();
-			e1.add(ot_fresh_C_PAB);
-			e1.add(ot_left);
-			
-			Relationship r_fresh_PAB1 = new Relationship(rel_fresh_PAB1_iri, e1); 
-			
-			Role role_fresh_CPAB1 = new Role(role_fresh_CPAB1_iri, ot_fresh_C_PAB, r_fresh_PAB1, otc_RoleCPAB1); 
-			Role role_fresh_APAB1 = new Role(role_fresh_APAB1_iri, ot_left, r_fresh_PAB1, otc_RoleAPAB1); 
-			
-			kf.addRole(role_fresh_CPAB1);
-			kf.addRole(role_fresh_APAB1);
-			
-			ArrayList<Role> r1 = new ArrayList();
-			r1.add(role_fresh_CPAB1);
-			r1.add(role_fresh_APAB1);
-			
-			r_fresh_PAB1.setRoles(r1);
-			
-			//
-			
-			String rel_fresh_PAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAcB1";
-			
-			String role_fresh_CPAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAcB1";
-			String role_fresh_AcPAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAcPAcB1";
-			
-			ObjectTypeCardinality otc_RoleCPAcB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleAcPAcB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
-			
-			kf.addConstraint(otc_RoleCPAcB1);
-			kf.addConstraint(otc_RoleAcPAcB1);
-			
-			ArrayList<Entity> e2 = new ArrayList();
-			e2.add(ot_fresh_C_PABc);
-			e2.add(ot_complement_left);
-			
-			Relationship r_fresh_PAcB1 = new Relationship(rel_fresh_PAcB1_iri, e2); 
-			
-			Role role_fresh_CPAcB1 = new Role(role_fresh_CPAcB1_iri, ot_fresh_C_PABc, r_fresh_PAcB1, otc_RoleCPAcB1); 
-			Role role_fresh_AcPAcB1 = new Role(role_fresh_AcPAcB1_iri, ot_complement_left, r_fresh_PAcB1, otc_RoleAcPAcB1); 
-			
-			kf.addRole(role_fresh_CPAcB1);
-			kf.addRole(role_fresh_AcPAcB1);
-			
-			ArrayList<Role> r2 = new ArrayList();
-			r2.add(role_fresh_CPAcB1);
-			r2.add(role_fresh_AcPAcB1);
-			
-			r_fresh_PAcB1.setRoles(r2);
-			
-			//
-			
-			String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB2";
-			
-			String role_fresh_CPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB2";
-			String role_fresh_BPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RBPAB2";
-			
-			ObjectTypeCardinality otc_RoleCPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleBPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
-			
-			kf.addConstraint(otc_RoleCPAB2);
-			kf.addConstraint(otc_RoleBPAB2);
-			
-			ArrayList<Entity> e3 = new ArrayList();
-			e3.add(ot_fresh_C_PAB);
-			e3.add(ot_filler);
-			
-			Relationship r_fresh_PAB2 = new Relationship(rel_fresh_PAB2_iri, e3);
-			
-			Role role_fresh_CPAB2 = new Role(role_fresh_CPAB2_iri, ot_fresh_C_PAB, r_fresh_PAB2, otc_RoleCPAB2); 
-			Role role_fresh_BPAB2 = new Role(role_fresh_BPAB2_iri, ot_filler, r_fresh_PAB2, otc_RoleBPAB2);
-			
-			kf.addRole(role_fresh_CPAB2);
-			kf.addRole(role_fresh_BPAB2);
-			
-			ArrayList<Role> r3 = new ArrayList();
-			r3.add(role_fresh_CPAB2);
-			r3.add(role_fresh_BPAB2);
-			
-			r_fresh_PAB2.setRoles(r3);
-			
-			kf.addRelationship(r_fresh_PAB1);
-			kf.addRelationship(r_fresh_PAB2);
-			
-			//add original relationships
-			String rel_P1_iri = prop_iri + "1"; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P1";
-			
-			String role_fresh_CPP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP1";
-			String role_fresh_OCP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP1";
-			
-			ObjectTypeCardinality otc_RoleCPP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleOCP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
-			
-			kf.addConstraint(otc_RoleCPP1);
-			kf.addConstraint(otc_RoleOCP1);
-			
-			ArrayList<Entity> e4 = new ArrayList();
-			e4.add(ot_C_P);
-			e4.add(ot_fresh_O);
-			
-			Relationship r_P1 = new Relationship(rel_P1_iri, e4); 
-			
-			Role role_fresh_CPP1 = new Role(role_fresh_CPP1_iri, ot_C_P, r_P1, otc_RoleCPP1); 
-			Role role_fresh_OCP1 = new Role(role_fresh_OCP1_iri, ot_fresh_O, r_P1, otc_RoleOCP1); 
-			
-			kf.addRole(role_fresh_CPP1);
-			kf.addRole(role_fresh_OCP1);
-			
-			ArrayList<Role> r4 = new ArrayList();
-			r4.add(role_fresh_CPP1);
-			r4.add(role_fresh_OCP1);
-			
-			r_P1.setRoles(r4); 
-			
-			String rel_P2_iri = prop_iri + "2"; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P2";
-			
-			String role_fresh_CPP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP2";
-			String role_fresh_OCP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP2";
-			
-			ObjectTypeCardinality otc_RoleCPP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleOCP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
-			
-			kf.addConstraint(otc_RoleCPP2);
-			kf.addConstraint(otc_RoleOCP2);
-			
-			Relationship r_P2 = new Relationship(rel_P2_iri, e4); 
-			
-			Role role_fresh_CPP2 = new Role(role_fresh_CPP2_iri, ot_C_P, r_P2, otc_RoleCPP2); 
-			Role role_fresh_OCP2 = new Role(role_fresh_OCP2_iri, ot_fresh_O, r_P2, otc_RoleOCP2); 
-			
-			kf.addRole(role_fresh_CPP2);
-			kf.addRole(role_fresh_OCP2);
-			
-			ArrayList<Role> r5 = new ArrayList();
-			r5.add(role_fresh_CPP2);
-			r5.add(role_fresh_OCP2);
-			
-			r_P2.setRoles(r5);
-			
-			kf.addRelationship(r_P1);
-			kf.addRelationship(r_P2);
-			
-			// add roles subsumptions
-		
-		}
-	}
-	
-	/**
-	 * Subclass(exists property atom, atom)
-	 * 
-	 * @param kf
-	 * @param left
-	 * @param right
-	 */
-	public void type4asKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
-		
-		String right_iri = right.asOWLClass().toStringID();
-		if (isFresh(right)) { right_iri = URI_NORMAL_CONCEPT + right.asOWLClass().toStringID(); }
-		
-		OWLClassExpression filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) left).getFiller();
-		OWLPropertyExpression property = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) left).getProperty();
-	
-		String prop_iri = property.asOWLObjectProperty().toStringID();		
-		
-		if (NormalForm.isAtom(filler)) {
-			String filler_iri = filler.asOWLClass().toStringID();
-			if (isFresh(filler)) { filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID(); }
-			
-			//add subsumptions
-			String fresh_O = URI_IMPORT_CONCEPT + "#O";
-			ObjectType ot_fresh_O = new ObjectType(fresh_O);
-			
-			ObjectType ot_right = new ObjectType(right_iri);
-			ObjectType ot_filler = new ObjectType(filler_iri);
-			
-			Subsumption sub_fresh_rightORfiller = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_fresh_O, 
-					ot_right);
-			
-			Subsumption sub_fresh_rightORfiller_2 = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_fresh_O, 
-					ot_filler);
-			
-			kf.addEntity(ot_fresh_O);
-			kf.addEntity(ot_right);
-			kf.addEntity(ot_filler);
-			kf.addRelationship(sub_fresh_rightORfiller);
-			kf.addRelationship(sub_fresh_rightORfiller_2);
-			
-			String fresh_C_PAB = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPAB";
-			String fresh_C_P = prop_iri; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#CP";
-			
-			ObjectType ot_fresh_C_PAB = new ObjectType(fresh_C_PAB);
-			ObjectType ot_C_P = new ObjectType(fresh_C_P);
-			
-			Subsumption sub_fresh_CP_CPAB = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_C_P, 
-					ot_fresh_C_PAB);
-			
-			kf.addEntity(ot_fresh_C_PAB);
-			kf.addEntity(ot_C_P);
-			kf.addRelationship(sub_fresh_CP_CPAB);
-			
-			//add fresh relationships
-			
-			String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB1";
-			
-			String role_fresh_CPAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB1";
-			String role_fresh_APAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAPAB1";
-			
-			ObjectTypeCardinality otc_RoleCPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleAPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
-			
-			kf.addConstraint(otc_RoleCPAB1);
-			kf.addConstraint(otc_RoleAPAB1);
-			
-			ArrayList<Entity> e1 = new ArrayList();
-			e1.add(ot_fresh_C_PAB);
-			e1.add(ot_right);
-			
-			Relationship r_fresh_PAB1 = new Relationship(rel_fresh_PAB1_iri, e1); 
-			
-			Role role_fresh_CPAB1 = new Role(role_fresh_CPAB1_iri, ot_fresh_C_PAB, r_fresh_PAB1, otc_RoleCPAB1); 
-			Role role_fresh_APAB1 = new Role(role_fresh_APAB1_iri, ot_right, r_fresh_PAB1, otc_RoleAPAB1); 
-			
-			kf.addRole(role_fresh_CPAB1);
-			kf.addRole(role_fresh_APAB1);
-			
-			ArrayList<Role> r1 = new ArrayList();
-			r1.add(role_fresh_CPAB1);
-			r1.add(role_fresh_APAB1);
-			
-			r_fresh_PAB1.setRoles(r1); 
-			
-			String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB2";
-			
-			String role_fresh_CPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB2";
-			String role_fresh_BPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RBPAB2";
-			
-			ObjectTypeCardinality otc_RoleCPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleBPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "*");
-			
-			kf.addConstraint(otc_RoleCPAB2);
-			kf.addConstraint(otc_RoleBPAB2);
-			
-			ArrayList<Entity> e2 = new ArrayList();
-			e2.add(ot_fresh_C_PAB);
-			e2.add(ot_filler);
-			
-			Relationship r_fresh_PAB2 = new Relationship(rel_fresh_PAB2_iri, e2);
-			
-			Role role_fresh_CPAB2 = new Role(role_fresh_CPAB2_iri, ot_fresh_C_PAB, r_fresh_PAB2, otc_RoleCPAB2); 
-			Role role_fresh_BPAB2 = new Role(role_fresh_BPAB2_iri, ot_filler, r_fresh_PAB2, otc_RoleBPAB2);
-			
-			kf.addRole(role_fresh_CPAB2);
-			kf.addRole(role_fresh_BPAB2);
-			
-			ArrayList<Role> r2 = new ArrayList();
-			r2.add(role_fresh_CPAB2);
-			r2.add(role_fresh_BPAB2);
-			
-			r_fresh_PAB2.setRoles(r2);
-			
-			kf.addRelationship(r_fresh_PAB1);
-			kf.addRelationship(r_fresh_PAB2);
-			
-			//add original relationships
-			String rel_P1_iri = prop_iri + 1; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P1";
-			
-			String role_fresh_CPP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP1";
-			String role_fresh_OCP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP1";
-			
-			ObjectTypeCardinality otc_RoleCPP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleOCP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
-			
-			kf.addConstraint(otc_RoleCPP1);
-			kf.addConstraint(otc_RoleOCP1);
-			
-			ArrayList<Entity> e3 = new ArrayList();
-			e3.add(ot_C_P);
-			e3.add(ot_fresh_O);
-			
-			Relationship r_P1 = new Relationship(rel_P1_iri, e3); 
-			
-			Role role_fresh_CPP1 = new Role(role_fresh_CPP1_iri, ot_C_P, r_P1, otc_RoleCPP1); 
-			Role role_fresh_OCP1 = new Role(role_fresh_OCP1_iri, ot_fresh_O, r_P1, otc_RoleOCP1); 
-			
-			kf.addRole(role_fresh_CPP1);
-			kf.addRole(role_fresh_OCP1);
-			
-			ArrayList<Role> r3 = new ArrayList();
-			r3.add(role_fresh_CPP1);
-			r3.add(role_fresh_OCP1);
-			
-			r_P1.setRoles(r3); 
-			
-			String rel_P2_iri = prop_iri + 2; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P2";
-			
-			String role_fresh_CPP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP2";
-			String role_fresh_OCP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP2";
-			
-			ObjectTypeCardinality otc_RoleCPP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
-			ObjectTypeCardinality otc_RoleOCP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
-			
-			kf.addConstraint(otc_RoleCPP2);
-			kf.addConstraint(otc_RoleOCP2);
-			
-			Relationship r_P2 = new Relationship(rel_P2_iri, e3); 
-			
-			Role role_fresh_CPP2 = new Role(role_fresh_CPP2_iri, ot_C_P, r_P2, otc_RoleCPP2); 
-			Role role_fresh_OCP2 = new Role(role_fresh_OCP2_iri, ot_fresh_O, r_P2, otc_RoleOCP2); 
-			
-			kf.addRole(role_fresh_CPP2);
-			kf.addRole(role_fresh_OCP2);
-			
-			ArrayList<Role> r4 = new ArrayList();
-			r4.add(role_fresh_CPP2);
-			r4.add(role_fresh_OCP2);
-			
-			r_P2.setRoles(r4);
-			
-			kf.addRelationship(r_P1);
-			kf.addRelationship(r_P2);
-		
-		}
-	}
 	
 }

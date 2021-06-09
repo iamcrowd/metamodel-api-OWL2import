@@ -8,7 +8,7 @@ import com.gilia.builder.MetaDirector;
 import com.gilia.exceptions.EmptyOntologyException;
 import com.gilia.exceptions.MetamodelException;
 import com.gilia.owlimporter.importer.Importer;
-import com.gilia.owlimporter.importer.classExpression.Class;
+
 import com.gilia.utils.ResponseError;
 import java.io.FileNotFoundException;
 import java.util.Iterator;
