@@ -164,8 +164,17 @@ public class Ax4 extends AxToKFTools{
 			
 			Relationship r_fresh_PAB1 = new Relationship(rel_fresh_PAB1_iri, e1); 
 			
-			Role role_fresh_CPAB1 = new Role(role_fresh_CPAB1_iri, ot_fresh_C_PAB, r_fresh_PAB1, otc_RoleCPAB1); 
-			Role role_fresh_APAB1 = new Role(role_fresh_APAB1_iri, ot_right, r_fresh_PAB1, otc_RoleAPAB1); 
+			Role role_fresh_CPAB1 = new Role(role_fresh_CPAB1_iri, ot_fresh_C_PAB, r_fresh_PAB1, otc_RoleCPAB1);
+			
+            if (role_fresh_CPAB1.hasMandatoryConstraint()) {
+                kf.addConstraint(role_fresh_CPAB1.getMandatoryConstraint());
+            }
+            
+			Role role_fresh_APAB1 = new Role(role_fresh_APAB1_iri, ot_right, r_fresh_PAB1, otc_RoleAPAB1);
+			
+            if (role_fresh_APAB1.hasMandatoryConstraint()) {
+                kf.addConstraint(role_fresh_APAB1.getMandatoryConstraint());
+            }
 			
 			kf.addRole(role_fresh_CPAB1);
 			kf.addRole(role_fresh_APAB1);
@@ -194,7 +203,16 @@ public class Ax4 extends AxToKFTools{
 			Relationship r_fresh_PAB2 = new Relationship(rel_fresh_PAB2_iri, e2);
 			
 			Role role_fresh_CPAB2 = new Role(role_fresh_CPAB2_iri, ot_fresh_C_PAB, r_fresh_PAB2, otc_RoleCPAB2); 
+			
+            if (role_fresh_CPAB2.hasMandatoryConstraint()) {
+                kf.addConstraint(role_fresh_CPAB2.getMandatoryConstraint());
+            }
+            
 			Role role_fresh_BPAB2 = new Role(role_fresh_BPAB2_iri, ot_filler, r_fresh_PAB2, otc_RoleBPAB2);
+			
+            if (role_fresh_BPAB2.hasMandatoryConstraint()) {
+                kf.addConstraint(role_fresh_BPAB2.getMandatoryConstraint());
+            }
 			
 			kf.addRole(role_fresh_CPAB2);
 			kf.addRole(role_fresh_BPAB2);
@@ -227,7 +245,16 @@ public class Ax4 extends AxToKFTools{
 			Relationship r_P1 = new Relationship(rel_P1_iri, e3); 
 			
 			Role role_fresh_CPP1 = new Role(role_fresh_CPP1_iri, ot_C_P, r_P1, otc_RoleCPP1); 
+			
+            if (role_fresh_CPP1.hasMandatoryConstraint()) {
+                kf.addConstraint(role_fresh_CPP1.getMandatoryConstraint());
+            }
+            
 			Role role_fresh_OCP1 = new Role(role_fresh_OCP1_iri, ot_fresh_O, r_P1, otc_RoleOCP1); 
+			
+            if (role_fresh_OCP1.hasMandatoryConstraint()) {
+                kf.addConstraint(role_fresh_OCP1.getMandatoryConstraint());
+            }
 			
 			kf.addRole(role_fresh_CPP1);
 			kf.addRole(role_fresh_OCP1);
@@ -251,8 +278,17 @@ public class Ax4 extends AxToKFTools{
 			
 			Relationship r_P2 = new Relationship(rel_P2_iri, e3); 
 			
-			Role role_fresh_CPP2 = new Role(role_fresh_CPP2_iri, ot_C_P, r_P2, otc_RoleCPP2); 
+			Role role_fresh_CPP2 = new Role(role_fresh_CPP2_iri, ot_C_P, r_P2, otc_RoleCPP2);
+			
+            if (role_fresh_CPP2.hasMandatoryConstraint()) {
+                kf.addConstraint(role_fresh_CPP2.getMandatoryConstraint());
+            }
+            
 			Role role_fresh_OCP2 = new Role(role_fresh_OCP2_iri, ot_fresh_O, r_P2, otc_RoleOCP2); 
+			
+            if (role_fresh_OCP2.hasMandatoryConstraint()) {
+                kf.addConstraint(role_fresh_OCP2.getMandatoryConstraint());
+            }
 			
 			kf.addRole(role_fresh_CPP2);
 			kf.addRole(role_fresh_OCP2);
@@ -265,6 +301,21 @@ public class Ax4 extends AxToKFTools{
 			
 			kf.addRelationship(r_P1);
 			kf.addRelationship(r_P2);
+			
+			Subsumption sub_rel_P_PAB1_fresh = new Subsumption(
+					getAlphaNumericString(8),
+					r_P1,
+					r_fresh_PAB1
+					);
+			
+			Subsumption sub_rel_P_PAB2_fresh = new Subsumption(
+					getAlphaNumericString(8),
+					r_P2,
+					r_fresh_PAB2 
+					);
+			
+			kf.addRelationship(sub_rel_P_PAB1_fresh);
+			kf.addRelationship(sub_rel_P_PAB2_fresh);
 		
 		}
 	}

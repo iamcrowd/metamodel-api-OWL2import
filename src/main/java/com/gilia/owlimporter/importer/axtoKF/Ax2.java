@@ -368,6 +368,21 @@ public class Ax2 extends AxToKFTools{
 			
 			kf.addRelationship(r_P1);
 			kf.addRelationship(r_P2);
+			
+			Subsumption sub_rel_P_PAB1_fresh = new Subsumption(
+					getAlphaNumericString(8),
+					r_P1,
+					r_fresh_PAB1
+					);
+			
+			Subsumption sub_rel_P_PAB2_fresh = new Subsumption(
+					getAlphaNumericString(8),
+					r_P2,
+					r_fresh_PAB2 
+					);
+			
+			kf.addRelationship(sub_rel_P_PAB1_fresh);
+			kf.addRelationship(sub_rel_P_PAB2_fresh);
 		
 		}
 	}
