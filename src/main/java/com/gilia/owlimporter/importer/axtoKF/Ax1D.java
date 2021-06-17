@@ -97,7 +97,17 @@ public class Ax1D extends AxToKFTools{
 	public void type1DasKF (Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 		
 		Set<OWLClassExpression> disjunctions = right.asDisjunctSet();
-		ObjectType ot_fresh_d = new ObjectType(URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PatternAorB");
+		String d_iris = "";
+		for (OWLClassExpression d : disjunctions) {
+			if (NormalForm.isAtom(d)) {
+				String d_iri = d.asOWLClass().toStringID();
+				if (isFresh(d)) { 
+					d_iri = URI_NORMAL_CONCEPT + d.asOWLClass().toStringID(); 
+				}
+                d_iris += d_iri + "$";
+			}
+		}
+		ObjectType ot_fresh_d = new ObjectType(URI_IMPORT_CONCEPT + "UNION#" + d_iris);
 		
 		ArrayList<ObjectType> cc_list = new ArrayList();
 		CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));
@@ -105,53 +115,71 @@ public class Ax1D extends AxToKFTools{
 		for (OWLClassExpression d : disjunctions) {
 			if (NormalForm.isAtom(d)) {
 				String d_iri = d.asOWLClass().toStringID();
-				if (isFresh(d)) { d_iri = URI_NORMAL_CONCEPT + d.asOWLClass().toStringID(); }
+				if (isFresh(d)) { 
+					d_iri = URI_NORMAL_CONCEPT + d.asOWLClass().toStringID(); 
+				}
 				ObjectType ot = new ObjectType(d_iri);
 				
 				kf.addEntity(ot);
 				cc_list.add(ot);
 				
-				Subsumption sub_fresh_d = new Subsumption(
-						getAlphaNumericString(8), 
-						ot_fresh_d, 
-						ot,
-						cc);
-				
-				kf.addRelationship(sub_fresh_d);
+				if (kf.getRelationship("Subsumption(" + ot_fresh_d.getName() + "," + ot.getName() + ")").isNameless()) {
+					Subsumption sub_fresh_d = new Subsumption(
+							"Subsumption(" + ot_fresh_d.getName() + "," + ot.getName() + ")", 
+							ot_fresh_d, 
+							ot,
+							cc);
+					kf.addRelationship(sub_fresh_d);
+				}
 			}
 		}
-		
+
 		cc.setEntities(cc_list);
 		kf.addConstraint(cc);
 		kf.addEntity(ot_fresh_d);
 		
 		Set<OWLClassExpression> conjunctions = left.asConjunctSet();
-		ObjectType ot_fresh_c = new ObjectType(URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PatternAandB");
+		String c_iris = "";
+		for (OWLClassExpression c : conjunctions) {
+			if (NormalForm.isAtom(c)) {
+				String c_iri = c.asOWLClass().toStringID();
+				if (isFresh(c)) { 
+					c_iri = URI_NORMAL_CONCEPT + c.asOWLClass().toStringID();
+				}
+				c_iris += c_iri + "$";
+			}
+		}
+		ObjectType ot_fresh_c = new ObjectType(URI_IMPORT_CONCEPT + "INTERSECTION#" + c_iris);
 		
 		for (OWLClassExpression c : conjunctions) {
 			if (NormalForm.isAtom(c)) {
 				String c_iri = c.asOWLClass().toStringID();
-				if (isFresh(c)) { c_iri = URI_NORMAL_CONCEPT + c.asOWLClass().toStringID(); }
+				if (isFresh(c)) { 
+					c_iri = URI_NORMAL_CONCEPT + c.asOWLClass().toStringID();
+				}
 				ObjectType ot = new ObjectType(c_iri);
 				
 				kf.addEntity(ot);
 				
-				Subsumption sub_fresh_c = new Subsumption(
-						getAlphaNumericString(8), 
-						ot, 
-						ot_fresh_c);
-				
-				kf.addRelationship(sub_fresh_c);
+				if (kf.getRelationship("Subsumption(" + ot.getName() + "," + ot_fresh_c.getName() + ")").isNameless()) {
+					Subsumption sub_fresh_c = new Subsumption(
+							"Subsumption(" + ot.getName() + "," + ot_fresh_c.getName() + ")",
+							ot, 
+							ot_fresh_c);
+					kf.addRelationship(sub_fresh_c);
+				}
 			}
 		}
 		
 		kf.addEntity(ot_fresh_c);
 		
-		Subsumption sub = new Subsumption(
-									getAlphaNumericString(8), 
-									ot_fresh_d,
-									ot_fresh_c);
-		kf.addRelationship(sub);
+		if (kf.getRelationship("Subsumption(" + ot_fresh_d.getName() + "," + ot_fresh_c.getName() + ")").isNameless()) {
+			Subsumption sub = new Subsumption(
+					"Subsumption(" + ot_fresh_d.getName() + "," + ot_fresh_c.getName() + ")", 
+					ot_fresh_d,
+					ot_fresh_c);
+			kf.addRelationship(sub);
+		}
 	}
 
 }

@@ -127,36 +127,42 @@ public class Ax2 extends AxToKFTools{
 			ObjectType ot_left = new ObjectType(left_iri);
 			ObjectType ot_filler = new ObjectType(filler_iri);
 			
-			Subsumption sub_fresh_leftORfiller = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_fresh_O, 
-					ot_left);
+			if (kf.getRelationship("Subsumption(" + ot_fresh_O.getName() + "," + ot_left.getName() + ")").isNameless()) {
+				Subsumption sub_fresh_leftORfiller = new Subsumption(
+						"Subsumption(" + ot_fresh_O.getName() + "," + ot_left.getName() + ")", 
+						ot_fresh_O, 
+						ot_left);
+				kf.addRelationship(sub_fresh_leftORfiller);
+			}
 			
-			Subsumption sub_fresh_leftORfiller_2 = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_fresh_O, 
-					ot_filler);
+			if (kf.getRelationship("Subsumption(" + ot_fresh_O.getName() + "," + ot_filler.getName() + ")").isNameless()) {
+				Subsumption sub_fresh_leftORfiller_2 = new Subsumption(
+						"Subsumption(" + ot_fresh_O.getName() + "," + ot_filler.getName() + ")", 
+						ot_fresh_O, 
+						ot_filler);
+				kf.addRelationship(sub_fresh_leftORfiller_2);
+			}
 			
 			kf.addEntity(ot_fresh_O);
 			kf.addEntity(ot_left);
 			kf.addEntity(ot_filler);
-			kf.addRelationship(sub_fresh_leftORfiller);
-			kf.addRelationship(sub_fresh_leftORfiller_2);
 			
-			String fresh_C_PAB = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPAB";
+			String fresh_C_PAB = URI_IMPORT_CONCEPT + "CPAB#" + left_iri + "$" + filler_iri;
 			String fresh_C_P = prop_iri;
 			
 			ObjectType ot_fresh_C_PAB = new ObjectType(fresh_C_PAB);
 			ObjectType ot_C_P = new ObjectType(fresh_C_P);
 			
-			Subsumption sub_fresh_CP_CPAB = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_C_P, 
-					ot_fresh_C_PAB);
+			if (kf.getRelationship("Subsumption(" + ot_C_P.getName() + "," + ot_fresh_C_PAB.getName() + ")").isNameless()) {
+				Subsumption sub_fresh_CP_CPAB = new Subsumption(
+						"Subsumption(" + ot_C_P.getName() + "," + ot_fresh_C_PAB.getName() + ")", 
+						ot_C_P, 
+						ot_fresh_C_PAB);
+				kf.addRelationship(sub_fresh_CP_CPAB);
+			}
 			
 			kf.addEntity(ot_fresh_C_PAB);
 			kf.addEntity(ot_C_P);
-			kf.addRelationship(sub_fresh_CP_CPAB);
 			
 			//add fresh relationships
 			
@@ -369,20 +375,23 @@ public class Ax2 extends AxToKFTools{
 			kf.addRelationship(r_P1);
 			kf.addRelationship(r_P2);
 			
-			Subsumption sub_rel_P_PAB1_fresh = new Subsumption(
-					getAlphaNumericString(8),
-					r_P1,
-					r_fresh_PAB1
-					);
+			if (kf.getRelationship("Subsumption(" + r_P1.getName() + "," + r_fresh_PAB1.getName() + ")").isNameless()) {
+				Subsumption sub_rel_P_PAB1_fresh = new Subsumption(
+						"Subsumption(" + r_P1.getName() + "," + r_fresh_PAB1.getName() + ")",
+						r_P1,
+						r_fresh_PAB1
+						);
+				kf.addRelationship(sub_rel_P_PAB1_fresh);
+			}
 			
-			Subsumption sub_rel_P_PAB2_fresh = new Subsumption(
-					getAlphaNumericString(8),
-					r_P2,
-					r_fresh_PAB2 
-					);
-			
-			kf.addRelationship(sub_rel_P_PAB1_fresh);
-			kf.addRelationship(sub_rel_P_PAB2_fresh);
+			if (kf.getRelationship("Subsumption(" + r_P2.getName() + "," + r_fresh_PAB2.getName() + ")").isNameless()) {
+				Subsumption sub_rel_P_PAB2_fresh = new Subsumption(
+						"Subsumption(" + r_P2.getName() + "," + r_fresh_PAB2.getName() + ")",
+						r_P2,
+						r_fresh_PAB2 
+						);
+				kf.addRelationship(sub_rel_P_PAB2_fresh);
+			}
 		
 		}
 	}

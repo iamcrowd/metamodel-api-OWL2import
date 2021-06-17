@@ -109,12 +109,14 @@ public class Ax1A extends AxToKFTools{
 		kf.addEntity(ot_child);
 		kf.addEntity(ot_parent);
 		
-		Subsumption sub = new Subsumption(
-									getAlphaNumericString(8), 
-									ot_parent, 
-									ot_child);
-		
-		kf.addRelationship(sub);
+		if (kf.getRelationship("Subsumption(" + ot_parent.getName() + "," + ot_child.getName() + ")").isNameless()) {
+			Subsumption sub = new Subsumption(
+					"Subsumption(" + ot_parent.getName() + "," + ot_child.getName() + ")", 
+					ot_parent, 
+					ot_child);
+
+			kf.addRelationship(sub);
+		}
 	}
 
 }

@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.gilia.metamodel.*;
-import org.semanticweb.owlapi.*;
+//import org.semanticweb.owlapi.*;
 import org.semanticweb.HermiT.*;
 
 /**
