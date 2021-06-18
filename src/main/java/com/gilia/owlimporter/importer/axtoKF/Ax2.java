@@ -70,6 +70,7 @@ import static com.gilia.utils.Constants.TYPE2_DATA_EXACT_CARD_AXIOM;
 
 import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
 import static com.gilia.utils.Constants.URI_NORMAL_CONCEPT;
+import static com.gilia.utils.Constants.URI_TOP;
 
 /**
  * This class implements the model based reconstructions of Normalised Axioms 
@@ -121,7 +122,7 @@ public class Ax2 extends AxToKFTools{
 			if (isFresh(filler)) { filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID(); }
 			
 			//add subsumptions
-			String fresh_O = URI_IMPORT_CONCEPT + "#O";
+			String fresh_O = URI_TOP;
 			ObjectType ot_fresh_O = new ObjectType(fresh_O);
 			
 			ObjectType ot_left = new ObjectType(left_iri);
