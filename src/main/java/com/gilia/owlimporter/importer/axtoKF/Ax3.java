@@ -71,6 +71,7 @@ import static com.gilia.utils.Constants.TYPE2_DATA_EXACT_CARD_AXIOM;
 
 import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
 import static com.gilia.utils.Constants.URI_NORMAL_CONCEPT;
+import static com.gilia.utils.Constants.URI_TOP;
 
 /**
  * This class implements the model based reconstructions of Normalised Axioms 
@@ -111,15 +112,18 @@ public class Ax3 extends AxToKFTools{
 			if (isFresh(filler)) { filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID(); }
 			
 			//add subsumptions
-			String fresh_O = URI_IMPORT_CONCEPT + "#O";
+			String fresh_O = URI_TOP;
 			ObjectType ot_fresh_O = new ObjectType(fresh_O);
 			
+			ObjectType ot_fresh_left = new ObjectType(left_iri + "p");
+			
 			ObjectType ot_left = new ObjectType(left_iri);
+			
 			ObjectType ot_complement_left = new ObjectType(left_iri + "c");
 			
 			ObjectType ot_filler = new ObjectType(filler_iri);
 			
-			dot_list.add(ot_left);
+			dot_list.add(ot_fresh_left);
 			dot_list.add(ot_complement_left);
 			
 			dot.setEntities(dot_list);
@@ -127,7 +131,7 @@ public class Ax3 extends AxToKFTools{
 			Subsumption sub_fresh_leftORcomplement = new Subsumption(
 					getAlphaNumericString(8), 
 					ot_fresh_O, 
-					ot_left,
+					ot_fresh_left,
 					dot);
 			
 			Subsumption sub_fresh_leftORcomplement_2 = new Subsumption(
@@ -136,12 +140,19 @@ public class Ax3 extends AxToKFTools{
 					ot_complement_left,
 					dot);
 			
+			Subsumption sub_left_fresh_left = new Subsumption(
+					getAlphaNumericString(8), 
+					ot_fresh_left, 
+					ot_left);
+			
 			kf.addEntity(ot_fresh_O);
 			kf.addEntity(ot_left);
+			kf.addEntity(ot_fresh_left);			
 			kf.addEntity(ot_complement_left);
 			kf.addEntity(ot_filler);
 			kf.addConstraint(dot);
 			
+			kf.addRelationship(sub_left_fresh_left);
 			kf.addRelationship(sub_fresh_leftORcomplement);
 			kf.addRelationship(sub_fresh_leftORcomplement_2);
 			
@@ -196,7 +207,7 @@ public class Ax3 extends AxToKFTools{
 			
 			ArrayList<Entity> e1 = new ArrayList();
 			e1.add(ot_fresh_C_PAB);
-			e1.add(ot_left);
+			e1.add(ot_fresh_left);
 			
 			Relationship r_fresh_PAB1 = new Relationship(rel_fresh_PAB1_iri, e1); 
 			
