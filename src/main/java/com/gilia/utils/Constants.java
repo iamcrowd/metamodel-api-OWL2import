@@ -195,6 +195,8 @@ public class Constants {
     
     // URIs fresh concepts identify concepts created during the normalization
     public static final String URI_NORMAL_CONCEPT = "http://crowd.fi.uncoma.edu.ar/NORMAL/";
+    
+    public static final String URI_TOP = "http://www.w3.org/2002/07/owl#Thing";
 
 
 }
