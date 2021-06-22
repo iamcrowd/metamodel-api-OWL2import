@@ -50,6 +50,15 @@ public class Importer {
   private OWLOntology onto;
   private OWLOntologyManager man;
   private OWLOntology naive;
+  private OWLOntology unsupported;
+  
+  // Metrics
+  
+  long nOfLogAxioms;
+  long nOfEntities;
+  long nOfNormAxioms;
+  long nOfNormEntities;
+  long nOfLogUnsupportedAxioms;
 
   /**
    *
@@ -251,6 +260,10 @@ public class Importer {
   public OWLOntology getNaive() {
     return this.naive;
   }
+  
+  public OWLOntology getUnsupportedAxioms() {
+	  return this.unsupported;
+  }
 
   public JSONObject showOntology() {
     return this.showOntology(this.onto);
@@ -287,6 +300,7 @@ public class Importer {
     MetaBuilder builder = new MetaConverter();
     builder.generateJSON(this.kfimported);
     this.naive = tools.getNaive();
+    this.unsupported = tools.getUnsupportedAxioms();
   }
 
   public void importType1AfromOntology() {
@@ -337,4 +351,107 @@ public class Importer {
     MetaBuilder builder = new MetaConverter();
     builder.generateJSON(this.kfimported);
   }
+  
+  
+  
+  
+  /**
+   * get Metrics
+   * 
+   */
+  
+  public long getNumberOfAx() {
+	  return this.nOfLogAxioms;
+  }
+  
+  public long getNumberOfEntities() {
+	  return this.nOfEntities;
+  }
+  
+  public long getNumberOfNormAx() {
+	  return this.nOfNormAxioms;
+  }
+  
+  public long getNumberOfNormEntities() {
+	  return this.nOfNormEntities;
+  }
+  
+  public long getNumberOfNonNormAx() {
+	  return this.nOfLogUnsupportedAxioms;
+  }
+  
+  public void calculateMetrics() {
+	  this.numberOfAx();
+	  this.numberOfEntities();
+	  this.numberOfAxInNormalised();
+	  this.numberOfEntitiesInNormalised();
+	  this.numberOfNonNormAx();
+  }
+  
+  /**
+   * Metric calculations
+   * 
+   * Number of axioms in original ontology. Only logical axioms.
+   * @return number of logical axioms.
+   */
+  
+  public void numberOfAx() {
+	  Stream<OWLAxiom> tBoxAxioms = this.onto.tboxAxioms(Imports.EXCLUDED);
+	  tBoxAxioms.forEach((ax) -> {
+		 if (ax.isLogicalAxiom()) {
+			 this.nOfLogAxioms++;
+			 }
+		});
+  }
+  
+  
+  /**
+   * Metrics
+   * 
+   * Number of entities in the signature of the original ontology. The signature is the set of entities used to build axioms and annotations.
+   * @return number of entities in the ontology signature.
+   */
+  
+  public void numberOfEntities() {
+	  this.nOfEntities =  this.onto.signature().count();
+  }
+  
+  /**
+   * Metrics
+   * 
+   * Number of axioms in normalised ontology. Only AxiomType SUBCLASS_OF.
+   * @return number of SUBCLASS_OF normalised axioms
+   */
+  
+  public void numberOfAxInNormalised() {
+	  this.nOfNormAxioms = this.naive.axioms(AxiomType.SUBCLASS_OF).count();
+  }
+  
+  
+  /**
+   * Metrics
+   * 
+   * Number of entities in normalised ontology. The signature is the set of entities used to build axioms and annotations.
+   */
+  
+  public void numberOfEntitiesInNormalised() {
+	  this.nOfNormEntities = this.naive.signature().count();
+  }
+  
+  /**
+   * Metrics
+   * 
+   * Number of non-normalised axioms in original ontology. Only logical axioms.
+   * @return number of logical axioms.
+   */
+  
+  public void numberOfNonNormAx() {
+	  Stream<OWLAxiom> tBoxAxioms = this.unsupported.tboxAxioms(Imports.EXCLUDED);
+	  tBoxAxioms.forEach((ax) -> {
+		 if (ax.isLogicalAxiom()) {
+			 this.nOfLogUnsupportedAxioms++;
+			 }
+		});
+  }
+  
 }

@@ -106,6 +106,10 @@ public class NormalFormTools {
 		return this.naive;
 	}
 	
+	public OWLOntology getUnsupportedAxioms() {
+		return this.unsupported;
+	}
+	
 	
 	/**
 	 * This function prepares input ontology to be normalised and classifies axioms that could not be normalised
@@ -118,7 +122,7 @@ public class NormalFormTools {
 		Stream<OWLAxiom> tBoxAxioms = this.copy.tboxAxioms(Imports.EXCLUDED);
 		tBoxAxioms.forEach((ax) -> {
 			this.copy.remove(ax);
-
+			
 			try {
 				this.copy.addAxioms(NormalizationTools.asSubClassOfAxioms(ax));
 			}
