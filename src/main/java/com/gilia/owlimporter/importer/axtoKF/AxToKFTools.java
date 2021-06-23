@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 //import com.sun.tools.javac.util.List;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -80,6 +81,7 @@ import static com.gilia.utils.Constants.URI_NORMAL_CONCEPT;
  *
  */
 public class AxToKFTools {
+		
 	
 	public AxToKFTools() {
 		
@@ -100,5 +102,4 @@ public class AxToKFTools {
 			return false;
 		}
 	}
-
 }

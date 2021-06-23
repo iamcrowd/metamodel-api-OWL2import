@@ -110,7 +110,6 @@ public class NormalFormTools {
 		return this.unsupported;
 	}
 	
-	
 	/**
 	 * This function prepares input ontology to be normalised and classifies axioms that could not be normalised
 	 * 
@@ -534,6 +533,7 @@ public class NormalFormTools {
 	 * @return a normalised ontology to be imported
 	 */
 	public void asKF(Metamodel kf, OWLOntology ontology) {
+		
 		FreshAtoms.resetFreshAtomsEquivalenceAxioms(); // optional; for verification purpose
 
 		this.prepareOntology(ontology);
@@ -543,7 +543,7 @@ public class NormalFormTools {
 		
 		Set<OWLAxiom> tBoxAxiomsCopy = this.copy.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
 		
-		OWLReasoner reasoner = Utils.getHermitReasoner(ontology);
+		//OWLReasoner reasoner = Utils.getHermitReasoner(ontology);
 
 		tBoxAxiomsCopy.forEach(
 				(ax) -> {
@@ -631,6 +631,7 @@ public class NormalFormTools {
 								this.unsupported.addAxiom(ax);
 							}
 						});
+
 
 	}
 	

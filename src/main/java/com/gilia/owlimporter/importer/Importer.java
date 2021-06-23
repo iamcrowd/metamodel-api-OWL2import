@@ -1,5 +1,7 @@
 package com.gilia.owlimporter.importer;
 
+import java.util.Calendar;
+
 import static com.gilia.utils.ImportUtils.validateOWL;
 
 import com.gilia.builder.metabuilder.*;
@@ -59,6 +61,7 @@ public class Importer {
   long nOfNormAxioms;
   long nOfNormEntities;
   long nOfLogUnsupportedAxioms;
+  double importingTime;
 
   /**
    *
@@ -295,10 +298,18 @@ public class Importer {
    * Normalise full ontology
    */
   public void importNormalisedOntology() {
+	long init, fin;
+	init = Calendar.getInstance().getTimeInMillis();
+	
     NormalFormTools tools = new NormalFormTools();
     tools.asKF(this.kfimported, this.onto);
     MetaBuilder builder = new MetaConverter();
     builder.generateJSON(this.kfimported);
+    
+	
+	fin = Calendar.getInstance().getTimeInMillis();
+	this.importingTime = (double)((double)fin-(double)init)/1000.0;
+	
     this.naive = tools.getNaive();
     this.unsupported = tools.getUnsupportedAxioms();
   }
@@ -380,6 +391,13 @@ public class Importer {
 	  return this.nOfLogUnsupportedAxioms;
   }
   
+  public double getImportingTime() {
+	  return this.importingTime;
+  }
+  
+  /**
+   * Calculate metrics
+   */
   public void calculateMetrics() {
 	  this.numberOfAx();
 	  this.numberOfEntities();
