@@ -314,6 +314,10 @@ public class Importer {
     this.unsupported = tools.getUnsupportedAxioms();
   }
 
+  
+  /**
+   * Partial normalisation
+   */
   public void importType1AfromOntology() {
     NormalFormTools tools = new NormalFormTools();
     tools.type1ANormalisedasKF(this.kfimported, this.onto);

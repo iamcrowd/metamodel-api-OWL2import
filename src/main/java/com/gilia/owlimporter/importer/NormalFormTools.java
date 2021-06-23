@@ -132,6 +132,23 @@ public class NormalFormTools {
 		
 		});
 	}
+
+
+	/**
+	 * check if a new collection of normalised axioms is entailed by the original ontology with an extended signature
+	 * 
+	 * @param ax_n collection of normalised axioms
+	 * @param axs_fresh set of fresh to extend ontology signature
+	 */
+	private void isEntailedNorm(Collection<OWLSubClassOfAxiom> ax_n, Set<OWLAxiom> axs_fresh) {
+		OWLOntology temp = Utils.newEmptyOntology();
+		temp.add(ax_n);
+		this.copy.addAxioms(axs_fresh);
+		OWLReasoner reasoner = Utils.getHermitReasoner(this.copy);
+		assert (temp.axioms().allMatch(ax1 -> reasoner.isEntailed(ax1)));
+	}
+	
+	
 	
 	/**
 	 * Only axioms type 1 (A) (atom, atom) are imported
@@ -522,6 +539,8 @@ public class NormalFormTools {
 				});
 	}
 	
+
+	
 	/**
 	 * All type of normalised axioms are imported
 	 * 
@@ -542,13 +561,13 @@ public class NormalFormTools {
 		this.naive.addAxioms(ontology.aboxAxioms(Imports.EXCLUDED));
 		
 		Set<OWLAxiom> tBoxAxiomsCopy = this.copy.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
-		
-		//OWLReasoner reasoner = Utils.getHermitReasoner(ontology);
 
 		tBoxAxiomsCopy.forEach(
 				(ax) -> {
 					try {
 						Collection<OWLSubClassOfAxiom> ax_n = NormalizationTools.normalizeSubClassAxiom((OWLSubClassOfAxiom) ax);
+						
+						isEntailedNorm(ax_n, FreshAtoms.getFreshAtomsEquivalenceAxioms());  
 						
 						ax_n.forEach(
 								(ax_sub) -> {
