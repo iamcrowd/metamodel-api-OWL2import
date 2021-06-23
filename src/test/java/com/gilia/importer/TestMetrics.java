@@ -50,6 +50,8 @@ public class TestMetrics {
 			System.out.println("\tSize norm ontology entities: " + importer.getNumberOfNormEntities());
 			
 			System.out.println("\tSize unsupported (logical) axioms: " + importer.getNumberOfNonNormAx());
+			
+			System.out.println("\tImporting Time (s): " + importer.getImportingTime());
     	}
     	catch (Exception e){
         	e.printStackTrace();
@@ -74,6 +76,8 @@ public class TestMetrics {
 			System.out.println("\tSize norm ontology entities: " + importer.getNumberOfNormEntities());
 			
 			System.out.println("\tSize unsupported (logical) axioms: " + importer.getNumberOfNonNormAx());
+			
+			System.out.println("\tImporting Time (s): " + importer.getImportingTime());
     	  	
     	}
     	catch (Exception e){
