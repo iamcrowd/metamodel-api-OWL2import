@@ -107,7 +107,7 @@ public class Ax1D extends AxToKFTools{
                 d_iris += d_iri + "$";
 			}
 		}
-		ObjectType ot_fresh_d = new ObjectType(URI_IMPORT_CONCEPT + "UNION#" + d_iris);
+		ObjectType ot_fresh_d = new ObjectType(URI_IMPORT_CONCEPT + "UNION%" + d_iris);
 		
 		ArrayList<ObjectType> cc_list = new ArrayList();
 		CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));
@@ -149,7 +149,7 @@ public class Ax1D extends AxToKFTools{
 				c_iris += c_iri + "$";
 			}
 		}
-		ObjectType ot_fresh_c = new ObjectType(URI_IMPORT_CONCEPT + "INTERSECTION#" + c_iris);
+		ObjectType ot_fresh_c = new ObjectType(URI_IMPORT_CONCEPT + "INTERSECTION%" + c_iris);
 		
 		for (OWLClassExpression c : conjunctions) {
 			if (NormalForm.isAtom(c)) {

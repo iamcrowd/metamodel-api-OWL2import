@@ -111,7 +111,7 @@ public class Ax1C extends AxToKFTools{
 				c_iris += c_iri + "$";
 			}
 		}
-		ObjectType ot_fresh = new ObjectType(URI_IMPORT_CONCEPT + "INTERSECTION#" + c_iris);
+		ObjectType ot_fresh = new ObjectType(URI_IMPORT_CONCEPT + "INTERSECTION%" + c_iris);
         
 		for (OWLClassExpression c : conjunctions) {
 			if (NormalForm.isAtom(c)) {

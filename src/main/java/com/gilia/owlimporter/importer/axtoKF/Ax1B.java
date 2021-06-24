@@ -113,7 +113,7 @@ public class Ax1B extends AxToKFTools {
                 d_iris += d_iri + "$";
 			}
 		}
-        ObjectType ot_fresh = new ObjectType(URI_IMPORT_CONCEPT + "UNION#" + d_iris);
+        ObjectType ot_fresh = new ObjectType(URI_IMPORT_CONCEPT + "UNION%" + d_iris);
 
         ArrayList<ObjectType> cc_list = new ArrayList();
         CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));

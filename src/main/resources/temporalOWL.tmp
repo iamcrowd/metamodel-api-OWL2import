@@ -1,49 +1,62 @@
 <?xml version="1.0"?>
-<Ontology xmlns="http://www.w3.org/2002/07/owl#"
-     xml:base="http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-12"
+<rdf:RDF xmlns="http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-16#"
+     xml:base="http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-16"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     ontologyIRI="http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-12">
-    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
-    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
-    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
-    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
-    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Declaration>
-        <Class IRI="#man"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#van"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#wt"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#wvm"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#drives"/>
-    </Declaration>
-    <EquivalentClasses>
-        <Class IRI="#wvm"/>
-        <ObjectIntersectionOf>
-            <Class IRI="#man"/>
-            <ObjectSomeValuesFrom>
-                <ObjectProperty IRI="#drives"/>
-                <ObjectIntersectionOf>
-                    <Class IRI="#van"/>
-                    <Class IRI="#wt"/>
-                </ObjectIntersectionOf>
-            </ObjectSomeValuesFrom>
-        </ObjectIntersectionOf>
-    </EquivalentClasses>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#drives"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-</Ontology>
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-16"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-16#doJob -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-16#doJob">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-16#job -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-16#job">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-16#doJob"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-16#person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-16#person -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/giuli/ontologies/2021/5/untitled-ontology-16#person"/>
+</rdf:RDF>
 
 
 

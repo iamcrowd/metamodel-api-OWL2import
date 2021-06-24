@@ -115,11 +115,15 @@ public class Ax3 extends AxToKFTools{
 			String fresh_O = URI_TOP;
 			ObjectType ot_fresh_O = new ObjectType(fresh_O);
 			
-			ObjectType ot_fresh_left = new ObjectType(left_iri + "p");
+			// String fresh_left_iri = left_iri + "p";
+			String fresh_left_iri = URI_IMPORT_CONCEPT + prop_iri + "%" + left_iri;
+			ObjectType ot_fresh_left = new ObjectType(fresh_left_iri);
 			
 			ObjectType ot_left = new ObjectType(left_iri);
 			
-			ObjectType ot_complement_left = new ObjectType(left_iri + "c");
+			// String complement_left_iri = left_iri + "c";
+			String complement_left_iri = URI_IMPORT_CONCEPT + "COMPLEMENT%" + URI_IMPORT_CONCEPT + prop_iri + "%" + left_iri;
+			ObjectType ot_complement_left = new ObjectType(complement_left_iri);
 			
 			ObjectType ot_filler = new ObjectType(filler_iri);
 			
@@ -128,37 +132,44 @@ public class Ax3 extends AxToKFTools{
 			
 			dot.setEntities(dot_list);
 			
-			Subsumption sub_fresh_leftORcomplement = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_fresh_O, 
-					ot_fresh_left,
-					dot);
-			
-			Subsumption sub_fresh_leftORcomplement_2 = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_fresh_O, 
-					ot_complement_left,
-					dot);
-			
-			Subsumption sub_left_fresh_left = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_fresh_left, 
-					ot_left);
-			
 			kf.addEntity(ot_fresh_O);
 			kf.addEntity(ot_left);
 			kf.addEntity(ot_fresh_left);			
 			kf.addEntity(ot_complement_left);
 			kf.addEntity(ot_filler);
 			kf.addConstraint(dot);
+
+			if (kf.getRelationship("Subsumption(" + ot_fresh_O.getName() + "," + ot_fresh_left.getName() + ")").isNameless()) {
+				Subsumption sub_fresh_leftORcomplement = new Subsumption(
+						"Subsumption(" + ot_fresh_O.getName() + "," + ot_fresh_left.getName() + ")", 
+						ot_fresh_O, 
+						ot_fresh_left,
+						dot);
+				kf.addRelationship(sub_fresh_leftORcomplement);
+			}
 			
-			kf.addRelationship(sub_left_fresh_left);
-			kf.addRelationship(sub_fresh_leftORcomplement);
-			kf.addRelationship(sub_fresh_leftORcomplement_2);
+			if (kf.getRelationship("Subsumption(" + ot_fresh_O.getName() + "," + ot_complement_left.getName() + ")").isNameless()) {
+				Subsumption sub_fresh_leftORcomplement_2 = new Subsumption(
+						"Subsumption(" + ot_fresh_O.getName() + "," + ot_complement_left.getName() + ")", 
+						ot_fresh_O, 
+						ot_complement_left,
+						dot);
+				kf.addRelationship(sub_fresh_leftORcomplement_2);
+			}
+			
+			if (kf.getRelationship("Subsumption(" + ot_fresh_left.getName() + "," + ot_left.getName() + ")").isNameless()) {
+				Subsumption sub_left_fresh_left = new Subsumption(
+						"Subsumption(" + ot_fresh_left.getName() + "," + ot_left.getName() + ")", 
+						ot_fresh_left, 
+						ot_left);
+				kf.addRelationship(sub_left_fresh_left);
+			}
 			
 			//add subsumption CP
-			String fresh_C_PAB = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPAB";
-			String fresh_C_PABc = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPABc";
+			// String fresh_C_PAB = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPAB";
+			String fresh_C_PAB = URI_IMPORT_CONCEPT + prop_iri + "%" + left_iri + "$" + filler_iri;
+			// String fresh_C_PABc = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#CPABc";
+			String fresh_C_PABc = URI_IMPORT_CONCEPT + "COMPLEMENT%" + URI_IMPORT_CONCEPT + prop_iri + "%" + left_iri + "$" + filler_iri;
 			String fresh_C_P = prop_iri;
 			
 			ObjectType ot_fresh_C_PAB = new ObjectType(fresh_C_PAB);
@@ -173,31 +184,38 @@ public class Ax3 extends AxToKFTools{
 			
 			cc.setEntities(cc_list);
 			
-			Subsumption sub_fresh_CP_CPAB = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_C_P, 
-					ot_fresh_C_PAB,
-					cc);
-			
-			Subsumption sub_fresh_CP_CPABc = new Subsumption(
-					getAlphaNumericString(8), 
-					ot_C_P, 
-					ot_fresh_C_PABc,
-					cc);
-			
 			kf.addConstraint(cc);
 			kf.addEntity(ot_fresh_C_PAB);
 			kf.addEntity(ot_fresh_C_PABc);
 			kf.addEntity(ot_C_P);
-			kf.addRelationship(sub_fresh_CP_CPAB);
-			kf.addRelationship(sub_fresh_CP_CPABc);
+
+			if (kf.getRelationship("Subsumption(" + ot_C_P.getName() + "," + ot_fresh_C_PAB.getName() + ")").isNameless()) {
+				Subsumption sub_fresh_CP_CPAB = new Subsumption(
+						"Subsumption(" + ot_C_P.getName() + "," + ot_fresh_C_PAB.getName() + ")",
+						ot_C_P, 
+						ot_fresh_C_PAB,
+						cc);
+				kf.addRelationship(sub_fresh_CP_CPAB);
+			}
+			
+			if (kf.getRelationship("Subsumption(" + ot_C_P.getName() + "," + ot_fresh_C_PABc.getName() + ")").isNameless()) {
+				Subsumption sub_fresh_CP_CPABc = new Subsumption(
+						"Subsumption(" + ot_C_P.getName() + "," + ot_fresh_C_PABc.getName() + ")", 
+						ot_C_P, 
+						ot_fresh_C_PABc,
+						cc);
+				kf.addRelationship(sub_fresh_CP_CPABc);
+			}
 			
 			//add fresh relationships
 			
-			String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB1";
+			// String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB1";
+			String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri + "-participation%" + fresh_left_iri;
 			
-			String role_fresh_CPAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB1";
-			String role_fresh_APAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAPAB1";
+			// String role_fresh_CPAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB1";
+			String role_fresh_CPAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/participate-in%" + prop_iri;
+			// String role_fresh_APAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAPAB1";
+			String role_fresh_APAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/has-one%" + fresh_left_iri;
 			
 			ObjectTypeCardinality otc_RoleCPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleAPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -234,10 +252,13 @@ public class Ax3 extends AxToKFTools{
 			
 			//
 			
-			String rel_fresh_PAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAcB1";
+			// String rel_fresh_PAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAcB1";
+			String rel_fresh_PAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri + "-participation%" + complement_left_iri;
 			
-			String role_fresh_CPAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAcB1";
-			String role_fresh_AcPAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAcPAcB1";
+			// String role_fresh_CPAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAcB1";
+			String role_fresh_CPAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/participate-in%" + prop_iri;
+			// String role_fresh_AcPAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAcPAcB1";
+			String role_fresh_AcPAcB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/has-one%" + complement_left_iri;
 			
 			ObjectTypeCardinality otc_RoleCPAcB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleAcPAcB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -274,10 +295,13 @@ public class Ax3 extends AxToKFTools{
 			
 			//
 			
-			String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB2";
+			// String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB2";
+			String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri + "-participation%" + filler_iri;
 			
-			String role_fresh_CPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB2";
-			String role_fresh_BPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RBPAB2";
+			// String role_fresh_CPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB2";
+			String role_fresh_CPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/participate-in%" + prop_iri;
+			// String role_fresh_BPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RBPAB2";
+			String role_fresh_BPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/has-one%" + filler_iri;
 			
 			ObjectTypeCardinality otc_RoleCPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleBPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -317,10 +341,13 @@ public class Ax3 extends AxToKFTools{
 			kf.addRelationship(r_fresh_PAB2);
 			
 			//add original relationships
-			String rel_P1_iri = prop_iri + "1"; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P1";
+			// String rel_P1_iri = prop_iri + "1"; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P1";
+			String rel_P1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri + "-participation%" + left_iri; 
 			
-			String role_fresh_CPP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP1";
-			String role_fresh_OCP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP1";
+			// String role_fresh_CPP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP1";
+			String role_fresh_CPP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/participate-in%" + prop_iri;
+			// String role_fresh_OCP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP1";
+			String role_fresh_OCP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/has-one%" + fresh_O;
 			
 			ObjectTypeCardinality otc_RoleCPP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleOCP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -355,10 +382,13 @@ public class Ax3 extends AxToKFTools{
 			
 			r_P1.setRoles(r4); 
 			
-			String rel_P2_iri = prop_iri + "2"; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P2";
+			// String rel_P2_iri = prop_iri + "2"; //"http://crowd.fi.uncoma.edu.ar/IMPORT" + getAlphaNumericString(8) + "#P2";
+			String rel_P2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri + "-participation%" + filler_iri; 
 			
-			String role_fresh_CPP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP2";
-			String role_fresh_OCP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP2";
+			// String role_fresh_CPP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP2";
+			String role_fresh_CPP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/participate-in%" + prop_iri;
+			// String role_fresh_OCP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP2";
+			String role_fresh_OCP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/has-one%" + fresh_O;
 			
 			ObjectTypeCardinality otc_RoleCPP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
 			ObjectTypeCardinality otc_RoleOCP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
@@ -392,28 +422,32 @@ public class Ax3 extends AxToKFTools{
 			kf.addRelationship(r_P1);
 			kf.addRelationship(r_P2);
 			
-			Subsumption sub_rel_P_PAB1_fresh = new Subsumption(
-					getAlphaNumericString(8),
-					r_P1,
-					r_fresh_PAB1
-					);
+			if (kf.getRelationship("Subsumption(" + r_P1.getName() + "," + r_fresh_PAB1.getName() + ")").isNameless()) {
+				Subsumption sub_rel_P_PAB1_fresh = new Subsumption(
+						"Subsumption(" + r_P1.getName() + "," + r_fresh_PAB1.getName() + ")",
+						r_P1,
+						r_fresh_PAB1
+						);
+				kf.addRelationship(sub_rel_P_PAB1_fresh);
+			}
 			
-			Subsumption sub_rel_P_PAcB1_fresh = new Subsumption(
-					getAlphaNumericString(8),
-					r_P1,
-					r_fresh_PAcB1
-					);
+			if (kf.getRelationship("Subsumption(" + r_P1.getName() + "," + r_fresh_PAcB1.getName() + ")").isNameless()) {
+				Subsumption sub_rel_P_PAcB1_fresh = new Subsumption(
+						"Subsumption(" + r_P1.getName() + "," + r_fresh_PAcB1.getName() + ")",
+						r_P1,
+						r_fresh_PAcB1
+						);
+				kf.addRelationship(sub_rel_P_PAcB1_fresh);
+			}
 			
-			Subsumption sub_rel_P_PAB2_fresh = new Subsumption(
-					getAlphaNumericString(8),
-					r_P2,
-					r_fresh_PAB2 
-					);
-			
-			kf.addRelationship(sub_rel_P_PAB1_fresh);
-			kf.addRelationship(sub_rel_P_PAcB1_fresh);
-			kf.addRelationship(sub_rel_P_PAB2_fresh);
-		
+			if (kf.getRelationship("Subsumption(" + r_P2.getName() + "," + r_fresh_PAB2.getName() + ")").isNameless()) {
+				Subsumption sub_rel_P_PAB2_fresh = new Subsumption(
+						"Subsumption(" + r_P2.getName() + "," + r_fresh_PAB2.getName() + ")",
+						r_P2,
+						r_fresh_PAB2 
+						);
+				kf.addRelationship(sub_rel_P_PAB2_fresh);
+			}
 		}
 	}
 
