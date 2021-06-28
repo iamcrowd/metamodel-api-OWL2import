@@ -42,7 +42,8 @@ $(document).ready(function () {
             default:
                 url = "http://localhost:3333/owlclassestometa";
                 break;
-        };
+        }
+        ;
 
         $.ajax({
             url: url,
@@ -54,7 +55,23 @@ $(document).ready(function () {
             data: formData
         }).done(function (response) {
             console.log(response);
-            $(jsonOutput)[0].value = JSON.stringify(response, undefined, 4);
+            try {
+                $("#jsonOutput").val(JSON.stringify(response.kf, undefined, 4));
+                
+                $("#metrics").show();
+                $("#nOfLogAxioms").html(response.metrics.nOfLogAxioms);
+                $("#nOfEntities").html(response.metrics.nOfEntities);
+                $("#nOfNormAxioms").html(response.metrics.nOfNormAxioms);
+                $("#nOfNormEntities").html(response.metrics.nOfNormEntities);
+                $("#nOfLogUnsupportedAxioms").html(response.metrics.nOfLogUnsupportedAxioms);
+                $("#nOfFresh").html(response.metrics.nOfFresh);
+                $("#nOfImport").html(response.metrics.nOfImport);
+                $("#importingTime").html(response.metrics.importingTime);
+            } catch (e) {
+                console.log(e);
+                $(jsonOutput)[0].value = JSON.stringify(response, undefined, 4);
+                $("#metrics").hide();
+            }
         });
     })
 });

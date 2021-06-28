@@ -64,7 +64,7 @@ public class OWLNormalisedToMetaController {
         importer = new Importer(IRI.create(iriAsString), precompute);
       }
       importer.importNormalisedOntology();
-      result = importer.toJSON();
+      result = importer.toJSONMetrics();
     } catch (JSONException e) {
       ResponseError error = new ResponseError(
         HttpStatus.BAD_REQUEST.value(),
