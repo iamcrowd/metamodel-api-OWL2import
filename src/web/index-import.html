@@ -11,6 +11,8 @@
                 integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
         <script src="index-import.js"></script>
+        <script src="jquery.json-viewer.js"></script>
+        <link href="jquery.json-viewer.css" type="text/css" rel="stylesheet">
         <title>crowd OWL 2 Importer API</title>
     </head>
 
@@ -19,7 +21,7 @@
         <form>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <label for="convertid">Choose endpoint</label>
                         <select id="convertid" class="form-control">
                             <option>Show Ontology</option>
@@ -46,7 +48,7 @@
                                             <option>http://protege.stanford.edu/ontologies/travel.owl</option>
                                             <option>http://www.w3.org/TR/owl-guide/wine.rdf</option>
                                             <option>http://www.opengis.net/ont/geosparql#</option>
-                                            <option>http://vocab.deri.ie/void.rdf</void>
+                                            <option>http://vocab.deri.ie/void.rdf</option>
                                             <option>http://www.w3.org/ns/ssn/</option>
                                             <option>http://www.w3.org/ns/sosa/</option>
                                             <option>http://purl.org/spar/fabio.xml</option>
@@ -72,36 +74,43 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <div class="form-group">
-                            <label for="jsonInput">Output</label>
-                            <textarea class="form-control" id="jsonOutput" rows="20"></textarea>
+                            <label for="jsonInput">Output</label> <input type="button" class="btn btn-sm btn-primary" id="copyOutput" value="Copy to Clipboard" />
+                            <pre class="form-control" id="jsonOutput" style="height: 500px"></pre>
                             <!-- <input type="button" class="btn btn-primary" onclick="beautify()" value="Beautify" /> -->
-                            </br>
                             <div id="metrics" style="display: none;">
-                                <label title="number of logical axioms. it does not consider annotations, declarations, etc">nOfLogAxioms:</label>
-                                <label id="nOfLogAxioms">-</label>
-                                </br>
-                                <label title="number of entities in the signature of the ontology">nOfEntities:</label>
-                                <label id="nOfEntities">-</label>
-                                </br>
-                                <label title="number of normalised axioms. such axioms are SUBCLASS_OF">nOfNormAxioms:</label>
-                                <label id="nOfNormAxioms">-</label>
-                                </br>
-                                <label title="number of entities in the signature of the normalised ontology">nOfNormEntities:</label>
-                                <label id="nOfNormEntities">-</label>
-                                </br>
-                                <label title="number of logical axioms which could not be normalised. it does not consider annotations, declarations, etc">nOfLogUnsupportedAxioms:</label>
-                                <label id="nOfLogUnsupportedAxioms">-</label>
-                                </br>
-                                <label title="number of fresh concepts">nOfFresh:</label>
-                                <label id="nOfFresh">-</label>
-                                </br>
-                                <label title="number of import concepts">nOfImport:</label>
-                                <label id="nOfImport">-</label>
-                                </br>
-                                <label title="time taken for ontology loading, normalisation and “modelling”">importingTime:</label>
-                                <label id="importingTime">-</label>
+                                <label for="jsonInput">Unsupported Axioms</label> <input type="button" class="btn btn-sm btn-primary" id="copyUnsupported" value="Copy to Clipboard" />
+                                <pre class="form-control" id="jsonUnsupported" style="height: 150px"></pre>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label title="number of logical axioms. it does not consider annotations, declarations, etc">nOfLogAxioms:</label>
+                                        <label id="nOfLogAxioms">-</label>
+                                        </br>
+                                        <label title="number of entities in the signature of the ontology">nOfEntities:</label>
+                                        <label id="nOfEntities">-</label>
+                                        </br>
+                                        <label title="number of normalised axioms. such axioms are SUBCLASS_OF">nOfNormAxioms:</label>
+                                        <label id="nOfNormAxioms">-</label>
+                                        </br>
+                                        <label title="number of entities in the signature of the normalised ontology">nOfNormEntities:</label>
+                                        <label id="nOfNormEntities">-</label>
+                                        </br>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label title="number of logical axioms which could not be normalised. it does not consider annotations, declarations, etc">nOfLogUnsupportedAxioms:</label>
+                                        <label id="nOfLogUnsupportedAxioms">-</label>
+                                        </br>
+                                        <label title="number of fresh concepts">nOfFresh:</label>
+                                        <label id="nOfFresh">-</label>
+                                        </br>
+                                        <label title="number of import concepts">nOfImport:</label>
+                                        <label id="nOfImport">-</label>
+                                        </br>
+                                        <label title="time taken for ontology loading, normalisation and “modelling”">importingTime:</label>
+                                        <label id="importingTime">-</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

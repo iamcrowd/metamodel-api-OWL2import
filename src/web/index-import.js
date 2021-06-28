@@ -1,4 +1,17 @@
+var jsonOutput = "";
+var jsonUnsupported = "";
+
 $(document).ready(function () {
+    $('#copyOutput').click(function (event) {
+        event.preventDefault();
+        copyToClipboardByValue(jsonOutput);
+    });
+    
+    $('#copyUnsupported').click(function (event) {
+        event.preventDefault();
+        copyToClipboardByValue(jsonUnsupported);
+    });
+
     $('#send').click(function () {
         url = "http://localhost:3333/owlnormalisedtometa";
         file = $("#ontoFile")[0].files[0] ? $("#ontoFile")[0].files[0] : null;
@@ -56,8 +69,12 @@ $(document).ready(function () {
         }).done(function (response) {
             console.log(response);
             try {
-                $("#jsonOutput").val(JSON.stringify(response.kf, undefined, 4));
-                
+                //$("#jsonOutput").val(JSON.stringify(response.kf, undefined, 4));
+                jsonOutput = JSON.stringify(response.kf, undefined, 4);
+                $("#jsonOutput").jsonViewer(response.kf);
+                jsonUnsupported = JSON.stringify(response.unsupported, undefined, 4);
+                $("#jsonUnsupported").jsonViewer(response.unsupported);
+
                 $("#metrics").show();
                 $("#nOfLogAxioms").html(response.metrics.nOfLogAxioms);
                 $("#nOfEntities").html(response.metrics.nOfEntities);
@@ -68,8 +85,9 @@ $(document).ready(function () {
                 $("#nOfImport").html(response.metrics.nOfImport);
                 $("#importingTime").html(response.metrics.importingTime);
             } catch (e) {
-                console.log(e);
-                $(jsonOutput)[0].value = JSON.stringify(response, undefined, 4);
+                //$("#jsonOutput").val(JSON.stringify(response, undefined, 4));
+                jsonOutput = JSON.stringify(response, undefined, 4);
+                $("#jsonOutput").jsonViewer(response);
                 $("#metrics").hide();
             }
         });
@@ -83,4 +101,18 @@ function beautify() {
     document.getElementById('jsonOutput').value = pretty;
 }
 
-$('#convertid')
+function copyToClipboard(element) {
+    var $temp = $("<textarea></textarea");
+    $("body").append($temp);
+    $temp.val($(element).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+}
+
+function copyToClipboardByValue(value) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val(value).select();
+    document.execCommand("copy");
+    $temp.remove();
+}

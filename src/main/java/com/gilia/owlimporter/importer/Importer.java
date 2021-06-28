@@ -276,13 +276,23 @@ public class Importer {
 
     public JSONObject showOntology(OWLOntology ontology) {
         JSONObject jsonAx = new JSONObject();
-        ontology.
-                tboxAxioms(Imports.EXCLUDED).
-                forEach(
-                        (ax) -> {
-                            jsonAx.put(getAlphaNumericString(8), ax.toString());
-                        }
-                );
+        int[] index = {1};
+
+        ontology.tboxAxioms(Imports.EXCLUDED).forEachOrdered((ax) -> {
+            jsonAx.put("axiom" + index[0], ax.toString());
+            index[0]++;
+        });
+        return jsonAx;
+    }
+
+    public JSONObject showUnsupported() {
+        JSONObject jsonAx = new JSONObject();
+        int[] index = {1};
+
+        this.unsupported.tboxAxioms(Imports.EXCLUDED).forEachOrdered((ax) -> {
+            jsonAx.put("axiom" + index[0], ax.toString());
+            index[0]++;
+        });
         return jsonAx;
     }
 
@@ -298,9 +308,9 @@ public class Importer {
 
     public JSONObject toJSONMetrics() {
         JSONObject metrics = new JSONObject();
-        
+
         this.calculateMetrics();
-        
+
         metrics.put("nOfLogAxioms", this.nOfLogAxioms);
         metrics.put("nOfEntities", this.nOfEntities);
         metrics.put("nOfNormAxioms", this.nOfNormAxioms);
@@ -313,6 +323,7 @@ public class Importer {
         JSONObject values = new JSONObject();
         values.put("metrics", metrics);
         values.put("kf", this.toJSON());
+        values.put("unsupported", this.showUnsupported());
 
         return values;
     }
@@ -494,7 +505,7 @@ public class Importer {
             }
         });
     }
-    
+
     /**
      * Metrics
      *
