@@ -84,6 +84,22 @@ $(document).ready(function () {
                 $("#nOfFresh").html(response.metrics.nOfFresh);
                 $("#nOfImport").html(response.metrics.nOfImport);
                 $("#importingTime").html(response.metrics.importingTime);
+                $("#nOfClassesInOrig").html(response.metrics.nOfClassesInOrig);
+                $("#nOfObjectPropertiesInOrig").html(response.metrics.nOfObjectPropertiesInOrig);
+                $("#nOfDataPropertiesInOrig").html(response.metrics.nOfDataPropertiesInOrig);
+                $("#nOfClassesInNormalised").html(response.metrics.nOfClassesInNormalised);
+                $("#nOfObjectPropertiesInNormalised").html(response.metrics.nOfObjectPropertiesInNormalised);
+                $("#nOfDataPropertiesInNormalised").html(response.metrics.nOfDataPropertiesInNormalised);
+                $("#nOfAx1A").html(response.metrics.nOfAx1A);
+                $("#nOfAx1B").html(response.metrics.nOfAx1B);
+                $("#nOfAx1C").html(response.metrics.nOfAx1C);
+                $("#nOfAx1D").html(response.metrics.nOfAx1D);
+                $("#nOfAx2A").html(response.metrics.nOfAx2A);
+                $("#nOfAx2B").html(response.metrics.nOfAx2B);
+                $("#nOfAx2C").html(response.metrics.nOfAx2C);
+                $("#nOfAx2D").html(response.metrics.nOfAx2D);
+                $("#nOfAx3").html(response.metrics.nOfAx3);
+                $("#nOfAx4").html(response.metrics.nOfAx4);
             } catch (e) {
                 //$("#jsonOutput").val(JSON.stringify(response, undefined, 4));
                 jsonOutput = JSON.stringify(response, undefined, 4);

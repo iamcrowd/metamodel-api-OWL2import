@@ -66,6 +66,22 @@ public class Importer {
     long nOfFresh;
     long nOfImport;
     double importingTime;
+    long nOfClassesInOrig;
+    long nOfObjectPropertiesInOrig;
+    long nOfDataPropertiesInOrig;
+    long nOfClassesInNormalised;
+    long nOfObjectPropertiesInNormalised;
+    long nOfDataPropertiesInNormalised;
+    long nOfAx1A;
+    long nOfAx1B;
+    long nOfAx1C;
+    long nOfAx1D;
+    long nOfAx2A;
+    long nOfAx2B;
+    long nOfAx2C;
+    long nOfAx2D;
+    long nOfAx3;
+    long nOfAx4;
 
     /**
      *
@@ -319,6 +335,22 @@ public class Importer {
         metrics.put("nOfFresh", this.nOfFresh);
         metrics.put("nOfImport", this.nOfImport);
         metrics.put("importingTime", this.importingTime);
+        metrics.put("nOfClassesInOrig", this.nOfClassesInOrig);
+        metrics.put("nOfObjectPropertiesInOrig", this.nOfObjectPropertiesInOrig);
+        metrics.put("nOfDataPropertiesInOrig", this.nOfDataPropertiesInOrig);
+        metrics.put("nOfClassesInNormalised", this.nOfClassesInNormalised);
+        metrics.put("nOfObjectPropertiesInNormalised", this.nOfObjectPropertiesInNormalised);
+        metrics.put("nOfDataPropertiesInNormalised", this.nOfDataPropertiesInNormalised);
+        metrics.put("nOfAx1A", this.nOfAx1A);
+        metrics.put("nOfAx1B", this.nOfAx1B);
+        metrics.put("nOfAx1C", this.nOfAx1C);
+        metrics.put("nOfAx1D", this.nOfAx1D);
+        metrics.put("nOfAx2A", this.nOfAx2A);
+        metrics.put("nOfAx2B", this.nOfAx2B);
+        metrics.put("nOfAx2C", this.nOfAx2C);
+        metrics.put("nOfAx2D", this.nOfAx2D);
+        metrics.put("nOfAx3", this.nOfAx3);
+        metrics.put("nOfAx4", this.nOfAx4);
 
         JSONObject values = new JSONObject();
         values.put("metrics", metrics);
@@ -345,6 +377,16 @@ public class Importer {
 
         this.naive = tools.getNaive();
         this.unsupported = tools.getUnsupportedAxioms();
+        this.nOfAx1A = tools.getnOfAx1A();
+        this.nOfAx1B = tools.getnOfAx1B();
+        this.nOfAx1C = tools.getnOfAx1C();
+        this.nOfAx1D = tools.getnOfAx1D();
+        this.nOfAx2A = tools.getnOfAx2A();
+        this.nOfAx2B = tools.getnOfAx2B();
+        this.nOfAx2C = tools.getnOfAx2C();
+        this.nOfAx2D = tools.getnOfAx2D();
+        this.nOfAx3 = tools.getnOfAx3();
+        this.nOfAx4 = tools.getnOfAx4();
     }
 
     /**
@@ -438,6 +480,10 @@ public class Importer {
         this.numberOfNonNormAx();
         this.numberOfFresh();
         this.numberOfImport();
+        this.numberOfClassesInOrig();
+        this.numberOfPropertiesInOrig();
+        this.numberOfClassesInNormalised();
+        this.numberOfPropertiesInNormalised();
     }
 
     /**
@@ -534,5 +580,65 @@ public class Importer {
                 this.nOfImport++;
             }
         });
+    }
+
+    /**
+     * Metric calculations
+     *
+     * Number of classes in original ontology.
+     *
+     * @return number of classes in original ontology.
+     */
+    public void numberOfClassesInOrig() {
+        ArrayList<OWLClass> classes = new ArrayList<OWLClass>();
+        this.onto.classesInSignature(Imports.EXCLUDED).forEach(classes::add);
+        this.nOfClassesInOrig = classes.size();
+    }
+
+    /**
+     * Metric calculations
+     *
+     * Number of properties in original ontology.
+     *
+     * @return number of properties in original ontology.
+     */
+    public void numberOfPropertiesInOrig() {
+        ArrayList<OWLObjectProperty> objectProperties = new ArrayList<OWLObjectProperty>();
+        this.onto.objectPropertiesInSignature(Imports.EXCLUDED).forEach(objectProperties::add);
+        this.nOfObjectPropertiesInOrig = objectProperties.size();
+
+        ArrayList<OWLDataProperty> dataProperties = new ArrayList<OWLDataProperty>();
+        this.onto.dataPropertiesInSignature(Imports.EXCLUDED).forEach(dataProperties::add);
+        this.nOfDataPropertiesInOrig = dataProperties.size();
+    }
+
+    /**
+     * Metric calculations
+     *
+     * Number of classes in normalised ontology.
+     *
+     * @return number of classes in normalised ontology.
+     */
+    public void numberOfClassesInNormalised() {
+        ArrayList<OWLClass> classes = new ArrayList<OWLClass>();
+        this.naive.classesInSignature(Imports.EXCLUDED).forEach(classes::add);
+        this.nOfClassesInNormalised = classes.size();
+    }
+
+    /**
+     * Metric calculations
+     *
+     * Number of properties in normalised ontology.
+     *
+     * @return number of properties in normalised ontology.
+     */
+    public void numberOfPropertiesInNormalised() {
+        ArrayList<OWLObjectProperty> objectProperties = new ArrayList<OWLObjectProperty>();
+        this.naive.objectPropertiesInSignature(Imports.EXCLUDED).forEach(objectProperties::add);
+        this.nOfObjectPropertiesInNormalised = objectProperties.size();
+
+        ArrayList<OWLDataProperty> dataProperties = new ArrayList<OWLDataProperty>();
+        this.naive.dataPropertiesInSignature(Imports.EXCLUDED).forEach(dataProperties::add);
+        this.nOfDataPropertiesInNormalised = dataProperties.size();
     }
 }
