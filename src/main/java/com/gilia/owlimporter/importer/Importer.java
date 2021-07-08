@@ -96,25 +96,11 @@ public class Importer {
             this.kfimported = new Metamodel();
             this.man = OWLManager.createOWLOntologyManager();
             this.onto = man.loadOntologyFromOntologyDocument(file);
-
-            if (precompute) {
-                ReasonerFactory factory = new ReasonerFactory();
-                OWLReasoner reasoner = factory.createReasoner(this.onto);
-                reasoner.precomputeInferences(
-                        InferenceType.CLASS_HIERARCHY,
-                        InferenceType.CLASS_ASSERTIONS,
-                        InferenceType.DISJOINT_CLASSES,
-                        InferenceType.OBJECT_PROPERTY_HIERARCHY,
-                        InferenceType.OBJECT_PROPERTY_ASSERTIONS,
-                        InferenceType.DATA_PROPERTY_ASSERTIONS,
-                        InferenceType.DATA_PROPERTY_HIERARCHY
-                );
-                this.onto = reasoner.getRootOntology();
-            }
-
             this.metabuilder = new MetaConverter();
+
+            this.precomputeOntology(precompute);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -135,25 +121,11 @@ public class Importer {
             this.kfimported = new Metamodel();
             this.man = OWLManager.createOWLOntologyManager();
             this.onto = man.loadOntologyFromOntologyDocument(file);
-
-            if (precompute) {
-                ReasonerFactory factory = new ReasonerFactory();
-                OWLReasoner reasoner = factory.createReasoner(this.onto);
-                reasoner.precomputeInferences(
-                        InferenceType.CLASS_HIERARCHY,
-                        InferenceType.CLASS_ASSERTIONS,
-                        InferenceType.DISJOINT_CLASSES,
-                        InferenceType.OBJECT_PROPERTY_HIERARCHY,
-                        InferenceType.OBJECT_PROPERTY_ASSERTIONS,
-                        InferenceType.DATA_PROPERTY_ASSERTIONS,
-                        InferenceType.DATA_PROPERTY_HIERARCHY
-                );
-                this.onto = reasoner.getRootOntology();
-            }
-
             this.metabuilder = new MetaConverter();
+
+            this.precomputeOntology(precompute);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -169,25 +141,28 @@ public class Importer {
             this.kfimported = new Metamodel();
             this.man = OWLManager.createOWLOntologyManager();
             this.onto = man.loadOntologyFromOntologyDocument(iri);
-
-            if (precompute) {
-                ReasonerFactory factory = new ReasonerFactory();
-                OWLReasoner reasoner = factory.createReasoner(this.onto);
-                reasoner.precomputeInferences(
-                        InferenceType.CLASS_HIERARCHY,
-                        InferenceType.CLASS_ASSERTIONS,
-                        InferenceType.DISJOINT_CLASSES,
-                        InferenceType.OBJECT_PROPERTY_HIERARCHY,
-                        InferenceType.OBJECT_PROPERTY_ASSERTIONS,
-                        InferenceType.DATA_PROPERTY_ASSERTIONS,
-                        InferenceType.DATA_PROPERTY_HIERARCHY
-                );
-                this.onto = reasoner.getRootOntology();
-            }
-
             this.metabuilder = new MetaConverter();
+
+            this.precomputeOntology(precompute);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
+        }
+    }
+
+    private void precomputeOntology(Boolean precompute) {
+        if (precompute) {
+            ReasonerFactory factory = new ReasonerFactory();
+            OWLReasoner reasoner = factory.createReasoner(this.onto);
+            reasoner.precomputeInferences(
+                    InferenceType.CLASS_HIERARCHY,
+                    InferenceType.CLASS_ASSERTIONS,
+                    InferenceType.DISJOINT_CLASSES,
+                    InferenceType.OBJECT_PROPERTY_HIERARCHY,
+                    InferenceType.OBJECT_PROPERTY_ASSERTIONS,
+                    InferenceType.DATA_PROPERTY_ASSERTIONS,
+                    InferenceType.DATA_PROPERTY_HIERARCHY
+            );
+            this.onto = reasoner.getRootOntology();
         }
     }
 
@@ -228,22 +203,22 @@ public class Importer {
                             copy.addAxioms(NormalizationTools.asSubClassOfAxioms(ax));
                         }
                     } catch (Exception f) {
-                        System.out.println("Unsupported axioms:" + ax.toString());
+                        //System.out.println("Unsupported axioms:" + ax.toString());
                     }
                 }
         );
 
-        System.out.println("\nNaive Normalized TBox");
+        //System.out.println("\nNaive Normalized TBox");
         //OWLOntology naive = null;
         OWLOntology naive = Utils.newEmptyOntology();
         naive = Normalization.normalizeNaive(copy);
 
-        System.out.println(
-                "\n ************List Unsupported ClassExpressions and Axioms in Normalization App\n"
-        );
+        //System.out.println(
+        //        "\n ************List Unsupported ClassExpressions and Axioms in Normalization App\n"
+        //);
         // After normalize, copy again the unsupported axioms
 
-        unsupported.axioms().forEach(System.out::println);
+        //unsupported.axioms().forEach(System.out::println);
 
         naive.addAxioms(unsupported.axioms());
 
@@ -259,9 +234,9 @@ public class Importer {
         OWLReasoner reasonerBis = Utils.getHermitReasoner(copy);
         assert (naive.axioms().allMatch(ax -> reasonerBis.isEntailed(ax)));
 
-        naive
-                .tboxAxioms(Imports.EXCLUDED)
-                .forEach(ax -> System.out.println(Utils.pretty("-- " + ax.toString())));
+        //naive
+        //        .tboxAxioms(Imports.EXCLUDED)
+        //        .forEach(ax -> System.out.println(Utils.pretty("-- " + ax.toString())));
 
         return naive;
     }

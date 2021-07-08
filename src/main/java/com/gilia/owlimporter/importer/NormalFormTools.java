@@ -69,6 +69,7 @@ import static com.gilia.utils.Constants.TYPE2_DATA_EXACT_CARD_AXIOM;
 
 import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
 import static com.gilia.utils.Constants.URI_NORMAL_CONCEPT;
+import java.util.EmptyStackException;
 
 /**
  * This class identifies each normal form in ontology normalised being imported
@@ -95,7 +96,10 @@ public class NormalFormTools {
     private long nOfAx2D;
     private long nOfAx3;
     private long nOfAx4;
-    
+    private long nOfAx2DT;
+    private long nOfAx3DT;
+    private long nOfAx4DT;
+
     /**
      *  * A TBox axiom in normal form can be of one of four types:
      *
@@ -158,7 +162,7 @@ public class NormalFormTools {
     public long getnOfAx4() {
         return nOfAx4;
     }
-    
+
     /**
      * This function prepares input ontology to be normalised and classifies
      * axioms that could not be normalised
@@ -175,7 +179,7 @@ public class NormalFormTools {
             try {
                 this.copy.addAxioms(NormalizationTools.asSubClassOfAxioms(ax));
             } catch (Exception f) {
-                System.out.println("Unsupported axioms:" + ax.toString());
+                //System.out.println("Unsupported axioms:" + ax.toString());
                 this.unsupported.addAxiom(ax);
             }
 
@@ -238,12 +242,12 @@ public class NormalFormTools {
                                             }
                                         }
                                     } else {
-                                        System.out.println("Do nothing:" + ax.toString());
+                                        //System.out.println("Do nothing:" + ax.toString());
                                     }
                                 });
                         this.naive.addAxioms(ax_n);
                     } catch (Exception fex) {
-                        System.out.println("Unsupported axioms:" + ax.toString());
+                        //System.out.println("Unsupported axioms:" + ax.toString());
                         this.unsupported.addAxiom(ax);
                     }
                 });
@@ -290,12 +294,12 @@ public class NormalFormTools {
                                             }
                                         }
                                     } else {
-                                        System.out.println("Do nothing:" + ax.toString());
+                                        //System.out.println("Do nothing:" + ax.toString());
                                     }
                                 });
                         this.naive.addAxioms(ax_n);
                     } catch (Exception fex) {
-                        System.out.println("Unsupported axioms:" + ax.toString());
+                        //System.out.println("Unsupported axioms:" + ax.toString());
                         this.unsupported.addAxiom(ax);
                     }
                 });
@@ -342,12 +346,12 @@ public class NormalFormTools {
                                             }
                                         }
                                     } else {
-                                        System.out.println("Do nothing:" + ax.toString());
+                                        //System.out.println("Do nothing:" + ax.toString());
                                     }
                                 });
                         this.naive.addAxioms(ax_n);
                     } catch (Exception fex) {
-                        System.out.println("Unsupported axioms:" + ax.toString());
+                        //System.out.println("Unsupported axioms:" + ax.toString());
                         this.unsupported.addAxiom(ax);
                     }
                 });
@@ -394,12 +398,12 @@ public class NormalFormTools {
                                             }
                                         }
                                     } else {
-                                        System.out.println("Do nothing:" + ax.toString());
+                                        //System.out.println("Do nothing:" + ax.toString());
                                     }
                                 });
                         this.naive.addAxioms(ax_n);
                     } catch (Exception fex) {
-                        System.out.println("Unsupported axioms:" + ax.toString());
+                        //System.out.println("Unsupported axioms:" + ax.toString());
                         this.unsupported.addAxiom(ax);
                     }
                 });
@@ -451,25 +455,25 @@ public class NormalFormTools {
                                             Ax2 ax2asKF = new Ax2();
                                             ax2asKF.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);
                                         } else if (NormalForm.typeTwoDataSubClassAxiom(left, right)) { //Data
-                                            System.out.println("typeTwoDataSubClassAxiom");
+                                            //System.out.println("typeTwoDataSubClassAxiom");
                                             //this.type2asKF(kf, left, right, TYPE2_DATA_SUBCLASS_AXIOM);	
                                         } else if (NormalForm.typeTwoDataMinCardAxiom(left, right)) {
-                                            System.out.println("typeTwoDataMinCardAxiom");
+                                            //System.out.println("typeTwoDataMinCardAxiom");
                                             //this.type2asKF(kf, left, right, TYPE2_DATA_MIN_CARD_AXIOM);	
                                         } else if (NormalForm.typeTwoDataMaxCardAxiom(left, right)) {
-                                            System.out.println("typeTwoDataMaxCardAxiom");
+                                            //System.out.println("typeTwoDataMaxCardAxiom");
                                             //this.type2asKF(kf, left, right, TYPE2_DATA_MAX_CARD_AXIOM);	
                                         } else if (NormalForm.typeTwoDataExactCardAxiom(left, right)) {
-                                            System.out.println("typeTwoDataExactCardAxiom");
+                                            //System.out.println("typeTwoDataExactCardAxiom");
                                             //this.type2asKF(kf, left, right, TYPE2_DATA_EXACT_CARD_AXIOM);	
                                         }
                                     } else {
-                                        System.out.println("Do nothing:" + ax.toString());
+                                        //System.out.println("Do nothing:" + ax.toString());
                                     }
                                 });
                         this.naive.addAxioms(ax_n);
                     } catch (Exception fex) {
-                        System.out.println("Unsupported axioms:" + ax.toString());
+                        //System.out.println("Unsupported axioms:" + ax.toString());
                         this.unsupported.addAxiom(ax);
                     }
                 });
@@ -512,12 +516,12 @@ public class NormalFormTools {
                                             ax3asKF.type3asKF(kf, left, right);
                                         }
                                     } else {
-                                        System.out.println("Do nothing:" + ax.toString());
+                                        //System.out.println("Do nothing:" + ax.toString());
                                     }
                                 });
                         this.naive.addAxioms(ax_n);
                     } catch (Exception fex) {
-                        System.out.println("Unsupported axioms:" + ax.toString());
+                        //System.out.println("Unsupported axioms:" + ax.toString());
                         this.unsupported.addAxiom(ax);
                     }
                 });
@@ -561,12 +565,12 @@ public class NormalFormTools {
                                             ax4asKF.type4asKF(kf, left, right);
                                         }
                                     } else {
-                                        System.out.println("Do nothing:" + ax.toString());
+                                        //System.out.println("Do nothing:" + ax.toString());
                                     }
                                 });
                         this.naive.addAxioms(ax_n);
                     } catch (Exception fex) {
-                        System.out.println("Unsupported axioms:" + ax.toString());
+                        //System.out.println("Unsupported axioms:" + ax.toString());
                         this.unsupported.addAxiom(ax);
                     }
                 });
@@ -593,6 +597,13 @@ public class NormalFormTools {
         this.naive.addAxioms(ontology.rboxAxioms(Imports.EXCLUDED));
         this.naive.addAxioms(ontology.aboxAxioms(Imports.EXCLUDED));
 
+        OWLDataFactory df = OWLManager.getOWLDataFactory();
+
+        ontology.signature(Imports.EXCLUDED).forEach((entity) -> {
+            OWLAxiom entityAxiom = df.getOWLDeclarationAxiom(entity);
+            this.naive.addAxiom(entityAxiom);
+        });
+
         Set<OWLAxiom> tBoxAxiomsCopy = this.copy.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
 
         tBoxAxiomsCopy.forEach(
@@ -612,7 +623,6 @@ public class NormalFormTools {
                                         // Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
                                         // A \sqsubseteq B or A \sqcap B \sqsubseteq C or 
                                         if (NormalForm.typeOneSubClassAxiom(left, right)) {
-
                                             // atom atom
                                             if (NormalForm.isAtom(left) && NormalForm.isAtom(right)) {
                                                 Ax1A ax1AasKF = new Ax1A();
@@ -633,10 +643,10 @@ public class NormalFormTools {
                                                 Ax1D ax1DasKF = new Ax1D();
                                                 ax1DasKF.type1DasKF(kf, left, right);
                                                 this.nOfAx1D++;
+                                            } else {
+                                                throw new EmptyStackException();
                                             }
-                                        }
-
-                                        if (NormalForm.typeTwoSubClassAxiom(left, right)) {	//Object		 								
+                                        } else if (NormalForm.typeTwoSubClassAxiom(left, right)) {	//Object		 								
                                             Ax2 ax2asKF = new Ax2();
                                             ax2asKF.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);
                                             this.nOfAx2A++;
@@ -653,33 +663,38 @@ public class NormalFormTools {
                                             ax2asKF.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);
                                             this.nOfAx2D++;
                                         } else if (NormalForm.typeTwoDataSubClassAxiom(left, right)) { //Data
-                                            //this.type2asKF(kf, left, right, TYPE2_DATA_SUBCLASS_AXIOM);	
+                                            //this.type2asKF(kf, left, right, TYPE2_DATA_SUBCLASS_AXIOM);}
+                                            throw new EmptyStackException();
                                         } else if (NormalForm.typeTwoDataMinCardAxiom(left, right)) {
                                             //this.type2asKF(kf, left, right, TYPE2_DATA_MIN_CARD_AXIOM);	
+                                            throw new EmptyStackException();
                                         } else if (NormalForm.typeTwoDataMaxCardAxiom(left, right)) {
                                             //this.type2asKF(kf, left, right, TYPE2_DATA_MAX_CARD_AXIOM);	
+                                            throw new EmptyStackException();
                                         } else if (NormalForm.typeTwoDataExactCardAxiom(left, right)) {
-                                            //this.type2asKF(kf, left, right, TYPE2_DATA_EXACT_CARD_AXIOM);	
-                                        }
-
-                                        if (NormalForm.typeThreeSubClassAxiom(left, right)) {
+                                            //this.type2asKF(kf, left, right, TYPE2_DATA_EXACT_CARD_AXIOM);
+                                            throw new EmptyStackException();
+                                        } else if (NormalForm.typeThreeSubClassAxiom(left, right)) {
                                             Ax3 ax3asKF = new Ax3();
                                             ax3asKF.type3asKF(kf, left, right);
                                             this.nOfAx3++;
-                                        }
-                                        if (NormalForm.typeFourSubClassAxiom(left, right)) {
+                                        } else if (NormalForm.typeFourSubClassAxiom(left, right)) {
                                             Ax4 ax4asKF = new Ax4();
                                             ax4asKF.type4asKF(kf, left, right);
                                             this.nOfAx4++;
+                                        } else {
+                                            throw new EmptyStackException();
                                         }
+
                                     } else {
-                                        System.out.println("Do nothing:" + ax_sub.toString());
+                                        //System.out.println("Do nothing:" + ax_sub.toString());
+                                        throw new EmptyStackException();
                                     }
                                 });
 
                         this.naive.addAxioms(ax_n);
                     } catch (Exception fex) {
-                        System.out.println("Unsupported axioms:" + ax.toString());
+                        //System.out.println("Unsupported axioms:" + ax.toString());
                         this.unsupported.addAxiom(ax);
                     }
                 });

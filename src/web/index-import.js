@@ -6,7 +6,7 @@ $(document).ready(function () {
         event.preventDefault();
         copyToClipboardByValue(jsonOutput);
     });
-    
+
     $('#copyUnsupported').click(function (event) {
         event.preventDefault();
         copyToClipboardByValue(jsonUnsupported);
@@ -14,10 +14,15 @@ $(document).ready(function () {
 
     $('#send').click(function () {
         url = "http://localhost:3333/owlnormalisedtometa";
-        file = $("#ontoFile")[0].files[0] ? $("#ontoFile")[0].files[0] : null;
         var formData = new FormData();
         formData.append('onto', $('#jsonInput')[0].value.toString());
-        formData.append('ontoFile', file);
+        files = $("#ontoFile")[0].files;
+        console.log(files);
+        if (files.length) {
+            for (var i = 0; i < files.length; i++) {
+                formData.append('ontoFile', files[i]);
+            }
+        }
         formData.append('entity', $('#jsonInput2')[0].value.toString());
         formData.append('reasoning', $('#reasoning').is(":checked"));
 
@@ -69,40 +74,80 @@ $(document).ready(function () {
         }).done(function (response) {
             console.log(response);
             try {
-                //$("#jsonOutput").val(JSON.stringify(response.kf, undefined, 4));
-                jsonOutput = JSON.stringify(response.kf, undefined, 4);
-                $("#jsonOutput").jsonViewer(response.kf);
-                jsonUnsupported = JSON.stringify(response.unsupported, undefined, 4);
-                $("#jsonUnsupported").jsonViewer(response.unsupported);
+                if (response.kf && response.unsupported && response.metrics) {
+                    //$("#jsonOutput").val(JSON.stringify(response.kf, undefined, 4));
+                    //jsonOutput = JSON.stringify(response.kf, undefined, 4);
+                    //jsonUnsupported = JSON.stringify(response.unsupported, undefined, 4);
 
-                $("#metrics").show();
-                $("#nOfLogAxioms").html(response.metrics.nOfLogAxioms);
-                $("#nOfEntities").html(response.metrics.nOfEntities);
-                $("#nOfNormAxioms").html(response.metrics.nOfNormAxioms);
-                $("#nOfNormEntities").html(response.metrics.nOfNormEntities);
-                $("#nOfLogUnsupportedAxioms").html(response.metrics.nOfLogUnsupportedAxioms);
-                $("#nOfFresh").html(response.metrics.nOfFresh);
-                $("#nOfImport").html(response.metrics.nOfImport);
-                $("#importingTime").html(response.metrics.importingTime);
-                $("#nOfClassesInOrig").html(response.metrics.nOfClassesInOrig);
-                $("#nOfObjectPropertiesInOrig").html(response.metrics.nOfObjectPropertiesInOrig);
-                $("#nOfDataPropertiesInOrig").html(response.metrics.nOfDataPropertiesInOrig);
-                $("#nOfClassesInNormalised").html(response.metrics.nOfClassesInNormalised);
-                $("#nOfObjectPropertiesInNormalised").html(response.metrics.nOfObjectPropertiesInNormalised);
-                $("#nOfDataPropertiesInNormalised").html(response.metrics.nOfDataPropertiesInNormalised);
-                $("#nOfAx1A").html(response.metrics.nOfAx1A);
-                $("#nOfAx1B").html(response.metrics.nOfAx1B);
-                $("#nOfAx1C").html(response.metrics.nOfAx1C);
-                $("#nOfAx1D").html(response.metrics.nOfAx1D);
-                $("#nOfAx2A").html(response.metrics.nOfAx2A);
-                $("#nOfAx2B").html(response.metrics.nOfAx2B);
-                $("#nOfAx2C").html(response.metrics.nOfAx2C);
-                $("#nOfAx2D").html(response.metrics.nOfAx2D);
-                $("#nOfAx3").html(response.metrics.nOfAx3);
-                $("#nOfAx4").html(response.metrics.nOfAx4);
+                    $("#jsonOutput").jsonViewer(response.kf);
+                    showResponse(response);
+                } else if (response.success) {
+                    $("#jsonOutput").jsonViewer(response, {collapsed: true});
+
+                    var avgResponse = {
+                        unsupported: {},
+                        metrics: {
+                            nOfLogAxioms: {},
+                            nOfEntities: {},
+                            nOfNormAxioms: {},
+                            nOfNormEntities: {},
+                            nOfLogUnsupportedAxioms: {},
+                            nOfFresh: {},
+                            nOfImport: {},
+                            importingTime: {},
+                            nOfClassesInOrig: {},
+                            nOfObjectPropertiesInOrig: {},
+                            nOfDataPropertiesInOrig: {},
+                            nOfClassesInNormalised: {},
+                            nOfObjectPropertiesInNormalised: {},
+                            nOfDataPropertiesInNormalised: {},
+                            nOfAx1A: {},
+                            nOfAx1B: {},
+                            nOfAx1C: {},
+                            nOfAx1D: {},
+                            nOfAx2A: {},
+                            nOfAx2B: {},
+                            nOfAx2C: {},
+                            nOfAx2D: {},
+                            nOfAx3: {},
+                            nOfAx4: {}
+                        }
+                    }
+
+                    Object.entries(avgResponse.metrics).forEach(([key, value]) => {
+                        avgResponse.metrics[key].avg = 0;
+                        avgResponse.metrics[key].total = 0;
+                        avgResponse.metrics[key].max = Math.max();
+                        avgResponse.metrics[key].min = Math.min();
+                    });
+
+                    Object.entries(response.success).forEach(([respKey, resp]) => {
+                        Object.entries(resp.unsupported).forEach(([unsKey, uns]) => {
+                            avgResponse.unsupported["axiom" + Object.keys(avgResponse.unsupported).length] = uns;
+                        });
+                        Object.entries(resp.metrics).forEach(([metricKey, metric]) => {
+                            avgResponse.metrics[metricKey].total = avgResponse.metrics[metricKey].total + metric;
+                            avgResponse.metrics[metricKey].max = (avgResponse.metrics[metricKey].max > metric) ? avgResponse.metrics[metricKey].max : metric;
+                            avgResponse.metrics[metricKey].min = (avgResponse.metrics[metricKey].min < metric) ? avgResponse.metrics[metricKey].min : metric;
+                        });
+                    });
+
+                    Object.entries(avgResponse.metrics).forEach(([metricKey, metric]) => {
+                        avgResponse.metrics[metricKey].avg = avgResponse.metrics[metricKey].total / Object.entries(response.success).length;
+                    });
+
+                    Object.entries(avgResponse.metrics).forEach(([key, value]) => {
+                        avgResponse.metrics[key] = "total: " + avgResponse.metrics[key].total + ", avg: " + avgResponse.metrics[key].avg.toFixed(3) + ", min: " + avgResponse.metrics[key].min + ", max: " + avgResponse.metrics[key].max;
+                    });
+
+                    showResponse(avgResponse);
+                } else {
+                    throw Exception;
+                }
             } catch (e) {
+                console.log(e)
                 //$("#jsonOutput").val(JSON.stringify(response, undefined, 4));
-                jsonOutput = JSON.stringify(response, undefined, 4);
+                //jsonOutput = JSON.stringify(response, undefined, 4);
                 $("#jsonOutput").jsonViewer(response);
                 $("#metrics").hide();
             }
@@ -131,4 +176,35 @@ function copyToClipboardByValue(value) {
     $temp.val(value).select();
     document.execCommand("copy");
     $temp.remove();
+}
+
+function showResponse(response) {
+    $("#metrics").show();
+
+    $("#jsonUnsupported").jsonViewer(response.unsupported);
+
+    $("#nOfLogAxioms").html(response.metrics.nOfLogAxioms);
+    $("#nOfEntities").html(response.metrics.nOfEntities);
+    $("#nOfNormAxioms").html(response.metrics.nOfNormAxioms);
+    $("#nOfNormEntities").html(response.metrics.nOfNormEntities);
+    $("#nOfLogUnsupportedAxioms").html(response.metrics.nOfLogUnsupportedAxioms);
+    $("#nOfFresh").html(response.metrics.nOfFresh);
+    $("#nOfImport").html(response.metrics.nOfImport);
+    $("#importingTime").html(response.metrics.importingTime);
+    $("#nOfClassesInOrig").html(response.metrics.nOfClassesInOrig);
+    $("#nOfObjectPropertiesInOrig").html(response.metrics.nOfObjectPropertiesInOrig);
+    $("#nOfDataPropertiesInOrig").html(response.metrics.nOfDataPropertiesInOrig);
+    $("#nOfClassesInNormalised").html(response.metrics.nOfClassesInNormalised);
+    $("#nOfObjectPropertiesInNormalised").html(response.metrics.nOfObjectPropertiesInNormalised);
+    $("#nOfDataPropertiesInNormalised").html(response.metrics.nOfDataPropertiesInNormalised);
+    $("#nOfAx1A").html(response.metrics.nOfAx1A);
+    $("#nOfAx1B").html(response.metrics.nOfAx1B);
+    $("#nOfAx1C").html(response.metrics.nOfAx1C);
+    $("#nOfAx1D").html(response.metrics.nOfAx1D);
+    $("#nOfAx2A").html(response.metrics.nOfAx2A);
+    $("#nOfAx2B").html(response.metrics.nOfAx2B);
+    $("#nOfAx2C").html(response.metrics.nOfAx2C);
+    $("#nOfAx2D").html(response.metrics.nOfAx2D);
+    $("#nOfAx3").html(response.metrics.nOfAx3);
+    $("#nOfAx4").html(response.metrics.nOfAx4);
 }

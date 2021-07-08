@@ -58,7 +58,7 @@
                                     </div>
                                     <div>
                                         <label for="ontoFile">Ontology File (use an specific .owl file)</label>
-                                        <input type="file" id="ontoFile" name="ontoFile">
+                                        <input type="file" id="ontoFile" name="ontoFile" multiple>
                                     </div>
                                     <div>
                                         <label for="jsonInput2">IRI Entity</label>
@@ -66,7 +66,7 @@
                                     </div>
                                     </br>
                                     <div>
-                                        <input type="checkbox" name="precompute" id="reasoning" checked>
+                                        <input type="checkbox" name="precompute" id="reasoning">
                                         <label for="precompute">Precompute (Hermit)</label><br>
                                     </div>
                                 </div>
@@ -84,78 +84,78 @@
                                 <pre class="form-control" id="jsonUnsupported" style="height: 150px"></pre>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label title="number of logical axioms. it does not consider annotations, declarations, etc">nOfLogAxioms:</label>
+                                        <label title="number of logical axioms. it does not consider annotations, declarations, etc"><b>nOfLogAxioms:</b></label>
                                         <label id="nOfLogAxioms">-</label>
                                         </br>
-                                        <label title="number of entities in the signature of the ontology">nOfEntities:</label>
-                                        <label id="nOfEntities">-</label>
-                                        </br>
-                                        <label title="number of normalised axioms. such axioms are SUBCLASS_OF">nOfNormAxioms:</label>
+                                        <label title="number of normalised axioms. such axioms are SUBCLASS_OF"><b>nOfNormAxioms:</b></label>
                                         <label id="nOfNormAxioms">-</label>
                                         </br>
-                                        <label title="number of entities in the signature of the normalised ontology">nOfNormEntities:</label>
-                                        <label id="nOfNormEntities">-</label>
-                                        </br>
-                                        <label title="number of logical axioms which could not be normalised. it does not consider annotations, declarations, etc">nOfLogUnsupportedAxioms:</label>
+                                        <label title="number of logical axioms which could not be normalised. it does not consider annotations, declarations, etc"><b>nOfLogUnsupportedAxioms:</b></label>
                                         <label id="nOfLogUnsupportedAxioms">-</label>
                                         </br>
-                                        <label title="number of fresh concepts">nOfFresh:</label>
+                                        <label title="number of fresh concepts"><b>nOfFresh:</b></label>
                                         <label id="nOfFresh">-</label>
                                         </br>
-                                        <label title="number of import concepts">nOfImport:</label>
+                                        <label title="number of import concepts"><b>nOfImport:</b></label>
                                         <label id="nOfImport">-</label>
                                         </br>
-                                        <label title="time taken for ontology loading, normalisation and “modelling”">importingTime:</label>
-                                        <label id="importingTime">-</label>
+                                        <label title="number of entities in the signature of the ontology"><b>nOfEntities:</b></label>
+                                        <label id="nOfEntities">-</label>
                                         </br>
-                                        <label title="">nOfClassesInOrig:</label>
+                                        <label title=""><b>nOfClassesInOrig:</b></label>
                                         <label id="nOfClassesInOrig">-</label>
                                         </br>
-                                        <label title="">nOfObjectPropertiesInOrig:</label>
+                                        <label title=""><b>nOfObjectPropertiesInOrig:</b></label>
                                         <label id="nOfObjectPropertiesInOrig">-</label>
                                         </br>
-                                        <label title="">nOfDataPropertiesInOrig:</label>
+                                        <label title=""><b>nOfDataPropertiesInOrig:</b></label>
                                         <label id="nOfDataPropertiesInOrig">-</label>
                                         </br>
-                                        <label title="">nOfClassesInNormalised:</label>
+                                        <label title="number of entities in the signature of the normalised ontology"><b>nOfNormEntities:</b></label>
+                                        <label id="nOfNormEntities">-</label>
+                                        </br>
+                                        <label title=""><b>nOfClassesInNormalised:</b></label>
                                         <label id="nOfClassesInNormalised">-</label>
                                         </br>
-                                        <label title="">nOfObjectPropertiesInNormalised:</label>
+                                        <label title=""><b>nOfObjectPropertiesInNormalised:</b></label>
                                         <label id="nOfObjectPropertiesInNormalised">-</label>
                                         </br>
-                                        <label title="">nOfDataPropertiesInNormalised:</label>
+                                        <label title=""><b>nOfDataPropertiesInNormalised:</b></label>
                                         <label id="nOfDataPropertiesInNormalised">-</label>
+                                        </br>
+                                        <label title="time taken for ontology loading, normalisation and “modelling”"><b>importingTime:</b></label>
+                                        <label id="importingTime">-</label>
                                         </br>
                                     </div>
                                     <div class="col-md-6">
-                                        <label title="">nOfAx1A:</label>
+                                        <label title=""><b>nOfAx1A:</b></label>
                                         <label id="nOfAx1A">-</label>
                                         </br>
-                                        <label title="">nOfAx1B:</label>
+                                        <label title=""><b>nOfAx1B:</b></label>
                                         <label id="nOfAx1B">-</label>
                                         </br>
-                                        <label title="">nOfAx1C:</label>
+                                        <label title=""><b>nOfAx1C:</b></label>
                                         <label id="nOfAx1C">-</label>
                                         </br>
-                                        <label title="">nOfAx1D:</label>
+                                        <label title=""><b>nOfAx1D:</b></label>
                                         <label id="nOfAx1D">-</label>
                                         </br>
-                                        <label title="">nOfAx2A:</label>
+                                        <label title=""><b>nOfAx2A:</b></label>
                                         <label id="nOfAx2A">-</label>
                                         </br>
-                                        <label title="">nOfAx2B:</label>
+                                        <label title=""><b>nOfAx2B:</b></label>
                                         <label id="nOfAx2B">-</label>
                                         </br>
-                                        <label title="">nOfAx2C:</label>
+                                        <label title=""><b>nOfAx2C:</b></label>
                                         <label id="nOfAx2C">-</label>
                                         </br>
-                                        <label title="">nOfAx2D:</label>
+                                        <label title=""><b>nOfAx2D:</b></label>
                                         <label id="nOfAx2D">-</label>
                                         </br>
-                                        <label title="">nOfAx3:</label>
+                                        <label title=""><b>nOfAx3:</b></label>
                                         <label id="nOfAx3">-</label>
                                         </br>
-                                        <label title="">nOfAx4:</label>
+                                        <label title=""><b>nOfAx4:</b></label>
                                         <label id="nOfAx4">-</label>
                                     </div>
                                 </div>
