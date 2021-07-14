@@ -76,12 +76,12 @@ $(document).ready(function () {
             try {
                 if (response.kf && response.unsupported && response.metrics) {
                     //$("#jsonOutput").val(JSON.stringify(response.kf, undefined, 4));
-                    //jsonOutput = JSON.stringify(response.kf, undefined, 4);
-                    //jsonUnsupported = JSON.stringify(response.unsupported, undefined, 4);
-
+                    jsonOutput = JSON.stringify(response.kf, undefined, 4);
                     $("#jsonOutput").jsonViewer(response.kf);
+                    
                     showResponse(response);
                 } else if (response.success) {
+                    jsonOutput = JSON.stringify(response, undefined, 4);
                     $("#jsonOutput").jsonViewer(response, {collapsed: true});
 
                     var avgResponse = {
@@ -147,8 +147,9 @@ $(document).ready(function () {
             } catch (e) {
                 console.log(e)
                 //$("#jsonOutput").val(JSON.stringify(response, undefined, 4));
-                //jsonOutput = JSON.stringify(response, undefined, 4);
+                jsonOutput = JSON.stringify(response, undefined, 4);
                 $("#jsonOutput").jsonViewer(response);
+                
                 $("#metrics").hide();
             }
         });
@@ -181,6 +182,7 @@ function copyToClipboardByValue(value) {
 function showResponse(response) {
     $("#metrics").show();
 
+    jsonUnsupported = JSON.stringify(response.unsupported, undefined, 4);
     $("#jsonUnsupported").jsonViewer(response.unsupported);
 
     $("#nOfLogAxioms").html(response.metrics.nOfLogAxioms);
