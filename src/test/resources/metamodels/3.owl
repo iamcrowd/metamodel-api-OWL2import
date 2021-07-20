@@ -10,7 +10,29 @@ Ontology(<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33>
 
 Declaration(Class(:A))
 Declaration(Class(:B))
+Declaration(Class(:objectRange))
 Declaration(ObjectProperty(:P))
+Declaration(ObjectProperty(:P2))
+Declaration(DataProperty(:D))
+Declaration(DataProperty(:D2))
+############################
+#   Object Properties
+############################
+
+# Object Property: :P2 (:P2)
+
+ObjectPropertyRange(:P2 :objectRange)
+
+
+############################
+#   Data Properties
+############################
+
+# Data Property: :D2 (:D2)
+
+DataPropertyRange(:D2 xsd:boolean)
+
+
 
 ############################
 #   Classes
@@ -19,6 +41,11 @@ Declaration(ObjectProperty(:P))
 # Class: :A (:A)
 
 SubClassOf(:A ObjectAllValuesFrom(:P :B))
+
+# Class: owl:Thing (owl:Thing)
+
+SubClassOf(owl:Thing ObjectAllValuesFrom(:P :B))
+SubClassOf(owl:Thing DataAllValuesFrom(:D xsd:string))
 
 
 )
