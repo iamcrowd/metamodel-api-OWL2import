@@ -344,8 +344,9 @@ public class Importer {
 
         NormalFormTools tools = new NormalFormTools();
         tools.asKF(this.kfimported, this.onto);
-        MetaBuilder builder = new MetaConverter();
-        builder.generateJSON(this.kfimported);
+        //MetaBuilder builder = new MetaConverter();
+        //builder.generateJSON(this.kfimported);
+        this.metabuilder.generateJSON(this.kfimported);
 
         fin = Calendar.getInstance().getTimeInMillis();
         this.importingTime = (double) ((double) fin - (double) init) / 1000.0;
@@ -363,6 +364,8 @@ public class Importer {
         this.nOfAx3 = tools.getnOfAx3();
         this.nOfAx4 = tools.getnOfAx4();
     }
+    
+    
 
     /**
      * Partial normalisation
@@ -443,6 +446,88 @@ public class Importer {
     public double getImportingTime() {
         return this.importingTime;
     }
+    
+    public long getNumberOfFresh() {
+    	return this.nOfFresh;
+    }
+    
+    public long getNumberOfImport() {
+    	return this.nOfImport;
+    }
+    
+    public long getNumberOfClassesInOrig() {
+    	return this.nOfClassesInOrig;
+    }
+    
+    public long getNumberOfClassesInNorm() {
+    	return this.nOfClassesInNormalised;
+    }
+    
+    /**
+     * Get Metrics KF
+     * 
+     */
+    
+	public long getNofEntities() {
+		return this.metabuilder.getNofEntities();
+	}
+	
+	public long getNofObjectTypes() {
+		return this.metabuilder.getNofObjectTypes();
+	}
+	
+	public long getNofAttributes() {
+		return this.metabuilder.getNofAttributes();
+	}
+	
+	public long getNofSubsumptions() {
+		return this.metabuilder.getNofSubsumptions();
+	}
+	
+	public long getNofRoles() {
+		return this.metabuilder.getNofRoles();
+	}
+	
+	public long getNofBinaryRels() {
+		return this.metabuilder.getNofBinaryRels();
+	}
+	
+	public long getNofRels() {
+		return this.metabuilder.getNofRels();
+	}
+	
+	public long getNofDataTypes() {
+		return this.metabuilder.getNofDataTypes();
+	}
+	
+	public long getNofValueTypes() {
+		return this.metabuilder.getNofValueTypes();
+	}
+	
+	public long getNofAttributeProperties() {
+		return this.metabuilder.getNofAttributeProperties();
+	}
+	
+	public long getNofMappedTo() {
+		return this.metabuilder.getNofMappedTo();
+	}
+	
+	public long getNofCardinalities() {
+		return this.metabuilder.getNofCardinalities();
+	}
+	
+	public long getNofDisjointC() {
+		return this.metabuilder.getNofDisjointC();
+	}
+	
+	public long getNofCompletenessC() {
+		return this.metabuilder.getNofCompletenessC();
+	}
+	
+	public long getNofMandatory() {
+		return this.metabuilder.getNofMandatory();
+	}
+    
 
     /**
      * Calculate metrics
@@ -522,6 +607,7 @@ public class Importer {
         Stream<OWLAxiom> tBoxAxioms = this.unsupported.tboxAxioms(Imports.EXCLUDED);
         tBoxAxioms.forEach((ax) -> {
             if (ax.isLogicalAxiom()) {
+            	//System.out.println("\tEste es el axioma no soportado: " + ax.toString());
                 this.nOfLogUnsupportedAxioms++;
             }
         });
@@ -535,7 +621,9 @@ public class Importer {
      * @return number of fresh concepts.
      */
     public void numberOfFresh() {
-        kfimported.getEntities().forEach((entity) -> {
+    	
+        this.kfimported.getEntities().forEach((entity) -> {
+        	//System.out.println("\tFresh COncept" + entity.getName());
             if (entity.getName().startsWith(URI_NORMAL_CONCEPT)) {
                 this.nOfFresh++;
             }
@@ -568,6 +656,12 @@ public class Importer {
         ArrayList<OWLClass> classes = new ArrayList<OWLClass>();
         this.onto.classesInSignature(Imports.EXCLUDED).forEach(classes::add);
         this.nOfClassesInOrig = classes.size();
+        
+        /*this.onto.classesInSignature(Imports.EXCLUDED).forEach((clase) -> {
+        	System.out.println("Clase original" + clase);
+        	}
+        );*/
+        
     }
 
     /**
@@ -598,6 +692,11 @@ public class Importer {
         ArrayList<OWLClass> classes = new ArrayList<OWLClass>();
         this.naive.classesInSignature(Imports.EXCLUDED).forEach(classes::add);
         this.nOfClassesInNormalised = classes.size();
+        
+       /* this.naive.classesInSignature(Imports.EXCLUDED).forEach((clase) -> {
+        	System.out.println("Clase normalised" + clase);
+        	}
+        );*/
     }
 
     /**

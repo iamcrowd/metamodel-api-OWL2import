@@ -610,15 +610,27 @@ public class NormalFormTools {
                 (ax) -> {
                     try {
                         Collection<OWLSubClassOfAxiom> ax_n = NormalizationTools.normalizeSubClassAxiom((OWLSubClassOfAxiom) ax);
+                        
+                        System.out.println("\tESTE ES EL AXIOMA NIORMALIZADO:" + ax_n.toString());
 
                         isEntailedNorm(ax_n, FreshAtoms.getFreshAtomsEquivalenceAxioms());
 
                         ax_n.forEach(
                                 (ax_sub) -> {
                                     if (NormalForm.isNormalFormTBoxAxiom(ax_sub)) {
+                                    	
+                                        System.out.println("\tInsertando Normal axiom in naive:" + ax_sub.toString());
+                                        this.naive.addAxioms(ax_sub);
+                                    	
+                                    	System.out.println("\tNormalAxiom:" + ax_sub.toString());
 
                                         OWLClassExpression left = ((OWLSubClassOfAxiom) ax_sub).getSubClass();
+                                        
+                                        System.out.println("\tNormalAxiom Left:" + left.toString());
+                                        
                                         OWLClassExpression right = ((OWLSubClassOfAxiom) ax_sub).getSuperClass();
+                                        
+                                        System.out.println("\tNormalAxiom Right:" + right.toString());
 
                                         // Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
                                         // A \sqsubseteq B or A \sqcap B \sqsubseteq C or 
@@ -638,6 +650,7 @@ public class NormalFormTools {
                                                 Ax1C ax1CasKF = new Ax1C();
                                                 ax1CasKF.type1CasKF(kf, left, right);
                                                 this.nOfAx1C++;
+                                                System.out.println("Es NORMAL!?");
                                                 // conj disj
                                             } else if (NormalForm.isConjunctionOfAtoms(left) && NormalForm.isDisjunctionOfAtoms(right)) {
                                                 Ax1D ax1DasKF = new Ax1D();
@@ -687,12 +700,14 @@ public class NormalFormTools {
                                         }
 
                                     } else {
-                                        //System.out.println("Do nothing:" + ax_sub.toString());
+                                        System.out.println("Do nothing:" + ax_sub.toString());
                                         throw new EmptyStackException();
                                     }
                                 });
 
-                        this.naive.addAxioms(ax_n);
+                        //System.out.println("\tInsertando Normal axiom in naive:" + ax_n.toString());
+                        //this.naive.addAxioms(ax_n);
+                        
                     } catch (Exception fex) {
                         //System.out.println("Unsupported axioms:" + ax.toString());
                         this.unsupported.addAxiom(ax);
