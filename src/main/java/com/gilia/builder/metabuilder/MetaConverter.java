@@ -21,7 +21,91 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class MetaConverter implements MetaBuilder {
-    @Override
+    
+	/**
+	 * Metrics
+	 */
+	
+	long nOfEntities;
+	long nOfObjectTypes;
+	long nOfAttributes;
+	long nOfSubsumptions;
+	long nOfRoles;
+	long nOfBinaryRels;
+	long nOfRels;
+	long nOfDataTypes;
+	long nOfValueTypes;
+	long nOfAttributeProperties;
+	long nOfMappedTo;
+	long nOfCardinalities;
+	long nOfDisjointC;
+	long nOfCompletnessC;
+	long nOfMandatory;
+	
+	
+	public long getNofEntities() {
+		return this.nOfEntities;
+	}
+	
+	public long getNofObjectTypes() {
+		return this.nOfObjectTypes;
+	}
+	
+	public long getNofAttributes() {
+		return this.nOfAttributes;
+	}
+	
+	public long getNofSubsumptions() {
+		return this.nOfSubsumptions;
+	}
+	
+	public long getNofRoles() {
+		return this.nOfRoles;
+	}
+	
+	public long getNofBinaryRels() {
+		return this.nOfBinaryRels;
+	}
+	
+	public long getNofRels() {
+		return this.nOfRels;
+	}
+	
+	public long getNofDataTypes() {
+		return this.nOfDataTypes;
+	}
+	
+	public long getNofValueTypes() {
+		return this.nOfValueTypes;
+	}
+	
+	public long getNofAttributeProperties() {
+		return this.nOfAttributeProperties;
+	}
+	
+	public long getNofMappedTo() {
+		return this.nOfMappedTo;
+	}
+	
+	public long getNofCardinalities() {
+		return this.nOfCardinalities;
+	}
+	
+	public long getNofDisjointC() {
+		return this.nOfDisjointC;
+	}
+	
+	public long getNofCompletenessC() {
+		return this.nOfCompletnessC;
+	}
+	
+	public long getNofMandatory() {
+		return this.nOfMandatory;
+	}
+	
+	
+	
+	@Override
     public JSONObject generateJSON(Metamodel metamodel) {
 
         JSONObject jsonMetamodel = new JSONObject();
@@ -46,13 +130,17 @@ public class MetaConverter implements MetaBuilder {
         jsonMetamodel.put("Entity type", entityType);
 
         for (Object entity : entities) {
+        	this.nOfEntities++;
             if (ObjectType.class.equals(entity.getClass())) {
                 objectTypes.add(((ObjectType) entity).getName());
+                this.nOfObjectTypes++;
             } else if (DataType.class.equals(entity.getClass())) {
                 dataTypes.add(((DataType) entity).getName());
+                this.nOfDataTypes++;
             } else if (ValueProperty.class.isAssignableFrom(entity.getClass())) {
                 if (ValueType.class.equals(entity.getClass())) {
                     valueTypes.add(((ValueType) entity).getName());
+                    this.nOfValueTypes++;
                 }
             }
         }
@@ -77,18 +165,24 @@ public class MetaConverter implements MetaBuilder {
         jsonMetamodel.put("Relationship", relationship);
 
         for (Object relation : relationships) {
+        	this.nOfRels++;
             if (Subsumption.class.equals(relation.getClass())) {
                 subsumptionsJSONArray.add(((Subsumption) relation).toJSONObject());
+                this.nOfSubsumptions++;
             } else if (AttributiveProperty.class.isAssignableFrom(relation.getClass())) {
                 if (AttributiveProperty.class.equals(relation.getClass())) {
                     attributePropertiesJSONArray.add(((AttributiveProperty) relation).toJSONObject());
+                    this.nOfAttributeProperties++;
                 } else if (Attribute.class.equals(relation.getClass())) {
                     attributeJSONArray.add(((Attribute) relation).toJSONObject());
+                    this.nOfAttributes++;
                 } else if (MappedTo.class.equals(relation.getClass())) {
                     mappedToJSONArray.add(((MappedTo) relation).toJSONObject());
+                    this.nOfMappedTo++;
                 }
             } else if (Relationship.class.equals(relation.getClass())) {
                 relationshipsJSONArray.add(((Relationship) relation).toJSONObject());
+                this.nOfBinaryRels++;
             }
         }
 
@@ -97,6 +191,7 @@ public class MetaConverter implements MetaBuilder {
         JSONArray rolesJSONArray = new JSONArray();
         for (Object role : roles) {
             rolesJSONArray.add(((Role) role).toJSONObject());
+            this.nOfRoles++;
         }
         jsonMetamodel.put("Role", rolesJSONArray);
 
@@ -113,6 +208,7 @@ public class MetaConverter implements MetaBuilder {
         for (Object constraint : constraints) {
             if (ObjectTypeCardinality.class.equals(constraint.getClass())) {
                 objectTypeCardinalitiesJSONArray.add(((ObjectTypeCardinality) constraint).toJSONObject());
+                this.nOfCardinalities++;
             }
         }
 
@@ -125,6 +221,7 @@ public class MetaConverter implements MetaBuilder {
         for (Object constraint : constraints) {
             if (DisjointObjectType.class.equals(constraint.getClass())) {
                 disjointnessConstraintsJSONArray.add(((DisjointObjectType) constraint).toJSONObject());
+                this.nOfDisjointC++;
             }
         }
 
@@ -138,6 +235,7 @@ public class MetaConverter implements MetaBuilder {
         for (Object constraint : constraints) {
             if (CompletenessConstraint.class.equals(constraint.getClass())) {
                 completenessConstraintsJSONArray.add(((CompletenessConstraint) constraint).toJSONObject());
+                this.nOfCompletnessC++;
             }
         }
 
@@ -148,6 +246,7 @@ public class MetaConverter implements MetaBuilder {
         for (Object constraint : constraints) {
             if (Mandatory.class.equals(constraint.getClass())) {
                 mandatoryConstraintsJSONArray.add(((Mandatory) constraint).toJSONObject());
+                this.nOfMandatory++;
             }
         }
 
