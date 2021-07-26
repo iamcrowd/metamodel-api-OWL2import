@@ -70,6 +70,8 @@ import static com.gilia.utils.Constants.TYPE2_DATA_EXACT_CARD_AXIOM;
 import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
 import static com.gilia.utils.Constants.URI_NORMAL_CONCEPT;
 import java.util.EmptyStackException;
+import uk.ac.manchester.cs.owl.owlapi.OWLInverseObjectPropertiesAxiomImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLSubClassOfAxiomImpl;
 
 /**
  * This class identifies each normal form in ontology normalised being imported
@@ -95,7 +97,9 @@ public class NormalFormTools {
     private long nOfAx2C;
     private long nOfAx2D;
     private long nOfAx3;
+    private long nOfAx3Inv;
     private long nOfAx4;
+    private long nOfAx4Inv;
     private long nOfAx2DT;
     private long nOfAx3DT;
     private long nOfAx4DT;
@@ -158,9 +162,17 @@ public class NormalFormTools {
     public long getnOfAx3() {
         return nOfAx3;
     }
+    
+    public long getnOfAx3Inv() {
+        return nOfAx3Inv;
+    }
 
     public long getnOfAx4() {
         return nOfAx4;
+    }
+    
+    public long getnOfAx4Inv() {
+        return nOfAx4Inv;
     }
 
     /**
@@ -500,6 +512,8 @@ public class NormalFormTools {
 
         Set<OWLAxiom> tBoxAxiomsCopy = this.copy.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
 
+        OWLDataFactory df = OWLManager.getOWLDataFactory();
+
         tBoxAxiomsCopy.forEach(
                 (ax) -> {
                     try {
@@ -512,8 +526,23 @@ public class NormalFormTools {
 
                                         // Subclass(atom, forall property filler)
                                         if (NormalForm.typeThreeSubClassAxiom(left, right)) {
-                                            Ax3 ax3asKF = new Ax3();
-                                            ax3asKF.type3asKF(kf, left, right);
+                                            //Ax3 ax3asKF = new Ax3();
+                                            //ax3asKF.type3asKF(kf, left, right);
+                                            OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
+                                            OWLObjectProperty namedProperty = property.getNamedProperty();
+
+                                            if (!property.isNamed()) {
+                                                OWLClassExpression newRight = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
+                                                OWLClassExpression newLeft = df.getOWLObjectSomeValuesFrom(property.getInverseProperty(), left);
+
+                                                Ax4 ax4asKF = new Ax4();
+                                                ax4asKF.type4asKF(kf, newLeft, newRight);
+                                                this.nOfAx3Inv++;
+                                            } else {
+                                                Ax3 ax3asKF = new Ax3();
+                                                ax3asKF.type3asKF(kf, left, right);
+                                                this.nOfAx3++;
+                                            }
                                         }
                                     } else {
                                         //System.out.println("Do nothing:" + ax.toString());
@@ -548,6 +577,8 @@ public class NormalFormTools {
 
         Set<OWLAxiom> tBoxAxiomsCopy = this.copy.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
 
+        OWLDataFactory df = OWLManager.getOWLDataFactory();
+        
         tBoxAxiomsCopy.forEach(
                 (ax) -> {
                     try {
@@ -561,8 +592,23 @@ public class NormalFormTools {
                                         // Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
                                         // A \sqsubseteq B or A \sqcap B \sqsubseteq C or 
                                         if (NormalForm.typeFourSubClassAxiom(left, right)) {
-                                            Ax4 ax4asKF = new Ax4();
-                                            ax4asKF.type4asKF(kf, left, right);
+                                            //Ax4 ax4asKF = new Ax4();
+                                            //ax4asKF.type4asKF(kf, left, right);
+                                            OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) left).getProperty();
+                                            OWLObjectProperty namedProperty = property.getNamedProperty();
+
+                                            if (!property.isNamed()) {
+                                                OWLClassExpression newRight = df.getOWLObjectAllValuesFrom(property.getInverseProperty(), right);
+                                                OWLClassExpression newLeft = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) left).getFiller();
+
+                                                Ax3 ax3asKF = new Ax3();
+                                                ax3asKF.type3asKF(kf, newLeft, newRight);
+                                                this.nOfAx4Inv++;
+                                            } else {
+                                                Ax4 ax4asKF = new Ax4();
+                                                ax4asKF.type4asKF(kf, left, right);
+                                                this.nOfAx4++;
+                                            }
                                         }
                                     } else {
                                         //System.out.println("Do nothing:" + ax.toString());
@@ -610,7 +656,7 @@ public class NormalFormTools {
                 (ax) -> {
                     try {
                         Collection<OWLSubClassOfAxiom> ax_n = NormalizationTools.normalizeSubClassAxiom((OWLSubClassOfAxiom) ax);
-                        
+
                         System.out.println("\tESTE ES EL AXIOMA NIORMALIZADO:" + ax_n.toString());
 
                         isEntailedNorm(ax_n, FreshAtoms.getFreshAtomsEquivalenceAxioms());
@@ -618,18 +664,18 @@ public class NormalFormTools {
                         ax_n.forEach(
                                 (ax_sub) -> {
                                     if (NormalForm.isNormalFormTBoxAxiom(ax_sub)) {
-                                    	
+
                                         System.out.println("\tInsertando Normal axiom in naive:" + ax_sub.toString());
                                         this.naive.addAxioms(ax_sub);
-                                    	
-                                    	System.out.println("\tNormalAxiom:" + ax_sub.toString());
+
+                                        System.out.println("\tNormalAxiom:" + ax_sub.toString());
 
                                         OWLClassExpression left = ((OWLSubClassOfAxiom) ax_sub).getSubClass();
-                                        
+
                                         System.out.println("\tNormalAxiom Left:" + left.toString());
-                                        
+
                                         OWLClassExpression right = ((OWLSubClassOfAxiom) ax_sub).getSuperClass();
-                                        
+
                                         System.out.println("\tNormalAxiom Right:" + right.toString());
 
                                         // Subclass(atom or conjunction of atoms, atom or disjunction of atoms)
@@ -688,13 +734,37 @@ public class NormalFormTools {
                                             //this.type2asKF(kf, left, right, TYPE2_DATA_EXACT_CARD_AXIOM);
                                             throw new EmptyStackException();
                                         } else if (NormalForm.typeThreeSubClassAxiom(left, right)) {
-                                            Ax3 ax3asKF = new Ax3();
-                                            ax3asKF.type3asKF(kf, left, right);
-                                            this.nOfAx3++;
+                                            OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
+                                            OWLObjectProperty namedProperty = property.getNamedProperty();
+
+                                            if (!property.isNamed()) {
+                                                OWLClassExpression newRight = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
+                                                OWLClassExpression newLeft = df.getOWLObjectSomeValuesFrom(property.getInverseProperty(), left);
+
+                                                Ax4 ax4asKF = new Ax4();
+                                                ax4asKF.type4asKF(kf, newLeft, newRight);
+                                                this.nOfAx3Inv++;
+                                            } else {
+                                                Ax3 ax3asKF = new Ax3();
+                                                ax3asKF.type3asKF(kf, left, right);
+                                                this.nOfAx3++;
+                                            }
                                         } else if (NormalForm.typeFourSubClassAxiom(left, right)) {
-                                            Ax4 ax4asKF = new Ax4();
-                                            ax4asKF.type4asKF(kf, left, right);
-                                            this.nOfAx4++;
+                                            OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) left).getProperty();
+                                            OWLObjectProperty namedProperty = property.getNamedProperty();
+
+                                            if (!property.isNamed()) {
+                                                OWLClassExpression newRight = df.getOWLObjectAllValuesFrom(property.getInverseProperty(), right);
+                                                OWLClassExpression newLeft = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) left).getFiller();
+
+                                                Ax3 ax3asKF = new Ax3();
+                                                ax3asKF.type3asKF(kf, newLeft, newRight);
+                                                this.nOfAx4Inv++;
+                                            } else {
+                                                Ax4 ax4asKF = new Ax4();
+                                                ax4asKF.type4asKF(kf, left, right);
+                                                this.nOfAx4++;
+                                            }
                                         } else {
                                             throw new EmptyStackException();
                                         }
@@ -706,8 +776,7 @@ public class NormalFormTools {
                                 });
 
                         //System.out.println("\tInsertando Normal axiom in naive:" + ax_n.toString());
-                        //this.naive.addAxioms(ax_n);
-                        
+                        this.naive.addAxioms(ax_n);
                     } catch (Exception fex) {
                         //System.out.println("Unsupported axioms:" + ax.toString());
                         this.unsupported.addAxiom(ax);

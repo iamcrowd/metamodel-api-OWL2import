@@ -110,7 +110,9 @@ $(document).ready(function () {
                             nOfAx2C: {},
                             nOfAx2D: {},
                             nOfAx3: {},
-                            nOfAx4: {}
+                            nOfAx3Inv: {},
+                            nOfAx4: {},
+                            nOfAx4Inv: {}
                         }
                     }
 
@@ -208,5 +210,7 @@ function showResponse(response) {
     $("#nOfAx2C").html(response.metrics.nOfAx2C);
     $("#nOfAx2D").html(response.metrics.nOfAx2D);
     $("#nOfAx3").html(response.metrics.nOfAx3);
+    $("#nOfAx3Inv").html(response.metrics.nOfAx3Inv);
     $("#nOfAx4").html(response.metrics.nOfAx4);
+    $("#nOfAx4Inv").html(response.metrics.nOfAx4Inv);
 }

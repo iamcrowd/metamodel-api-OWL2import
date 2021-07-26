@@ -81,7 +81,9 @@ public class Importer {
     long nOfAx2C;
     long nOfAx2D;
     long nOfAx3;
+    long nOfAx3Inv;
     long nOfAx4;
+    long nOfAx4Inv;
 
     /**
      *
@@ -325,7 +327,9 @@ public class Importer {
         metrics.put("nOfAx2C", this.nOfAx2C);
         metrics.put("nOfAx2D", this.nOfAx2D);
         metrics.put("nOfAx3", this.nOfAx3);
+        metrics.put("nOfAx3Inv", this.nOfAx3Inv);
         metrics.put("nOfAx4", this.nOfAx4);
+        metrics.put("nOfAx4Inv", this.nOfAx4Inv);
 
         JSONObject values = new JSONObject();
         values.put("metrics", metrics);
@@ -362,10 +366,10 @@ public class Importer {
         this.nOfAx2C = tools.getnOfAx2C();
         this.nOfAx2D = tools.getnOfAx2D();
         this.nOfAx3 = tools.getnOfAx3();
+        this.nOfAx3Inv = tools.getnOfAx3Inv();
         this.nOfAx4 = tools.getnOfAx4();
+        this.nOfAx4Inv = tools.getnOfAx4Inv();
     }
-    
-    
 
     /**
      * Partial normalisation
