@@ -48,7 +48,7 @@
                         <owl:inverseOf rdf:resource="http://www.semanticweb.org/gab/ontologies/2021/6/untitled-ontology-83#P"/>
                     </rdf:Description>
                 </owl:onProperty>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/gab/ontologies/2021/6/untitled-ontology-83#A"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/gab/ontologies/2021/6/untitled-ontology-83#B"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>

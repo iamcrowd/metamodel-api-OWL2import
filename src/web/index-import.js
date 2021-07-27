@@ -106,9 +106,13 @@ $(document).ready(function () {
                             nOfAx1C: {},
                             nOfAx1D: {},
                             nOfAx2A: {},
+                            nOfAx2AInv: {},
                             nOfAx2B: {},
+                            nOfAx2BInv: {},
                             nOfAx2C: {},
+                            nOfAx2CInv: {},
                             nOfAx2D: {},
+                            nOfAx2DInv: {},
                             nOfAx3: {},
                             nOfAx3Inv: {},
                             nOfAx4: {},
@@ -206,9 +210,13 @@ function showResponse(response) {
     $("#nOfAx1C").html(response.metrics.nOfAx1C);
     $("#nOfAx1D").html(response.metrics.nOfAx1D);
     $("#nOfAx2A").html(response.metrics.nOfAx2A);
+    $("#nOfAx2AInv").html(response.metrics.nOfAx2AInv);
     $("#nOfAx2B").html(response.metrics.nOfAx2B);
+    $("#nOfAx2BInv").html(response.metrics.nOfAx2BInv);
     $("#nOfAx2C").html(response.metrics.nOfAx2C);
+    $("#nOfAx2CInv").html(response.metrics.nOfAx2CInv);
     $("#nOfAx2D").html(response.metrics.nOfAx2D);
+    $("#nOfAx2DInv").html(response.metrics.nOfAx2DInv);
     $("#nOfAx3").html(response.metrics.nOfAx3);
     $("#nOfAx3Inv").html(response.metrics.nOfAx3Inv);
     $("#nOfAx4").html(response.metrics.nOfAx4);

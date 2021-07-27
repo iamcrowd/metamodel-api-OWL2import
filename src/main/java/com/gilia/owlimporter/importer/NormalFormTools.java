@@ -46,6 +46,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLCardinalityRestrictionImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLQuantifiedRestrictionImpl;
 
 import com.gilia.exceptions.EmptyOntologyException;
+import com.gilia.owlimporter.importer.axtoKF.Ax2Inv;
 
 import www.ontologyutils.toolbox.AnnotateOrigin;
 import www.ontologyutils.toolbox.FreshAtoms;
@@ -93,9 +94,13 @@ public class NormalFormTools {
     private long nOfAx1C;
     private long nOfAx1D;
     private long nOfAx2A;
+    private long nOfAx2AInv;
     private long nOfAx2B;
+    private long nOfAx2BInv;
     private long nOfAx2C;
+    private long nOfAx2CInv;
     private long nOfAx2D;
+    private long nOfAx2DInv;
     private long nOfAx3;
     private long nOfAx3Inv;
     private long nOfAx4;
@@ -147,22 +152,38 @@ public class NormalFormTools {
         return nOfAx2A;
     }
 
+    public long getnOfAx2AInv() {
+        return nOfAx2AInv;
+    }
+
     public long getnOfAx2B() {
         return nOfAx2B;
+    }
+
+    public long getnOfAx2BInv() {
+        return nOfAx2BInv;
     }
 
     public long getnOfAx2C() {
         return nOfAx2C;
     }
 
+    public long getnOfAx2CInv() {
+        return nOfAx2CInv;
+    }
+
     public long getnOfAx2D() {
         return nOfAx2D;
+    }
+
+    public long getnOfAx2DInv() {
+        return nOfAx2DInv;
     }
 
     public long getnOfAx3() {
         return nOfAx3;
     }
-    
+
     public long getnOfAx3Inv() {
         return nOfAx3Inv;
     }
@@ -170,7 +191,7 @@ public class NormalFormTools {
     public long getnOfAx4() {
         return nOfAx4;
     }
-    
+
     public long getnOfAx4Inv() {
         return nOfAx4Inv;
     }
@@ -578,7 +599,7 @@ public class NormalFormTools {
         Set<OWLAxiom> tBoxAxiomsCopy = this.copy.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
 
         OWLDataFactory df = OWLManager.getOWLDataFactory();
-        
+
         tBoxAxiomsCopy.forEach(
                 (ax) -> {
                     try {
@@ -705,22 +726,62 @@ public class NormalFormTools {
                                             } else {
                                                 throw new EmptyStackException();
                                             }
-                                        } else if (NormalForm.typeTwoSubClassAxiom(left, right)) {	//Object		 								
-                                            Ax2 ax2asKF = new Ax2();
-                                            ax2asKF.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);
-                                            this.nOfAx2A++;
+                                        } else if (NormalForm.typeTwoSubClassAxiom(left, right)) {
+                                            System.out.println("\tAXIOM 2A: START");
+
+                                            OWLObjectPropertyExpression property = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getProperty().asObjectPropertyExpression();
+
+                                            System.out.println("\tAXIOM 2A: PROPERTY: " + property.toString());
+
+                                            if (!property.isNamed()) {
+                                                System.out.println("\tAXIOM 2A: INVERSE START");
+                                                Ax2Inv ax2asKF = new Ax2Inv();
+                                                ax2asKF.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);
+                                                System.out.println("\tAXIOM 2A: INVERSE FINISH");
+                                                this.nOfAx2AInv++;
+                                            } else {
+                                                System.out.println("\tAXIOM 2A: NORMAL START");
+                                                Ax2 ax2asKF = new Ax2();
+                                                ax2asKF.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);
+                                                System.out.println("\tAXIOM 2A: NORMAL FINISH");
+                                                this.nOfAx2A++;
+                                            }
                                         } else if (NormalForm.typeTwoMinCardAxiom(left, right)) {
-                                            Ax2 ax2asKF = new Ax2();
-                                            ax2asKF.type2asKF(kf, left, right, TYPE2_MIN_CARD_AXIOM);
-                                            this.nOfAx2B++;
+                                            OWLObjectPropertyExpression property = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getProperty().asObjectPropertyExpression();
+
+                                            if (!property.isNamed()) {
+                                                Ax2Inv ax2asKF = new Ax2Inv();
+                                                ax2asKF.type2asKF(kf, left, right, TYPE2_MIN_CARD_AXIOM);
+                                                this.nOfAx2BInv++;
+                                            } else {
+                                                Ax2 ax2asKF = new Ax2();
+                                                ax2asKF.type2asKF(kf, left, right, TYPE2_MIN_CARD_AXIOM);
+                                                this.nOfAx2B++;
+                                            }
                                         } else if (NormalForm.typeTwoMaxCardAxiom(left, right)) {
-                                            Ax2 ax2asKF = new Ax2();
-                                            ax2asKF.type2asKF(kf, left, right, TYPE2_MAX_CARD_AXIOM);
-                                            this.nOfAx2C++;
+                                            OWLObjectPropertyExpression property = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getProperty().asObjectPropertyExpression();
+
+                                            if (!property.isNamed()) {
+                                                Ax2Inv ax2asKF = new Ax2Inv();
+                                                ax2asKF.type2asKF(kf, left, right, TYPE2_MAX_CARD_AXIOM);
+                                                this.nOfAx2CInv++;
+                                            } else {
+                                                Ax2 ax2asKF = new Ax2();
+                                                ax2asKF.type2asKF(kf, left, right, TYPE2_MAX_CARD_AXIOM);
+                                                this.nOfAx2C++;
+                                            }
                                         } else if (NormalForm.typeTwoExactCardAxiom(left, right)) {
-                                            Ax2 ax2asKF = new Ax2();
-                                            ax2asKF.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);
-                                            this.nOfAx2D++;
+                                            OWLObjectPropertyExpression property = ((OWLCardinalityRestrictionImpl<OWLClassExpression>) right).getProperty().asObjectPropertyExpression();
+
+                                            if (!property.isNamed()) {
+                                                Ax2Inv ax2asKF = new Ax2Inv();
+                                                ax2asKF.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);
+                                                this.nOfAx2DInv++;
+                                            } else {
+                                                Ax2 ax2asKF = new Ax2();
+                                                ax2asKF.type2asKF(kf, left, right, TYPE2_EXACT_CARD_AXIOM);
+                                                this.nOfAx2D++;
+                                            }
                                         } else if (NormalForm.typeTwoDataSubClassAxiom(left, right)) { //Data
                                             //this.type2asKF(kf, left, right, TYPE2_DATA_SUBCLASS_AXIOM);}
                                             throw new EmptyStackException();
@@ -735,7 +796,6 @@ public class NormalFormTools {
                                             throw new EmptyStackException();
                                         } else if (NormalForm.typeThreeSubClassAxiom(left, right)) {
                                             OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
-                                            OWLObjectProperty namedProperty = property.getNamedProperty();
 
                                             if (!property.isNamed()) {
                                                 OWLClassExpression newRight = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
@@ -751,7 +811,6 @@ public class NormalFormTools {
                                             }
                                         } else if (NormalForm.typeFourSubClassAxiom(left, right)) {
                                             OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) left).getProperty();
-                                            OWLObjectProperty namedProperty = property.getNamedProperty();
 
                                             if (!property.isNamed()) {
                                                 OWLClassExpression newRight = df.getOWLObjectAllValuesFrom(property.getInverseProperty(), right);
@@ -779,6 +838,8 @@ public class NormalFormTools {
                         this.naive.addAxioms(ax_n);
                     } catch (Exception fex) {
                         //System.out.println("Unsupported axioms:" + ax.toString());
+                        System.out.println("UNSUPPORTED AXIOM:" + fex.getMessage());
+                        fex.printStackTrace();
                         this.unsupported.addAxiom(ax);
                     }
                 });
