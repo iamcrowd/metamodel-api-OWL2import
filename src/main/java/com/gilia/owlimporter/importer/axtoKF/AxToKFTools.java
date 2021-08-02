@@ -40,22 +40,22 @@ public class AxToKFTools {
         }
     }
 
-    public ObjectType addObjectType(String iri) {
+    protected ObjectType addObjectType(String iri) {
         if (iri.equals("owl:Thing")) {
             iri = URI_TOP;
         }
         return new ObjectType(iri);
     }
 
-    public boolean _checkSubsumption(Metamodel kf, Entity parent, Entity child) {
+    private boolean _checkSubsumption(Metamodel kf, Entity parent, Entity child) {
         return !parent.getName().equals(child.getName()) && kf.getRelationship(_getSubsumptionName(parent, child)).isNameless();
     }
 
-    public String _getSubsumptionName(Entity parent, Entity child) {
+    private String _getSubsumptionName(Entity parent, Entity child) {
         return "Subsumption(" + parent.getName() + "," + child.getName() + ")";
     }
 
-    public Subsumption _addSubsumption(Metamodel kf, Entity parent, Entity child, Subsumption subsumption) {
+    private Subsumption _addSubsumption(Metamodel kf, Entity parent, Entity child, Subsumption subsumption) {
         if (_checkSubsumption(kf, parent, child)) {
             kf.addRelationship(subsumption);
             return subsumption;
@@ -64,23 +64,23 @@ public class AxToKFTools {
         }
     }
 
-    public Subsumption addSubsumption(Metamodel kf, Entity parent, Entity child) {
+    protected Subsumption addSubsumption(Metamodel kf, Entity parent, Entity child) {
         return _addSubsumption(kf, parent, child, new Subsumption(_getSubsumptionName(parent, child), parent, child));
     }
 
-    public Subsumption addSubsumption(Metamodel kf, Entity parent, Entity child, CompletenessConstraint cc) {
+    protected Subsumption addSubsumption(Metamodel kf, Entity parent, Entity child, CompletenessConstraint cc) {
         return _addSubsumption(kf, parent, child, new Subsumption(_getSubsumptionName(parent, child), parent, child, cc));
     }
 
-    public Subsumption addSubsumption(Metamodel kf, Entity parent, Entity child, DisjointObjectType dc) {
+    protected Subsumption addSubsumption(Metamodel kf, Entity parent, Entity child, DisjointObjectType dc) {
         return _addSubsumption(kf, parent, child, new Subsumption(_getSubsumptionName(parent, child), parent, child, dc));
     }
 
-    public Subsumption addSubsumption(Metamodel kf, Entity parent, Entity child, List<Constraint> lc) {
+    protected Subsumption addSubsumption(Metamodel kf, Entity parent, Entity child, List<Constraint> lc) {
         return _addSubsumption(kf, parent, child, new Subsumption(_getSubsumptionName(parent, child), parent, child, lc));
     }
 
-    public Subsumption addSubsumption(Metamodel kf, Entity parent, Entity child, CompletenessConstraint cc, DisjointObjectType dc) {
+    protected Subsumption addSubsumption(Metamodel kf, Entity parent, Entity child, CompletenessConstraint cc, DisjointObjectType dc) {
         return _addSubsumption(kf, parent, child, new Subsumption(_getSubsumptionName(parent, child), parent, child, cc, dc));
     }
 
