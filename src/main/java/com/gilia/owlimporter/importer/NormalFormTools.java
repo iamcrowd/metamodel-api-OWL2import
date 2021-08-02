@@ -727,23 +727,15 @@ public class NormalFormTools {
                                                 throw new EmptyStackException();
                                             }
                                         } else if (NormalForm.typeTwoSubClassAxiom(left, right)) {
-                                            System.out.println("\tAXIOM 2A: START");
-
                                             OWLObjectPropertyExpression property = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getProperty().asObjectPropertyExpression();
 
-                                            System.out.println("\tAXIOM 2A: PROPERTY: " + property.toString());
-
                                             if (!property.isNamed()) {
-                                                System.out.println("\tAXIOM 2A: INVERSE START");
                                                 Ax2Inv ax2asKF = new Ax2Inv();
                                                 ax2asKF.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);
-                                                System.out.println("\tAXIOM 2A: INVERSE FINISH");
                                                 this.nOfAx2AInv++;
                                             } else {
-                                                System.out.println("\tAXIOM 2A: NORMAL START");
                                                 Ax2 ax2asKF = new Ax2();
                                                 ax2asKF.type2asKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);
-                                                System.out.println("\tAXIOM 2A: NORMAL FINISH");
                                                 this.nOfAx2A++;
                                             }
                                         } else if (NormalForm.typeTwoMinCardAxiom(left, right)) {
@@ -838,8 +830,8 @@ public class NormalFormTools {
                         this.naive.addAxioms(ax_n);
                     } catch (Exception fex) {
                         //System.out.println("Unsupported axioms:" + ax.toString());
-                        System.out.println("UNSUPPORTED AXIOM:" + fex.getMessage());
-                        fex.printStackTrace();
+                        //System.out.println("UNSUPPORTED AXIOM:" + fex.getMessage());
+                        //fex.printStackTrace();
                         this.unsupported.addAxiom(ax);
                     }
                 });

@@ -78,7 +78,7 @@ $(document).ready(function () {
                     //$("#jsonOutput").val(JSON.stringify(response.kf, undefined, 4));
                     jsonOutput = JSON.stringify(response.kf, undefined, 4);
                     $("#jsonOutput").jsonViewer(response.kf);
-                    
+
                     showResponse(response);
                 } else if (response.success) {
                     jsonOutput = JSON.stringify(response, undefined, 4);
@@ -87,6 +87,7 @@ $(document).ready(function () {
                     var avgResponse = {
                         unsupported: {},
                         metrics: {
+                            expressivity: {},
                             nOfLogAxioms: {},
                             nOfEntities: {},
                             nOfNormAxioms: {},
@@ -121,10 +122,14 @@ $(document).ready(function () {
                     }
 
                     Object.entries(avgResponse.metrics).forEach(([key, value]) => {
-                        avgResponse.metrics[key].avg = 0;
-                        avgResponse.metrics[key].total = 0;
-                        avgResponse.metrics[key].max = Math.max();
-                        avgResponse.metrics[key].min = Math.min();
+                        if (key != "expressivity") {
+                            avgResponse.metrics[key].avg = 0;
+                            avgResponse.metrics[key].total = 0;
+                            avgResponse.metrics[key].max = Math.max();
+                            avgResponse.metrics[key].min = Math.min();
+                        } else {
+                            avgResponse.metrics[key]["unsupported"] = 0;
+                        }
                     });
 
                     Object.entries(response.success).forEach(([respKey, resp]) => {
@@ -132,18 +137,36 @@ $(document).ready(function () {
                             avgResponse.unsupported["axiom" + Object.keys(avgResponse.unsupported).length] = uns;
                         });
                         Object.entries(resp.metrics).forEach(([metricKey, metric]) => {
-                            avgResponse.metrics[metricKey].total = avgResponse.metrics[metricKey].total + metric;
-                            avgResponse.metrics[metricKey].max = (avgResponse.metrics[metricKey].max > metric) ? avgResponse.metrics[metricKey].max : metric;
-                            avgResponse.metrics[metricKey].min = (avgResponse.metrics[metricKey].min < metric) ? avgResponse.metrics[metricKey].min : metric;
+                            if (metricKey != "expressivity") {
+                                avgResponse.metrics[metricKey].total = avgResponse.metrics[metricKey].total + metric;
+                                avgResponse.metrics[metricKey].max = (avgResponse.metrics[metricKey].max > metric) ? avgResponse.metrics[metricKey].max : metric;
+                                avgResponse.metrics[metricKey].min = (avgResponse.metrics[metricKey].min < metric) ? avgResponse.metrics[metricKey].min : metric;
+                            } else {
+                                if (metric != null && metric != "") {
+                                    avgResponse.metrics[metricKey][metric] = avgResponse.metrics[metricKey][metric] != null ? avgResponse.metrics[metricKey][metric] + 1 : 1;
+                                } else {
+                                    avgResponse.metrics[key]["unsupported"]++;
+                                }
+                            }
                         });
                     });
 
                     Object.entries(avgResponse.metrics).forEach(([metricKey, metric]) => {
-                        avgResponse.metrics[metricKey].avg = avgResponse.metrics[metricKey].total / Object.entries(response.success).length;
+                        if (metricKey != "expressivity") {
+                            avgResponse.metrics[metricKey].avg = avgResponse.metrics[metricKey].total / Object.entries(response.success).length;
+                        }
                     });
 
                     Object.entries(avgResponse.metrics).forEach(([key, value]) => {
-                        avgResponse.metrics[key] = "total: " + avgResponse.metrics[key].total + ", avg: " + avgResponse.metrics[key].avg.toFixed(3) + ", min: " + avgResponse.metrics[key].min + ", max: " + avgResponse.metrics[key].max;
+                        if (key != "expressivity") {
+                            avgResponse.metrics[key] = "total: " + avgResponse.metrics[key].total + ", avg: " + avgResponse.metrics[key].avg.toFixed(3) + ", min: " + avgResponse.metrics[key].min + ", max: " + avgResponse.metrics[key].max;
+                        } else {
+                            var metricResult = [];
+                            Object.entries(avgResponse.metrics[key]).forEach(([exprKey, exprValue]) => {
+                                metricResult.push(exprKey + ": " + exprValue);
+                            });
+                            avgResponse.metrics[key] = metricResult.join(", ");
+                        }
                     });
 
                     showResponse(avgResponse);
@@ -155,7 +178,7 @@ $(document).ready(function () {
                 //$("#jsonOutput").val(JSON.stringify(response, undefined, 4));
                 jsonOutput = JSON.stringify(response, undefined, 4);
                 $("#jsonOutput").jsonViewer(response);
-                
+
                 $("#metrics").hide();
             }
         });
@@ -191,6 +214,7 @@ function showResponse(response) {
     jsonUnsupported = JSON.stringify(response.unsupported, undefined, 4);
     $("#jsonUnsupported").jsonViewer(response.unsupported);
 
+    $("#expressivity").html(response.metrics.expressivity);
     $("#nOfLogAxioms").html(response.metrics.nOfLogAxioms);
     $("#nOfEntities").html(response.metrics.nOfEntities);
     $("#nOfNormAxioms").html(response.metrics.nOfNormAxioms);

@@ -128,6 +128,13 @@ public class OWLNormalisedToMetaController {
                     e.getMessage()
             );
             return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            ResponseError error = new ResponseError(
+                    HttpStatus.BAD_REQUEST.value(),
+                    HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                    e.getMessage()
+            );
+            return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(result, HttpStatus.OK);

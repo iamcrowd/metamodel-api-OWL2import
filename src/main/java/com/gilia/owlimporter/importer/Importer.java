@@ -31,6 +31,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.metrics.DLExpressivity;
 import org.semanticweb.owlapi.util.*;
 import org.springframework.web.multipart.MultipartFile;
 import www.ontologyutils.normalization.Normalization;
@@ -58,6 +59,7 @@ public class Importer {
     private OWLOntology unsupported;
 
     // Metrics
+    String expressivity;
     long nOfLogAxioms;
     long nOfEntities;
     long nOfNormAxioms;
@@ -223,9 +225,7 @@ public class Importer {
         //        "\n ************List Unsupported ClassExpressions and Axioms in Normalization App\n"
         //);
         // After normalize, copy again the unsupported axioms
-
         //unsupported.axioms().forEach(System.out::println);
-
         naive.addAxioms(unsupported.axioms());
 
         // check every axiom of the original ontology is entailed in naive
@@ -243,7 +243,6 @@ public class Importer {
         //naive
         //        .tboxAxioms(Imports.EXCLUDED)
         //        .forEach(ax -> System.out.println(Utils.pretty("-- " + ax.toString())));
-
         return naive;
     }
 
@@ -308,6 +307,7 @@ public class Importer {
 
         this.calculateMetrics();
 
+        metrics.put("expressivity", this.expressivity);
         metrics.put("nOfLogAxioms", this.nOfLogAxioms);
         metrics.put("nOfEntities", this.nOfEntities);
         metrics.put("nOfNormAxioms", this.nOfNormAxioms);
@@ -439,6 +439,10 @@ public class Importer {
      * get Metrics
      *
      */
+    public String getExpressivity() {
+        return expressivity;
+    }
+
     public long getNumberOfAx() {
         return this.nOfLogAxioms;
     }
@@ -462,93 +466,92 @@ public class Importer {
     public double getImportingTime() {
         return this.importingTime;
     }
-    
+
     public long getNumberOfFresh() {
-    	return this.nOfFresh;
+        return this.nOfFresh;
     }
-    
+
     public long getNumberOfImport() {
-    	return this.nOfImport;
+        return this.nOfImport;
     }
-    
+
     public long getNumberOfClassesInOrig() {
-    	return this.nOfClassesInOrig;
+        return this.nOfClassesInOrig;
     }
-    
+
     public long getNumberOfClassesInNorm() {
-    	return this.nOfClassesInNormalised;
+        return this.nOfClassesInNormalised;
     }
-    
+
     /**
      * Get Metrics KF
-     * 
+     *
      */
-    
-	public long getNofEntities() {
-		return this.metabuilder.getNofEntities();
-	}
-	
-	public long getNofObjectTypes() {
-		return this.metabuilder.getNofObjectTypes();
-	}
-	
-	public long getNofAttributes() {
-		return this.metabuilder.getNofAttributes();
-	}
-	
-	public long getNofSubsumptions() {
-		return this.metabuilder.getNofSubsumptions();
-	}
-	
-	public long getNofRoles() {
-		return this.metabuilder.getNofRoles();
-	}
-	
-	public long getNofBinaryRels() {
-		return this.metabuilder.getNofBinaryRels();
-	}
-	
-	public long getNofRels() {
-		return this.metabuilder.getNofRels();
-	}
-	
-	public long getNofDataTypes() {
-		return this.metabuilder.getNofDataTypes();
-	}
-	
-	public long getNofValueTypes() {
-		return this.metabuilder.getNofValueTypes();
-	}
-	
-	public long getNofAttributeProperties() {
-		return this.metabuilder.getNofAttributeProperties();
-	}
-	
-	public long getNofMappedTo() {
-		return this.metabuilder.getNofMappedTo();
-	}
-	
-	public long getNofCardinalities() {
-		return this.metabuilder.getNofCardinalities();
-	}
-	
-	public long getNofDisjointC() {
-		return this.metabuilder.getNofDisjointC();
-	}
-	
-	public long getNofCompletenessC() {
-		return this.metabuilder.getNofCompletenessC();
-	}
-	
-	public long getNofMandatory() {
-		return this.metabuilder.getNofMandatory();
-	}
-    
+    public long getNofEntities() {
+        return this.metabuilder.getNofEntities();
+    }
+
+    public long getNofObjectTypes() {
+        return this.metabuilder.getNofObjectTypes();
+    }
+
+    public long getNofAttributes() {
+        return this.metabuilder.getNofAttributes();
+    }
+
+    public long getNofSubsumptions() {
+        return this.metabuilder.getNofSubsumptions();
+    }
+
+    public long getNofRoles() {
+        return this.metabuilder.getNofRoles();
+    }
+
+    public long getNofBinaryRels() {
+        return this.metabuilder.getNofBinaryRels();
+    }
+
+    public long getNofRels() {
+        return this.metabuilder.getNofRels();
+    }
+
+    public long getNofDataTypes() {
+        return this.metabuilder.getNofDataTypes();
+    }
+
+    public long getNofValueTypes() {
+        return this.metabuilder.getNofValueTypes();
+    }
+
+    public long getNofAttributeProperties() {
+        return this.metabuilder.getNofAttributeProperties();
+    }
+
+    public long getNofMappedTo() {
+        return this.metabuilder.getNofMappedTo();
+    }
+
+    public long getNofCardinalities() {
+        return this.metabuilder.getNofCardinalities();
+    }
+
+    public long getNofDisjointC() {
+        return this.metabuilder.getNofDisjointC();
+    }
+
+    public long getNofCompletenessC() {
+        return this.metabuilder.getNofCompletenessC();
+    }
+
+    public long getNofMandatory() {
+        return this.metabuilder.getNofMandatory();
+    }
 
     /**
      * Calculate metrics
      */
     public void calculateMetrics() {
+        this.calculateExpressivity();
         this.numberOfAx();
         this.numberOfEntities();
         this.numberOfAxInNormalised();
@@ -560,6 +563,23 @@ public class Importer {
         this.numberOfPropertiesInOrig();
         this.numberOfClassesInNormalised();
         this.numberOfPropertiesInNormalised();
+    }
+
+    /**
+     * Metric calculations
+     *
+     * Expressivity of ontologie
+     *
+     */
+    public void calculateExpressivity() {
+        try {
+            DLExpressivity dlExpressivity = new DLExpressivity(this.onto);
+            String expr = dlExpressivity.getValue();
+            this.expressivity = expr.length() >= 1 ? expr : "unsupported";
+        } catch (Exception e) {
+            this.expressivity = "unsupported";
+            System.out.println(e.getStackTrace().toString());
+        }
     }
 
     /**
@@ -623,7 +643,7 @@ public class Importer {
         Stream<OWLAxiom> tBoxAxioms = this.unsupported.tboxAxioms(Imports.EXCLUDED);
         tBoxAxioms.forEach((ax) -> {
             if (ax.isLogicalAxiom()) {
-            	//System.out.println("\tEste es el axioma no soportado: " + ax.toString());
+                //System.out.println("\tEste es el axioma no soportado: " + ax.toString());
                 this.nOfLogUnsupportedAxioms++;
             }
         });
@@ -637,9 +657,9 @@ public class Importer {
      * @return number of fresh concepts.
      */
     public void numberOfFresh() {
-    	
+
         this.kfimported.getEntities().forEach((entity) -> {
-        	//System.out.println("\tFresh COncept" + entity.getName());
+            //System.out.println("\tFresh COncept" + entity.getName());
             if (entity.getName().startsWith(URI_NORMAL_CONCEPT)) {
                 this.nOfFresh++;
             }
@@ -672,12 +692,11 @@ public class Importer {
         ArrayList<OWLClass> classes = new ArrayList<OWLClass>();
         this.onto.classesInSignature(Imports.EXCLUDED).forEach(classes::add);
         this.nOfClassesInOrig = classes.size();
-        
+
         /*this.onto.classesInSignature(Imports.EXCLUDED).forEach((clase) -> {
         	System.out.println("Clase original" + clase);
         	}
         );*/
-        
     }
 
     /**
@@ -708,8 +727,8 @@ public class Importer {
         ArrayList<OWLClass> classes = new ArrayList<OWLClass>();
         this.naive.classesInSignature(Imports.EXCLUDED).forEach(classes::add);
         this.nOfClassesInNormalised = classes.size();
-        
-       /* this.naive.classesInSignature(Imports.EXCLUDED).forEach((clase) -> {
+
+        /* this.naive.classesInSignature(Imports.EXCLUDED).forEach((clase) -> {
         	System.out.println("Clase normalised" + clase);
         	}
         );*/
