@@ -1,47 +1,25 @@
 package com.gilia.owlimporter.importer;
 
-import java.util.Calendar;
-
-import static com.gilia.utils.ImportUtils.validateOWL;
-
 import com.gilia.builder.metabuilder.*;
-import com.gilia.exceptions.EmptyOntologyException;
 import com.gilia.metamodel.*;
-import com.gilia.utils.Constants;
-import static com.gilia.utils.Utils.getAlphaNumericString;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.json.simple.JSONObject;
+import java.io.*;
+import java.util.*;
+import java.util.stream.*;
+import org.json.simple.*;
 import org.semanticweb.HermiT.*;
 import org.semanticweb.owlapi.apibinding.*;
-import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.metrics.*;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.reasoner.InferenceType;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.metrics.DLExpressivity;
-import org.semanticweb.owlapi.util.*;
-import org.springframework.web.multipart.MultipartFile;
-import www.ontologyutils.normalization.Normalization;
-import www.ontologyutils.normalization.NormalizationTools;
-import www.ontologyutils.toolbox.AnnotateOrigin;
-import www.ontologyutils.toolbox.FreshAtoms;
-import www.ontologyutils.toolbox.Utils;
+import org.semanticweb.owlapi.model.parameters.*;
+import org.semanticweb.owlapi.reasoner.*;
+import org.springframework.web.multipart.*;
+import www.ontologyutils.normalization.*;
+import www.ontologyutils.toolbox.*;
 
-import static com.gilia.utils.Constants.URI_NORMAL_CONCEPT;
 import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
+import static com.gilia.utils.Constants.URI_NORMAL_CONCEPT;
+import static com.gilia.utils.ImportUtils.validateOWL;
+
 
 /**
  * An importer is a KF metamodel instance of an OWL 2 specification

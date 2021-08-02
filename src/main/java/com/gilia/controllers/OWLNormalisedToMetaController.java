@@ -1,42 +1,18 @@
 package com.gilia.controllers;
 
-import static com.gilia.utils.Constants.*;
-import static com.gilia.utils.ImportUtils.validateOWL;
-import static com.gilia.utils.Utils.validateJSON;
-
-import com.gilia.builder.MetaDirector;
-import com.gilia.exceptions.EmptyOntologyException;
-import com.gilia.exceptions.MetamodelException;
-import com.gilia.owlimporter.importer.Importer;
-
-import com.gilia.utils.ResponseError;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Arrays;
-import org.everit.json.schema.ValidationException;
-import org.json.JSONException;
+import com.gilia.exceptions.*;
+import com.gilia.owlimporter.importer.*;
+import com.gilia.utils.*;
+import org.everit.json.schema.*;
+import org.json.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.semanticweb.HermiT.*;
-import org.semanticweb.owlapi.apibinding.*;
-import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.util.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.*;
+
+import static com.gilia.utils.Constants.*;
 
 /**
  * Controller of the OWL_TO_META_ROUTE endpoint. This controller is in charge of

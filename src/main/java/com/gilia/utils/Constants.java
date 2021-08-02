@@ -1,11 +1,9 @@
 package com.gilia.utils;
 
-import www.ontologyutils.normalization.NormalForm;
-
 /**
- * It encapsulates every constant use in the application.
- * The only purpose of this class is to organize the constants (specially string constants)
- * the constants used throughout the application.
+ * It encapsulates every constant use in the application. The only purpose of
+ * this class is to organize the constants (specially string constants) the
+ * constants used throughout the application.
  *
  * @author Emiliano Rios Gavagnin
  */
@@ -21,15 +19,14 @@ public class Constants {
     public static final String EER_TO_ORM_ROUTE = "/eertoorm";
 
     public static final String ORM_TO_META_ROUTE = "/ormtometa";
-    
+
     // Importer Endpoints
-    
     public static final String OWL_SHOW_ONTOLOGY_ROUTE = "/showontology";
     public static final String OWL_SHOW_NORMALISED_ONTOLOGY_ROUTE = "/shownormalisedontology";
     public static final String OWL_CLASSES_TO_META_ROUTE = "/owlclassestometa";
     public static final String OWL_SUBCLASSES_TO_META_ROUTE = "/owlallsubstometa";
     public static final String OWL_ONE_SUBCLASS_TO_META_ROUTE = "/owlonesubstometa";
-   
+
     public static final String OWL_NORMAL_TO_META_ROUTE = "/owlnormalisedtometa";
     public static final String OWL_NORMAL1A_TO_META_ROUTE = "/owlnormalised1atometa";
     public static final String OWL_NORMAL1B_TO_META_ROUTE = "/owlnormalised1btometa";
@@ -38,7 +35,7 @@ public class Constants {
     public static final String OWL_NORMAL2_TO_META_ROUTE = "/owlnormalised2tometa";
     public static final String OWL_NORMAL3_TO_META_ROUTE = "/owlnormalised3tometa";
     public static final String OWL_NORMAL4_TO_META_ROUTE = "/owlnormalised4tometa";
-    
+
     public static final String ORM_TO_UML_ROUTE = "/ormtouml";
     public static final String ORM_TO_EER_ROUTE = "/ormtoeer";
 
@@ -177,10 +174,8 @@ public class Constants {
 
     // Exception Names
     public static final String VALIDATION_EXCEPTION_NAME = "ValidationException";
-    
-    
+
     // NormalForm names
-    
     public static final String TYPE2_SUBCLASS_AXIOM = "typeTwoSubClassAxiom";
     public static final String TYPE2_MIN_CARD_AXIOM = "typeTwoMinCardAxiom";
     public static final String TYPE2_MAX_CARD_AXIOM = "typeTwoMaxCardAxiom";
@@ -189,14 +184,12 @@ public class Constants {
     public static final String TYPE2_DATA_MIN_CARD_AXIOM = "typeTwoDataMinCardAxiom";
     public static final String TYPE2_DATA_MAX_CARD_AXIOM = "typeTwoDataMaxCardAxiom";
     public static final String TYPE2_DATA_EXACT_CARD_AXIOM = "typeTwoDataExactCardAxiom";
-    
+
     // URIs import concepts are created when new concepts are needed for KF importing purpuses
     public static final String URI_IMPORT_CONCEPT = "http://crowd.fi.uncoma.edu.ar/IMPORT/";
-    
+
     // URIs fresh concepts identify concepts created during the normalization
     public static final String URI_NORMAL_CONCEPT = "http://crowd.fi.uncoma.edu.ar/NORMAL/";
-    
+
     public static final String URI_TOP = "http://www.w3.org/2002/07/owl#Thing";
-
-
 }

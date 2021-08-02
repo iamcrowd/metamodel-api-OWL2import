@@ -1,20 +1,15 @@
 package com.gilia;
 
-import com.gilia.config.SwaggerConfiguration;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import com.gilia.metamodel.*;
-//import org.semanticweb.owlapi.*;
-import org.semanticweb.HermiT.*;
+import com.gilia.config.*;
+import org.springframework.boot.*;
+import org.springframework.boot.autoconfigure.*;
+import org.springframework.context.annotation.*;
+import org.springframework.web.servlet.config.annotation.*;
 
 /**
- * API Application Init. The execution of main method of this class results in the building and deployment of the API.
+ * API Application Init. The execution of main method of this class results in
+ * the building and deployment of the API.
  */
- 
 @SpringBootApplication
 @Import(SwaggerConfiguration.class)
 public class OWL2ImporterApp implements WebMvcConfigurer {

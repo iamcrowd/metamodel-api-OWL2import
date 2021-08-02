@@ -1,41 +1,34 @@
 package com.gilia.utils;
 
-import org.everit.json.schema.Schema;
-import org.everit.json.schema.ValidationException;
-import org.everit.json.schema.loader.SchemaLoader;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import org.semanticweb.owlapi.io.*;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.*;
+import java.io.*;
+import java.nio.charset.*;
+import java.util.*;
+import org.everit.json.schema.*;
+import org.everit.json.schema.loader.*;
+import org.json.*;
 import org.semanticweb.owlapi.apibinding.*;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.util.Random;
+import org.semanticweb.owlapi.model.*;
 
 import static com.gilia.utils.Constants.CHARSET;
 import static com.gilia.utils.Constants.RANDOM_STRING_REGEX;
 
 /**
- * Class use for utility methods that can be used anywhere in the application. The methods inside this class
- * are public and static, and will facilitate coding complex methods/functions
+ * Class use for utility methods that can be used anywhere in the application.
+ * The methods inside this class are public and static, and will facilitate
+ * coding complex methods/functions
  */
 public class Utils {
 
     /**
-     * Validates the given jsonString against a JSON Schema already defined in a file. The path to this file
-     * must be provided as a parameter. The method will execute successfully (no exceptions will be thrown)
-     * if the jsonString is valid according to the JSON Schema. If the jsonString is not valid, then it will
-     * throw a ValidationException.
+     * Validates the given jsonString against a JSON Schema already defined in a
+     * file. The path to this file must be provided as a parameter. The method
+     * will execute successfully (no exceptions will be thrown) if the
+     * jsonString is valid according to the JSON Schema. If the jsonString is
+     * not valid, then it will throw a ValidationException.
      *
      * @param jsonString JSON String that contains an stringify JSON Object
-     * @param schemaPath The path to a file that contains a JSON Schema definition
+     * @param schemaPath The path to a file that contains a JSON Schema
+     * definition
      * @throws FileNotFoundException
      * @throws ValidationException
      */
@@ -49,33 +42,35 @@ public class Utils {
         Schema schema = SchemaLoader.load(jsonSchema);
         schema.validate(jsonSubject);
     }
-    
+
     /**
-     * Validates the given OWL 2 spec defined in an OWL file. The path to this file
-     * must be provided as a parameter. The method will execute successfully (no exceptions will be thrown)
-     * if the OWL 2 file is valid according to the W3C standard. If the OWL 2 spec is not valid, then it will
-     * throw a ValidationException.
-     * File path is given as this example: "C:\\pizza.owl.xml"
+     * Validates the given OWL 2 spec defined in an OWL file. The path to this
+     * file must be provided as a parameter. The method will execute
+     * successfully (no exceptions will be thrown) if the OWL 2 file is valid
+     * according to the W3C standard. If the OWL 2 spec is not valid, then it
+     * will throw a ValidationException. File path is given as this example:
+     * "C:\\pizza.owl.xml"
      *
-     * @param owl2FilePath The path to a file that contains an OWL spec (OWL/XML | RDF/XML)
+     * @param owl2FilePath The path to a file that contains an OWL spec (OWL/XML
+     * | RDF/XML)
      * @throws FileNotFoundException
      * @throws ValidationException
      */
     public static void validateOWL(String owl2FilePath) throws FileNotFoundException, ValidationException {
         try {
-        	OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+            OWLOntologyManager man = OWLManager.createOWLOntologyManager();
             File file = new File(owl2FilePath);
             OWLOntology o = man.loadOntologyFromOntologyDocument(file);
             System.out.println(o);
-        }
-        catch (OWLOntologyCreationException e){
-        	e.printStackTrace();
+        } catch (OWLOntologyCreationException e) {
+            e.printStackTrace();
         }
 
     }
 
     /**
-     * Generates a random string with alphanumeric characters (UTF-8). The length of the string is specified by parameter.
+     * Generates a random string with alphanumeric characters (UTF-8). The
+     * length of the string is specified by parameter.
      *
      * @param stringLength Length of the string to be generated
      * @return Random string of the given length with alphanumeric characters
@@ -94,7 +89,7 @@ public class Utils {
         // remove all spacial char
         String AlphaNumericString
                 = randomString
-                .replaceAll(RANDOM_STRING_REGEX, "");
+                        .replaceAll(RANDOM_STRING_REGEX, "");
 
         // Append first 20 alphanumeric characters
         // from the generated random String into the result

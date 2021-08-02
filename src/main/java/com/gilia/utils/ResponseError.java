@@ -1,15 +1,14 @@
 package com.gilia.utils;
 
-import org.json.simple.JSONObject;
-
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.Date;
+import org.json.simple.*;
 
 import static com.gilia.utils.Constants.*;
 
 /**
- * Contains information about a server-side error. This class is mainly used
- * to inform the client of an error.
+ * Contains information about a server-side error. This class is mainly used to
+ * inform the client of an error.
  */
 public class ResponseError {
 
@@ -18,7 +17,8 @@ public class ResponseError {
     String message;
 
     /**
-     * Creates an instance of an error. The timestamp is generated when calling the toJSONObject method.
+     * Creates an instance of an error. The timestamp is generated when calling
+     * the toJSONObject method.
      *
      * @see com.gilia.utils.ResponseError#toJSONObject()
      * @param status HTTP status code
@@ -36,8 +36,8 @@ public class ResponseError {
      *
      * @return JSONObject with error information
      */
-    public JSONObject toJSONObject(){
-        Date date= new Date();
+    public JSONObject toJSONObject() {
+        Date date = new Date();
         long time = date.getTime();
         Timestamp ts = new Timestamp(time);
 
