@@ -5,6 +5,13 @@ import org.json.simple.JSONObject;
 
 import static com.gilia.utils.Constants.*;
 
+
+import simplenlg.framework.*;
+import simplenlg.lexicon.*;
+import simplenlg.realiser.english.*;
+import simplenlg.phrasespec.*;
+import simplenlg.features.*;
+
 /**
  * @author Emiliano Rios Gavagnin
  */
@@ -32,5 +39,11 @@ public abstract class EntityType extends Entity {
         jsonObject.put(KEY_NAME, this.name);
         jsonObject.put(KEY_TYPE, ENTITY_STRING);
         return jsonObject;
+    }
+    
+    public void toCNLen() {
+    	this.cnl.setSubject(this.name);
+      	this.cnl.setVerb("is");
+      	this.cnl.setObject("an Entity type");	
     }
 }

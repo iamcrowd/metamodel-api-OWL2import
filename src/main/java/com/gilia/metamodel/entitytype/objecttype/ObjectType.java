@@ -7,6 +7,13 @@ import java.util.ArrayList;
 
 import static com.gilia.utils.Constants.*;
 
+
+import simplenlg.framework.*;
+import simplenlg.lexicon.*;
+import simplenlg.realiser.english.*;
+import simplenlg.phrasespec.*;
+import simplenlg.features.*;
+
 /**
  * Representation of the ObjectType class from the KF Metamodel
  *
@@ -93,5 +100,14 @@ public class ObjectType extends EntityType {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(KEY_NAME, this.name);
         return jsonObject;
+    }
+    
+    /**
+     * English verbalisation for an ObjectType
+     */
+    public void toCNLen() {
+    	this.cnl.setSubject(this.name);
+      	this.cnl.setVerb("is");
+      	this.cnl.setObject("an Object type");  	
     }
 }
