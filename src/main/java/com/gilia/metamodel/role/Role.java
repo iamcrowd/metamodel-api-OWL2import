@@ -247,6 +247,16 @@ public class Role extends Entity {
                 ", name='" + name + '\'' +
                 '}';
     }
+    
+    
+    /**
+     * English verbalisation for a Role
+     */
+    public void toCNLen() {
+    	this.cnl.setSubject(this.name);
+      	this.cnl.setVerb("is");
+      	this.cnl.setObject("a role in a relationship " + relationship.getName());
+    }
 
     /**
      * Creates a JSONObject with the relevant information about the Role object. The JSON format is based on the

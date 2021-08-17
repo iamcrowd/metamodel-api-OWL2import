@@ -13,6 +13,8 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Iterator;
+import java.io.*;
 
 import static com.gilia.utils.Constants.*;
 
@@ -165,7 +167,17 @@ public class Relationship extends Entity {
     public void toCNLen() {
     	this.cnl.setSubject(this.name);
       	this.cnl.setVerb("is");
-      	this.cnl.setObject("an Object type");  	
+      	
+      	
+      	Iterator iterator = entities.iterator();
+ 
+      	String entities_n = ((EntityType) iterator.next()).getName();
+        while (iterator.hasNext()) {
+        	String entity_n = ((EntityType) iterator.next()).getName();
+        	entities_n = entities_n + " and " + entity_n;
+        }
+        
+      	this.cnl.setObject("a relationship between " + entities_n);  	
     }
 
     /**
