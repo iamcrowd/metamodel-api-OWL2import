@@ -163,6 +163,7 @@ public class Relationship extends Entity {
     
     /**
      * English verbalisation for a Relationship
+     * @implNote just for binary rels
      */
     public void toCNLen() {
     	this.cnl.setSubject(this.name);
@@ -177,7 +178,7 @@ public class Relationship extends Entity {
         	entities_n = entities_n + " and " + entity_n;
         }
         
-      	this.cnl.setObject("a relationship between " + entities_n);  	
+      	this.cnl.setObject("a relationship between " + entities_n);      	
     }
 
     /**

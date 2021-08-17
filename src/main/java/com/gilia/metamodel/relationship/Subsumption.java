@@ -12,6 +12,7 @@ import com.gilia.metamodel.role.Role;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -173,6 +174,16 @@ public class Subsumption extends Relationship {
                 ", id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+    
+    
+    /**
+     * English verbalisation for a Subsumption
+     */
+    public void toCNLen() {
+    	this.cnl.setSubject("Each " + child.getName());
+      	this.cnl.setVerb("is");
+      	this.cnl.setObject("a " + parent.getName());	
     }
 
     /**
