@@ -157,6 +157,16 @@ public class Relationship extends Entity {
                 ", name='" + name + '\'' +
                 '}';
     }
+    
+    
+    /**
+     * English verbalisation for a Relationship
+     */
+    public void toCNLen() {
+    	this.cnl.setSubject(this.name);
+      	this.cnl.setVerb("is");
+      	this.cnl.setObject("an Object type");  	
+    }
 
     /**
      * Creates a JSONObject with the relevant information about the Relationship object. The JSON format is based on the

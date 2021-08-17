@@ -63,6 +63,15 @@ public class DataType extends EntityType {
 
         return jsonObject;
     }
+    
+    /**
+     * English verbalisation for a DataType
+     */
+    public void toCNLen() {
+    	this.cnl.setSubject(this.name);
+      	this.cnl.setVerb("is");
+      	this.cnl.setObject("a Data type");	
+    }
 
 
 

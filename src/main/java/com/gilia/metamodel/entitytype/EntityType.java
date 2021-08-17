@@ -41,9 +41,4 @@ public abstract class EntityType extends Entity {
         return jsonObject;
     }
     
-    public void toCNLen() {
-    	this.cnl.setSubject(this.name);
-      	this.cnl.setVerb("is");
-      	this.cnl.setObject("an Entity type");	
-    }
 }

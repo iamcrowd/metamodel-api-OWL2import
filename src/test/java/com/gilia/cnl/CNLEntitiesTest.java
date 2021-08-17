@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import org.json.simple.JSONObject;
 import com.gilia.metamodel.*;
 import com.gilia.metamodel.entitytype.EntityType;
+import com.gilia.metamodel.entitytype.DataType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 
 
@@ -39,8 +40,21 @@ public class CNLEntitiesTest {
         	
         	  ObjectType objectType = new ObjectType("Person");
         	  objectType.toCNLen();
-        	  //System.out.println(objectType.getCNLen());
         	  assertEquals("testObjectTypeCNL", objectType.getCNLen(), "Person is an Object type.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    @Test
+    public void testDataTypeCNL() {
+        try {
+        	
+        	  DataType dataType = new DataType("string");
+        	  dataType.toCNLen();
+        	  assertEquals("testDataTypeCNL", dataType.getCNLen(), "String is a Data type.");
 
         } catch (Exception e) {
             e.printStackTrace();
