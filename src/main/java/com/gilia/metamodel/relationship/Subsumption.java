@@ -183,7 +183,15 @@ public class Subsumption extends Relationship {
     public void toCNLen() {
     	this.cnl.setSubject("Each " + child.getName());
       	this.cnl.setVerb("is");
-      	this.cnl.setObject("a " + parent.getName());	
+      	this.cnl.setObject("a " + parent.getName());
+      	
+      	if (getDisjointness() != null) {
+      		getDisjointness().toCNLen(parent.getName());
+      	}
+      	
+      	if (getCompleteness() != null) {
+      		getCompleteness().toCNLen(parent.getName());
+      	}
     }
 
     /**
