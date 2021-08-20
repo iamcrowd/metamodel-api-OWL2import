@@ -5,6 +5,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Objects;
 
 import static com.gilia.utils.Constants.KEY_ENTITIES;
@@ -91,5 +92,29 @@ public class CompletenessConstraint extends Constraint {
         constraint.put(KEY_ENTITIES, entitiesName);
 
         return constraint;
+    }
+    
+    /**
+     * English verbalisation of Completeness constraints
+     * @return
+     */
+    public void toCNLen(String parent) {      	
+      	Iterator iterator = entities.iterator();
+ 
+      	String entities_n = ((ObjectType) iterator.next()).getName();
+        while (iterator.hasNext()) {
+        	String entity_n = ((ObjectType) iterator.next()).getName();
+        	entities_n = entities_n + " and " + entity_n;
+        }
+        
+    	if (entities.size() == 1) {
+    		this.cnl.setSubject(entities_n);
+    		this.cnl.setVerb("cover");
+    		this.cnl.setObject(parent);
+    	} else {
+    		this.cnl.setSubject(entities_n);
+    		this.cnl.setVerb("cover");
+    		this.cnl.setObject(parent);
+    	}
     }
 }
