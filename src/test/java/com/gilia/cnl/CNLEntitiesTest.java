@@ -210,11 +210,15 @@ public class CNLEntitiesTest {
             ObjectType parentEntity = new ObjectType("Person");
             ObjectType childEntity = new ObjectType("Student");
             ObjectType secondEntity = new ObjectType("Institution");
+            ObjectType childEntity2 = new ObjectType("Non student");
             
             parentEntity.toCNLen();
             assertEquals("testObjectTypeCNL", "Person is an Object type.", parentEntity.getCNLen());
             childEntity.toCNLen();
             assertEquals("testObjectTypeCNL", "Student is an Object type.", childEntity.getCNLen());
+            childEntity2.toCNLen();
+            assertEquals("testObjectTypeCNL", "Non student is an Object type.", childEntity2.getCNLen());
+            
             secondEntity.toCNLen();
             assertEquals("testObjectTypeCNL", "Institution is an Object type.", secondEntity.getCNLen());
             
@@ -249,13 +253,36 @@ public class CNLEntitiesTest {
             newRelationship.toCNLen();
         	assertEquals("testRelationshipCNL", "Enrolled is a relationship between Student and Institution.", newRelationship.getCNLen());
         	
-/*        	System.out.println(parentEntity.getCNLen());
+        	
+            ArrayList entitiesDC = new ArrayList();
+            entitiesDC.add(childEntity);
+            entitiesDC.add(childEntity2);
+            
+            Subsumption newSub2 = new Subsumption(subName, parentEntity, childEntity2);
+            
+            DisjointObjectType disjoint = new DisjointObjectType(entitiesDC);
+            CompletenessConstraint total = new CompletenessConstraint(entitiesDC);
+            
+            newSub.setDisjointness(disjoint);
+            newSub.setCompleteness(total);
+            newSub2.setDisjointness(disjoint);
+            newSub2.setCompleteness(total);
+        	
+            newSub.toCNLen();
+            newSub2.toCNLen();
+        	
+        	System.out.println(parentEntity.getCNLen());
         	System.out.println(childEntity.getCNLen());
+        	System.out.println(childEntity2.getCNLen());
         	System.out.println(secondEntity.getCNLen());
         	System.out.println(newSub.getCNLen());
+        	System.out.println(newSub2.getCNLen());
+        	System.out.println(disjoint.getCNLen());
+        	System.out.println(total.getCNLen());
         	System.out.println(role_a.getCNLen());
         	System.out.println(role_b.getCNLen());
-        	System.out.println(newRelationship.getCNLen()); */
+        	System.out.println(newRelationship.getCNLen());
+        	
             
         } catch (Exception e) {
             e.printStackTrace();
