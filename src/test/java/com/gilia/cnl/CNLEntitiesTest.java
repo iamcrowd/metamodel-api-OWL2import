@@ -25,6 +25,8 @@ import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.Subsumption;
 import com.gilia.metamodel.role.Role;
+import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
+import com.gilia.metamodel.constraint.CompletenessConstraint;
 
 
 import simplenlg.framework.*;
@@ -120,6 +122,82 @@ public class CNLEntitiesTest {
         	
             newSub.toCNLen();
         	assertEquals("testSubsumptionCNL", "Each ChildEntity is a ParentEntity.", newSub.getCNLen());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @Test
+    public void testDisjointObjectTypesCNL() {
+        try {
+            String subName = "aSub";
+            ObjectType parentEntity = new ObjectType("ParentEntity");
+            ObjectType childEntity = new ObjectType("ChildEntity");
+            ObjectType childEntity2 = new ObjectType("ChildEntity2");
+            
+            ArrayList<ObjectType> entities = new ArrayList();
+            entities.add(childEntity);
+            DisjointObjectType newConstraint = new DisjointObjectType(entities);
+            
+            Subsumption newSub = new Subsumption(subName, parentEntity, childEntity);
+            newSub.setDisjointness(newConstraint);
+        	
+            newSub.toCNLen();
+            assertEquals("testDisjointObjectTypesCNL", "Each ChildEntity is a ParentEntity.", newSub.getCNLen());
+            assertEquals("testDisjointObjectTypesCNL", "ChildEntity is disjoint with ParentEntity.", newConstraint.getCNLen());
+            
+            entities.add(childEntity2);
+            DisjointObjectType newConstraint2 = new DisjointObjectType(entities);
+            
+            Subsumption newSub2 = new Subsumption("aSub2", parentEntity, childEntity);
+            Subsumption newSub3 = new Subsumption("aSub2", parentEntity, childEntity2);
+            newSub2.setDisjointness(newConstraint2);
+            newSub3.setDisjointness(newConstraint2);
+        	
+            newSub2.toCNLen();
+            newSub3.toCNLen();
+            assertEquals("testDisjointObjectTypesCNL", "Each ChildEntity is a ParentEntity.", newSub2.getCNLen());
+            assertEquals("testDisjointObjectTypesCNL", "Each ChildEntity2 is a ParentEntity.", newSub3.getCNLen());
+            assertEquals("testDisjointObjectTypesCNL", "ChildEntity and ChildEntity2 is disjoint each other.", newConstraint2.getCNLen());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @Test
+    public void testCompletenessConstraintCNL() {
+        try {
+            String subName = "aSub";
+            ObjectType parentEntity = new ObjectType("ParentEntity");
+            ObjectType childEntity = new ObjectType("ChildEntity");
+            ObjectType childEntity2 = new ObjectType("ChildEntity2");
+            
+            ArrayList<ObjectType> entities = new ArrayList();
+            entities.add(childEntity);
+            CompletenessConstraint newConstraint = new CompletenessConstraint(entities);
+            
+            Subsumption newSub = new Subsumption(subName, parentEntity, childEntity);
+            newSub.setCompleteness(newConstraint);
+        	
+            newSub.toCNLen();
+            assertEquals("testCompletenessConstraintCNL", "Each ChildEntity is a ParentEntity.", newSub.getCNLen());
+            assertEquals("testCompletenessConstraintCNL", "ChildEntity covers ParentEntity.", newConstraint.getCNLen());
+            
+            entities.add(childEntity2);
+            CompletenessConstraint newConstraint2 = new CompletenessConstraint(entities);
+            
+            Subsumption newSub2 = new Subsumption("aSub2", parentEntity, childEntity);
+            Subsumption newSub3 = new Subsumption("aSub2", parentEntity, childEntity2);
+            newSub2.setCompleteness(newConstraint2);
+            newSub3.setCompleteness(newConstraint2);
+        	
+            newSub2.toCNLen();
+            newSub3.toCNLen();
+            assertEquals("testCompletenessConstraintCNL", "Each ChildEntity is a ParentEntity.", newSub2.getCNLen());
+            assertEquals("testCompletenessConstraintCNL", "Each ChildEntity2 is a ParentEntity.", newSub3.getCNLen());
+            assertEquals("testCompletenessConstraintCNL", "ChildEntity and ChildEntity2 covers ParentEntity.", newConstraint2.getCNLen());
 
         } catch (Exception e) {
             e.printStackTrace();
