@@ -11,6 +11,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -256,6 +257,25 @@ public class Role extends Entity {
     	this.cnl.setSubject(this.name);
       	this.cnl.setVerb("is");
       	this.cnl.setObject("a role in a relationship " + relationship.getName());
+      	
+      	List<ObjectTypeCardinality> cardinalities = this.getCardinalityConstraints();
+     	Iterator iterator_c = cardinalities.iterator();
+     	ObjectTypeCardinality card = (ObjectTypeCardinality) iterator_c.next();
+     	String min = card.getMinCardinality();
+     	String max = card.getMaxCardinality();
+     	
+      	List<Entity> entities = relationship.getEntities();
+      	Iterator iterator = entities.iterator();
+        while (iterator.hasNext()) {
+        	if (((Entity) iterator.next()).getName() != entity.getName()) {
+        		
+            	this.cnl.setSubject("Each" + " " + entity.getName() + " " + this.name);
+              	this.cnl.setObject("at least " + min + " " + entity.getName() + " and " + 
+              					   "at most " + max + " " + entity.getName());
+        	}
+        }
+
+      	
     }
 
     /**

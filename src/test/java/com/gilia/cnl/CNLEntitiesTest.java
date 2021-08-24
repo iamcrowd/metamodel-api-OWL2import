@@ -72,13 +72,28 @@ public class CNLEntitiesTest {
     @Test
     public void testRoleCNL() {
         try {
-        	String roleName = "aRole";
-            ObjectType entity = new ObjectType("anObjectType");
-            Relationship relationship = new Relationship("aRelationship");
-            Role role = new Role(roleName, entity, relationship);
+            String relationshipName = "aRelationship";
+            ObjectType firstEntity = new ObjectType("FirstEntity");
+            ObjectType secondEntity = new ObjectType("SecondEntity");
+
+            ArrayList entities = new ArrayList();
+            entities.add(firstEntity);
+            entities.add(secondEntity);
+
+            Relationship newRelationship = new Relationship(relationshipName, entities);
+            
+            ObjectTypeCardinality card1 = new ObjectTypeCardinality("card1", "2", "3");
+            ObjectTypeCardinality card2 = new ObjectTypeCardinality("card2", "0", "*");
+           
+            
+            Role role_a = new Role("aRole1", firstEntity, newRelationship, card1);
+            Role role_b = new Role("aRole2", secondEntity, newRelationship, card2);
         	
-        	role.toCNLen();
-        	assertEquals("testRoleCNL", role.getCNLen(), "ARole is a role in a relationship aRelationship.");
+        	role_a.toCNLen();
+        	System.out.println(role_a.getCNLen());
+        	role_b.toCNLen();
+        	System.out.println(role_b.getCNLen());
+        	//assertEquals("testRoleCNL", role.getCNLen(), "ARole is a role in a relationship aRelationship.");
 
         } catch (Exception e) {
             e.printStackTrace();
