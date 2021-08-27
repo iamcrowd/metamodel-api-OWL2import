@@ -10,13 +10,24 @@ import com.gilia.metamodel.entitytype.valueproperty.ValueType;
 import com.gilia.metamodel.relationship.Relationship;
 import com.gilia.metamodel.relationship.attributiveproperty.attribute.MappedTo;
 import com.gilia.metamodel.role.Role;
+
+import openllet.core.datatypes.Datatype;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+
+import simplenlg.framework.NLGFactory;
+import simplenlg.lexicon.Lexicon;
+import simplenlg.phrasespec.SPhraseSpec;
+import simplenlg.framework.CoordinatedPhraseElement;
+import simplenlg.realiser.english.Realiser;
+
 
 import static com.gilia.utils.Constants.*;
 import static com.gilia.utils.Utils.getAlphaNumericString;
@@ -29,6 +40,8 @@ public class AttributiveProperty extends Relationship {
     // TODO: Implement domain as Relationship or Object type
     private List<Entity> domain; // Actually, this should be Object type or Relationship
     private DataType range;
+    
+    private CoordinatedPhraseElement attrPhrase = nlgFactory.createCoordinatedPhrase();
 
 
     public AttributiveProperty(String name) {
@@ -84,6 +97,27 @@ public class AttributiveProperty extends Relationship {
                 ", id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+    
+    /**
+     * English verbalisation for an Attributive property
+     */
+    public void toCNLen() {
+        SPhraseSpec s1 = nlgFactory.createClause(this.name, "is", "an attribute with data type " + this.range.getName());
+        this.attrPhrase.addCoordinate(s1);
+        
+        SPhraseSpec s2 = nlgFactory.createClause("hola", "has", "attribute " + this.name);
+        this.attrPhrase.addCoordinate(s2);      
+    }
+    
+    /**
+     * This function redefines the one from Entity because for roles we define a coordinate phrase instead of a simple phrase.
+     * 
+     * @return a coordinated phrase
+     */
+    public String getCNLen() {
+    	String output = this.realiser.realiseSentence(this.attrPhrase);
+    	return output;
     }
 
     /**

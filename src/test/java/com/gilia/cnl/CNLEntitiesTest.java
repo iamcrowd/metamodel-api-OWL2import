@@ -15,14 +15,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONObject;
 import com.gilia.metamodel.*;
+import com.gilia.metamodel.Entity;
 import com.gilia.metamodel.entitytype.EntityType;
 import com.gilia.metamodel.entitytype.DataType;
 import com.gilia.metamodel.entitytype.objecttype.ObjectType;
 import com.gilia.metamodel.constraint.cardinality.ObjectTypeCardinality;
 import com.gilia.metamodel.relationship.Relationship;
+import com.gilia.metamodel.relationship.attributiveproperty.AttributiveProperty;
 import com.gilia.metamodel.relationship.Subsumption;
 import com.gilia.metamodel.role.Role;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
@@ -64,6 +67,28 @@ public class CNLEntitiesTest {
         	  DataType dataType = new DataType("string");
         	  dataType.toCNLen();
         	  assertEquals("testDataTypeCNL", dataType.getCNLen(), "String is a Data type.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @Test
+    public void testAttributePropertyCNL() {
+        try {
+        	  List<Entity> entity = new ArrayList<>();
+        	  DataType dataType = new DataType("string");
+        	  dataType.toCNLen();
+        	  assertEquals("testDataTypeCNL", dataType.getCNLen(), "String is a Data type.");
+              
+        	  ObjectType firstEntity = new ObjectType("FirstEntity");
+              entity.add(firstEntity);
+              
+        	  AttributiveProperty attr = new AttributiveProperty("attr", entity, dataType);
+        	  
+        	  attr.toCNLen();
+        	  System.out.println(attr.getCNLen());
+        	  
 
         } catch (Exception e) {
             e.printStackTrace();
