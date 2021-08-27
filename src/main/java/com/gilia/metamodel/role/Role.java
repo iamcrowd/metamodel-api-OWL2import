@@ -15,6 +15,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
+import simplenlg.framework.NLGFactory;
+import simplenlg.lexicon.Lexicon;
+import simplenlg.phrasespec.SPhraseSpec;
+import simplenlg.framework.CoordinatedPhraseElement;
+import simplenlg.realiser.english.Realiser;
+
 import static com.gilia.utils.Constants.*;
 import static com.gilia.utils.Utils.getAlphaNumericString;
 
@@ -29,6 +35,8 @@ public class Role extends Entity {
     private Relationship relationship;
     private List<ObjectTypeCardinality> cardinalityConstraints;
     private Mandatory mandatoryConstraint;
+
+    private CoordinatedPhraseElement rolePhrase = nlgFactory.createCoordinatedPhrase();
 
     /**
      * Creates a basic instance of a Role. It will be created without information. The only information generated will be an id.
@@ -248,15 +256,15 @@ public class Role extends Entity {
                 ", name='" + name + '\'' +
                 '}';
     }
-    
+
     
     /**
      * English verbalisation for a Role
+     * @apiNote current version supports only binary relationships so that this function must be refactored for n-ary rels.
      */
     public void toCNLen() {
-    	this.cnl.setSubject(this.name);
-      	this.cnl.setVerb("is");
-      	this.cnl.setObject("a role in a relationship " + relationship.getName());
+        SPhraseSpec s1 = nlgFactory.createClause(this.name, "is", "a role in a relationship " + relationship.getName());
+        this.rolePhrase.addCoordinate(s1);
       	
       	List<ObjectTypeCardinality> cardinalities = this.getCardinalityConstraints();
      	Iterator iterator_c = cardinalities.iterator();
@@ -267,15 +275,29 @@ public class Role extends Entity {
       	List<Entity> entities = relationship.getEntities();
       	Iterator iterator = entities.iterator();
         while (iterator.hasNext()) {
-        	if (((Entity) iterator.next()).getName() != entity.getName()) {
+        	String target = ((Entity) iterator.next()).getName();
+        	if (target != entity.getName()) {
         		
-            	this.cnl.setSubject("Each" + " " + entity.getName() + " " + this.name);
-              	this.cnl.setObject("at least " + min + " " + entity.getName() + " and " + 
-              					   "at most " + max + " " + entity.getName());
+                SPhraseSpec s2 = nlgFactory.createClause("each" + " " + entity.getName() + " " + this.name, 
+                										 "", "at least " + min + " " + target);
+                this.rolePhrase.addCoordinate(s2);
+                
+                SPhraseSpec s3 = nlgFactory.createClause("each" + " " + entity.getName() + " " + this.name, 
+						 								 "", "at most " + max + " " + target);
+                this.rolePhrase.addCoordinate(s3);
+
         	}
         }
-
-      	
+    }
+    
+    /**
+     * This function redefines the one from Entity because for roles we define a coordinate phrase instead of a simple phrase.
+     * 
+     * @return a coordinated phrase
+     */
+    public String getCNLen() {
+    	String output = this.realiser.realiseSentence(this.rolePhrase);
+    	return output;
     }
 
     /**

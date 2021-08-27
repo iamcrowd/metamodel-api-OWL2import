@@ -35,6 +35,16 @@ public class Mandatory extends MandatoryConstraint {
     public void setDeclaredOn(Role declaredOn) {
         this.declaredOn = declaredOn;
     }
+    
+    /**
+     * 
+     * @return
+     */
+    public void toCNLen() {
+  	  this.cnl.setSubject(this.name);
+  	  this.cnl.setVerb("is");
+  	  this.cnl.setObject("Mandatory");
+    }
 
     public JSONObject toJSONObject() {
         JSONObject jsonObject = new JSONObject();

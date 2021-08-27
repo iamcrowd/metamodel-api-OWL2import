@@ -27,6 +27,7 @@ import com.gilia.metamodel.relationship.Subsumption;
 import com.gilia.metamodel.role.Role;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
 import com.gilia.metamodel.constraint.CompletenessConstraint;
+import com.gilia.metamodel.constraint.mandatory.Mandatory;
 
 
 import simplenlg.framework.*;
@@ -90,10 +91,9 @@ public class CNLEntitiesTest {
             Role role_b = new Role("aRole2", secondEntity, newRelationship, card2);
         	
         	role_a.toCNLen();
-        	System.out.println(role_a.getCNLen());
         	role_b.toCNLen();
-        	System.out.println(role_b.getCNLen());
-        	//assertEquals("testRoleCNL", role.getCNLen(), "ARole is a role in a relationship aRelationship.");
+        	assertEquals("testRoleCNL", role_a.getCNLen(), "ARole1 is a role in a relationship aRelationship, each FirstEntity aRole1 s at least 2 SecondEntity and each FirstEntity aRole1 s at most 3 SecondEntity.");
+        	assertEquals("testRoleCNL", role_b.getCNLen(), "ARole2 is a role in a relationship aRelationship, each SecondEntity aRole2 s at least 0 FirstEntity and each SecondEntity aRole2 s at most * FirstEntity.");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -250,25 +250,27 @@ public class CNLEntitiesTest {
             String relationshipName = "enrolled";
             Relationship newRelationship = new Relationship(relationshipName, entities);
             
-            Role role_a = new Role("in", childEntity, newRelationship);
-            Role role_b = new Role("of", secondEntity, newRelationship);
+            ObjectTypeCardinality card1 = new ObjectTypeCardinality("card1", "1", "*");
+            ObjectTypeCardinality card2 = new ObjectTypeCardinality("card2", "2", "*");
+            
+            Role role_a = new Role("in", childEntity, newRelationship, card1);
+            Role role_b = new Role("of", secondEntity, newRelationship, card2);
+            
+            Mandatory mand_a = new Mandatory("mand1", role_a);
+            mand_a.toCNLen();
+            Mandatory mand_b = new Mandatory("mand2", role_b);
+            mand_b.toCNLen();
             
             ArrayList roles = new ArrayList();
-
-            roles.add(role_a);
-            roles.add(role_b);
-            
-            newRelationship.addRoles(roles);
             
         	role_a.toCNLen();
-        	assertEquals("testRoleCNL", role_a.getCNLen(), "In is a role in a relationship enrolled.");
+        	assertEquals("testRoleCNL", role_a.getCNLen(), "In is a role in a relationship enrolled, each Student in s at least 1 Institution and each Student in s at most * Institution.");
         	role_b.toCNLen();
-        	assertEquals("testRoleCNL", role_b.getCNLen(), "Of is a role in a relationship enrolled.");
+        	assertEquals("testRoleCNL", role_b.getCNLen(), "Of is a role in a relationship enrolled, each Institution of s at least 2 Student and each Institution of s at most * Student.");
             
             newRelationship.toCNLen();
         	assertEquals("testRelationshipCNL", "Enrolled is a relationship between Student and Institution.", newRelationship.getCNLen());
-        	
-        	
+        	     	
             ArrayList entitiesDC = new ArrayList();
             entitiesDC.add(childEntity);
             entitiesDC.add(childEntity2);
@@ -294,9 +296,12 @@ public class CNLEntitiesTest {
         	System.out.println(newSub2.getCNLen());
         	System.out.println(disjoint.getCNLen());
         	System.out.println(total.getCNLen());
+        	System.out.println(newRelationship.getCNLen());
         	System.out.println(role_a.getCNLen());
         	System.out.println(role_b.getCNLen());
-        	System.out.println(newRelationship.getCNLen());
+        	System.out.println(mand_a.getCNLen());
+        	System.out.println(mand_b.getCNLen());       	
+
         	
             
         } catch (Exception e) {
