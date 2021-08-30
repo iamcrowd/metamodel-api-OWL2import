@@ -14,15 +14,20 @@ and generate KF instances from them in order to be visualised in [crowd](http://
 
 [OntologyUtils](https://bitbucket.org/gilia/ontologyutils-viz/)
 
+[SimpleNLG](https://github.com/simplenlg/simplenlg)
+
+
 
 ## Getting started
 The project is built with the Java framework *Spring boot*, and its dependencies are managed with *Maven*. In order to compile and execute this project you will need:
 - Java JDK 11 (11.0.5)
 - Apache Maven 3.6.0
 
-Once you fulfil the requeriments listed above, clone this repository. Run the following commands from the root folder of the project to run the API and deploy it locally with port *8080*:
+Clone the repository and run the following commands from the root folder to use the API 
+and deploy it locally with port *8080*:
 ```
-$ mvn install:install-file -Dfile=metamodelapi-owlimport\lib\ontologyutils-viz-0.0.1-SNAPSHOT.jar
+$ mvn install:install-file -Dfile=lib/ontologyutils-viz-0.0.1-SNAPSHOT.jar
+$ mvn install:install-file -Dfile=lib/SimpleNLG-4.5.0.jar
 $ mvn clean compile
 $ mvn package
 $ mvn exec:java
