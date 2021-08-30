@@ -106,8 +106,17 @@ public class AttributiveProperty extends Relationship {
         SPhraseSpec s1 = nlgFactory.createClause(this.name, "is", "an attribute with data type " + this.range.getName());
         this.attrPhrase.addCoordinate(s1);
         
-        SPhraseSpec s2 = nlgFactory.createClause("hola", "has", "attribute " + this.name);
-        this.attrPhrase.addCoordinate(s2);      
+      	List<Entity> domains = this.domain;
+      	Iterator iterator = domains.iterator();
+      	String domains_n = ((Entity) iterator.next()).getName();
+        while (iterator.hasNext()) {
+        	String aDomain = ((Entity) iterator.next()).getName();
+        	domains_n = domains_n + " and " + aDomain;
+        }
+
+        SPhraseSpec s2 = nlgFactory.createClause(domains_n, "has", "attribute " + this.name);
+        this.attrPhrase.addCoordinate(s2);
+        
     }
     
     /**

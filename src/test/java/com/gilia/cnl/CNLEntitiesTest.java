@@ -87,7 +87,8 @@ public class CNLEntitiesTest {
         	  AttributiveProperty attr = new AttributiveProperty("attr", entity, dataType);
         	  
         	  attr.toCNLen();
-        	  System.out.println(attr.getCNLen());
+        	  assertEquals("testDataTypeCNL", attr.getCNLen(), "Attr is an attribute with data type string and FirstEntity has attribute attr.");
+        	  
         	  
 
         } catch (Exception e) {
@@ -252,6 +253,19 @@ public class CNLEntitiesTest {
             ObjectType secondEntity = new ObjectType("Institution");
             ObjectType childEntity2 = new ObjectType("Non student");
             
+      	  	List<Entity> entity = new ArrayList<>();
+      	  	DataType dataType = new DataType("string");
+      	  	dataType.toCNLen();
+      	  	assertEquals("testDataTypeCNL", dataType.getCNLen(), "String is a Data type.");
+            
+            entity.add(parentEntity);
+            
+      	  	AttributiveProperty attr = new AttributiveProperty("name", entity, dataType);
+      	  
+      	  	attr.toCNLen();
+      	  	assertEquals("testDataTypeCNL", attr.getCNLen(), "Name is an attribute with data type string and Person has attribute name.");
+
+            
             parentEntity.toCNLen();
             assertEquals("testObjectTypeCNL", "Person is an Object type.", parentEntity.getCNLen());
             childEntity.toCNLen();
@@ -314,6 +328,8 @@ public class CNLEntitiesTest {
             newSub2.toCNLen();
         	
         	System.out.println(parentEntity.getCNLen());
+        	System.out.println(dataType.getCNLen());
+        	System.out.println(attr.getCNLen());
         	System.out.println(childEntity.getCNLen());
         	System.out.println(childEntity2.getCNLen());
         	System.out.println(secondEntity.getCNLen());
