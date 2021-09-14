@@ -87,7 +87,11 @@ public class CNLEntitiesTest {
         	  AttributiveProperty attr = new AttributiveProperty("attr", entity, dataType);
         	  
         	  attr.toCNLen();
-        	  assertEquals("testDataTypeCNL", attr.getCNLen(), "Attr is an attribute with data type string and FirstEntity has attribute attr.");
+        	//  System.out.println(attr.getCNLen());
+           	//  System.out.println(attr.getCNLen_attrProp());       	  
+        	  
+        	  assertEquals("testDataTypeCNL", attr.getCNLen(), "Attr is an attribute with data type string."); 
+        	  assertEquals("testDataTypeCNL", attr.getCNLen_attrProp(), "FirstEntity has attribute attr.");
         	  
         	  
 
@@ -118,8 +122,11 @@ public class CNLEntitiesTest {
         	
         	role_a.toCNLen();
         	role_b.toCNLen();
-        	assertEquals("testRoleCNL", role_a.getCNLen(), "ARole1 is a role in a relationship aRelationship, each FirstEntity aRole1 s at least 2 SecondEntity and each FirstEntity aRole1 s at most 3 SecondEntity.");
-        	assertEquals("testRoleCNL", role_b.getCNLen(), "ARole2 is a role in a relationship aRelationship, each SecondEntity aRole2 s at least 0 FirstEntity and each SecondEntity aRole2 s at most * FirstEntity.");
+        	
+        	assertEquals("testRoleCNL", role_a.getCNLen(), "ARole1 is a role in a relationship aRelationship.");
+        	assertEquals("testRoleCNL", role_a.getCNLen_card(), "Each FirstEntity aRole1 aRelationships at least 2 SecondEntity and at most 3 SecondEntity.");
+        	assertEquals("testRoleCNL", role_b.getCNLen(), "ARole2 is a role in a relationship aRelationship.");
+        	assertEquals("testRoleCNL", role_b.getCNLen_card(), "Each SecondEntity aRole2 aRelationships at least 0 FirstEntity and at most * FirstEntity.");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -263,7 +270,8 @@ public class CNLEntitiesTest {
       	  	AttributiveProperty attr = new AttributiveProperty("name", entity, dataType);
       	  
       	  	attr.toCNLen();
-      	  	assertEquals("testDataTypeCNL", attr.getCNLen(), "Name is an attribute with data type string and Person has attribute name.");
+      	  	assertEquals("testDataTypeCNL", attr.getCNLen(), "Name is an attribute with data type string.");
+      	  	assertEquals("testDataTypeCNL", attr.getCNLen_attrProp(), "Person has attribute name.");
 
             
             parentEntity.toCNLen();
@@ -303,9 +311,9 @@ public class CNLEntitiesTest {
             ArrayList roles = new ArrayList();
             
         	role_a.toCNLen();
-        	assertEquals("testRoleCNL", role_a.getCNLen(), "In is a role in a relationship enrolled, each Student in s at least 1 Institution and each Student in s at most * Institution.");
+        	assertEquals("testRoleCNL", role_a.getCNLen(), "In is a role in a relationship enrolled.");
         	role_b.toCNLen();
-        	assertEquals("testRoleCNL", role_b.getCNLen(), "Of is a role in a relationship enrolled, each Institution of s at least 2 Student and each Institution of s at most * Student.");
+        	assertEquals("testRoleCNL", role_b.getCNLen(), "Of is a role in a relationship enrolled.");
             
             newRelationship.toCNLen();
         	assertEquals("testRelationshipCNL", "Enrolled is a relationship between Student and Institution.", newRelationship.getCNLen());
@@ -330,6 +338,7 @@ public class CNLEntitiesTest {
         	System.out.println(parentEntity.getCNLen());
         	System.out.println(dataType.getCNLen());
         	System.out.println(attr.getCNLen());
+        	System.out.println(attr.getCNLen_attrProp());
         	System.out.println(childEntity.getCNLen());
         	System.out.println(childEntity2.getCNLen());
         	System.out.println(secondEntity.getCNLen());
@@ -339,7 +348,9 @@ public class CNLEntitiesTest {
         	System.out.println(total.getCNLen());
         	System.out.println(newRelationship.getCNLen());
         	System.out.println(role_a.getCNLen());
+        	System.out.println(role_a.getCNLen_card());
         	System.out.println(role_b.getCNLen());
+        	System.out.println(role_b.getCNLen_card());
         	System.out.println(mand_a.getCNLen());
         	System.out.println(mand_b.getCNLen());       	
 
