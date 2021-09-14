@@ -112,6 +112,7 @@ public class CompletenessConstraint extends Constraint {
     		this.cnl.setVerb("cover");
     		this.cnl.setObject(parent);
     	} else {
+    		this.cnl.setPlural(true);
     		this.cnl.setSubject(entities_n);
     		this.cnl.setVerb("cover");
     		this.cnl.setObject(parent);

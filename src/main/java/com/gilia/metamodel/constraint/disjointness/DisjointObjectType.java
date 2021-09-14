@@ -112,9 +112,10 @@ public class DisjointObjectType extends DisjointnessConstraint {
     		this.cnl.setVerb("is");
     		this.cnl.setObject("disjoint with " + parent);
     	} else {
+    		this.cnl.setPlural(true);
     		this.cnl.setSubject(entities_n);
     		this.cnl.setVerb("are");
-    		this.cnl.setObject("disjoint each other");
+    		this.cnl.setObject("disjoint from each other");
     	}
     }
 }
