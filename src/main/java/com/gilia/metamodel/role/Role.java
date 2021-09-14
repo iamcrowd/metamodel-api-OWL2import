@@ -35,8 +35,11 @@ public class Role extends Entity {
     private Relationship relationship;
     private List<ObjectTypeCardinality> cardinalityConstraints;
     private Mandatory mandatoryConstraint;
-
-    private CoordinatedPhraseElement rolePhrase = nlgFactory.createCoordinatedPhrase();
+    
+	protected Lexicon lexicon = Lexicon.getDefaultLexicon();
+	protected NLGFactory nlgFactory = new NLGFactory(lexicon);
+	protected Realiser realiser = new Realiser(lexicon);
+	protected SPhraseSpec cnl_card = nlgFactory.createClause();
 
     /**
      * Creates a basic instance of a Role. It will be created without information. The only information generated will be an id.
@@ -259,12 +262,13 @@ public class Role extends Entity {
 
     
     /**
-     * English verbalisation for a Role
+     * English verbalisation for a Role. Cardinalities are written as new simple sentences.
      * @apiNote current version supports only binary relationships so that this function must be refactored for n-ary rels.
      */
     public void toCNLen() {
-        SPhraseSpec s1 = nlgFactory.createClause(this.name, "is", "a role in a relationship " + relationship.getName());
-        this.rolePhrase.addCoordinate(s1);
+    	this.cnl.setSubject(this.name);
+      	this.cnl.setVerb("is");
+      	this.cnl.setObject("a role in a relationship " + relationship.getName());  	
       	
       	List<ObjectTypeCardinality> cardinalities = this.getCardinalityConstraints();
      	Iterator iterator_c = cardinalities.iterator();
@@ -278,28 +282,25 @@ public class Role extends Entity {
         	String target = ((Entity) iterator.next()).getName();
         	if (target != entity.getName()) {
         		
-                SPhraseSpec s2 = nlgFactory.createClause("each" + " " + entity.getName() + " " + this.name, 
-                										 "", "at least " + min + " " + target);
-                this.rolePhrase.addCoordinate(s2);
-                
-                SPhraseSpec s3 = nlgFactory.createClause("each" + " " + entity.getName() + " " + this.name, 
-						 								 "", "at most " + max + " " + target);
-                this.rolePhrase.addCoordinate(s3);
-
+        		this.cnl_card.setSubject("each" + " " + entity.getName() + " " + this.name);
+        		this.cnl_card.setVerb(relationship.getName());
+        		this.cnl_card.setObject("at least " + min + " " + target + " and " + 
+											"at most " + max + " " + target);
         	}
         }
     }
     
     /**
-     * This function redefines the one from Entity because for roles we define a coordinate phrase instead of a simple phrase.
+     * This function realise a simple phrase for only the cardinalities associated to roles.
      * 
      * @return a coordinated phrase
      */
-    public String getCNLen() {
-    	String output = this.realiser.realiseSentence(this.rolePhrase);
+    public String getCNLen_card() {
+    	String output = this.realiser.realiseSentence(this.cnl_card);
     	return output;
     }
 
+    
     /**
      * Creates a JSONObject with the relevant information about the Role object. The JSON format is based on the
      * Metamodel JSON Schema.
