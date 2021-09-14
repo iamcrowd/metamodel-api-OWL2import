@@ -71,6 +71,7 @@ public abstract class Entity {
   	  this.cnl.setSubject(this.name);
   	  this.cnl.setVerb("is");
   	  this.cnl.setObject("an Entity");
+
     }
     
     public String getCNLen() {

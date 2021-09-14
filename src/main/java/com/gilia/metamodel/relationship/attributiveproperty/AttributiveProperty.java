@@ -41,7 +41,10 @@ public class AttributiveProperty extends Relationship {
     private List<Entity> domain; // Actually, this should be Object type or Relationship
     private DataType range;
     
-    private CoordinatedPhraseElement attrPhrase = nlgFactory.createCoordinatedPhrase();
+	protected Lexicon lexicon = Lexicon.getDefaultLexicon();
+	protected NLGFactory nlgFactory = new NLGFactory(lexicon);
+	protected Realiser realiser = new Realiser(lexicon);
+	protected SPhraseSpec cnl_attr_prop = nlgFactory.createClause();
 
 
     public AttributiveProperty(String name) {
@@ -100,11 +103,13 @@ public class AttributiveProperty extends Relationship {
     }
     
     /**
-     * English verbalisation for an Attributive property
+     * English verbalisation for an Attributive property. It includes the verbalisation of attributes with data types
+     * and the attribute property itself.
      */
     public void toCNLen() {
-        SPhraseSpec s1 = nlgFactory.createClause(this.name, "is", "an attribute with data type " + this.range.getName());
-        this.attrPhrase.addCoordinate(s1);
+        this.cnl.setSubject(this.name);
+        this.cnl.setVerb("is");
+    	this.cnl.setObject("an attribute with data type " + this.range.getName());
         
       	List<Entity> domains = this.domain;
       	Iterator iterator = domains.iterator();
@@ -114,18 +119,19 @@ public class AttributiveProperty extends Relationship {
         	domains_n = domains_n + " and " + aDomain;
         }
 
-        SPhraseSpec s2 = nlgFactory.createClause(domains_n, "has", "attribute " + this.name);
-        this.attrPhrase.addCoordinate(s2);
-        
+        this.cnl_attr_prop.setSubject(domains_n);
+        this.cnl_attr_prop.setVerb("has"); 
+        this.cnl_attr_prop.setObject("attribute " + this.name);
     }
     
     /**
-     * This function redefines the one from Entity because for roles we define a coordinate phrase instead of a simple phrase.
+     * This function realises the simple sentence for the attributive property, i.e, the relationship between
+     * a domain and an attribute name.
      * 
-     * @return a coordinated phrase
+     * @return a sentence
      */
-    public String getCNLen() {
-    	String output = this.realiser.realiseSentence(this.attrPhrase);
+    public String getCNLen_attrProp() {
+    	String output = this.realiser.realiseSentence(this.cnl_attr_prop);
     	return output;
     }
 
