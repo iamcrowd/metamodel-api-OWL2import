@@ -2,6 +2,7 @@ package com.gilia.builder;
 
 import com.gilia.builder.jsontranslator.*;
 import com.gilia.builder.metabuilder.*;
+import com.gilia.builder.metabuilder.cnlen.*;
 import com.gilia.exceptions.NoMetamodelCreatedException;
 import com.gilia.exceptions.NotValidLanguageException;
 import com.gilia.metamodel.Metamodel;
@@ -68,6 +69,8 @@ public class MetaDirector {
                 return generateORM();
             case "meta":
                 return generateMeta();
+            case "cnlen":
+                return generateCNLen();
             default:
                 throw new NotValidLanguageException(toLanguage + " is not a valid language");
         }
@@ -128,4 +131,20 @@ public class MetaDirector {
             throw new NoMetamodelCreatedException("Metamodel can not be generated, no Metamodel created");
         }
     }
+    
+    
+    /**
+     * Generates a English controlled natural language for a KF instance
+     */
+    
+    public JSONObject generateCNLen() throws NoMetamodelCreatedException{
+        if (metamodel != null) {
+            builder = new CNLenConverter();
+            return builder.generateJSON(metamodel);
+        } else {
+            throw new NoMetamodelCreatedException("CNL (en) can not be generated, no Metamodel has been created");
+        }
+    	
+    }
+    
 }

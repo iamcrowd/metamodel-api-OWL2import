@@ -41,7 +41,7 @@ public class Mandatory extends MandatoryConstraint {
      * @return
      */
     public void toCNLen() {
-  	  this.cnl.setSubject(this.name);
+  	  this.cnl.setSubject(getDeclaredOn().getName());
   	  this.cnl.setVerb("is");
   	  this.cnl.setObject("Mandatory");
     }

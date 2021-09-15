@@ -138,7 +138,7 @@ public class Constants {
 
     // Regex
     public static final String RANDOM_STRING_REGEX = "[^A-Za-z0-9]";
-    public static final String OPERATIONS_REGEX = "(uml|eer|orm|meta)to(uml|eer|orm|meta)";
+    public static final String OPERATIONS_REGEX = "(uml|eer|orm|meta)to(uml|eer|orm|meta|cnlen)";
     public static final String ENDPOINT_REGEX = "/" + OPERATIONS_REGEX;
     public static final String CARDINALITY_DIVIDER_REGEX = "\\.\\.";
     public static final String CARDINALITY_LEFT_COMPONENT_REGEX = "(\\d+|N|\\*)";
