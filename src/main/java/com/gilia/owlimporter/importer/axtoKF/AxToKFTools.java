@@ -43,6 +43,8 @@ public class AxToKFTools {
     protected ObjectType addObjectType(String iri) {
         if (iri.equals("owl:Thing")) {
             iri = URI_TOP;
+        } else if (iri.equals("owl:Nothing")) {
+            iri = URI_BOTTOM;
         }
         return new ObjectType(iri);
     }

@@ -49,11 +49,7 @@
     <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Thing">
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty>
-                    <rdf:Description>
-                        <owl:inverseOf rdf:resource="http://crowd.fi.uncoma.edu.ar/axioms#P"/>
-                    </rdf:Description>
-                </owl:onProperty>
+                <owl:onProperty rdf:resource="http://crowd.fi.uncoma.edu.ar/axioms#P"/>
                 <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
                 <owl:onClass rdf:resource="http://crowd.fi.uncoma.edu.ar/axioms#B"/>
             </owl:Restriction>

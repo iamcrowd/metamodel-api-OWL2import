@@ -54,8 +54,7 @@
                         <owl:inverseOf rdf:resource="http://crowd.fi.uncoma.edu.ar/axioms#P"/>
                     </rdf:Description>
                 </owl:onProperty>
-                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
-                <owl:onClass rdf:resource="http://crowd.fi.uncoma.edu.ar/axioms#B"/>
+                <owl:someValuesFrom rdf:resource="http://crowd.fi.uncoma.edu.ar/axioms#B"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </rdf:Description>

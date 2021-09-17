@@ -38,15 +38,9 @@
     
 
 
-    <!-- http://crowd.fi.uncoma.edu.ar/axioms#B -->
+    <!-- http://crowd.fi.uncoma.edu.ar/axioms#A -->
 
-    <owl:Class rdf:about="http://crowd.fi.uncoma.edu.ar/axioms#B"/>
-    
-
-
-    <!-- http://www.w3.org/2002/07/owl#Thing -->
-
-    <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Thing">
+    <owl:Class rdf:about="http://crowd.fi.uncoma.edu.ar/axioms#A">
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty>
@@ -58,7 +52,13 @@
                 <owl:onClass rdf:resource="http://crowd.fi.uncoma.edu.ar/axioms#B"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-    </rdf:Description>
+    </owl:Class>
+    
+
+
+    <!-- http://crowd.fi.uncoma.edu.ar/axioms#B -->
+
+    <owl:Class rdf:about="http://crowd.fi.uncoma.edu.ar/axioms#B"/>
 </rdf:RDF>
 
 

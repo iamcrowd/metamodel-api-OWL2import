@@ -1,0 +1,17 @@
+Prefix(:=<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://crowd.fi.uncoma.edu.ar/axioms>
+
+Declaration(Class(<http://crowd.fi.uncoma.edu.ar/axioms#A>))
+Declaration(Class(<http://crowd.fi.uncoma.edu.ar/axioms#B>))
+Declaration(Class(<http://crowd.fi.uncoma.edu.ar/axioms#C>))
+Declaration(Class(<http://crowd.fi.uncoma.edu.ar/axioms#D>))
+
+SubClassOf(ObjectIntersectionOf(<http://crowd.fi.uncoma.edu.ar/axioms#A> <http://crowd.fi.uncoma.edu.ar/axioms#B>) ObjectUnionOf(<http://crowd.fi.uncoma.edu.ar/axioms#C> <http://crowd.fi.uncoma.edu.ar/axioms#D>))
+)
