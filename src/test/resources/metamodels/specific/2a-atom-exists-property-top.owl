@@ -40,7 +40,14 @@
 
     <!-- http://crowd.fi.uncoma.edu.ar/axioms#A -->
 
-    <owl:Class rdf:about="http://crowd.fi.uncoma.edu.ar/axioms#A"/>
+    <owl:Class rdf:about="http://crowd.fi.uncoma.edu.ar/axioms#A">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://crowd.fi.uncoma.edu.ar/axioms#P"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
 </rdf:RDF>
 
 
