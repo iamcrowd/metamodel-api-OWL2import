@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.2.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
 
     <groupId>com.gilia</groupId>
     <artifactId>OWL2KFImporter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
     <name>OWL2KFImporter</name>
+    <url>https://crowd.fi.uncoma.edu.ar/</url>
     <description>OWL 2 to Metamodel KF Importer</description>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>11</java.version>
-        <basedir>${project.basedir}</basedir>
+        <!-- <basedir>${project.basedir}</basedir> -->
     </properties>
-    
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.2.RELEASE</version>
+        <relativePath /> <!-- lookup parent from repository -->
+    </parent>
+
     <dependencies>
-    
+
         <dependency>
             <groupId>net.sourceforge.owlapi</groupId>
             <artifactId>owlapi-distribution</artifactId>
@@ -40,7 +45,7 @@
             <artifactId>ontologyutils</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-		
+
         <!-- https://mvnrepository.com/artifact/com.hermit-reasoner/org.semanticweb.hermit -->
         <dependency>
             <groupId>net.sourceforge.owlapi</groupId>
@@ -48,19 +53,19 @@
             <version>1.4.5.519</version>
             <!-- <scope>test</scope>  -->
         </dependency>
-		
+
         <dependency>
             <groupId>net.sourceforge.owlapi</groupId>
             <artifactId>jfact</artifactId>
             <version>5.0.1</version>
         </dependency>
-    	
+
         <dependency>
             <groupId>com.github.galigator.openllet</groupId>
             <artifactId>openllet-pellint</artifactId>
             <version>2.6.3</version>
         </dependency>
-    	
+
         <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owllink-owlapi-parent -->
         <dependency>
             <groupId>net.sourceforge.owlapi</groupId>
@@ -68,27 +73,27 @@
             <version>2.0.0</version>
             <type>pom</type>
         </dependency>
-		
+
         <dependency>
             <groupId>com.github.jsonld-java</groupId>
             <artifactId>jsonld-java</artifactId>
             <version>0.13.3</version>
         </dependency>
-		
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.5.2</version><!--$NO-MVN-MAN-VER$-->
+            <version>5.5.2</version> <!--$NO-MVN-MAN-VER$-->
             <scope>test</scope>
         </dependency>
-    	
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.5.2</version><!--$NO-MVN-MAN-VER$-->
+            <version>5.5.2</version> <!--$NO-MVN-MAN-VER$-->
             <scope>test</scope>
         </dependency>
-		
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -138,14 +143,14 @@
             <version>2.4.4</version>
             <scope>test</scope>
         </dependency>
-    	
+
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
             <version>1.0-groovy-2.4</version>
             <scope>test</scope>
         </dependency>
-    
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -167,23 +172,54 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <scriptSourceDirectory>${basedir}/src/main/scripts</scriptSourceDirectory>
+        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+        <outputDirectory>${basedir}/target/classes</outputDirectory>
+        <testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
+
         <pluginManagement>
             <plugins>
+                <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
                 <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <configuration>
-                                <mainClass>com.gilia.OWL2ImporterApp</mainClass>
-                            </configuration>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <includeSystemScope>true</includeSystemScope>
-                    </configuration>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.1.0</version>
                 </plugin>
-            
+                <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.0.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.0.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+                <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.7.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.0</version>
@@ -215,25 +251,23 @@
                     </configuration>
                 </plugin>
 
-
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.2</version><!--$NO-MVN-MAN-VER$-->
+                    <version>2.22.2</version>
                     <configuration>
-                        <!--<useFile>false</useFile>-->
                         <includes>
                             <include>%regex[.*Spec.*]</include>
                             <include>%regex[.*Test.*]</include>
                         </includes>
                     </configuration>
                 </plugin>
-            
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-report-plugin</artifactId>
                     <version>2.22.2</version>
                 </plugin>
-            
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
@@ -247,7 +281,7 @@
                     </configuration>
                 </plugin>
 
-                <plugin> 
+                <plugin>
                     <groupId>watcher</groupId>
                     <artifactId>watcher-maven-plugin</artifactId>
                     <version>1.0-SNAPSHOT</version>
@@ -267,7 +301,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>rzymek-snapshots</id>
-            <url>https://github.com/rzymek/repository/raw/master/snapshots</url>		
+            <url>https://github.com/rzymek/repository/raw/master/snapshots</url>
         </pluginRepository>
     </pluginRepositories>
 
