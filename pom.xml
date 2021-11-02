@@ -22,72 +22,72 @@
     
     <dependencies>
     
-    	<dependency>
-    		<groupId>net.sourceforge.owlapi</groupId>
-    		<artifactId>owlapi-distribution</artifactId>
-    		<version>5.1.9</version>
-    		<exclusions>
-    			<exclusion>
-    				<groupId>com.github.jsonld-java</groupId>
-    				<artifactId>jsonld-java</artifactId>
-    			</exclusion>
-    		</exclusions>
-    	</dependency>
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-distribution</artifactId>
+            <version>5.1.9</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.jsonld-java</groupId>
+                    <artifactId>jsonld-java</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
 
-		<dependency>
-    		<groupId>ontologyutils</groupId>
-    		<artifactId>ontologyutils</artifactId>
-    		<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+        <dependency>
+            <groupId>ontologyutils</groupId>
+            <artifactId>ontologyutils</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.hermit-reasoner/org.semanticweb.hermit -->
-  		<dependency>
-    		<groupId>net.sourceforge.owlapi</groupId>
-    		<artifactId>org.semanticweb.hermit</artifactId>
-    		<version>1.4.5.519</version>
-    		<!-- <scope>test</scope>  -->
-		</dependency>
+        <!-- https://mvnrepository.com/artifact/com.hermit-reasoner/org.semanticweb.hermit -->
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>org.semanticweb.hermit</artifactId>
+            <version>1.4.5.519</version>
+            <!-- <scope>test</scope>  -->
+        </dependency>
 		
-		<dependency>
-  			<groupId>net.sourceforge.owlapi</groupId>
-  			<artifactId>jfact</artifactId>
-  			<version>5.0.1</version>
-  		</dependency>
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>jfact</artifactId>
+            <version>5.0.1</version>
+        </dependency>
     	
-    	<dependency>
-    		<groupId>com.github.galigator.openllet</groupId>
-    		<artifactId>openllet-pellint</artifactId>
-    		<version>2.6.3</version>
-		</dependency>
+        <dependency>
+            <groupId>com.github.galigator.openllet</groupId>
+            <artifactId>openllet-pellint</artifactId>
+            <version>2.6.3</version>
+        </dependency>
     	
-    	<!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owllink-owlapi-parent -->
-		<dependency>
-    		<groupId>net.sourceforge.owlapi</groupId>
-    		<artifactId>owllink-owlapi-parent</artifactId>
-    		<version>2.0.0</version>
-    		<type>pom</type>
-		</dependency>
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owllink-owlapi-parent -->
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owllink-owlapi-parent</artifactId>
+            <version>2.0.0</version>
+            <type>pom</type>
+        </dependency>
 		
-		<dependency>
-			<groupId>com.github.jsonld-java</groupId>
-    		<artifactId>jsonld-java</artifactId>
-    		<version>0.13.3</version>
-		</dependency>
+        <dependency>
+            <groupId>com.github.jsonld-java</groupId>
+            <artifactId>jsonld-java</artifactId>
+            <version>0.13.3</version>
+        </dependency>
 		
-		<dependency>
-        	<groupId>org.junit.jupiter</groupId>
-        	<artifactId>junit-jupiter-api</artifactId>
-        	<version>5.5.2</version><!--$NO-MVN-MAN-VER$-->
-        	<scope>test</scope>
-    	</dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.5.2</version><!--$NO-MVN-MAN-VER$-->
+            <scope>test</scope>
+        </dependency>
     	
-    	<dependency>
-        	<groupId>org.junit.jupiter</groupId>
-        	<artifactId>junit-jupiter-engine</artifactId>
-        	<version>5.5.2</version><!--$NO-MVN-MAN-VER$-->
-        	<scope>test</scope>
-    	</dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.5.2</version><!--$NO-MVN-MAN-VER$-->
+            <scope>test</scope>
+        </dependency>
 		
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -132,19 +132,19 @@
             <scope>test</scope>
         </dependency>
 
-    	<dependency>
-        	<groupId>org.codehaus.groovy</groupId>
-        	<artifactId>groovy-all</artifactId>
-        	<version>2.4.4</version>
-        	<scope>test</scope>
-    	</dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.4.4</version>
+            <scope>test</scope>
+        </dependency>
     	
-    	<dependency>
-        	<groupId>org.spockframework</groupId>
-        	<artifactId>spock-core</artifactId>
-        	<version>1.0-groovy-2.4</version>
-        	<scope>test</scope>
-    	</dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>1.0-groovy-2.4</version>
+            <scope>test</scope>
+        </dependency>
     
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -167,109 +167,109 @@
     </dependencies>
 
     <build>
-       <pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-        			<execution>
-            			<configuration>
-                			<mainClass>com.gilia.OWL2ImporterApp</mainClass>
-            			</configuration>
-        			</execution>
-    			</executions>
-                <configuration>
-                    <includeSystemScope>true</includeSystemScope>
-                </configuration>
-            </plugin>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <configuration>
+                                <mainClass>com.gilia.OWL2ImporterApp</mainClass>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <includeSystemScope>true</includeSystemScope>
+                    </configuration>
+                </plugin>
             
-            <plugin>
-    			<artifactId>maven-compiler-plugin</artifactId>
-    			<version>3.8.0</version>
-    			<configuration>
-        			<compilerId>groovy-eclipse-compiler</compilerId>
-        			<source>${java.version}</source>
-        			<target>${java.version}</target>
-    			</configuration>
-    			<dependencies>
-        		<dependency>
-            		<groupId>org.codehaus.groovy</groupId>
-            		<artifactId>groovy-eclipse-compiler</artifactId>
-            		<version>3.3.0-01</version>
-        		</dependency>
-        		<dependency>
-            		<groupId>org.codehaus.groovy</groupId>
-            		<artifactId>groovy-eclipse-batch</artifactId>
-            		<version>${groovy.version}-01</version>
-        		</dependency>
-    			</dependencies>
-			</plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <configuration>
+                        <compilerId>groovy-eclipse-compiler</compilerId>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.codehaus.groovy</groupId>
+                            <artifactId>groovy-eclipse-compiler</artifactId>
+                            <version>3.3.0-01</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.codehaus.groovy</groupId>
+                            <artifactId>groovy-eclipse-batch</artifactId>
+                            <version>${groovy.version}-01</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <configuration>
-                    <mainClass>com.gilia.OWL2ImporterApp</mainClass>
-                </configuration>
-            </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.2.1</version>
+                    <configuration>
+                        <mainClass>com.gilia.OWL2ImporterApp</mainClass>
+                    </configuration>
+                </plugin>
 
 
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version><!--$NO-MVN-MAN-VER$-->
-                <configuration>
-                    <!--<useFile>false</useFile>-->
-                    <includes>
-                        <include>%regex[.*Spec.*]</include>
-                        <include>%regex[.*Test.*]</include>
-                    </includes>
-                </configuration>
-            </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.2</version><!--$NO-MVN-MAN-VER$-->
+                    <configuration>
+                        <!--<useFile>false</useFile>-->
+                        <includes>
+                            <include>%regex[.*Spec.*]</include>
+                            <include>%regex[.*Test.*]</include>
+                        </includes>
+                    </configuration>
+                </plugin>
             
-            <plugin>
-                 <groupId>org.apache.maven.plugins</groupId>
-                 <artifactId>maven-surefire-report-plugin</artifactId>
-                 <version>2.22.2</version>
-            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>2.22.2</version>
+                </plugin>
             
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
 
-            <plugin> 
-				<groupId>watcher</groupId>
-				<artifactId>watcher-maven-plugin</artifactId>
-				<version>1.0-SNAPSHOT</version>
-				<configuration>
-					<watch>
-						<param>
-							<on>pom.xml</on>
-							<run>clean war:inplace eclipse:eclipse</run>
-						</param>
-					</watch>
-				</configuration>
-			</plugin>
-        </plugins>
-       </pluginManagement>
+                <plugin> 
+                    <groupId>watcher</groupId>
+                    <artifactId>watcher-maven-plugin</artifactId>
+                    <version>1.0-SNAPSHOT</version>
+                    <configuration>
+                        <watch>
+                            <param>
+                                <on>pom.xml</on>
+                                <run>clean war:inplace eclipse:eclipse</run>
+                            </param>
+                        </watch>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <pluginRepositories>
-		<pluginRepository>
-			<id>rzymek-snapshots</id>
-			<url>https://github.com/rzymek/repository/raw/master/snapshots</url>		
-		</pluginRepository>
-	</pluginRepositories>
+        <pluginRepository>
+            <id>rzymek-snapshots</id>
+            <url>https://github.com/rzymek/repository/raw/master/snapshots</url>		
+        </pluginRepository>
+    </pluginRepositories>
 
     <repositories>
         <repository>

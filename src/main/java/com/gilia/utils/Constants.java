@@ -26,7 +26,9 @@ public class Constants {
     public static final String OWL_CLASSES_TO_META_ROUTE = "/owlclassestometa";
     public static final String OWL_SUBCLASSES_TO_META_ROUTE = "/owlallsubstometa";
     public static final String OWL_ONE_SUBCLASS_TO_META_ROUTE = "/owlonesubstometa";
-
+    
+    public static final String OWL_TO_META_ROUTE = "/owltometa";
+    
     public static final String OWL_NORMAL_TO_META_ROUTE = "/owlnormalisedtometa";
     public static final String OWL_NORMAL1A_TO_META_ROUTE = "/owlnormalised1atometa";
     public static final String OWL_NORMAL1B_TO_META_ROUTE = "/owlnormalised1btometa";

@@ -13,7 +13,7 @@ $(document).ready(function () {
     });
 
     $('#send').click(function () {
-        url = "http://localhost:3333/owlnormalisedtometa";
+        url = "http://localhost:3333/owltometa";
         var formData = new FormData();
         formData.append('onto', $('#jsonInput')[0].value.toString());
         files = $("#ontoFile")[0].files;
@@ -26,7 +26,13 @@ $(document).ready(function () {
         formData.append('entity', $('#jsonInput2')[0].value.toString());
         formData.append('reasoning', $('#reasoning').is(":checked"));
 
+        var normalised = true;
+
         switch ($('#convertid')[0].value) {
+            case "Translate to KF":
+                url = "http://localhost:3333/owltometa";
+                normalised = false;
+                break;
             case "Show Ontology":
                 url = "http://localhost:3333/showontology";
                 break;
@@ -61,7 +67,18 @@ $(document).ready(function () {
                 url = "http://localhost:3333/owlclassestometa";
                 break;
         }
-        ;
+
+        if (!normalised) {
+            var formData = new FormData();
+            formData.append('ontology', $('#jsonInput')[0].value.toString());
+            files = $("#ontoFile")[0].files;
+            if (files.length) {
+                for (var i = 0; i < files.length; i++) {
+                    formData.append('ontologiesFiles', files[i]);
+                }
+            }
+            formData.append('reasoning', $('#reasoning').is(":checked"));
+        }
 
         $.ajax({
             url: url,
@@ -79,7 +96,7 @@ $(document).ready(function () {
                     jsonOutput = JSON.stringify(response.kf, undefined, 4);
                     $("#jsonOutput").jsonViewer(response.kf);
 
-                    showResponse(response);
+                    showResponse(response, normalised);
                 } else if (response.success) {
                     jsonOutput = JSON.stringify(response, undefined, 4);
                     $("#jsonOutput").jsonViewer(response, {collapsed: true});
@@ -117,7 +134,11 @@ $(document).ready(function () {
                             nOfAx3: {},
                             nOfAx3Inv: {},
                             nOfAx4: {},
-                            nOfAx4Inv: {}
+                            nOfAx4Inv: {},
+
+                            translationTime: {},
+                            supportedAxiomsCount: {},
+                            unsupportedAxiomsCount: {}
                         }
                     }
 
@@ -129,7 +150,7 @@ $(document).ready(function () {
                             avgResponse.metrics[key].min = Math.min();
                         } else {
                             avgResponse.metrics[key]["unsupported"] = 0;
-                        }
+                    }
                     });
 
                     Object.entries(response.success).forEach(([respKey, resp]) => {
@@ -147,14 +168,14 @@ $(document).ready(function () {
                                 } else {
                                     avgResponse.metrics[key]["unsupported"]++;
                                 }
-                            }
+                        }
                         });
                     });
 
                     Object.entries(avgResponse.metrics).forEach(([metricKey, metric]) => {
                         if (metricKey != "expressivity") {
                             avgResponse.metrics[metricKey].avg = avgResponse.metrics[metricKey].total / Object.entries(response.success).length;
-                        }
+                    }
                     });
 
                     Object.entries(avgResponse.metrics).forEach(([key, value]) => {
@@ -166,10 +187,10 @@ $(document).ready(function () {
                                 metricResult.push(exprKey + ": " + exprValue);
                             });
                             avgResponse.metrics[key] = metricResult.join(", ");
-                        }
+                    }
                     });
 
-                    showResponse(avgResponse);
+                    showResponse(avgResponse, normalised);
                 } else {
                     throw Exception;
                 }
@@ -208,41 +229,53 @@ function copyToClipboardByValue(value) {
     $temp.remove();
 }
 
-function showResponse(response) {
+function showResponse(response, normalised) {
     $("#metrics").show();
 
     jsonUnsupported = JSON.stringify(response.unsupported, undefined, 4);
     $("#jsonUnsupported").jsonViewer(response.unsupported);
 
-    $("#expressivity").html(response.metrics.expressivity);
-    $("#nOfLogAxioms").html(response.metrics.nOfLogAxioms);
-    $("#nOfEntities").html(response.metrics.nOfEntities);
-    $("#nOfNormAxioms").html(response.metrics.nOfNormAxioms);
-    $("#nOfNormEntities").html(response.metrics.nOfNormEntities);
-    $("#nOfLogUnsupportedAxioms").html(response.metrics.nOfLogUnsupportedAxioms);
-    $("#nOfFresh").html(response.metrics.nOfFresh);
-    $("#nOfImport").html(response.metrics.nOfImport);
-    $("#importingTime").html(response.metrics.importingTime);
-    $("#nOfClassesInOrig").html(response.metrics.nOfClassesInOrig);
-    $("#nOfObjectPropertiesInOrig").html(response.metrics.nOfObjectPropertiesInOrig);
-    $("#nOfDataPropertiesInOrig").html(response.metrics.nOfDataPropertiesInOrig);
-    $("#nOfClassesInNormalised").html(response.metrics.nOfClassesInNormalised);
-    $("#nOfObjectPropertiesInNormalised").html(response.metrics.nOfObjectPropertiesInNormalised);
-    $("#nOfDataPropertiesInNormalised").html(response.metrics.nOfDataPropertiesInNormalised);
-    $("#nOfAx1A").html(response.metrics.nOfAx1A);
-    $("#nOfAx1B").html(response.metrics.nOfAx1B);
-    $("#nOfAx1C").html(response.metrics.nOfAx1C);
-    $("#nOfAx1D").html(response.metrics.nOfAx1D);
-    $("#nOfAx2A").html(response.metrics.nOfAx2A);
-    $("#nOfAx2AInv").html(response.metrics.nOfAx2AInv);
-    $("#nOfAx2B").html(response.metrics.nOfAx2B);
-    $("#nOfAx2BInv").html(response.metrics.nOfAx2BInv);
-    $("#nOfAx2C").html(response.metrics.nOfAx2C);
-    $("#nOfAx2CInv").html(response.metrics.nOfAx2CInv);
-    $("#nOfAx2D").html(response.metrics.nOfAx2D);
-    $("#nOfAx2DInv").html(response.metrics.nOfAx2DInv);
-    $("#nOfAx3").html(response.metrics.nOfAx3);
-    $("#nOfAx3Inv").html(response.metrics.nOfAx3Inv);
-    $("#nOfAx4").html(response.metrics.nOfAx4);
-    $("#nOfAx4Inv").html(response.metrics.nOfAx4Inv);
+    if (normalised) {
+        $("#normalisedMetrics").show();
+        $("#nonNormalisedMetrics").hide();
+
+        $("#expressivity").html(response.metrics.expressivity);
+        $("#nOfLogAxioms").html(response.metrics.nOfLogAxioms);
+        $("#nOfEntities").html(response.metrics.nOfEntities);
+        $("#nOfNormAxioms").html(response.metrics.nOfNormAxioms);
+        $("#nOfNormEntities").html(response.metrics.nOfNormEntities);
+        $("#nOfLogUnsupportedAxioms").html(response.metrics.nOfLogUnsupportedAxioms);
+        $("#nOfFresh").html(response.metrics.nOfFresh);
+        $("#nOfImport").html(response.metrics.nOfImport);
+        $("#importingTime").html(response.metrics.importingTime);
+        $("#nOfClassesInOrig").html(response.metrics.nOfClassesInOrig);
+        $("#nOfObjectPropertiesInOrig").html(response.metrics.nOfObjectPropertiesInOrig);
+        $("#nOfDataPropertiesInOrig").html(response.metrics.nOfDataPropertiesInOrig);
+        $("#nOfClassesInNormalised").html(response.metrics.nOfClassesInNormalised);
+        $("#nOfObjectPropertiesInNormalised").html(response.metrics.nOfObjectPropertiesInNormalised);
+        $("#nOfDataPropertiesInNormalised").html(response.metrics.nOfDataPropertiesInNormalised);
+        $("#nOfAx1A").html(response.metrics.nOfAx1A);
+        $("#nOfAx1B").html(response.metrics.nOfAx1B);
+        $("#nOfAx1C").html(response.metrics.nOfAx1C);
+        $("#nOfAx1D").html(response.metrics.nOfAx1D);
+        $("#nOfAx2A").html(response.metrics.nOfAx2A);
+        $("#nOfAx2AInv").html(response.metrics.nOfAx2AInv);
+        $("#nOfAx2B").html(response.metrics.nOfAx2B);
+        $("#nOfAx2BInv").html(response.metrics.nOfAx2BInv);
+        $("#nOfAx2C").html(response.metrics.nOfAx2C);
+        $("#nOfAx2CInv").html(response.metrics.nOfAx2CInv);
+        $("#nOfAx2D").html(response.metrics.nOfAx2D);
+        $("#nOfAx2DInv").html(response.metrics.nOfAx2DInv);
+        $("#nOfAx3").html(response.metrics.nOfAx3);
+        $("#nOfAx3Inv").html(response.metrics.nOfAx3Inv);
+        $("#nOfAx4").html(response.metrics.nOfAx4);
+        $("#nOfAx4Inv").html(response.metrics.nOfAx4Inv);
+    } else {
+        $("#nonNormalisedMetrics").show();
+        $("#normalisedMetrics").hide();
+
+        $("#translationTime").html(response.metrics.translationTime);
+        $("#supportedAxiomsCount").html(response.metrics.supportedAxiomsCount);
+        $("#unsupportedAxiomsCount").html(response.metrics.unsupportedAxiomsCount);
+    }
 }

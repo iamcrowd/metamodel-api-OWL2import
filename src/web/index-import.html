@@ -24,6 +24,7 @@
                     <div class="col-md-5">
                         <label for="convertid">Choose endpoint</label>
                         <select id="convertid" class="form-control">
+                            <option>Translate to KF</option>
                             <option>Show Ontology</option>
                             <option>Show Normalised Ontology</option>
                             <option>Normalised</option>
@@ -66,7 +67,7 @@
                                     </div>
                                     </br>
                                     <div>
-                                        <input type="checkbox" name="precompute" id="reasoning">
+                                        <input type="checkbox" name="precompute" id="reasoning" checked>
                                         <label for="precompute">Precompute (Hermit)</label><br>
                                     </div>
                                 </div>
@@ -82,7 +83,7 @@
                             <div id="metrics" style="display: none;">
                                 <label for="jsonInput">Unsupported Axioms</label> <input type="button" class="btn btn-sm btn-primary" id="copyUnsupported" value="Copy to Clipboard" />
                                 <pre class="form-control" id="jsonUnsupported" style="height: 150px"></pre>
-                                <div class="row">
+                                <div id="normalisedMetrics" class="row">
                                     <div class="col-md-6">
                                         <label title="expressivity of ontologies"><b>expressivity:</b></label>
                                         <label id="expressivity">-</label>
@@ -178,6 +179,19 @@
                                         </br>
                                         <label title=""><b>nOfAx4Inv:</b></label>
                                         <label id="nOfAx4Inv">-</label>
+                                    </div>
+                                </div>
+                                <div id="nonNormalisedMetrics" class="row">
+                                    <div class="col-md-6">
+                                        <label title="translation time"><b>translation time:</b></label>
+                                        <label id="translationTime">-</label>
+                                        </br>
+                                        <label title="supported axioms count"><b>supported axioms count:</b></label>
+                                        <label id="supportedAxiomsCount">-</label>
+                                        </br>
+                                        <label title="unsupported axioms count"><b>unsupported axioms count:</b></label>
+                                        <label id="unsupportedAxiomsCount">-</label>
+                                        </br>
                                     </div>
                                 </div>
                             </div>

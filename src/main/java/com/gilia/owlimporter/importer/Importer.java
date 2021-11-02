@@ -20,7 +20,6 @@ import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
 import static com.gilia.utils.Constants.URI_NORMAL_CONCEPT;
 import static com.gilia.utils.ImportUtils.validateOWL;
 
-
 /**
  * An importer is a KF metamodel instance of an OWL 2 specification
  *

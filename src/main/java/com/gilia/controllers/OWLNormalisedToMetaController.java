@@ -15,7 +15,7 @@ import org.springframework.web.multipart.*;
 import static com.gilia.utils.Constants.*;
 
 /**
- * Controller of the OWL_TO_META_ROUTE endpoint. This controller is in charge of
+ * Controller of the OWL_NORMAL_TO_META_ROUTE endpoint. This controller is in charge of
  * receiving an OWL spec, creating the Metamodel instance and returning a
  * Metamodel JSON.
  */
