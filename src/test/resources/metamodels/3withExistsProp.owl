@@ -20,5 +20,9 @@ Declaration(ObjectProperty(:P))
 
 SubClassOf(:A ObjectAllValuesFrom(:P :B))
 
+# Class: owl:Thing (owl:Thing)
+
+SubClassOf(owl:Thing ObjectSomeValuesFrom(:P owl:Thing))
+
 
 )
