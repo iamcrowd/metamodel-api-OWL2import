@@ -3,6 +3,7 @@ package com.gilia.owlimporter.importer;
 import com.gilia.builder.metabuilder.*;
 import com.gilia.metamodel.*;
 import com.gilia.owlimporter.importer.axtoKF.*;
+
 import java.io.*;
 import java.util.*;
 import java.util.stream.*;
@@ -12,6 +13,11 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.*;
 import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.util.*;
+
+import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLSubClassOfAxiomImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLObjectSomeValuesFromImpl;
+
 import org.springframework.web.multipart.*;
 import uk.ac.manchester.cs.jfact.*;
 import www.ontologyutils.normalization.*;
@@ -32,6 +38,8 @@ public class OWLImporter {
     private OWLOntology unsupported;
     private OWLOntologyManager manager;
     private boolean reasoning;
+    private static final OWLReasonerFactory reasonerFactoryFact = new JFactFactory();
+    private List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<>();
 
     private JSONObject metrics;
 
@@ -111,9 +119,9 @@ public class OWLImporter {
      */
     private void precompute() {
         try {
-            OWLReasonerFactory factory = new JFactFactory();
-            OWLReasoner reasoner = factory.createReasoner(this.ontology);
-            reasoner.precomputeInferences(
+           // OWLReasonerFactory factory = new JFactFactory();
+            OWLReasoner reasoner = reasonerFactoryFact.createReasoner(this.ontology);
+            /*reasoner.precomputeInferences(
                     InferenceType.CLASS_HIERARCHY,
                     InferenceType.CLASS_ASSERTIONS,
                     InferenceType.DISJOINT_CLASSES,
@@ -121,28 +129,46 @@ public class OWLImporter {
                     InferenceType.OBJECT_PROPERTY_ASSERTIONS,
                     InferenceType.DATA_PROPERTY_ASSERTIONS,
                     InferenceType.DATA_PROPERTY_HIERARCHY
-            );
+            );*/
 
-            List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<>();
-            gens.add(new InferredSubClassAxiomGenerator());
-            gens.add(new InferredClassAssertionAxiomGenerator());
-            gens.add(new InferredDisjointClassesAxiomGenerator());
-            gens.add(new InferredEquivalentClassAxiomGenerator());
-            gens.add(new InferredEquivalentDataPropertiesAxiomGenerator());
-            gens.add(new InferredEquivalentObjectPropertyAxiomGenerator());
-            gens.add(new InferredInverseObjectPropertiesAxiomGenerator());
-            gens.add(new InferredObjectPropertyCharacteristicAxiomGenerator());
-            gens.add(new InferredPropertyAssertionGenerator());
-            gens.add(new InferredSubDataPropertyAxiomGenerator());
-            gens.add(new InferredSubObjectPropertyAxiomGenerator());
+     //       List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<>();
+            this.gens.add(new InferredSubClassAxiomGenerator());
+            this.gens.add(new InferredClassAssertionAxiomGenerator());
+            this.gens.add(new InferredDisjointClassesAxiomGenerator());
+            this.gens.add(new InferredEquivalentClassAxiomGenerator());
+            this.gens.add(new InferredEquivalentDataPropertiesAxiomGenerator());
+            this.gens.add(new InferredEquivalentObjectPropertyAxiomGenerator());
+            this.gens.add(new InferredInverseObjectPropertiesAxiomGenerator());
+            this.gens.add(new InferredObjectPropertyCharacteristicAxiomGenerator());
+            this.gens.add(new InferredPropertyAssertionGenerator());
+            this.gens.add(new InferredSubDataPropertyAxiomGenerator());
+            this.gens.add(new InferredSubObjectPropertyAxiomGenerator());
 
-            InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens);
+            InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, this.gens);
             OWLDataFactory df = OWLManager.getOWLDataFactory();
             iog.fillOntology(df, this.ontology);
         } catch (Exception e) {
             System.out.println("Error precomputing ontology. (" + e.getMessage() + ")");
         }
     }
+    
+    /**
+     * Check if an Axiom is entailed in the current ontology
+     * @param ontology
+     * @param axiom
+     * @return
+     */
+	private boolean isEntailed(OWLAxiom axiom) {
+		this.gens.contains(axiom);
+		if (this.gens.contains(axiom)) {
+			System.out.println("Entailed? Si");
+			return true;
+		}
+		else {
+			System.out.println("Entailed? NO");
+			return false;
+		}
+	}
 
     /**
      * Translation to KF metamodel. It does reasoning first and then translate
@@ -182,6 +208,30 @@ public class OWLImporter {
                         } else {
                             throw new EmptyStackException();
                         }
+                        
+                     } else if (NormalForm.typeThreeSubClassAxiom(left, right)) {
+                            OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
+                            OWLObjectProperty namedProperty = property.getNamedProperty();
+                            
+                            if (property.isNamed()) {
+                            	IRI.create("http://www.w3.org/2002/07/owl#Thing");
+                            	Collection<OWLClassExpression> sub = new ArrayList<>();
+                            	OWLAxiom exists = new OWLSubClassOfAxiomImpl(
+                            			((OWLClassExpression) new OWLClassImpl(IRI.create("http://www.w3.org/2002/07/owl#Thing"))),
+                            			((OWLClassExpression) new OWLObjectSomeValuesFromImpl(property, 
+                            											new OWLClassImpl(IRI.create("http://www.w3.org/2002/07/owl#Thing")))),
+                            			new ArrayList<OWLAnnotation>());
+                        		
+                            	System.out.println("Check entailment");
+                            	if (this.isEntailed(exists)) {
+                            		System.out.println("It is entailed exists property");
+                            		Ax3 ax3asKF = new Ax3();
+                            		ax3asKF.type3asKF(this.metamodel, left, right);
+                            	} else {
+                            		System.out.println("Not entailed exists property");
+                            	}
+                            }
+                        	
                     } else {
                         throw new EmptyStackException();
                     }
