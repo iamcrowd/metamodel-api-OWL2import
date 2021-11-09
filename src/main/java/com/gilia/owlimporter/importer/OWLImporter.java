@@ -255,6 +255,8 @@ public class OWLImporter {
             			System.out.println("Not entailed exists property");
             		}
                 }
+                this.supported.addAxioms(axiom);
+                this.metrics.put("supportedAxiomsCount", ((int) this.metrics.get("supportedAxiomsCount")) + 1);  
             } catch (Exception e) {
                 this.unsupported.addAxiom(axf);
                 this.metrics.put("unsupportedAxiomsCount", ((int) this.metrics.get("unsupportedAxiomsCount")) + 1);
