@@ -198,8 +198,8 @@ public class OWLImporter {
                          	if (property.isNamed()) {
                          		System.out.println("Exists property on the right");
                          		objpe.add(right);
-                                Ax2 ax2asKF = new Ax2();
-                                ax2asKF.type2asKF(this.metamodel, left, right, TYPE2_SUBCLASS_AXIOM);
+                                //Ax2 ax2asKF = new Ax2(); add here new encoding
+                                //ax2asKF.type2asKF(this.metamodel, left, right, TYPE2_SUBCLASS_AXIOM);
                          	}
                     	 
                      } else if (NormalForm.typeFourSubClassAxiom(left, right)) {
@@ -236,6 +236,7 @@ public class OWLImporter {
             }
         });
         
+        // delaying forall axioms parsing
         forallax.forEach((axf) -> {
             try { 
                 if (axf.isOfType(AxiomType.SUBCLASS_OF)) {
@@ -250,12 +251,13 @@ public class OWLImporter {
             		if (objpe.contains(exists)) {
             			System.out.println("It is entailed exists property");
             			Ax3 ax3asKF = new Ax3();
-            			ax3asKF.type3asKF(this.metamodel, left, right);
-            		} else {
-            			System.out.println("Not entailed exists property");
+            			ax3asKF.type3ImportedAsKF(this.metamodel, left, right);
             		}
+            		else {
+                        throw new EmptyStackException();
+                    }
                 }
-                this.supported.addAxioms(axiom);
+                this.supported.addAxioms(axf);
                 this.metrics.put("supportedAxiomsCount", ((int) this.metrics.get("supportedAxiomsCount")) + 1);  
             } catch (Exception e) {
                 this.unsupported.addAxiom(axf);
