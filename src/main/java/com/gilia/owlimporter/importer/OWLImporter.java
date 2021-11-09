@@ -3,6 +3,10 @@ package com.gilia.owlimporter.importer;
 import com.gilia.builder.metabuilder.*;
 import com.gilia.metamodel.*;
 import com.gilia.owlimporter.importer.axtoKF.*;
+import static com.gilia.utils.Constants.TYPE2_EXACT_CARD_AXIOM;
+import static com.gilia.utils.Constants.TYPE2_MAX_CARD_AXIOM;
+import static com.gilia.utils.Constants.TYPE2_MIN_CARD_AXIOM;
+import static com.gilia.utils.Constants.TYPE2_SUBCLASS_AXIOM;
 
 import java.io.*;
 import java.util.*;
@@ -17,6 +21,7 @@ import org.semanticweb.owlapi.util.*;
 import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLSubClassOfAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectSomeValuesFromImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLQuantifiedRestrictionImpl;
 
 import org.springframework.web.multipart.*;
 import uk.ac.manchester.cs.jfact.*;
@@ -121,15 +126,6 @@ public class OWLImporter {
         try {
            // OWLReasonerFactory factory = new JFactFactory();
             OWLReasoner reasoner = reasonerFactoryFact.createReasoner(this.ontology);
-            /*reasoner.precomputeInferences(
-                    InferenceType.CLASS_HIERARCHY,
-                    InferenceType.CLASS_ASSERTIONS,
-                    InferenceType.DISJOINT_CLASSES,
-                    InferenceType.OBJECT_PROPERTY_HIERARCHY,
-                    InferenceType.OBJECT_PROPERTY_ASSERTIONS,
-                    InferenceType.DATA_PROPERTY_ASSERTIONS,
-                    InferenceType.DATA_PROPERTY_HIERARCHY
-            );*/
 
      //       List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<>();
             this.gens.add(new InferredSubClassAxiomGenerator());
@@ -151,24 +147,6 @@ public class OWLImporter {
             System.out.println("Error precomputing ontology. (" + e.getMessage() + ")");
         }
     }
-    
-    /**
-     * Check if an Axiom is entailed in the current ontology
-     * @param ontology
-     * @param axiom
-     * @return
-     */
-	private boolean isEntailed(OWLAxiom axiom) {
-		this.gens.contains(axiom);
-		if (this.gens.contains(axiom)) {
-			System.out.println("Entailed? Si");
-			return true;
-		}
-		else {
-			System.out.println("Entailed? NO");
-			return false;
-		}
-	}
 
     /**
      * Translation to KF metamodel. It does reasoning first and then translate
@@ -177,6 +155,9 @@ public class OWLImporter {
     public void translate() {
         long start, end;
         start = Calendar.getInstance().getTimeInMillis();
+        
+        List<OWLClassExpression> objpe = new ArrayList<>();
+        List<OWLAxiom> forallax = new ArrayList<>();
 
         if (this.reasoning) {
             //reason over the input ontology
@@ -209,27 +190,35 @@ public class OWLImporter {
                             throw new EmptyStackException();
                         }
                         
+                     } else if (NormalForm.typeTwoSubClassAxiom(left, right)) {
+                         	OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) right).getProperty();
+                         	OWLObjectProperty namedProperty = property.getNamedProperty();
+                         	
+                         	System.out.println("Axiom Exists");
+                         	if (property.isNamed()) {
+                         		System.out.println("Exists property on the right");
+                         		objpe.add(right);
+                                Ax2 ax2asKF = new Ax2();
+                                ax2asKF.type2asKF(this.metamodel, left, right, TYPE2_SUBCLASS_AXIOM);
+                         	}
+                    	 
+                     } else if (NormalForm.typeFourSubClassAxiom(left, right)) {
+                      		OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) left).getProperty();
+                      		OWLObjectProperty namedProperty = property.getNamedProperty();
+                      
+                      		if (property.isNamed()) {
+                      			objpe.add(left);
+                      			System.out.println("Exists property on the left");
+
+                      		}
+                    	 
                      } else if (NormalForm.typeThreeSubClassAxiom(left, right)) {
                             OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
                             OWLObjectProperty namedProperty = property.getNamedProperty();
                             
                             if (property.isNamed()) {
-                            	IRI.create("http://www.w3.org/2002/07/owl#Thing");
-                            	Collection<OWLClassExpression> sub = new ArrayList<>();
-                            	OWLAxiom exists = new OWLSubClassOfAxiomImpl(
-                            			((OWLClassExpression) new OWLClassImpl(IRI.create("http://www.w3.org/2002/07/owl#Thing"))),
-                            			((OWLClassExpression) new OWLObjectSomeValuesFromImpl(property, 
-                            											new OWLClassImpl(IRI.create("http://www.w3.org/2002/07/owl#Thing")))),
-                            			new ArrayList<OWLAnnotation>());
-                        		
-                            	System.out.println("Check entailment");
-                            	if (this.isEntailed(exists)) {
-                            		System.out.println("It is entailed exists property");
-                            		Ax3 ax3asKF = new Ax3();
-                            		ax3asKF.type3asKF(this.metamodel, left, right);
-                            	} else {
-                            		System.out.println("Not entailed exists property");
-                            	}
+                            	forallax.add(axiom);
+                            	System.out.println("Axiom forall");
                             }
                         	
                     } else {
@@ -245,6 +234,32 @@ public class OWLImporter {
                 this.unsupported.addAxiom(axiom);
                 this.metrics.put("unsupportedAxiomsCount", ((int) this.metrics.get("unsupportedAxiomsCount")) + 1);
             }
+        });
+        
+        forallax.forEach((axf) -> {
+            try { 
+                if (axf.isOfType(AxiomType.SUBCLASS_OF)) {
+                    OWLClassExpression left = ((OWLSubClassOfAxiom) axf).getSubClass();
+                    OWLClassExpression right = ((OWLSubClassOfAxiom) axf).getSuperClass();
+                    
+                    OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
+                    OWLClassExpression filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
+                    OWLClassExpression exists = new OWLObjectSomeValuesFromImpl(property, filler);
+                    
+                    System.out.println(exists);
+            		if (objpe.contains(exists)) {
+            			System.out.println("It is entailed exists property");
+            			Ax3 ax3asKF = new Ax3();
+            			ax3asKF.type3asKF(this.metamodel, left, right);
+            		} else {
+            			System.out.println("Not entailed exists property");
+            		}
+                }
+            } catch (Exception e) {
+                this.unsupported.addAxiom(axf);
+                this.metrics.put("unsupportedAxiomsCount", ((int) this.metrics.get("unsupportedAxiomsCount")) + 1);
+            }
+        	
         });
 
         end = Calendar.getInstance().getTimeInMillis();
