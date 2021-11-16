@@ -197,12 +197,15 @@ public class OWLImporter {
                          	System.out.println("Axiom Exists");
                          	if (property.isNamed()) {
                          		System.out.println("Exists property on the right");
+                                System.out.println(axiom.toString());
                          		System.out.println(left.toString());
                          		System.out.println(right.toString());
                          		objpe.add(right);
                                 Ax2 ax2asKF = new Ax2();
                                 ax2asKF.type2ImportedAsKF(this.metamodel, left, right, TYPE2_SUBCLASS_AXIOM);
-                         	}
+                         	} else {
+                                throw new EmptyStackException();
+                            }
                     	 
                      } else if (NormalForm.typeFourSubClassAxiom(left, right)) {
                       		OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) left).getProperty();
@@ -212,7 +215,9 @@ public class OWLImporter {
                       			objpe.add(left);
                       			System.out.println("Exists property on the left");
 
-                      		}
+                      		} else {
+                                throw new EmptyStackException();
+                            }
                     	 
                      } else if (NormalForm.typeThreeSubClassAxiom(left, right)) {
                             OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
@@ -221,6 +226,8 @@ public class OWLImporter {
                             if (property.isNamed()) {
                             	forallax.add(axiom);
                             	System.out.println("Axiom forall");
+                            } else {
+                                throw new EmptyStackException();
                             }
                         	
                     } else {
