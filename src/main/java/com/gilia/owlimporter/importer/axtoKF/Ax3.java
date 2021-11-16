@@ -481,7 +481,7 @@ public class Ax3 extends AxToKFTools {
 			String rel_fresh_P21_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "2.1";
 			String rel_fresh_P22_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "2.2";
 
-			// add cardinalities for P1
+			// add cardinalities for P2
 			ObjectTypeCardinality otc_role_P_21_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "*");
 			ObjectTypeCardinality otc_role_P_22_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
 
@@ -494,7 +494,7 @@ public class Ax3 extends AxToKFTools {
 
 			Relationship r_P2 = new Relationship(rel_P2_iri, P2L);
 
-			// Add P1 roles and set mandatory
+			// Add P2 roles and set mandatory
 			Role role_P_21 = new Role(rel_fresh_P21_iri, ot_fresh_left, r_P2, otc_role_P_21_DomRan);
 			if (role_P_21.hasMandatoryConstraint()) {
 				kf.addConstraint(role_P_21.getMandatoryConstraint());

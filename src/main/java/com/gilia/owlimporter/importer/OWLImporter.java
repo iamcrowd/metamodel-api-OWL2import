@@ -197,9 +197,11 @@ public class OWLImporter {
                          	System.out.println("Axiom Exists");
                          	if (property.isNamed()) {
                          		System.out.println("Exists property on the right");
+                         		System.out.println(left.toString());
+                         		System.out.println(right.toString());
                          		objpe.add(right);
-                                //Ax2 ax2asKF = new Ax2(); add here new encoding
-                                //ax2asKF.type2asKF(this.metamodel, left, right, TYPE2_SUBCLASS_AXIOM);
+                                Ax2 ax2asKF = new Ax2();
+                                ax2asKF.type2ImportedAsKF(this.metamodel, left, right, TYPE2_SUBCLASS_AXIOM);
                          	}
                     	 
                      } else if (NormalForm.typeFourSubClassAxiom(left, right)) {

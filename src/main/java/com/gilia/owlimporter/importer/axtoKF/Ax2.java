@@ -329,5 +329,146 @@ public class Ax2 extends AxToKFTools {
             Subsumption sub_rel_P_PAB2_fresh = addSubsumption(kf, r_P2, r_fresh_PAB2);
         }
     }
+    
+    /**
+     * Subclass(atom, exists property atom)
+     *
+     * @param kf
+     * @param left
+     * @param right
+     */
+    public void type2ImportedAsKF(Metamodel kf, OWLClassExpression left, OWLClassExpression right, String TYPE) {
+
+        String left_iri = left.asOWLClass().toStringID();
+        if (isFresh(left)) {
+            left_iri = URI_NORMAL_CONCEPT + left.asOWLClass().toStringID();
+        }
+
+        OWLClassExpression filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
+        OWLPropertyExpression property = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getProperty();
+
+        String prop_iri = property.asOWLObjectProperty().toStringID();
+
+        if (NormalForm.isAtom(filler)) {
+            String filler_iri = filler.asOWLClass().toStringID();
+            if (isFresh(filler)) {
+                filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID();
+            }
+
+            // Object types
+        
+            // String fresh_left_iri = left_iri + "p";
+            String fresh_left_iri = URI_IMPORT_CONCEPT + prop_iri + "%" + left_iri;
+            ObjectType ot_fresh_left = addObjectType(fresh_left_iri);
+        
+            //A
+            ObjectType ot_left = addObjectType(left_iri);
+            //B
+            ObjectType ot_filler = addObjectType(filler_iri);
+        
+            //Dom
+            String fresh_dom_iri = URI_IMPORT_CONCEPT + "%" + "Dom";
+            ObjectType ot_fresh_dom = addObjectType(fresh_dom_iri);
+            //Ran
+            String fresh_ran_iri = URI_IMPORT_CONCEPT + "%" + "Ran";
+            ObjectType ot_fresh_ran = addObjectType(fresh_ran_iri);
+
+            kf.addEntity(ot_left);
+            kf.addEntity(ot_fresh_left);
+            kf.addEntity(ot_filler);
+            kf.addEntity(ot_fresh_dom);
+            kf.addEntity(ot_fresh_ran);
+        
+            // Object types Subsumption
+            Subsumption sub_fresh_dom = addSubsumption(kf, ot_fresh_dom, ot_fresh_left);
+            Subsumption sub_left_fresh = addSubsumption(kf, ot_fresh_left, ot_left);
+        
+            //add P relationship
+            String rel_P_iri = prop_iri;
+        
+            // IRIs for roles of P
+            String role_P_1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + ".1";
+            String role_P_2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + ".2";
+
+            // add cardinalities for P
+            ObjectTypeCardinality otc_role_P_1_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "*");
+            ObjectTypeCardinality otc_role_P_2_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
+
+            kf.addConstraint(otc_role_P_1_DomRan);
+            kf.addConstraint(otc_role_P_2_DomRan);
+        
+            ArrayList<Entity> PL = new ArrayList();
+            PL.add(ot_fresh_dom);
+            PL.add(ot_fresh_ran);
+
+            Relationship r_P = new Relationship(rel_P_iri, PL);
+        
+            // Add P roles and set mandatory
+            Role role_P_1 = new Role(role_P_1_iri, ot_fresh_dom, r_P, otc_role_P_1_DomRan);
+            if (role_P_1.hasMandatoryConstraint()) {
+               kf.addConstraint(role_P_1.getMandatoryConstraint());
+            }
+        
+            Role role_P_2 = new Role(role_P_2_iri, ot_fresh_ran, r_P, otc_role_P_2_DomRan);
+            if (role_P_2.hasMandatoryConstraint()) {
+               kf.addConstraint(role_P_2.getMandatoryConstraint());
+            }
+        
+            kf.addRole(role_P_1);
+            kf.addRole(role_P_2);
+
+            ArrayList<Role> Pres = new ArrayList();
+            Pres.add(role_P_1);
+            Pres.add(role_P_2);
+
+            r_P.setRoles(Pres);
+            kf.addRelationship(r_P);
+        
+			// P1
+			String rel_P1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1";
+			// IRIs for roles of P1
+			String rel_fresh_P11_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1.1";
+			String rel_fresh_P12_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1.2";
+
+			// add cardinalities for P1
+			ObjectTypeCardinality otc_role_P_11_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "*");
+			ObjectTypeCardinality otc_role_P_12_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
+
+			kf.addConstraint(otc_role_P_11_DomRan);
+			kf.addConstraint(otc_role_P_12_DomRan);
+
+			ArrayList<Entity> P1L = new ArrayList();
+			P1L.add(ot_fresh_left);
+			P1L.add(ot_filler);
+
+			Relationship r_P1 = new Relationship(rel_P1_iri, P1L);
+
+			// Add P1 roles and set mandatory
+			Role role_P_11 = new Role(rel_fresh_P11_iri, ot_fresh_left, r_P1, otc_role_P_11_DomRan);
+			if (role_P_11.hasMandatoryConstraint()) {
+				kf.addConstraint(role_P_11.getMandatoryConstraint());
+			}
+
+			Role role_P_12 = new Role(rel_fresh_P12_iri, ot_filler, r_P1, otc_role_P_12_DomRan);
+			if (role_P_12.hasMandatoryConstraint()) {
+				kf.addConstraint(role_P_12.getMandatoryConstraint());
+			}
+
+			kf.addRole(role_P_11);
+			kf.addRole(role_P_12);
+
+			ArrayList<Role> Pres1 = new ArrayList();
+			Pres1.add(role_P_11);
+			Pres1.add(role_P_12);
+
+			r_P1.setRoles(Pres1);
+			kf.addRelationship(r_P1);
+
+			// Object types Subsumption
+			Subsumption sub_P1P = new Subsumption(URI_IMPORT_CONCEPT + getAlphaNumericString(8), r_P, r_P1);
+			kf.addRelationship(sub_P1P);
+
+        }
+    }
 
 }
