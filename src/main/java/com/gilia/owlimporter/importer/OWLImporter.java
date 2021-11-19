@@ -151,6 +151,8 @@ public class OWLImporter {
     /**
      * Translation to KF metamodel. It does reasoning first and then translate
      * each supported axiom and register both: supported and unsupported axioms.
+     * 
+     * @todo objpe should be a set for avoiding repretitions.
      */
     public void translate() {
         long start, end;
@@ -262,7 +264,6 @@ public class OWLImporter {
                     OWLClassExpression right = ((OWLSubClassOfAxiom) axf).getSuperClass();
                     
                     OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
-                   // OWLClassExpression filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
                     OWLClassExpression exists = new OWLObjectSomeValuesFromImpl(property, 
                     		new OWLClassImpl(IRI.create("http://www.w3.org/2002/07/owl#Thing")));
                     

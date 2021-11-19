@@ -401,7 +401,8 @@ public class Ax2 extends AxToKFTools {
             PL.add(ot_fresh_dom);
             PL.add(ot_fresh_ran);
 
-            Relationship r_P = new Relationship(rel_P_iri, PL);
+            //Relationship r_P = new Relationship(rel_P_iri, PL);
+            Relationship r_P = addRelationship(kf, rel_P_iri, PL);
         
             // Add P roles and set mandatory
             Role role_P_1 = new Role(role_P_1_iri, ot_fresh_dom, r_P, otc_role_P_1_DomRan);
@@ -422,7 +423,7 @@ public class Ax2 extends AxToKFTools {
             Pres.add(role_P_2);
 
             r_P.setRoles(Pres);
-            kf.addRelationship(r_P);
+            //kf.addRelationship(r_P);
         
 			// P1
 			String rel_P1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1";
@@ -441,7 +442,8 @@ public class Ax2 extends AxToKFTools {
 			P1L.add(ot_fresh_left);
 			P1L.add(ot_filler);
 
-			Relationship r_P1 = new Relationship(rel_P1_iri, P1L);
+			//Relationship r_P1 = new Relationship(rel_P1_iri, P1L);
+			Relationship r_P1 = addRelationship(kf, rel_P1_iri, P1L);
 
 			// Add P1 roles and set mandatory
 			Role role_P_11 = new Role(rel_fresh_P11_iri, ot_fresh_left, r_P1, otc_role_P_11_DomRan);
@@ -462,7 +464,7 @@ public class Ax2 extends AxToKFTools {
 			Pres1.add(role_P_12);
 
 			r_P1.setRoles(Pres1);
-			kf.addRelationship(r_P1);
+			//kf.addRelationship(r_P1);
 
 			// Object types Subsumption
 			Subsumption sub_P1P = new Subsumption(URI_IMPORT_CONCEPT + getAlphaNumericString(8), r_P, r_P1);

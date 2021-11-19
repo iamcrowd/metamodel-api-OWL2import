@@ -52,6 +52,10 @@ public class AxToKFTools {
     private boolean _checkSubsumption(Metamodel kf, Entity parent, Entity child) {
         return !parent.getName().equals(child.getName()) && kf.getRelationship(_getSubsumptionName(parent, child)).isNameless();
     }
+    
+    private boolean _checkRelationship(Metamodel kf, String name) {
+        return kf.getRelationship(name).isNameless();
+    }
 
     private String _getSubsumptionName(Entity parent, Entity child) {
         return "Subsumption(" + parent.getName() + "," + child.getName() + ")";
@@ -61,6 +65,15 @@ public class AxToKFTools {
         if (_checkSubsumption(kf, parent, child)) {
             kf.addRelationship(subsumption);
             return subsumption;
+        } else {
+            return null;
+        }
+    }
+    
+    private Relationship _addRelationship(Metamodel kf, String name, ArrayList<Entity> entities, Relationship relationship) {
+        if (_checkRelationship(kf, name)) {
+            kf.addRelationship(relationship);
+            return relationship;
         } else {
             return null;
         }
@@ -84,6 +97,10 @@ public class AxToKFTools {
 
     protected Subsumption addSubsumption(Metamodel kf, Entity parent, Entity child, CompletenessConstraint cc, DisjointObjectType dc) {
         return _addSubsumption(kf, parent, child, new Subsumption(_getSubsumptionName(parent, child), parent, child, cc, dc));
+    }
+    
+    protected Relationship addRelationship(Metamodel kf, String name, ArrayList<Entity> entities) {
+        return _addRelationship(kf, name, entities, new Relationship(name, entities));
     }
 
 }
