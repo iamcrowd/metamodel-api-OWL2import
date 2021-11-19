@@ -189,7 +189,8 @@ public class OWLImporter {
                         } else {
                             throw new EmptyStackException();
                         }
-                        
+                       
+                        	// atom -> exists property atom
                      } else if (NormalForm.typeTwoSubClassAxiom(left, right)) {
                          	OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) right).getProperty();
                          	OWLObjectProperty namedProperty = property.getNamedProperty();
@@ -197,16 +198,23 @@ public class OWLImporter {
                          	System.out.println("Axiom Exists");
                          	if (property.isNamed()) {
                          		System.out.println("Exists property on the right");
+                         		
+                         		OWLClassExpression exist_expr = new OWLObjectSomeValuesFromImpl(
+                         				property,
+                         				new OWLClassImpl(IRI.create("http://www.w3.org/2002/07/owl#Thing")));
+                         		System.out.println(exist_expr);
+
                                 System.out.println(axiom.toString());
                          		System.out.println(left.toString());
                          		System.out.println(right.toString());
-                         		objpe.add(right);
+                         		objpe.add(exist_expr);
                                 Ax2 ax2asKF = new Ax2();
                                 ax2asKF.type2ImportedAsKF(this.metamodel, left, right, TYPE2_SUBCLASS_AXIOM);
                          	} else {
                                 throw new EmptyStackException();
                             }
                     	 
+                         	// exists property atom -> atom	
                      } else if (NormalForm.typeFourSubClassAxiom(left, right)) {
                       		OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) left).getProperty();
                       		OWLObjectProperty namedProperty = property.getNamedProperty();
@@ -219,6 +227,7 @@ public class OWLImporter {
                                 throw new EmptyStackException();
                             }
                     	 
+                      		// atom -> forall property atom
                      } else if (NormalForm.typeThreeSubClassAxiom(left, right)) {
                             OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
                             OWLObjectProperty namedProperty = property.getNamedProperty();
@@ -253,8 +262,9 @@ public class OWLImporter {
                     OWLClassExpression right = ((OWLSubClassOfAxiom) axf).getSuperClass();
                     
                     OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
-                    OWLClassExpression filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
-                    OWLClassExpression exists = new OWLObjectSomeValuesFromImpl(property, filler);
+                   // OWLClassExpression filler = ((OWLQuantifiedRestrictionImpl<OWLClassExpression>) right).getFiller();
+                    OWLClassExpression exists = new OWLObjectSomeValuesFromImpl(property, 
+                    		new OWLClassImpl(IRI.create("http://www.w3.org/2002/07/owl#Thing")));
                     
                     System.out.println(exists);
             		if (objpe.contains(exists)) {
