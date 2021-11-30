@@ -77,6 +77,7 @@ $(document).ready(function () {
                     formData.append('ontologiesFiles', files[i]);
                 }
             }
+            formData.append('input', files.length ? "files" : "uri");
             formData.append('reasoning', $('#reasoning').is(":checked"));
         }
 
@@ -99,7 +100,7 @@ $(document).ready(function () {
                     showResponse(response, normalised);
                 } else if (response.success) {
                     jsonOutput = JSON.stringify(response, undefined, 4);
-                    $("#jsonOutput").jsonViewer(response, {collapsed: true});
+                    $("#jsonOutput").jsonViewer(response, { collapsed: true });
 
                     var avgResponse = {
                         unsupported: {},
@@ -150,7 +151,7 @@ $(document).ready(function () {
                             avgResponse.metrics[key].min = Math.min();
                         } else {
                             avgResponse.metrics[key]["unsupported"] = 0;
-                    }
+                        }
                     });
 
                     Object.entries(response.success).forEach(([respKey, resp]) => {
@@ -168,14 +169,14 @@ $(document).ready(function () {
                                 } else {
                                     avgResponse.metrics[key]["unsupported"]++;
                                 }
-                        }
+                            }
                         });
                     });
 
                     Object.entries(avgResponse.metrics).forEach(([metricKey, metric]) => {
                         if (metricKey != "expressivity") {
                             avgResponse.metrics[metricKey].avg = avgResponse.metrics[metricKey].total / Object.entries(response.success).length;
-                    }
+                        }
                     });
 
                     Object.entries(avgResponse.metrics).forEach(([key, value]) => {
@@ -187,7 +188,7 @@ $(document).ready(function () {
                                 metricResult.push(exprKey + ": " + exprValue);
                             });
                             avgResponse.metrics[key] = metricResult.join(", ");
-                    }
+                        }
                     });
 
                     showResponse(avgResponse, normalised);

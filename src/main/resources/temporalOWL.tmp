@@ -1,30 +1,22 @@
-<rdf:RDF
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:owl="http://www.w3.org/2002/07/owl#"
-    xmlns="http://crowd.fi.uncoma.edu.ar/kb1#"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
-  <owl:Ontology rdf:about="http://crowd.fi.uncoma.edu.ar/kb1#"/>
-  <owl:Class rdf:about="http://crowd.fi.uncoma.edu.ar#phone-point">
-    <rdfs:subClassOf>
-      <owl:Class>
-        <owl:unionOf rdf:parseType="Collection">
-          <owl:Class rdf:about="http://crowd.fi.uncoma.edu.ar#cell"/>
-          <owl:Class rdf:about="http://crowd.fi.uncoma.edu.ar#land-line"/>
-        </owl:unionOf>
-      </owl:Class>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://crowd.fi.uncoma.edu.ar#land-line">
-    <rdfs:subClassOf rdf:resource="http://crowd.fi.uncoma.edu.ar#phone-point"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://crowd.fi.uncoma.edu.ar#cell">
-    <rdfs:subClassOf rdf:resource="http://crowd.fi.uncoma.edu.ar#land-line"/>
-    <owl:disjointWith rdf:resource="http://crowd.fi.uncoma.edu.ar#land-line"/>
-    <rdfs:subClassOf rdf:resource="http://crowd.fi.uncoma.edu.ar#phone-point"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://crowd.fi.uncoma.edu.ar#home-point">
-    <rdfs:subClassOf rdf:resource="http://crowd.fi.uncoma.edu.ar#phone-point"/>
-  </owl:Class>
-</rdf:RDF>
+Prefix(:=<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
 
+
+Ontology(<http://www.semanticweb.org/gab/ontologies/2020/8/untitled-ontology-33>
+
+Declaration(Class(:A))
+Declaration(Class(:B))
+############################
+#   Classes
+############################
+
+# Class: :B (:B)
+
+SubClassOf(:B :A)
+
+
+)
