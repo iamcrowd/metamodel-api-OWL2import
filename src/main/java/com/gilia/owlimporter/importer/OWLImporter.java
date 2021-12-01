@@ -97,21 +97,21 @@ public class OWLImporter {
         }
     }
 
-    // /**
-    // *
-    // * @param path a String containing a file path to an Ontology File.
-    // */
-    // public void load(String path) {
-    // try {
-    // this.reset();
-    // File file = new File(path);
-    // validateOWL(file);
-    // this.ontology = this.manager.loadOntologyFromOntologyDocument(file);
-    // } catch (Exception e) {
-    // System.out.println("Error loading ontology with path: " + path + ". (" +
-    // e.getMessage() + ")");
-    // }
-    // }
+    /**
+     *
+     * @param path a String containing a file path to an Ontology File.
+     */
+    public void loadFromPath(String path) {
+        try {
+            this.reset();
+            File file = new File(path);
+            validateOWL(file);
+            this.ontology = this.manager.loadOntologyFromOntologyDocument(file);
+        } catch (Exception e) {
+            System.out.println("Error loading ontology with path: " + path + ". (" +
+                    e.getMessage() + ")");
+        }
+    }
 
     /**
      *
@@ -312,6 +312,22 @@ public class OWLImporter {
     }
 
     /**
+     * Iterates supported axioms and add them to a JSON.
+     *
+     * @return JSONObject with unsupported axioms.
+     */
+    public JSONObject getSupportedAxioms() {
+        JSONObject axioms = new JSONObject();
+        int[] index = { 1 };
+
+        this.supported.tboxAxioms(Imports.EXCLUDED).forEachOrdered(axiom -> {
+            axioms.put("axiom" + index[0], axiom.toString());
+            index[0]++;
+        });
+        return axioms;
+    }
+
+    /**
      * Export KF metamodel result from importation.
      *
      * @return JSONObject with the result of translation: metamodel, metrics and
@@ -322,6 +338,7 @@ public class OWLImporter {
 
         values.put("kf", this.converter.generateJSON(metamodel));
         values.put("metrics", this.metrics);
+        values.put("supported", this.getSupportedAxioms());
         values.put("unsupported", this.getUnsupportedAxioms());
 
         return values;
