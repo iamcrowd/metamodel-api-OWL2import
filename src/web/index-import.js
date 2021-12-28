@@ -70,7 +70,7 @@ $(document).ready(function () {
 
         if (!normalised) {
             var formData = new FormData();
-            formData.append('ontology', $('#jsonInput')[0].value.toString());
+            formData.append('ontologyUri', $('#jsonInput')[0].value.toString());
             files = $("#ontoFile")[0].files;
             if (files.length) {
                 for (var i = 0; i < files.length; i++) {
