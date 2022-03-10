@@ -3,7 +3,7 @@ package com.gilia.controllers;
 import static com.gilia.utils.Constants.*;
 
 import com.gilia.exceptions.*;
-import com.gilia.owlimporter.importer.*;
+import com.gilia.owlimport.*;
 import com.gilia.utils.*;
 import org.everit.json.schema.*;
 import org.json.*;
