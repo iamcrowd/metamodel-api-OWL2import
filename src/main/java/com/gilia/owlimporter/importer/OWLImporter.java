@@ -258,6 +258,9 @@ public class OWLImporter {
                 this.supported.addAxioms(axiom);
                 this.metrics.put("supportedAxiomsCount", ((int) this.metrics.get("supportedAxiomsCount")) + 1);
             } catch (Exception e) {
+                if (!(e instanceof EmptyStackException))
+                    System.out.println("Exception during translation: " + e.toString() + " at "
+                            + e.getStackTrace()[0].getFileName() + " (" + e.getStackTrace()[0].getLineNumber() + ")");
                 this.unsupported.addAxiom(axiom);
                 this.metrics.put("unsupportedAxiomsCount", ((int) this.metrics.get("unsupportedAxiomsCount")) + 1);
             }
@@ -286,6 +289,9 @@ public class OWLImporter {
                 this.supported.addAxioms(axf);
                 this.metrics.put("supportedAxiomsCount", ((int) this.metrics.get("supportedAxiomsCount")) + 1);
             } catch (Exception e) {
+                if (!(e instanceof EmptyStackException))
+                    System.out.println("Exception during translation: " + e.toString() + " at "
+                            + e.getStackTrace()[0].getFileName() + " (" + e.getStackTrace()[0].getLineNumber() + ")");
                 this.unsupported.addAxiom(axf);
                 this.metrics.put("unsupportedAxiomsCount", ((int) this.metrics.get("unsupportedAxiomsCount")) + 1);
             }
