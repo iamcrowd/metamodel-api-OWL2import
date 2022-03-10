@@ -284,15 +284,11 @@ public class OWLImporter {
 
                 } 
             } catch (Exception e) {
-<<<<<<< HEAD:src/main/java/com/gilia/owlimporter/importer/OWLImporter.java
                 if (!(e instanceof EmptyStackException))
                     System.out.println("Exception during translation: " + e.toString() + " at "
                             + e.getStackTrace()[0].getFileName() + " (" + e.getStackTrace()[0].getLineNumber() + ")");
                 this.unsupported.addAxiom(axiom);
                 this.metrics.put("unsupportedAxiomsCount", ((int) this.metrics.get("unsupportedAxiomsCount")) + 1);
-=======
-
->>>>>>> e1f5a9e54202b5d30a7967a614fee0544bfa1ec2:src/main/java/com/gilia/owlimport/OWLImporter.java
             }
         });
 
