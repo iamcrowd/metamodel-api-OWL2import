@@ -1,6 +1,5 @@
 package com.gilia.owlimport;
 
-
 import static com.gilia.utils.Constants.TYPE2_SUBCLASS_AXIOM;
 import static com.gilia.utils.ImportUtils.validateOWL;
 
@@ -25,7 +24,6 @@ import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectSomeValuesFromImpl;
 import openllet.owlapi.OpenlletReasonerFactory;
 
-
 import www.ontologyutils.toolbox.*;
 
 /**
@@ -45,7 +43,7 @@ public class OWLImporter {
     private static final OWLReasonerFactory reasonerFactoryFact = new JFactFactory();
     private static final OWLReasonerFactory reasonerFactoryPellet = new OpenlletReasonerFactory();
     private List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<>();
-    
+
     private List<OWLClassExpression> objpe = new ArrayList<>();
     private List<OWLAxiom> forallax = new ArrayList<>();
 
@@ -144,7 +142,7 @@ public class OWLImporter {
         try {
             // OWLReasonerFactory factory = new JFactFactory();
             OWLReasoner reasoner = reasonerFactoryPellet.createReasoner(ontology);
-            //OWLReasoner reasoner = reasonerFactoryFact.createReasoner(this.ontology);
+            // OWLReasoner reasoner = reasonerFactoryFact.createReasoner(this.ontology);
 
             // List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<>();
             this.gens.add(new InferredSubClassAxiomGenerator());
@@ -175,20 +173,20 @@ public class OWLImporter {
      * atom -> exists property atom
      * atom -> forall property atom
      */
-    private void patternify(Metamodel kf, OWLAxiom axiom, OWLClassExpression left, OWLClassExpression right){
-        //  atom -> atom
-        if (OWLAxForm.isAtom(left) && OWLAxForm.isAtom(right)){
+    private void patternify(Metamodel kf, OWLAxiom axiom, OWLClassExpression left, OWLClassExpression right) {
+        // atom -> atom
+        if (OWLAxForm.isAtom(left) && OWLAxForm.isAtom(right)) {
             Ax1A ax1A = new Ax1A();
             ax1A.type1AasKF(kf, left, right);
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isDisjunctionOfAtoms(right)) {
             // atom -> disjunction
             Ax1B ax1B = new Ax1B();
             ax1B.type1BasKF(kf, left, right);
-        } else if (OWLAxForm.isAtom(left) && OWLAxForm.isComplementOfAtoms(right)){
+        } else if (OWLAxForm.isAtom(left) && OWLAxForm.isComplementOfAtoms(right)) {
             // atom -> complementOf atom
             AxComplementOf axComp = new AxComplementOf();
             axComp.complementOfasKF(kf, left, right);
-        } else if (OWLAxForm.isAtom(left) && OWLAxForm.isExistentialOfAtom(right)){
+        } else if (OWLAxForm.isAtom(left) && OWLAxForm.isExistentialOfAtom(right)) {
             // atom -> exists property atom
             OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) right).getProperty();
             OWLObjectProperty namedProperty = property.getNamedProperty();
@@ -202,8 +200,9 @@ public class OWLImporter {
             } else {
                 throw new EmptyStackException();
             }
-        } else if (OWLAxForm.isExistentialOfAtom(right) && OWLAxForm.isAtom(left)){
-            // exists property atom -> ... this pattern only collects the exists axioms of the ontology
+        } else if (OWLAxForm.isExistentialOfAtom(right) && OWLAxForm.isAtom(left)) {
+            // exists property atom -> ... this pattern only collects the exists axioms of
+            // the ontology
             OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) left).getProperty();
             OWLObjectProperty namedProperty = property.getNamedProperty();
 
@@ -212,7 +211,7 @@ public class OWLImporter {
             } else {
                 throw new EmptyStackException();
             }
-        } else if (OWLAxForm.isAtom(left) && OWLAxForm.isUniversalOfAtom(right)){
+        } else if (OWLAxForm.isAtom(left) && OWLAxForm.isUniversalOfAtom(right)) {
             // atom -> forall property atom
             OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
             OWLObjectProperty namedProperty = property.getNamedProperty();
@@ -228,7 +227,7 @@ public class OWLImporter {
         }
         this.supported.addAxioms(axiom);
         this.metrics.put("supportedAxiomsCount", ((int) this.metrics.get("supportedAxiomsCount")) + 1);
-    } 
+    }
 
     /**
      * Translation to KF metamodel. It does reasoning first and then translate each
@@ -258,31 +257,31 @@ public class OWLImporter {
                     OWLClassExpression left = ((OWLSubClassOfAxiom) axiom).getSubClass();
                     OWLClassExpression right = ((OWLSubClassOfAxiom) axiom).getSuperClass();
 
-                    this.patternify(this.metamodel, axiom, left, right);  
+                    this.patternify(this.metamodel, axiom, left, right);
 
-                } else if (axiom.isOfType(AxiomType.EQUIVALENT_CLASSES)){
+                } else if (axiom.isOfType(AxiomType.EQUIVALENT_CLASSES)) {
                     Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
                     subClassOfAxioms = ((OWLEquivalentClassesAxiom) axiom).asOWLSubClassOfAxioms();
 
                     subClassOfAxioms.forEach(ax -> {
                         OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
                         OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
-                
-                        this.patternify(this.metamodel, axiom, left, right);  
+
+                        this.patternify(this.metamodel, axiom, left, right);
                     });
 
-                } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)){
+                } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
                     Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
                     subClassOfAxioms = ((OWLDisjointClassesAxiom) axiom).asOWLSubClassOfAxioms();
 
                     subClassOfAxioms.forEach(ax -> {
                         OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
                         OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
-                
+
                         this.patternify(this.metamodel, axiom, left, right);
                     });
 
-                } 
+                }
             } catch (Exception e) {
                 if (!(e instanceof EmptyStackException))
                     System.out.println("Exception during translation: " + e.toString() + " at "
@@ -369,17 +368,12 @@ public class OWLImporter {
         JSONObject values = new JSONObject();
 
         values.put("kf", this.converter.generateJSON(metamodel));
-        System.out.println(values.toString());
 
- /*       values.put("metrics", this.metrics);
-        System.out.println(values.toString());
+        values.put("metrics", this.metrics);
 
         values.put("supported", this.getSupportedAxioms());
-        System.out.println(values.toString());
-        
-        values.put("unsupported", this.getUnsupportedAxioms());
 
-        System.out.println(values.toString());*/
+        values.put("unsupported", this.getUnsupportedAxioms());
 
         return values;
     }
