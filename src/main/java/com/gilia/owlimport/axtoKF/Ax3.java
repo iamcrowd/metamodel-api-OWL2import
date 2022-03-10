@@ -1,4 +1,4 @@
-package com.gilia.owlimporter.importer.axtoKF;
+package com.gilia.owlimport.axtoKF;
 
 import com.gilia.metamodel.*;
 import com.gilia.metamodel.constraint.*;
@@ -512,6 +512,115 @@ public class Ax3 extends AxToKFTools {
             } else {
                 r_P1 = kf.getRelationship(rel_P1_iri);
             }
+<<<<<<< HEAD:src/main/java/com/gilia/owlimporter/importer/axtoKF/Ax3.java
+=======
+        
+            kf.addRole(role_P_1);
+            kf.addRole(role_P_2);
+
+            ArrayList<Role> Pres = new ArrayList();
+            Pres.add(role_P_1);
+            Pres.add(role_P_2);
+
+            r_P.setRoles(Pres);
+            //kf.addRelationship(r_P);
+
+            System.out.println(kf.toString());
+        
+			// P1
+			String rel_P1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1";
+			// IRIs for roles of P1
+			String rel_fresh_P11_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1.1";
+			String rel_fresh_P12_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1.2";
+
+			// add cardinalities for P1
+			ObjectTypeCardinality otc_role_P_11_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "*");
+			ObjectTypeCardinality otc_role_P_12_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
+
+			kf.addConstraint(otc_role_P_11_DomRan);
+			kf.addConstraint(otc_role_P_12_DomRan);
+
+			ArrayList<Entity> P1L = new ArrayList();
+			P1L.add(ot_fresh_left);
+			P1L.add(ot_filler);
+
+			//Relationship r_P1 = new Relationship(rel_P1_iri, P1L);
+			Relationship r_P1 = addRelationship(kf, rel_P1_iri, P1L);
+
+			// Add P1 roles and set mandatory
+			Role role_P_11 = new Role(rel_fresh_P11_iri, ot_fresh_left, r_P1, otc_role_P_11_DomRan);
+			if (role_P_11.hasMandatoryConstraint()) {
+				kf.addConstraint(role_P_11.getMandatoryConstraint());
+			}
+
+			Role role_P_12 = new Role(rel_fresh_P12_iri, ot_filler, r_P1, otc_role_P_12_DomRan);
+			if (role_P_12.hasMandatoryConstraint()) {
+				kf.addConstraint(role_P_12.getMandatoryConstraint());
+			}
+
+			kf.addRole(role_P_11);
+			kf.addRole(role_P_12);
+
+			ArrayList<Role> Pres1 = new ArrayList();
+			Pres1.add(role_P_11);
+			Pres1.add(role_P_12);
+
+			r_P1.setRoles(Pres1);
+			//kf.addRelationship(r_P1);
+
+			// P2
+			String rel_P2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "2";
+			// IRIs for roles of P2
+			String rel_fresh_P21_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "2.1";
+			String rel_fresh_P22_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "2.2";
+
+			// add cardinalities for P2
+			ObjectTypeCardinality otc_role_P_21_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "*");
+			ObjectTypeCardinality otc_role_P_22_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
+
+			kf.addConstraint(otc_role_P_21_DomRan);
+			kf.addConstraint(otc_role_P_22_DomRan);
+
+			ArrayList<Entity> P2L = new ArrayList();
+			P2L.add(ot_left);
+			P2L.add(ot_filler);
+
+			//Relationship r_P2 = new Relationship(rel_P2_iri, P2L);
+			Relationship r_P2 = addRelationship(kf, rel_P2_iri, P2L);
+
+			// Add P2 roles and set mandatory
+			Role role_P_21 = new Role(rel_fresh_P21_iri, ot_fresh_left, r_P2, otc_role_P_21_DomRan);
+			if (role_P_21.hasMandatoryConstraint()) {
+				kf.addConstraint(role_P_21.getMandatoryConstraint());
+			}
+
+			Role role_P_22 = new Role(rel_fresh_P22_iri, ot_filler, r_P2, otc_role_P_22_DomRan);
+			if (role_P_22.hasMandatoryConstraint()) {
+				kf.addConstraint(role_P_22.getMandatoryConstraint());
+			}
+
+			kf.addRole(role_P_21);
+			kf.addRole(role_P_22);
+
+			ArrayList<Role> Pres2 = new ArrayList();
+			Pres2.add(role_P_21);
+			Pres2.add(role_P_22);
+
+			r_P2.setRoles(Pres2);
+			//kf.addRelationship(r_P2);
+
+            System.out.println(kf.toString());
+
+			// Object types Subsumption
+			//Subsumption sub_P1P = new Subsumption(URI_IMPORT_CONCEPT + getAlphaNumericString(8), r_P, r_P1);
+			//Subsumption sub_P2P1 = new Subsumption(URI_IMPORT_CONCEPT + getAlphaNumericString(8), r_P1, r_P2);
+            //kf.addRelationship(sub_P1P);
+			//kf.addRelationship(sub_P2P1);
+            addSubsumption(kf, r_P, r_P1);
+			addSubsumption(kf, r_P1, r_P2);
+
+            System.out.println(kf.toString());
+>>>>>>> e1f5a9e54202b5d30a7967a614fee0544bfa1ec2:src/main/java/com/gilia/owlimport/axtoKF/Ax3.java
 
             // P2
             String rel_P2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "2";

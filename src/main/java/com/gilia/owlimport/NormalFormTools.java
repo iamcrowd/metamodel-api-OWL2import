@@ -1,7 +1,16 @@
-package com.gilia.owlimporter.importer;
+package com.gilia.owlimport;
 
 import com.gilia.metamodel.*;
-import com.gilia.owlimporter.importer.axtoKF.*;
+import com.gilia.owlimport.*;
+import com.gilia.owlimport.axtoKF.Ax1A;
+import com.gilia.owlimport.axtoKF.Ax1B;
+import com.gilia.owlimport.axtoKF.Ax1C;
+import com.gilia.owlimport.axtoKF.Ax1D;
+import com.gilia.owlimport.axtoKF.Ax2;
+import com.gilia.owlimport.axtoKF.Ax2Inv;
+import com.gilia.owlimport.axtoKF.Ax3;
+import com.gilia.owlimport.axtoKF.Ax4;
+
 import java.util.*;
 import java.util.stream.*;
 import org.semanticweb.owlapi.apibinding.*;

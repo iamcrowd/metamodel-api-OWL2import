@@ -1,4 +1,4 @@
-package com.gilia.owlimporter.importer.axtoKF;
+package com.gilia.owlimport.axtoKF;
 
 import com.gilia.metamodel.*;
 import com.gilia.metamodel.constraint.cardinality.*;

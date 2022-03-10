@@ -1,4 +1,4 @@
-package com.gilia.owlimporter.importer;
+package com.gilia.owlimport;
 
 import com.gilia.builder.metabuilder.*;
 import com.gilia.metamodel.*;

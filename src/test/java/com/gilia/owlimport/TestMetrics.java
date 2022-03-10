@@ -1,4 +1,4 @@
-package com.gilia.importer;
+package com.gilia.owlimport;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.apibinding.*;
 import static com.gilia.utils.ImportUtils.validateOWL;
 import com.gilia.metamodel.*;
 import com.gilia.builder.metabuilder.*;
-import com.gilia.owlimporter.importer.Importer;
 
 
 /**
