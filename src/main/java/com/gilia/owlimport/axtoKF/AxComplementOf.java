@@ -4,21 +4,17 @@ import com.gilia.metamodel.*;
 import com.gilia.metamodel.constraint.*;
 import com.gilia.metamodel.constraint.disjointness.DisjointObjectType;
 import com.gilia.metamodel.entitytype.objecttype.*;
-import com.gilia.metamodel.relationship.*;
 import java.util.*;
 import org.semanticweb.owlapi.model.*;
-import www.ontologyutils.normalization.*;
 
 import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
 import static com.gilia.utils.Constants.URI_TOP;
 import static com.gilia.utils.Utils.getAlphaNumericString;
 
 /**
- * This class implements the model based reconstructions of Normalised Axioms
- *
- * @see NormalForm from ontologyutils dependency
- *
- * @author gbraun
+ * This class implements the KF reconstruction of the COMPLEMENT_OF OWL 2 Axiom
+ * 
+ * @author gilia
  *
  */
 public class AxComplementOf extends AxToKFTools {
@@ -34,6 +30,7 @@ public class AxComplementOf extends AxToKFTools {
      * @param left
      * @param right
      */
+    @SuppressWarnings("unchecked")
     public void complementOfasKF(Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 
         String left_iri = left.asOWLClass().toStringID();
@@ -41,10 +38,11 @@ public class AxComplementOf extends AxToKFTools {
 
         OWLClassExpression complement = ((OWLObjectComplementOf) right).getOperand();
         String complement_iri = complement.asOWLClass().toStringID();
+        String complement_frag = complement.asOWLClass().getIRI().getFragment();
         ObjectType ot_complement = addObjectType(complement_iri);
 
         // fresh superclass of the left object type
-        ObjectType ot_acomplementb = addObjectType(URI_IMPORT_CONCEPT + "NOT");
+        ObjectType ot_acomplementb = addObjectType(URI_IMPORT_CONCEPT + "NOT" + complement_frag);
         // superclass of the pattern
         String top_iri = URI_TOP;
         ObjectType top = addObjectType(top_iri);
@@ -60,13 +58,13 @@ public class AxComplementOf extends AxToKFTools {
         ArrayList<ObjectType> disj_list = new ArrayList();
         DisjointObjectType disj = new DisjointObjectType(getAlphaNumericString(8));
 
-        Subsumption sub_complement_top = addSubsumption(kf, top, ot_acomplementb, cc, disj);
+        addSubsumption(kf, top, ot_acomplementb, cc, disj);
         cc_list.add(ot_acomplementb);
         disj_list.add(ot_acomplementb);
 
-        Subsumption sub_left = addSubsumption(kf, ot_acomplementb, ot_left);
+        addSubsumption(kf, ot_acomplementb, ot_left);
 
-        Subsumption sub_right_top = addSubsumption(kf, top, ot_complement, cc, disj);
+        addSubsumption(kf, top, ot_complement, cc, disj);
         cc_list.add(ot_complement);
         disj_list.add(ot_complement);
 
