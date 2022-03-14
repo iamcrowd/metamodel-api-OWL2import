@@ -139,9 +139,8 @@ public class OWLImporter {
      */
     private void precompute() {
         try {
-            // OWLReasonerFactory factory = new JFactFactory();
-            OWLReasoner reasoner = reasonerFactoryPellet.createReasoner(ontology);
-            // OWLReasoner reasoner = reasonerFactoryFact.createReasoner(this.ontology);
+            OWLReasoner reasoner = reasonerFactoryPellet.createReasoner(this.ontology);
+            //OWLReasoner reasoner = reasonerFactoryFact.createReasoner(this.ontology);
 
             // List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<>();
             this.gens.add(new InferredSubClassAxiomGenerator());
@@ -171,6 +170,7 @@ public class OWLImporter {
      * atom -> complementof atom
      * atom -> exists property atom
      * atom -> forall property atom
+     * 
      */
     private void patternify(Metamodel kf, OWLAxiom axiom, OWLClassExpression left, OWLClassExpression right) {
         // atom -> atom
@@ -238,6 +238,11 @@ public class OWLImporter {
      * supported axiom and register both: supported and unsupported axioms.
      *
      * @todo objpe should be a set for avoiding repretitions.
+     * 
+     * @implNote still missing: 
+     * union -> atom could be rewritten as atomic subclasses,
+     * disjoint union (c, c1, ... cn) as equivalent(c, union_of(c1,..,cn)) and disjoint(c1,...,cn)
+     * min, max, exact cardinalities
      */
     public void translate() {
         long start, end;
