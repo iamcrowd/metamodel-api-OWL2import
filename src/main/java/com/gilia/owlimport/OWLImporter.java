@@ -19,7 +19,6 @@ import org.semanticweb.owlapi.util.*;
 import org.springframework.web.multipart.*;
 
 import uk.ac.manchester.cs.jfact.*;
-import uk.ac.manchester.cs.factplusplusad.*;
 import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectSomeValuesFromImpl;
 import openllet.owlapi.OpenlletReasonerFactory;
@@ -184,8 +183,13 @@ public class OWLImporter {
             ax1B.type1BasKF(kf, left, right);
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isComplementOfAtoms(right)) {
             // atom -> complementOf atom
-            AxComplementOf axComp = new AxComplementOf();
-            axComp.complementOfasKF(kf, left, right);
+            // removing \bottom -> complement_of top (\top -> complement_of \bottom)
+            OWLClassExpression complement = ((OWLObjectComplementOf) right).getOperand();
+            if (!(left.isOWLNothing() && complement.isOWLThing()) &&
+                !(complement.isOWLNothing() && left.isOWLThing())){
+                    AxComplementOf axComp = new AxComplementOf();
+                    axComp.complementOfasKF(kf, left, right);
+            }
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isExistentialOfAtom(right)) {
             // atom -> exists property atom
             OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) right).getProperty();
@@ -277,8 +281,8 @@ public class OWLImporter {
                     subClassOfAxioms.forEach(ax -> {
                         OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
                         OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
-
-                        this.patternify(this.metamodel, axiom, left, right);
+                        
+                            this.patternify(this.metamodel, axiom, left, right);
                     });
 
                 }

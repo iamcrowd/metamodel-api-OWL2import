@@ -67,7 +67,7 @@ public class ImporterTest {
             OWLImporter importer = new OWLImporter(true);
             importer.loadFromPath(owlfilepath[1]);
             importer.translate();
-            System.out.println(importer.toJSON());
+            System.out.println("This JSON %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,7 +78,7 @@ public class ImporterTest {
         try {
             String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/disjoint.owl").toString());
             String[] owlfilepath = path.split(":", 2);
-            OWLImporter importer = new OWLImporter(false);
+            OWLImporter importer = new OWLImporter(true);
             importer.loadFromPath(owlfilepath[1]);
             importer.translate();
             System.out.println(importer.toJSON());
