@@ -42,7 +42,7 @@ public class AxComplementOf extends AxToKFTools {
         ObjectType ot_complement = addObjectType(complement_iri);
 
         // fresh superclass of the left object type
-        ObjectType ot_acomplementb = addObjectType(URI_IMPORT_CONCEPT + "NOT" + complement_frag);
+        ObjectType ot_acomplementb = addObjectType(URI_IMPORT_CONCEPT + getAlphaNumericString(5) + "_" + "NOT" + "_" + complement_frag);
         // superclass of the pattern
         String top_iri = URI_TOP;
         ObjectType top = addObjectType(top_iri);

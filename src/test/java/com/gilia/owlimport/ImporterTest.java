@@ -67,7 +67,7 @@ public class ImporterTest {
             OWLImporter importer = new OWLImporter(true);
             importer.loadFromPath(owlfilepath[1]);
             importer.translate();
-            System.out.println("This JSON %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + importer.toJSON());
+            System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
         }
