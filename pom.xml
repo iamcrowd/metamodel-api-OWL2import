@@ -54,25 +54,69 @@
             <!-- <scope>test</scope>  -->
         </dependency>
 
+        <!-- https://github.com/owlcs/jfact/ --> 
         <dependency>
             <groupId>net.sourceforge.owlapi</groupId>
             <artifactId>jfact</artifactId>
-            <version>5.0.1</version>
+            <version>5.0.3</version>
         </dependency>
 
+        <!-- https://github.com/Galigator/openllet-->  
+         <dependency>
+            <groupId>com.github.galigator.openllet</groupId>
+            <artifactId>openllet-owlapi</artifactId>
+            <version>2.6.5</version>
+        </dependency>
         <dependency>
             <groupId>com.github.galigator.openllet</groupId>
-            <artifactId>openllet-pellint</artifactId>
-            <version>2.6.3</version>
+            <artifactId>openllet-jena</artifactId>
+            <version>2.6.5</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/au.csiro/elk-reasoner -->
+        <dependency>
+            <groupId>au.csiro</groupId>
+            <artifactId>elk-reasoner</artifactId>
+            <version>0.5.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owllink-owlapi-parent -->
-        <dependency>
+       <dependency>
             <groupId>net.sourceforge.owlapi</groupId>
             <artifactId>owllink-owlapi-parent</artifactId>
             <version>2.0.0</version>
             <type>pom</type>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owllinkapi -->
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owllinkapi</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owllinkhttpxml -->
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owllinkhttpxml</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owllinkimpl -->
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owllinkimpl</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owllinkserver -->
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owllinkserver</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+
 
         <dependency>
             <groupId>com.github.jsonld-java</groupId>
