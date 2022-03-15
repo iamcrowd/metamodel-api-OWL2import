@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.apibinding.*;
 
 import static com.gilia.utils.ImportUtils.validateOWL;
 import com.gilia.metamodel.*;
+import com.gilia.utils.Constants;
 import com.gilia.builder.metabuilder.*;
 
 /**
@@ -38,7 +39,7 @@ public class ImporterTest {
             String[] owlfilepath = path.split(":", 2);
             OWLImporter importer = new OWLImporter(true);
             importer.loadFromPath(owlfilepath[1]);
-            importer.translate();
+            importer.translate(Constants.JFACT);
             System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,7 +53,7 @@ public class ImporterTest {
             String[] owlfilepath = path.split(":", 2);
             OWLImporter importer = new OWLImporter(true);
             importer.loadFromPath(owlfilepath[1]);
-            importer.translate();
+            importer.translate(Constants.PELLET);
             System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +67,7 @@ public class ImporterTest {
             String[] owlfilepath = path.split(":", 2);
             OWLImporter importer = new OWLImporter(true);
             importer.loadFromPath(owlfilepath[1]);
-            importer.translate();
+            importer.translate(Constants.RACER);
             System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +81,7 @@ public class ImporterTest {
             String[] owlfilepath = path.split(":", 2);
             OWLImporter importer = new OWLImporter(true);
             importer.loadFromPath(owlfilepath[1]);
-            importer.translate();
+            importer.translate(Constants.KONCLUDE);
             System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,7 +95,7 @@ public class ImporterTest {
             String[] owlfilepath = path.split(":", 2);
             OWLImporter importer = new OWLImporter(true);
             importer.loadFromPath(owlfilepath[1]);
-            importer.translate();
+            importer.translate(Constants.JFACT);
             System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,7 +109,7 @@ public class ImporterTest {
             String[] owlfilepath = path.split(":", 2);
             OWLImporter importer = new OWLImporter(true);
             importer.loadFromPath(owlfilepath[1]);
-            importer.translate();
+            importer.translate(Constants.PELLET);
             System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();

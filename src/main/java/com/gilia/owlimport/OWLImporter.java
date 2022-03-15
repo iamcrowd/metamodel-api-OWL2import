@@ -6,6 +6,8 @@ import static com.gilia.utils.ImportUtils.validateOWL;
 import com.gilia.builder.metabuilder.*;
 import com.gilia.metamodel.*;
 import com.gilia.owlimport.axtoKF.*;
+import com.gilia.utils.Constants;
+
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -18,9 +20,7 @@ import org.semanticweb.owlapi.model.parameters.*;
 
 import org.semanticweb.owlapi.owllink.OWLlinkHTTPXMLReasonerFactory;
 import org.semanticweb.owlapi.owllink.OWLlinkReasonerConfigurationImpl;
-import org.semanticweb.owlapi.owllink.server.OWLlinkReasonerConfiguration;
 
-import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.util.*;
 import org.springframework.web.multipart.*;
@@ -46,12 +46,6 @@ public class OWLImporter {
     private OWLOntology unsupported;
     private OWLOntologyManager manager;
     private boolean reasoning;
-    private static final OWLReasonerFactory reasonerFactoryFact = new JFactFactory();
-    private static final OWLReasonerFactory reasonerFactoryPellet = new OpenlletReasonerFactory();
-
-    // Racer
-    // Run the tool as OWLlink server in the commandline. ./Racer -protocol OWLlink or ./Konclude owllinkserver -p 8080
-    private static final OWLlinkHTTPXMLReasonerFactory reasonerFactoryOWLlink = new OWLlinkHTTPXMLReasonerFactory();
 
     private List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<>();
 
@@ -159,15 +153,37 @@ public class OWLImporter {
     /**
      * Executes a reasoner over the input ontology to get inferred axioms.
      */
-    private void precompute() {
+    private void precompute(String reasonerName) {
         try {
-            // OWLReasoner reasoner = reasonerFactoryPellet.createReasoner(this.ontology);
-            //OWLReasoner reasoner = reasonerFactoryFact.createReasoner(this.ontology);
+            OWLReasoner reasoner;
+            OWLReasonerFactory reasonerFactoryPellet = new OpenlletReasonerFactory();
+            switch (reasonerName) {
+                case Constants.JFACT:
+                    OWLReasonerFactory reasonerFactoryFact = new JFactFactory();
+                    reasoner = reasonerFactoryFact.createReasoner(this.ontology);
+                    break;
+                case Constants.PELLET:
+                    reasoner = reasonerFactoryPellet.createReasoner(this.ontology);
+                    break;
+                case Constants.RACER:
+                // Racer
+                // Run the tool as OWLlink server in the commandline. ./Racer -protocol OWLlink
+                    OWLlinkHTTPXMLReasonerFactory reasonerFactoryRacer = new OWLlinkHTTPXMLReasonerFactory();
+                    OWLlinkReasonerConfigurationImpl reasonerRacerConfiguration = new OWLlinkReasonerConfigurationImpl(this.setReasonerServer());
+                    reasoner = reasonerFactoryRacer.createReasoner(this.ontology, reasonerRacerConfiguration);
+                    break;
+                case Constants.KONCLUDE:
+                // Konclude
+                // Run the tool as OWLlink server in the commandline. ./Konclude owllinkserver -p 8080
+                    OWLlinkHTTPXMLReasonerFactory reasonerFactoryKonclude = new OWLlinkHTTPXMLReasonerFactory();
+                    OWLlinkReasonerConfigurationImpl reasonerKoncludeConfiguration = new OWLlinkReasonerConfigurationImpl(this.setReasonerServer());
+                    reasoner = reasonerFactoryKonclude.createReasoner(this.ontology, reasonerKoncludeConfiguration);
+                    break;
+                default:
+                    reasoner = reasonerFactoryPellet.createReasoner(this.ontology);
+                break;
+            }
 
-            OWLlinkReasonerConfigurationImpl reasonerConfiguration = new OWLlinkReasonerConfigurationImpl(this.setReasonerServer());
-            OWLReasoner reasoner = reasonerFactoryOWLlink.createReasoner(this.ontology, reasonerConfiguration);
-
-            // List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<>();
             this.gens.add(new InferredSubClassAxiomGenerator());
             this.gens.add(new InferredClassAssertionAxiomGenerator());
             this.gens.add(new InferredDisjointClassesAxiomGenerator());
@@ -269,13 +285,13 @@ public class OWLImporter {
      * disjoint union (c, c1, ... cn) as equivalent(c, union_of(c1,..,cn)) and disjoint(c1,...,cn)
      * min, max, exact cardinalities
      */
-    public void translate() {
+    public void translate(String reasoner) {
         long start, end;
         start = Calendar.getInstance().getTimeInMillis();
 
         if (this.reasoning) {
             // reason over the input ontology
-            this.precompute();
+            this.precompute(reasoner);
         }
         // get all tbox axioms
         Set<OWLAxiom> tboxAxioms = this.ontology.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());

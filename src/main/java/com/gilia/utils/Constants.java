@@ -195,4 +195,14 @@ public class Constants {
 
     public static final String URI_TOP = "http://www.w3.org/2002/07/owl#Thing";
     public static final String URI_BOTTOM = "http://www.w3.org/2002/07/owl#Nothing";
+
+    // Reasoners
+
+    public static final String JFACT = "jfact";
+    public static final String PELLET = "pellet";
+    public static final String RACER = "Racer";
+    public static final String KONCLUDE = "konclude";
+    
+    
+
 }
