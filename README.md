@@ -12,9 +12,6 @@ and generate KF instances from them in order to be visualised in [crowd](http://
 
 [OWLAPI](https://github.com/owlcs/owlapi)
 
-[OntologyUtils](https://bitbucket.org/gilia/ontologyutils-viz/)
-
-
 ## Getting started
 The project is built with the Java framework *Spring boot*, and its dependencies are managed with *Maven*. In order to compile and execute this project you will need:
 - Java JDK 11 (11.0.5)
