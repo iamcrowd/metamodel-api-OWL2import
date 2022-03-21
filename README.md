@@ -32,6 +32,10 @@ $ mvn clean dependency:copy-dependencies package spring-boot:repackage
 $ java -jar target/app.jar 
 ```
 
+## Run API with Konclude and Racer reasoners
+$ ./Konclude owllinkserver -p 8080
+$ ./Racer -protocol OWLlink
+
 ### Using the API
 At the moment, there are two ways of trying the API out. The first one involves using the endpoints defined, sending HTTP POST requests to one of the following endpoints:
 
