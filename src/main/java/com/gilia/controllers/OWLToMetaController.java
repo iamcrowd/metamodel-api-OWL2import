@@ -27,12 +27,15 @@ public class OWLToMetaController {
     public ResponseEntity owlToMeta(@RequestParam(value = "ontologyUri", required = false) String ontologyUri,
             @RequestParam(value = "ontologyString", required = false) String ontologyString,
             @RequestParam(value = "ontologiesFiles", required = false) MultipartFile[] ontologiesFiles,
-            @RequestParam(value = "reasoning", required = false, defaultValue = "true") Boolean reasoning,
+            @RequestParam(value = "reasoner", required = false, defaultValue = "") String reasoner,
             @RequestParam(value = "input", required = true, defaultValue = "string") String input) {
         JSONObject result;
 
         try {
-            OWLImporter importer = new OWLImporter(reasoning);
+            OWLImporter importer = new OWLImporter();
+            if (!reasoner.equals("")) {
+                importer.loadReasoner(reasoner);
+            }
             if (input.equals("files") && ontologiesFiles != null && ontologiesFiles.length >= 1) {
                 if (ontologiesFiles.length == 1 && ontologiesFiles[0] != null && !ontologiesFiles[0].isEmpty()) {
                     importer.load(ontologiesFiles[0]);

@@ -45,20 +45,20 @@ public class OWLImporter {
     private OWLOntology supported;
     private OWLOntology unsupported;
     private OWLOntologyManager manager;
-    private boolean reasoning;
+    private OWLReasoner reasoner;
+    private boolean reasoning = false;
 
-    private List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<>();
+    private List<InferredAxiomGenerator<? extends OWLAxiom>> axiomsGens;
 
     private List<OWLClassExpression> objpe = new ArrayList<>();
     private List<OWLAxiom> forallax = new ArrayList<>();
 
     private JSONObject metrics;
 
-    public OWLImporter(boolean reasoning) {
+    public OWLImporter() {
         this.reset();
         this.converter = new MetaConverter();
         this.manager = OWLManager.createOWLOntologyManager();
-        this.reasoning = reasoning;
     }
 
     /**
@@ -140,63 +140,82 @@ public class OWLImporter {
         }
     }
 
-    private URL setReasonerServer(){
+    /**
+     * Loads the reasoner to be used by precompute method later.
+     * 
+     * @param reasonerName a String containing the name of the reasoner to be
+     *                     loaded.
+     */
+    public void loadReasoner(String reasonerName) {
+        try {
+            OWLReasonerFactory reasonerFactoryPellet = new OpenlletReasonerFactory();
+            switch (reasonerName) {
+                case Constants.JFACT:
+                    OWLReasonerFactory reasonerFactoryFact = new JFactFactory();
+                    this.reasoner = reasonerFactoryFact.createReasoner(this.ontology);
+                    break;
+                case Constants.PELLET:
+                    this.reasoner = reasonerFactoryPellet.createReasoner(this.ontology);
+                    break;
+                case Constants.RACER:
+                    // Racer
+                    // Run the tool as OWLlink server in the commandline. ./Racer -protocol OWLlink
+                    OWLlinkHTTPXMLReasonerFactory reasonerFactoryRacer = new OWLlinkHTTPXMLReasonerFactory();
+                    OWLlinkReasonerConfigurationImpl reasonerRacerConfiguration = new OWLlinkReasonerConfigurationImpl(
+                            this.setReasonerServer());
+                    this.reasoner = reasonerFactoryRacer.createReasoner(this.ontology, reasonerRacerConfiguration);
+                    break;
+                case Constants.KONCLUDE:
+                    // Konclude
+                    // Run the tool as OWLlink server in the commandline. ./Konclude owllinkserver
+                    // -p 8080
+                    OWLlinkHTTPXMLReasonerFactory reasonerFactoryKonclude = new OWLlinkHTTPXMLReasonerFactory();
+                    OWLlinkReasonerConfigurationImpl reasonerKoncludeConfiguration = new OWLlinkReasonerConfigurationImpl(
+                            this.setReasonerServer());
+                    this.reasoner = reasonerFactoryKonclude.createReasoner(this.ontology,
+                            reasonerKoncludeConfiguration);
+                    break;
+                default:
+                    this.reasoner = reasonerFactoryPellet.createReasoner(this.ontology);
+                    break;
+            }
+
+            this.axiomsGens = new ArrayList<>();
+            this.axiomsGens.add(new InferredSubClassAxiomGenerator());
+            this.axiomsGens.add(new InferredClassAssertionAxiomGenerator());
+            this.axiomsGens.add(new InferredDisjointClassesAxiomGenerator());
+            this.axiomsGens.add(new InferredEquivalentClassAxiomGenerator());
+            this.axiomsGens.add(new InferredEquivalentDataPropertiesAxiomGenerator());
+            this.axiomsGens.add(new InferredEquivalentObjectPropertyAxiomGenerator());
+            this.axiomsGens.add(new InferredInverseObjectPropertiesAxiomGenerator());
+            this.axiomsGens.add(new InferredObjectPropertyCharacteristicAxiomGenerator());
+            this.axiomsGens.add(new InferredPropertyAssertionGenerator());
+            this.axiomsGens.add(new InferredSubDataPropertyAxiomGenerator());
+            this.axiomsGens.add(new InferredSubObjectPropertyAxiomGenerator());
+
+            //reasoning is true when one reasoner is loaded
+            this.reasoning = true;
+        } catch (Exception e) {
+            System.out.println("Error loading reasoner. (" + e.getMessage() + ")");
+        }
+    }
+
+    private URL setReasonerServer() {
         URL url = null;
         try {
             url = new URL("http://localhost:8080");
         } catch (Exception e) {
-                e.printStackTrace();
-        };
+            e.printStackTrace();
+        }
         return url;
     }
 
     /**
      * Executes a reasoner over the input ontology to get inferred axioms.
      */
-    private void precompute(String reasonerName) {
+    private void precompute() {
         try {
-            OWLReasoner reasoner;
-            OWLReasonerFactory reasonerFactoryPellet = new OpenlletReasonerFactory();
-            switch (reasonerName) {
-                case Constants.JFACT:
-                    OWLReasonerFactory reasonerFactoryFact = new JFactFactory();
-                    reasoner = reasonerFactoryFact.createReasoner(this.ontology);
-                    break;
-                case Constants.PELLET:
-                    reasoner = reasonerFactoryPellet.createReasoner(this.ontology);
-                    break;
-                case Constants.RACER:
-                // Racer
-                // Run the tool as OWLlink server in the commandline. ./Racer -protocol OWLlink
-                    OWLlinkHTTPXMLReasonerFactory reasonerFactoryRacer = new OWLlinkHTTPXMLReasonerFactory();
-                    OWLlinkReasonerConfigurationImpl reasonerRacerConfiguration = new OWLlinkReasonerConfigurationImpl(this.setReasonerServer());
-                    reasoner = reasonerFactoryRacer.createReasoner(this.ontology, reasonerRacerConfiguration);
-                    break;
-                case Constants.KONCLUDE:
-                // Konclude
-                // Run the tool as OWLlink server in the commandline. ./Konclude owllinkserver -p 8080
-                    OWLlinkHTTPXMLReasonerFactory reasonerFactoryKonclude = new OWLlinkHTTPXMLReasonerFactory();
-                    OWLlinkReasonerConfigurationImpl reasonerKoncludeConfiguration = new OWLlinkReasonerConfigurationImpl(this.setReasonerServer());
-                    reasoner = reasonerFactoryKonclude.createReasoner(this.ontology, reasonerKoncludeConfiguration);
-                    break;
-                default:
-                    reasoner = reasonerFactoryPellet.createReasoner(this.ontology);
-                break;
-            }
-
-            this.gens.add(new InferredSubClassAxiomGenerator());
-            this.gens.add(new InferredClassAssertionAxiomGenerator());
-            this.gens.add(new InferredDisjointClassesAxiomGenerator());
-            this.gens.add(new InferredEquivalentClassAxiomGenerator());
-            this.gens.add(new InferredEquivalentDataPropertiesAxiomGenerator());
-            this.gens.add(new InferredEquivalentObjectPropertyAxiomGenerator());
-            this.gens.add(new InferredInverseObjectPropertiesAxiomGenerator());
-            this.gens.add(new InferredObjectPropertyCharacteristicAxiomGenerator());
-            this.gens.add(new InferredPropertyAssertionGenerator());
-            this.gens.add(new InferredSubDataPropertyAxiomGenerator());
-            this.gens.add(new InferredSubObjectPropertyAxiomGenerator());
-
-            InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, this.gens);
+            InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, this.axiomsGens);
             OWLDataFactory df = OWLManager.getOWLDataFactory();
             iog.fillOntology(df, this.ontology);
         } catch (Exception e) {
@@ -227,9 +246,9 @@ public class OWLImporter {
             // removing \bottom -> complement_of top (\top -> complement_of \bottom)
             OWLClassExpression complement = ((OWLObjectComplementOf) right).getOperand();
             if (!(left.isOWLNothing() && complement.isOWLThing()) &&
-                !(complement.isOWLNothing() && left.isOWLThing())){
-                    AxComplementOf axComp = new AxComplementOf();
-                    axComp.complementOfasKF(kf, left, right);
+                    !(complement.isOWLNothing() && left.isOWLThing())) {
+                AxComplementOf axComp = new AxComplementOf();
+                axComp.complementOfasKF(kf, left, right);
             }
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isExistentialOfAtom(right)) {
             // atom -> exists property atom
@@ -280,18 +299,19 @@ public class OWLImporter {
      *
      * @todo objpe should be a set for avoiding repretitions.
      * 
-     * @implNote still missing: 
-     * union -> atom could be rewritten as atomic subclasses,
-     * disjoint union (c, c1, ... cn) as equivalent(c, union_of(c1,..,cn)) and disjoint(c1,...,cn)
-     * min, max, exact cardinalities
+     * @implNote still missing:
+     *           union -> atom could be rewritten as atomic subclasses,
+     *           disjoint union (c, c1, ... cn) as equivalent(c, union_of(c1,..,cn))
+     *           and disjoint(c1,...,cn)
+     *           min, max, exact cardinalities
      */
-    public void translate(String reasoner) {
+    public void translate() {
         long start, end;
         start = Calendar.getInstance().getTimeInMillis();
 
         if (this.reasoning) {
             // reason over the input ontology
-            this.precompute(reasoner);
+            this.precompute();
         }
         // get all tbox axioms
         Set<OWLAxiom> tboxAxioms = this.ontology.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
@@ -327,8 +347,8 @@ public class OWLImporter {
                     subClassOfAxioms.forEach(ax -> {
                         OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
                         OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
-                        
-                            this.patternify(this.metamodel, axiom, left, right);
+
+                        this.patternify(this.metamodel, axiom, left, right);
                     });
 
                 }

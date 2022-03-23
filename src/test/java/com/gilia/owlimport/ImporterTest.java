@@ -37,9 +37,10 @@ public class ImporterTest {
         try {
             String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/1a.owl").toString());
             String[] owlfilepath = path.split(":", 2);
-            OWLImporter importer = new OWLImporter(true);
+            OWLImporter importer = new OWLImporter();
             importer.loadFromPath(owlfilepath[1]);
-            importer.translate(Constants.JFACT);
+            importer.loadReasoner(Constants.JFACT);
+            importer.translate();
             System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,9 +52,10 @@ public class ImporterTest {
         try {
             String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/1b.owl").toString());
             String[] owlfilepath = path.split(":", 2);
-            OWLImporter importer = new OWLImporter(true);
+            OWLImporter importer = new OWLImporter();
             importer.loadFromPath(owlfilepath[1]);
-            importer.translate(Constants.PELLET);
+            importer.loadReasoner(Constants.PELLET);
+            importer.translate();
             System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,9 +67,10 @@ public class ImporterTest {
         try {
             String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/complement.owl").toString());
             String[] owlfilepath = path.split(":", 2);
-            OWLImporter importer = new OWLImporter(true);
+            OWLImporter importer = new OWLImporter();
             importer.loadFromPath(owlfilepath[1]);
-            importer.translate(Constants.RACER);
+            importer.loadReasoner(Constants.RACER);
+            importer.translate();
             System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,9 +82,10 @@ public class ImporterTest {
         try {
             String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/disjoint.owl").toString());
             String[] owlfilepath = path.split(":", 2);
-            OWLImporter importer = new OWLImporter(true);
+            OWLImporter importer = new OWLImporter();
             importer.loadFromPath(owlfilepath[1]);
-            importer.translate(Constants.KONCLUDE);
+            importer.loadReasoner(Constants.KONCLUDE);
+            importer.translate();
             System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,9 +97,10 @@ public class ImporterTest {
         try {
             String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/2a.owl").toString());
             String[] owlfilepath = path.split(":", 2);
-            OWLImporter importer = new OWLImporter(true);
+            OWLImporter importer = new OWLImporter();
             importer.loadFromPath(owlfilepath[1]);
-            importer.translate(Constants.JFACT);
+            importer.loadReasoner(Constants.JFACT);
+            importer.translate();
             System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,9 +112,10 @@ public class ImporterTest {
         try {
             String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/3withExistsProp.owl").toString());
             String[] owlfilepath = path.split(":", 2);
-            OWLImporter importer = new OWLImporter(true);
+            OWLImporter importer = new OWLImporter();
             importer.loadFromPath(owlfilepath[1]);
-            importer.translate(Constants.PELLET);
+            importer.loadReasoner(Constants.PELLET);
+            importer.translate();
             System.out.println(importer.toJSON());
         } catch (Exception e) {
             e.printStackTrace();
