@@ -12,9 +12,6 @@ and generate KF instances from them in order to be visualised in [crowd](http://
 
 [OWLAPI](https://github.com/owlcs/owlapi)
 
-[OntologyUtils](https://bitbucket.org/gilia/ontologyutils-viz/)
-
-
 ## Getting started
 The project is built with the Java framework *Spring boot*, and its dependencies are managed with *Maven*. In order to compile and execute this project you will need:
 - Java JDK 11 (11.0.5)
@@ -33,8 +30,10 @@ $ java -jar target/app.jar
 ```
 
 ## Run API with Konclude and Racer reasoners
-$ ./Konclude owllinkserver -p 8080
-$ ./Racer -protocol OWLlink
+```
+$ ./Konclude owllinkserver -p 8080 (Linux)
+$ ./Racer -protocol OWLlink (Linux)
+```
 
 ### Using the API
 At the moment, there are two ways of trying the API out. The first one involves using the endpoints defined, sending HTTP POST requests to one of the following endpoints:
