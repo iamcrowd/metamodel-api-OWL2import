@@ -28,11 +28,13 @@ public class OWLToMetaController {
             @RequestParam(value = "ontologyString", required = false) String ontologyString,
             @RequestParam(value = "ontologiesFiles", required = false) MultipartFile[] ontologiesFiles,
             @RequestParam(value = "reasoner", required = false, defaultValue = "") String reasoner,
-            @RequestParam(value = "input", required = true, defaultValue = "string") String input) {
+            @RequestParam(value = "input", required = true, defaultValue = "string") String input,
+            @RequestParam(value = "filtering", required = false, defaultValue = "true") Boolean filtering) {
         JSONObject result;
 
         try {
             OWLImporter importer = new OWLImporter();
+            importer.setFiltering(filtering);
             if (!reasoner.equals("")) {
                 importer.loadReasoner(reasoner);
             }

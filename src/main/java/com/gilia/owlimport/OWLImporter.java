@@ -47,6 +47,7 @@ public class OWLImporter {
     private OWLOntologyManager manager;
     private OWLReasoner reasoner;
     private boolean reasoning = false;
+    private boolean filtering = true;
 
     private List<InferredAxiomGenerator<? extends OWLAxiom>> axiomsGens;
 
@@ -140,6 +141,10 @@ public class OWLImporter {
         }
     }
 
+    public void setFiltering(boolean filtering) {
+        this.filtering = filtering;
+    }
+
     /**
      * Loads the reasoner to be used by precompute method later.
      * 
@@ -193,7 +198,7 @@ public class OWLImporter {
             this.axiomsGens.add(new InferredSubDataPropertyAxiomGenerator());
             this.axiomsGens.add(new InferredSubObjectPropertyAxiomGenerator());
 
-            //reasoning is true when one reasoner is loaded
+            // reasoning is true when one reasoner is loaded
             this.reasoning = true;
         } catch (Exception e) {
             System.out.println("Error loading reasoner. (" + e.getMessage() + ")");
@@ -294,6 +299,41 @@ public class OWLImporter {
     }
 
     /**
+     * Return true if the pass the filters.
+     * 
+     * Filtered axioms:
+     * subclass(atom, top)
+     * subclass(bottom, atom)
+     * disjoint(bottom, atom)
+     * 
+     */
+    private boolean filter(OWLAxiom axiom) {
+        boolean passFilter = true;
+
+        if (filtering) {
+            if (axiom.isOfType(AxiomType.SUBCLASS_OF)) {
+                OWLClassExpression left = ((OWLSubClassOfAxiom) axiom).getSubClass();
+                OWLClassExpression right = ((OWLSubClassOfAxiom) axiom).getSuperClass();
+
+                if ((right.isTopEntity() && OWLAxForm.isAtom(left))
+                        || (left.isBottomEntity() && OWLAxForm.isAtom(right))) {
+                    passFilter = false;
+                }
+            } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
+                OWLClassExpression left = ((OWLDisjointClassesAxiom) axiom).getOperandsAsList().get(0);
+                OWLClassExpression right = ((OWLDisjointClassesAxiom) axiom).getOperandsAsList().get(1);
+
+                if ((left.isBottomEntity() && OWLAxForm.isAtom(right))
+                        || (right.isBottomEntity() && OWLAxForm.isAtom(left))) {
+                    passFilter = false;
+                }
+            }
+        }
+
+        return passFilter;
+    }
+
+    /**
      * Translation to KF metamodel. It does reasoning first and then translate each
      * supported axiom and register both: supported and unsupported axioms.
      *
@@ -316,41 +356,49 @@ public class OWLImporter {
         // get all tbox axioms
         Set<OWLAxiom> tboxAxioms = this.ontology.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
 
+        System.out.println("Axioms: ");
+
         // iterate each axiom
         tboxAxioms.forEach(axiom -> {
             try {
-                // determine if axiom is of type SubClassOf
-                System.out.println(axiom.toString());
 
-                if (axiom.isOfType(AxiomType.SUBCLASS_OF)) {
-                    // get left and right expressions (SubClass -> SuperClass)
-                    OWLClassExpression left = ((OWLSubClassOfAxiom) axiom).getSubClass();
-                    OWLClassExpression right = ((OWLSubClassOfAxiom) axiom).getSuperClass();
+                // check if pass the filters
+                if (this.filter(axiom)) {
+                    System.out.println("    " + axiom.toString());
 
-                    this.patternify(this.metamodel, axiom, left, right);
-
-                } else if (axiom.isOfType(AxiomType.EQUIVALENT_CLASSES)) {
-                    Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
-                    subClassOfAxioms = ((OWLEquivalentClassesAxiom) axiom).asOWLSubClassOfAxioms();
-
-                    subClassOfAxioms.forEach(ax -> {
-                        OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
-                        OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
+                    // determine if axiom is of type SubClassOf
+                    if (axiom.isOfType(AxiomType.SUBCLASS_OF)) {
+                        // get left and right expressions (SubClass -> SuperClass)
+                        OWLClassExpression left = ((OWLSubClassOfAxiom) axiom).getSubClass();
+                        OWLClassExpression right = ((OWLSubClassOfAxiom) axiom).getSuperClass();
 
                         this.patternify(this.metamodel, axiom, left, right);
-                    });
 
-                } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
-                    Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
-                    subClassOfAxioms = ((OWLDisjointClassesAxiom) axiom).asOWLSubClassOfAxioms();
+                    } else if (axiom.isOfType(AxiomType.EQUIVALENT_CLASSES)) {
+                        Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
+                        subClassOfAxioms = ((OWLEquivalentClassesAxiom) axiom).asOWLSubClassOfAxioms();
 
-                    subClassOfAxioms.forEach(ax -> {
-                        OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
-                        OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
+                        subClassOfAxioms.forEach(ax -> {
+                            OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
+                            OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
 
-                        this.patternify(this.metamodel, axiom, left, right);
-                    });
+                            this.patternify(this.metamodel, axiom, left, right);
+                        });
 
+                    } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
+                        Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
+                        subClassOfAxioms = ((OWLDisjointClassesAxiom) axiom).asOWLSubClassOfAxioms();
+
+                        subClassOfAxioms.forEach(ax -> {
+                            OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
+                            OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
+
+                            this.patternify(this.metamodel, axiom, left, right);
+                        });
+
+                    }
+                } else {
+                    System.out.println("    (filtered) " + axiom.toString());
                 }
             } catch (Exception e) {
                 if (!(e instanceof EmptyStackException))
