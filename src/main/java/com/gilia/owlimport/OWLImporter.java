@@ -54,12 +54,13 @@ public class OWLImporter {
     private List<OWLClassExpression> objpe = new ArrayList<>();
     private List<OWLAxiom> forallax = new ArrayList<>();
 
-    private JSONObject metrics;
+    private OWLImporterMetrics metrics;
 
     public OWLImporter() {
-        this.reset();
         this.converter = new MetaConverter();
         this.manager = OWLManager.createOWLOntologyManager();
+        this.metrics = new OWLImporterMetrics();
+        this.reset();
     }
 
     /**
@@ -70,12 +71,7 @@ public class OWLImporter {
         this.metamodel = new Metamodel();
         this.supported = Utils.newEmptyOntology();
         this.unsupported = Utils.newEmptyOntology();
-        this.metrics = new JSONObject();
-
-        // reset metrics parameters
-        this.metrics.put("translationTime", null);
-        this.metrics.put("supportedAxiomsCount", 0);
-        this.metrics.put("unsupportedAxiomsCount", 0);
+        this.metrics.reset();
     }
 
     /**
@@ -88,7 +84,7 @@ public class OWLImporter {
             validateOWL(iri);
             this.ontology = this.manager.loadOntologyFromOntologyDocument(iri);
         } catch (Exception e) {
-            System.out.println("Error loading ontology with iri: " + iri + ". (" + e.getMessage() + ")");
+            System.out.println("Error loading ontology with iri: " + iri + ". (" + e.toString() + ")");
         }
     }
 
@@ -102,7 +98,7 @@ public class OWLImporter {
             this.ontology = this.manager
                     .loadOntologyFromOntologyDocument(new ByteArrayInputStream(string.getBytes("UTF-8")));
         } catch (Exception e) {
-            System.out.println("Error loading ontology with String: " + string + ". (" + e.getMessage() + ")");
+            System.out.println("Error loading ontology with String: " + string + ". (" + e.toString() + ")");
         }
     }
 
@@ -118,7 +114,7 @@ public class OWLImporter {
             this.ontology = this.manager.loadOntologyFromOntologyDocument(file);
         } catch (Exception e) {
             System.out.println("Error loading ontology with path: " + path + ". (" +
-                    e.getMessage() + ")");
+                    e.toString() + ")");
         }
     }
 
@@ -137,7 +133,7 @@ public class OWLImporter {
             validateOWL(file);
             this.ontology = this.manager.loadOntologyFromOntologyDocument(file);
         } catch (Exception e) {
-            System.out.println("Error loading ontology with multipart file. (" + e.getMessage() + ")");
+            System.out.println("Error loading ontology with multipart file. (" + e.toString() + ")");
         }
     }
 
@@ -153,14 +149,11 @@ public class OWLImporter {
      */
     public void loadReasoner(String reasonerName) {
         try {
-            OWLReasonerFactory reasonerFactoryPellet = new OpenlletReasonerFactory();
+
             switch (reasonerName) {
                 case Constants.JFACT:
                     OWLReasonerFactory reasonerFactoryFact = new JFactFactory();
                     this.reasoner = reasonerFactoryFact.createReasoner(this.ontology);
-                    break;
-                case Constants.PELLET:
-                    this.reasoner = reasonerFactoryPellet.createReasoner(this.ontology);
                     break;
                 case Constants.RACER:
                     // Racer
@@ -180,7 +173,9 @@ public class OWLImporter {
                     this.reasoner = reasonerFactoryKonclude.createReasoner(this.ontology,
                             reasonerKoncludeConfiguration);
                     break;
+                case Constants.PELLET:
                 default:
+                    OWLReasonerFactory reasonerFactoryPellet = new OpenlletReasonerFactory();
                     this.reasoner = reasonerFactoryPellet.createReasoner(this.ontology);
                     break;
             }
@@ -200,8 +195,11 @@ public class OWLImporter {
 
             // reasoning is true when one reasoner is loaded
             this.reasoning = true;
+            this.metrics.setReasoned(true);
+            this.metrics.reset();
         } catch (Exception e) {
-            System.out.println("Error loading reasoner. (" + e.getMessage() + ")");
+            System.out.println("Error loading reasoner. (" + e.toString() + ")");
+            e.printStackTrace();
         }
     }
 
@@ -224,7 +222,7 @@ public class OWLImporter {
             OWLDataFactory df = OWLManager.getOWLDataFactory();
             iog.fillOntology(df, this.ontology);
         } catch (Exception e) {
-            System.out.println("Error precomputing ontology. (" + e.getMessage() + ")");
+            System.out.println("Error precomputing ontology. (" + e.toString() + ")");
         }
     }
 
@@ -238,14 +236,16 @@ public class OWLImporter {
      * 
      */
     private void patternify(Metamodel kf, OWLAxiom axiom, OWLClassExpression left, OWLClassExpression right) {
-        // atom -> atom
         if (OWLAxForm.isAtom(left) && OWLAxForm.isAtom(right)) {
+            // atom -> atom
             Ax1A ax1A = new Ax1A();
             ax1A.type1AasKF(kf, left, right);
+            this.metrics.add("axiom1ACount", "translation");
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isDisjunctionOfAtoms(right)) {
             // atom -> disjunction
             Ax1B ax1B = new Ax1B();
             ax1B.type1BasKF(kf, left, right);
+            this.metrics.add("axiom1BCount", "translation");
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isComplementOfAtoms(right)) {
             // atom -> complementOf atom
             // removing \bottom -> complement_of top (\top -> complement_of \bottom)
@@ -254,6 +254,7 @@ public class OWLImporter {
                     !(complement.isOWLNothing() && left.isOWLThing())) {
                 AxComplementOf axComp = new AxComplementOf();
                 axComp.complementOfasKF(kf, left, right);
+                this.metrics.add("axiomComplementOfCount", "translation");
             }
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isExistentialOfAtom(right)) {
             // atom -> exists property atom
@@ -266,6 +267,7 @@ public class OWLImporter {
                 this.objpe.add(exist_expr);
                 Ax2 ax2asKF = new Ax2();
                 ax2asKF.type2ImportedAsKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);
+                this.metrics.add("axiom2Count", "translation");
             } else {
                 throw new EmptyStackException();
             }
@@ -291,11 +293,8 @@ public class OWLImporter {
                 throw new EmptyStackException();
             }
         } else {
-            this.unsupported.addAxiom(axiom);
-            this.metrics.put("unsupportedAxiomsCount", ((int) this.metrics.get("unsupportedAxiomsCount")) + 1);
+            throw new EmptyStackException();
         }
-        this.supported.addAxioms(axiom);
-        this.metrics.put("supportedAxiomsCount", ((int) this.metrics.get("supportedAxiomsCount")) + 1);
     }
 
     /**
@@ -346,13 +345,31 @@ public class OWLImporter {
      *           min, max, exact cardinalities
      */
     public void translate() {
-        long start, end;
-        start = Calendar.getInstance().getTimeInMillis();
+        this.metrics.startTimer("translationTime", "translation");
+
+        this.metrics.countLogicAxioms(ontology, false);
+        this.metrics.countEntities(ontology, false);
+        this.metrics.countClasses(ontology, false);
+        this.metrics.countObjectProperties(ontology, false);
+        this.metrics.countDataProperties(ontology, false);
+        this.metrics.countAnnotationProperties(ontology, false);
+        this.metrics.countDatatypes(ontology, false);
+        this.metrics.countNamedIndividuals(ontology, false);
 
         if (this.reasoning) {
             // reason over the input ontology
             this.precompute();
+
+            this.metrics.countLogicAxioms(ontology, true);
+            this.metrics.countEntities(ontology, true);
+            this.metrics.countClasses(ontology, true);
+            this.metrics.countObjectProperties(ontology, true);
+            this.metrics.countDataProperties(ontology, true);
+            this.metrics.countAnnotationProperties(ontology, true);
+            this.metrics.countDatatypes(ontology, true);
+            this.metrics.countNamedIndividuals(ontology, true);
         }
+
         // get all tbox axioms
         Set<OWLAxiom> tboxAxioms = this.ontology.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
 
@@ -361,19 +378,17 @@ public class OWLImporter {
         // iterate each axiom
         tboxAxioms.forEach(axiom -> {
             try {
-
                 // check if pass the filters
                 if (this.filter(axiom)) {
                     System.out.println("    " + axiom.toString());
 
-                    // determine if axiom is of type SubClassOf
+                    // determine if axiom is of a supported type
                     if (axiom.isOfType(AxiomType.SUBCLASS_OF)) {
                         // get left and right expressions (SubClass -> SuperClass)
                         OWLClassExpression left = ((OWLSubClassOfAxiom) axiom).getSubClass();
                         OWLClassExpression right = ((OWLSubClassOfAxiom) axiom).getSuperClass();
 
                         this.patternify(this.metamodel, axiom, left, right);
-
                     } else if (axiom.isOfType(AxiomType.EQUIVALENT_CLASSES)) {
                         Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
                         subClassOfAxioms = ((OWLEquivalentClassesAxiom) axiom).asOWLSubClassOfAxioms();
@@ -384,7 +399,6 @@ public class OWLImporter {
 
                             this.patternify(this.metamodel, axiom, left, right);
                         });
-
                     } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
                         Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
                         subClassOfAxioms = ((OWLDisjointClassesAxiom) axiom).asOWLSubClassOfAxioms();
@@ -395,17 +409,20 @@ public class OWLImporter {
 
                             this.patternify(this.metamodel, axiom, left, right);
                         });
-
                     }
+
+                    this.supported.addAxioms(axiom);
+                    this.metrics.add("supportedAxiomsCount", "translation");
                 } else {
                     System.out.println("    (filtered) " + axiom.toString());
+                    this.metrics.add("filteredAxiomsCount", "translation");
                 }
             } catch (Exception e) {
                 if (!(e instanceof EmptyStackException))
                     System.out.println("Exception during translation: " + e.toString() + " at "
                             + e.getStackTrace()[0].getFileName() + " (" + e.getStackTrace()[0].getLineNumber() + ")");
                 this.unsupported.addAxiom(axiom);
-                this.metrics.put("unsupportedAxiomsCount", ((int) this.metrics.get("unsupportedAxiomsCount")) + 1);
+                this.metrics.add("unsupportedAxiomsCount", "translation");
             }
         });
 
@@ -425,23 +442,23 @@ public class OWLImporter {
                         System.out.println("It is entailed exists property");
                         Ax3 ax3asKF = new Ax3();
                         ax3asKF.type3ImportedAsKF(this.metamodel, left, right);
+                        this.metrics.add("axiom3Count", "translation");
                     } else {
                         throw new EmptyStackException();
                     }
                 }
                 this.supported.addAxioms(axf);
-                this.metrics.put("supportedAxiomsCount", ((int) this.metrics.get("supportedAxiomsCount")) + 1);
+                this.metrics.add("supportedAxiomsCount", "translation");
             } catch (Exception e) {
                 if (!(e instanceof EmptyStackException))
                     System.out.println("Exception during translation: " + e.toString() + " at "
                             + e.getStackTrace()[0].getFileName() + " (" + e.getStackTrace()[0].getLineNumber() + ")");
                 this.unsupported.addAxiom(axf);
-                this.metrics.put("unsupportedAxiomsCount", ((int) this.metrics.get("unsupportedAxiomsCount")) + 1);
+                this.metrics.add("unsupportedAxiomsCount", "translation");
             }
         });
 
-        end = Calendar.getInstance().getTimeInMillis();
-        this.metrics.put("translationTime", (double) ((double) end - (double) start) / 1000.0);
+        this.metrics.stopTimer("translationTime", "translation");
     }
 
     /**
@@ -487,7 +504,7 @@ public class OWLImporter {
 
         values.put("kf", this.converter.generateJSON(metamodel));
 
-        values.put("metrics", this.metrics);
+        values.put("metrics", this.metrics.get());
 
         values.put("supported", this.getSupportedAxioms());
 

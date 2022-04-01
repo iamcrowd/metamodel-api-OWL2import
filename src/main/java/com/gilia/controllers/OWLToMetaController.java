@@ -36,6 +36,7 @@ public class OWLToMetaController {
             OWLImporter importer = new OWLImporter();
             importer.setFiltering(filtering);
             if (!reasoner.equals("")) {
+                System.out.println("Loading reasoner: " + reasoner);
                 importer.loadReasoner(reasoner);
             }
             if (input.equals("files") && ontologiesFiles != null && ontologiesFiles.length >= 1) {
@@ -76,7 +77,7 @@ public class OWLToMetaController {
             }
         } catch (JSONException e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
-                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
+                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.toString());
             return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
         } catch (ValidationException e) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -86,15 +87,15 @@ public class OWLToMetaController {
             return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
         } catch (MetamodelException e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
-                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
+                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.toString());
             return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
         } catch (EmptyOntologyException e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
-                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
+                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.toString());
             return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
-                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
+                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.toString());
             return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
         }
 
