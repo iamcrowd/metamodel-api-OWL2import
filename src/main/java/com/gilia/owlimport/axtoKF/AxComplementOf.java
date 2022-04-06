@@ -8,7 +8,7 @@ import java.util.*;
 import org.semanticweb.owlapi.model.*;
 
 import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
-import static com.gilia.utils.Constants.URI_TOP;
+import static com.gilia.utils.Constants.URI_FAKE_TOP;
 import static com.gilia.utils.Utils.getAlphaNumericString;
 
 /**
@@ -34,6 +34,7 @@ public class AxComplementOf extends AxToKFTools {
     public void complementOfasKF(Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 
         String left_iri = left.asOWLClass().toStringID();
+        String left_frag = left.asOWLClass().getIRI().getFragment();
         ObjectType ot_left = addObjectType(left_iri);
 
         OWLClassExpression complement = ((OWLObjectComplementOf) right).getOperand();
@@ -42,9 +43,9 @@ public class AxComplementOf extends AxToKFTools {
         ObjectType ot_complement = addObjectType(complement_iri);
 
         // fresh superclass of the left object type
-        ObjectType ot_acomplementb = addObjectType(URI_IMPORT_CONCEPT + getAlphaNumericString(5) + "_" + "NOT" + "_" + complement_frag);
+        ObjectType ot_acomplementb = addObjectType(URI_IMPORT_CONCEPT + left_frag + "_" + "NOT" + "_" + complement_frag);
         // superclass of the pattern
-        String top_iri = URI_TOP;
+        String top_iri = URI_FAKE_TOP;
         ObjectType top = addObjectType(top_iri);
 
         kf.addEntity(ot_left);

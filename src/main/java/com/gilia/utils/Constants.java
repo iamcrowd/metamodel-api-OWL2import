@@ -195,6 +195,7 @@ public class Constants {
 
     public static final String URI_TOP = "http://www.w3.org/2002/07/owl#Thing";
     public static final String URI_BOTTOM = "http://www.w3.org/2002/07/owl#Nothing";
+    public static final String URI_FAKE_TOP = "https://crowd-app.fi.uncoma.edu.ar#FakeTop";
 
     // Reasoners
 
