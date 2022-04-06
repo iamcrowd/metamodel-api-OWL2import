@@ -3,10 +3,16 @@ package com.gilia.owlimport;
 import java.util.Calendar;
 import java.util.stream.Stream;
 
+import com.gilia.builder.metabuilder.MetaConverter;
+import com.gilia.metamodel.Entity;
+import com.gilia.metamodel.Metamodel;
+
 import org.json.simple.*;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.parameters.Imports;
+
+import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
 
 @SuppressWarnings("unchecked")
 public class OWLImporterMetrics {
@@ -15,6 +21,7 @@ public class OWLImporterMetrics {
     private JSONObject translationMetrics;
     private JSONObject ontologyMetrics;
     private JSONObject reasonedOntologyMetrics;
+    private JSONObject KFMetrics;
 
     private boolean reasoned = false;
 
@@ -30,6 +37,7 @@ public class OWLImporterMetrics {
         this.translationMetrics = new JSONObject();
         this.ontologyMetrics = new JSONObject();
         this.reasonedOntologyMetrics = new JSONObject();
+        this.KFMetrics = new JSONObject();
 
         this.metrics.put("translation", this.translationMetrics);
         this.translationMetrics.put("translationTime", null);
@@ -63,6 +71,16 @@ public class OWLImporterMetrics {
             this.reasonedOntologyMetrics.put("datatypesCount", 0);
             this.reasonedOntologyMetrics.put("namedIndividualsCount", 0);
         }
+
+        this.metrics.put("KF", this.KFMetrics);
+        this.KFMetrics.put("objectTypesCount", 0);
+        this.KFMetrics.put("relationshipsCount", 0);
+        this.KFMetrics.put("subsumptionsCount", 0);
+        this.KFMetrics.put("rolesCount", 0);
+        this.KFMetrics.put("disjointnessCount", 0);
+        this.KFMetrics.put("completenessCount", 0);
+        this.KFMetrics.put("cardinalitiesCount", 0);
+        this.KFMetrics.put("freshPrimitivesCount", 0);
     }
 
     public void add(String metric, String set) {
@@ -153,5 +171,32 @@ public class OWLImporterMetrics {
     public void countNamedIndividuals(OWLOntology ontology, boolean reasoned) {
         this.set("namedIndividualsCount", reasoned ? "reasonedOntology" : "ontology",
                 ontology.individualsInSignature(Imports.EXCLUDED).count());
+    }
+
+    public void calculateOntologyMetrics(OWLOntology ontology, boolean reasoned) {
+        this.countLogicAxioms(ontology, reasoned);
+        this.countEntities(ontology, reasoned);
+        this.countClasses(ontology, reasoned);
+        this.countObjectProperties(ontology, reasoned);
+        this.countDataProperties(ontology, reasoned);
+        this.countAnnotationProperties(ontology, reasoned);
+        this.countDatatypes(ontology, reasoned);
+        this.countNamedIndividuals(ontology, reasoned);
+    }
+
+    public void calculateKFMetrics(MetaConverter converter, Metamodel metamodel) {
+        this.set("objectTypesCount", "KF", converter.getNofObjectTypes());
+        this.set("relationshipsCount", "KF", converter.getNofRels());
+        this.set("subsumptionsCount", "KF", converter.getNofSubsumptions());
+        this.set("rolesCount", "KF", converter.getNofRoles());
+        this.set("disjointnessCount", "KF", converter.getNofDisjointC());
+        this.set("completenessCount", "KF", converter.getNofCompletenessC());
+        this.set("cardinalitiesCount", "KF", converter.getNofCardinalities());
+
+        for (Entity entity : metamodel.getEntities()) {
+            if (entity.getName().startsWith(URI_IMPORT_CONCEPT)) {
+                this.add("freshPrimitivesCount", "KF");
+            }
+        }
     }
 }

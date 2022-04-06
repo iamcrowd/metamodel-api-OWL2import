@@ -58,7 +58,6 @@ public class OWLImporter {
     private OWLImporterMetrics metrics;
 
     public OWLImporter() {
-        this.converter = new MetaConverter();
         this.manager = OWLManager.createOWLOntologyManager();
         this.metrics = new OWLImporterMetrics();
         this.reset();
@@ -349,27 +348,13 @@ public class OWLImporter {
     public void translate() {
         this.metrics.startTimer("translationTime", "translation");
 
-        this.metrics.countLogicAxioms(ontology, false);
-        this.metrics.countEntities(ontology, false);
-        this.metrics.countClasses(ontology, false);
-        this.metrics.countObjectProperties(ontology, false);
-        this.metrics.countDataProperties(ontology, false);
-        this.metrics.countAnnotationProperties(ontology, false);
-        this.metrics.countDatatypes(ontology, false);
-        this.metrics.countNamedIndividuals(ontology, false);
+        this.metrics.calculateOntologyMetrics(this.ontology, false);
 
         if (this.reasoning) {
             // reason over the input ontology
             this.precompute();
 
-            this.metrics.countLogicAxioms(ontology, true);
-            this.metrics.countEntities(ontology, true);
-            this.metrics.countClasses(ontology, true);
-            this.metrics.countObjectProperties(ontology, true);
-            this.metrics.countDataProperties(ontology, true);
-            this.metrics.countAnnotationProperties(ontology, true);
-            this.metrics.countDatatypes(ontology, true);
-            this.metrics.countNamedIndividuals(ontology, true);
+            this.metrics.calculateOntologyMetrics(this.ontology, true);
         }
 
         // get all tbox axioms
@@ -508,7 +493,11 @@ public class OWLImporter {
     public JSONObject toJSON() {
         JSONObject values = new JSONObject();
 
+        // coverter must be re-initialized each time because metrics are not reset for
+        // each JSON generation
+        this.converter = new MetaConverter();
         values.put("kf", this.converter.generateJSON(metamodel));
+        this.metrics.calculateKFMetrics(this.converter, this.metamodel);
 
         values.put("metrics", this.metrics.get());
 
