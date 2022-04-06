@@ -35,13 +35,11 @@ public class OWLToMetaController {
         try {
             OWLImporter importer = new OWLImporter();
             importer.setFiltering(filtering);
-            if (!reasoner.equals("")) {
-                System.out.println("Loading reasoner: " + reasoner);
-                importer.loadReasoner(reasoner);
-            }
+
             if (input.equals("files") && ontologiesFiles != null && ontologiesFiles.length >= 1) {
                 if (ontologiesFiles.length == 1 && ontologiesFiles[0] != null && !ontologiesFiles[0].isEmpty()) {
                     importer.load(ontologiesFiles[0]);
+                    importer.loadReasoner(reasoner);
                     importer.translate();
                     result = importer.toJSON();
                 } else {
@@ -52,6 +50,7 @@ public class OWLToMetaController {
                         try {
                             System.out.println("Starting import ontology: " + ontologyFile.getOriginalFilename());
                             importer.load(ontologyFile);
+                            importer.loadReasoner(reasoner);
                             importer.translate();
                             success.put(ontologyFile.getOriginalFilename(), importer.toJSON());
                             System.out.println("Finished import ontology: " + ontologyFile.getOriginalFilename());
@@ -65,10 +64,12 @@ public class OWLToMetaController {
                 }
             } else if (input.equals("string") && ontologyString != null && ontologyString != "") {
                 importer.load(ontologyString);
+                importer.loadReasoner(reasoner);
                 importer.translate();
                 result = importer.toJSON();
             } else if (input.equals("uri") && ontologyUri != null && ontologyUri != "") {
                 importer.load(IRI.create(ontologyUri));
+                importer.loadReasoner(reasoner);
                 importer.translate();
                 result = importer.toJSON();
             } else {
