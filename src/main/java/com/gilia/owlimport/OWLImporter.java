@@ -46,6 +46,7 @@ public class OWLImporter {
     private OWLOntology unsupported;
     private OWLOntologyManager manager;
     private OWLReasoner reasoner;
+    private String reasonerName;
     private boolean reasoning = false;
     private boolean filtering = true;
 
@@ -149,36 +150,7 @@ public class OWLImporter {
      */
     public void loadReasoner(String reasonerName) {
         try {
-
-            switch (reasonerName) {
-                case Constants.JFACT:
-                    OWLReasonerFactory reasonerFactoryFact = new JFactFactory();
-                    this.reasoner = reasonerFactoryFact.createReasoner(this.ontology);
-                    break;
-                case Constants.RACER:
-                    // Racer
-                    // Run the tool as OWLlink server in the commandline. ./Racer -protocol OWLlink
-                    OWLlinkHTTPXMLReasonerFactory reasonerFactoryRacer = new OWLlinkHTTPXMLReasonerFactory();
-                    OWLlinkReasonerConfigurationImpl reasonerRacerConfiguration = new OWLlinkReasonerConfigurationImpl(
-                            this.setReasonerServer());
-                    this.reasoner = reasonerFactoryRacer.createReasoner(this.ontology, reasonerRacerConfiguration);
-                    break;
-                case Constants.KONCLUDE:
-                    // Konclude
-                    // Run the tool as OWLlink server in the commandline. ./Konclude owllinkserver
-                    // -p 8080
-                    OWLlinkHTTPXMLReasonerFactory reasonerFactoryKonclude = new OWLlinkHTTPXMLReasonerFactory();
-                    OWLlinkReasonerConfigurationImpl reasonerKoncludeConfiguration = new OWLlinkReasonerConfigurationImpl(
-                            this.setReasonerServer());
-                    this.reasoner = reasonerFactoryKonclude.createReasoner(this.ontology,
-                            reasonerKoncludeConfiguration);
-                    break;
-                case Constants.PELLET:
-                default:
-                    OWLReasonerFactory reasonerFactoryPellet = new OpenlletReasonerFactory();
-                    this.reasoner = reasonerFactoryPellet.createReasoner(this.ontology);
-                    break;
-            }
+            this.reasonerName = reasonerName;
 
             this.axiomsGens = new ArrayList<>();
             this.axiomsGens.add(new InferredSubClassAxiomGenerator());
@@ -218,6 +190,36 @@ public class OWLImporter {
      */
     private void precompute() {
         try {
+            switch (this.reasonerName) {
+                case Constants.JFACT:
+                    OWLReasonerFactory reasonerFactoryFact = new JFactFactory();
+                    this.reasoner = reasonerFactoryFact.createReasoner(this.ontology);
+                    break;
+                case Constants.RACER:
+                    // Racer
+                    // Run the tool as OWLlink server in the commandline. ./Racer -protocol OWLlink
+                    OWLlinkHTTPXMLReasonerFactory reasonerFactoryRacer = new OWLlinkHTTPXMLReasonerFactory();
+                    OWLlinkReasonerConfigurationImpl reasonerRacerConfiguration = new OWLlinkReasonerConfigurationImpl(
+                            this.setReasonerServer());
+                    this.reasoner = reasonerFactoryRacer.createReasoner(this.ontology, reasonerRacerConfiguration);
+                    break;
+                case Constants.KONCLUDE:
+                    // Konclude
+                    // Run the tool as OWLlink server in the commandline. ./Konclude owllinkserver
+                    // -p 8080
+                    OWLlinkHTTPXMLReasonerFactory reasonerFactoryKonclude = new OWLlinkHTTPXMLReasonerFactory();
+                    OWLlinkReasonerConfigurationImpl reasonerKoncludeConfiguration = new OWLlinkReasonerConfigurationImpl(
+                            this.setReasonerServer());
+                    this.reasoner = reasonerFactoryKonclude.createReasoner(this.ontology,
+                            reasonerKoncludeConfiguration);
+                    break;
+                case Constants.PELLET:
+                default:
+                    OWLReasonerFactory reasonerFactoryPellet = new OpenlletReasonerFactory();
+                    this.reasoner = reasonerFactoryPellet.createReasoner(this.ontology);
+                    break;
+            }
+
             InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, this.axiomsGens);
             OWLDataFactory df = OWLManager.getOWLDataFactory();
             iog.fillOntology(df, this.ontology);
@@ -403,11 +405,15 @@ public class OWLImporter {
                         Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
                         subClassOfAxioms = ((OWLDisjointClassesAxiom) axiom).asOWLSubClassOfAxioms();
 
+                        List<String> leftTracked = new ArrayList<String>();
                         subClassOfAxioms.forEach(ax -> {
                             OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
                             OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
 
-                            this.patternify(this.metamodel, axiom, left, right);
+                            leftTracked.add(left.toString());
+                            if (!leftTracked.contains(((OWLObjectComplementOf) right).getOperand().toString())) {
+                                this.patternify(this.metamodel, axiom, left, right);
+                            }
                         });
                     }
 
