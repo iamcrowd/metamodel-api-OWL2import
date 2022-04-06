@@ -67,8 +67,13 @@
                                     </div>
                                     </br>
                                     <div>
-                                        <input type="checkbox" name="precompute" id="reasoning" checked>
-                                        <label for="precompute">Precompute (FaCT++)</label><br>
+                                        <label for="reasoner">Reasoner</label>
+                                        <select id="reasoner" class="form-control">
+                                            <option>jfact</option>
+                                            <option>pellet</option>
+                                            <option>Racer</option>
+                                            <option>konclude</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <input type="button" class="btn btn-primary" id="send" value="Import" />

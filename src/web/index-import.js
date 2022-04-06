@@ -78,7 +78,8 @@ $(document).ready(function () {
                 }
             }
             formData.append('input', files.length ? "files" : "uri");
-            formData.append('reasoning', $('#reasoning').is(":checked"));
+           // formData.append('reasoning', $('#reasoning').is(":checked"));
+            formData.append('reasoner', $('#reasoner')[0].value.toString());
         }
 
         $.ajax({
