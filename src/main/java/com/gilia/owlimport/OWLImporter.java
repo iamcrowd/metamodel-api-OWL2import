@@ -376,6 +376,8 @@ public class OWLImporter {
                         OWLClassExpression right = ((OWLSubClassOfAxiom) axiom).getSuperClass();
 
                         this.patternify(this.metamodel, axiom, left, right);
+                        this.supported.addAxioms(axiom);
+                        this.metrics.add("supportedAxiomsCount", "translation");
                     } else if (axiom.isOfType(AxiomType.EQUIVALENT_CLASSES)) {
                         Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
                         subClassOfAxioms = ((OWLEquivalentClassesAxiom) axiom).asOWLSubClassOfAxioms();
@@ -386,6 +388,9 @@ public class OWLImporter {
 
                             this.patternify(this.metamodel, axiom, left, right);
                         });
+                        this.supported.addAxioms(axiom);
+                        this.metrics.add("supportedAxiomsCount", "translation");
+
                     } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
                         Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
                         subClassOfAxioms = ((OWLDisjointClassesAxiom) axiom).asOWLSubClassOfAxioms();
@@ -400,10 +405,13 @@ public class OWLImporter {
                                 this.patternify(this.metamodel, axiom, left, right);
                             }
                         });
-                    }
+                        this.supported.addAxioms(axiom);
+                        this.metrics.add("supportedAxiomsCount", "translation");
 
-                    this.supported.addAxioms(axiom);
-                    this.metrics.add("supportedAxiomsCount", "translation");
+                    } else {
+                        this.unsupported.addAxiom(axiom);
+                        this.metrics.add("unsupportedAxiomsCount", "translation");
+                    }
                 } else {
                     System.out.println("    (filtered) " + axiom.toString());
                     this.metrics.add("filteredAxiomsCount", "translation");
