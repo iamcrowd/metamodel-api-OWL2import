@@ -5,6 +5,8 @@ import static com.gilia.utils.Constants.*;
 import com.gilia.exceptions.*;
 import com.gilia.owlimport.*;
 import com.gilia.utils.*;
+
+import org.apache.commons.lang3.exception.*;
 import org.everit.json.schema.*;
 import org.json.*;
 import org.json.simple.JSONArray;
@@ -79,25 +81,35 @@ public class OWLToMetaController {
         } catch (JSONException e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
                     HttpStatus.BAD_REQUEST.getReasonPhrase(), e.toString());
-            return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
+            JSONObject jsonError = error.toJSONObject();
+            jsonError.put("stackTrace", ExceptionUtils.getStackTrace(e));
+            return new ResponseEntity<>(jsonError, HttpStatus.BAD_REQUEST);
         } catch (ValidationException e) {
             StringBuilder stringBuilder = new StringBuilder();
             e.getCausingExceptions().stream().map(ValidationException::getMessage).forEach(stringBuilder::append);
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
                     HttpStatus.BAD_REQUEST.getReasonPhrase(), stringBuilder.toString());
-            return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
+            JSONObject jsonError = error.toJSONObject();
+            jsonError.put("stackTrace", ExceptionUtils.getStackTrace(e));
+            return new ResponseEntity<>(jsonError, HttpStatus.BAD_REQUEST);
         } catch (MetamodelException e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
                     HttpStatus.BAD_REQUEST.getReasonPhrase(), e.toString());
-            return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
+            JSONObject jsonError = error.toJSONObject();
+            jsonError.put("stackTrace", ExceptionUtils.getStackTrace(e));
+            return new ResponseEntity<>(jsonError, HttpStatus.BAD_REQUEST);
         } catch (EmptyOntologyException e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
                     HttpStatus.BAD_REQUEST.getReasonPhrase(), e.toString());
-            return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
+            JSONObject jsonError = error.toJSONObject();
+            jsonError.put("stackTrace", ExceptionUtils.getStackTrace(e));
+            return new ResponseEntity<>(jsonError, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
                     HttpStatus.BAD_REQUEST.getReasonPhrase(), e.toString());
-            return new ResponseEntity<>(error.toJSONObject(), HttpStatus.BAD_REQUEST);
+            JSONObject jsonError = error.toJSONObject();
+            jsonError.put("stackTrace", ExceptionUtils.getStackTrace(e));
+            return new ResponseEntity<>(jsonError, HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
