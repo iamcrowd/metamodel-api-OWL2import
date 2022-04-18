@@ -44,14 +44,15 @@ public class OWLImporterMetrics {
         this.translationMetrics.put("supportedAxiomsCount", 0);
         this.translationMetrics.put("unsupportedAxiomsCount", 0);
         this.translationMetrics.put("filteredAxiomsCount", 0);
-        this.translationMetrics.put("axiom1ACount", 0);
-        this.translationMetrics.put("axiom1BCount", 0);
+        this.translationMetrics.put("axiomSubClassOfCount", 0);
+        this.translationMetrics.put("axiomUnionOfCount", 0);
         this.translationMetrics.put("axiomComplementOfCount", 0);
-        this.translationMetrics.put("axiom2Count", 0);
-        this.translationMetrics.put("axiom3Count", 0);
+        this.translationMetrics.put("axiomExistsCount", 0);
+        this.translationMetrics.put("axiomForAllCount", 0);
 
         this.metrics.put("ontology", this.ontologyMetrics);
         this.ontologyMetrics.put("logicAxiomsCount", 0);
+        this.ontologyMetrics.put("tBoxLogicAxiomsCount", 0);
         this.ontologyMetrics.put("entitiesCount", 0);
         this.ontologyMetrics.put("classesCount", 0);
         this.ontologyMetrics.put("objectPropertiesCount", 0);
@@ -63,6 +64,7 @@ public class OWLImporterMetrics {
         if (reasoned) {
             this.metrics.put("reasonedOntology", this.reasonedOntologyMetrics);
             this.reasonedOntologyMetrics.put("logicAxiomsCount", 0);
+            this.reasonedOntologyMetrics.put("tBoxLogicAxiomsCount", 0);
             this.reasonedOntologyMetrics.put("entitiesCount", 0);
             this.reasonedOntologyMetrics.put("classesCount", 0);
             this.reasonedOntologyMetrics.put("objectPropertiesCount", 0);
@@ -130,12 +132,18 @@ public class OWLImporterMetrics {
     }
 
     public void countLogicAxioms(OWLOntology ontology, boolean reasoned) {
+        System.out.println("ONTOLOGY: " + ontology.toString());
+
         Stream<OWLAxiom> tBoxAxioms = ontology.tboxAxioms(Imports.EXCLUDED);
         tBoxAxioms.forEach((axiom) -> {
             if (axiom.isLogicalAxiom()) {
                 this.add("logicAxiomsCount", reasoned ? "reasonedOntology" : "ontology");
             }
         });
+    }
+
+    public void countTBoxLogicAxioms(OWLOntology ontology, boolean reasoned) {
+        this.set("tBoxLogicAxiomsCount", reasoned ? "reasonedOntology" : "ontology", ontology.getLogicalAxiomCount(Imports.EXCLUDED));
     }
 
     public void countEntities(OWLOntology ontology, boolean reasoned) {
@@ -175,6 +183,7 @@ public class OWLImporterMetrics {
 
     public void calculateOntologyMetrics(OWLOntology ontology, boolean reasoned) {
         this.countLogicAxioms(ontology, reasoned);
+        this.countTBoxLogicAxioms(ontology, reasoned);
         this.countEntities(ontology, reasoned);
         this.countClasses(ontology, reasoned);
         this.countObjectProperties(ontology, reasoned);

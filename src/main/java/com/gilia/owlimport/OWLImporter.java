@@ -241,12 +241,12 @@ public class OWLImporter {
             // atom -> atom
             Ax1A ax1A = new Ax1A();
             ax1A.type1AasKF(kf, left, right);
-            this.metrics.add("axiom1ACount", "translation");
+            this.metrics.add("axiomSubClassOfCount", "translation");
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isDisjunctionOfAtoms(right)) {
             // atom -> disjunction
             Ax1B ax1B = new Ax1B();
             ax1B.type1BasKF(kf, left, right);
-            this.metrics.add("axiom1BCount", "translation");
+            this.metrics.add("axiomUnionOfCount", "translation");
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isComplementOfAtoms(right)) {
             // atom -> complementOf atom
             // removing \bottom -> complement_of top (\top -> complement_of \bottom)
@@ -268,18 +268,20 @@ public class OWLImporter {
                 this.objpe.add(exist_expr);
                 Ax2 ax2asKF = new Ax2();
                 ax2asKF.type2ImportedAsKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);
-                this.metrics.add("axiom2Count", "translation");
+                this.metrics.add("axiomExistsCount", "translation");
             } else {
                 throw new EmptyStackException();
             }
         } else if (OWLAxForm.isExistentialOfAtom(right) && OWLAxForm.isAtom(left)) {
             // exists property atom -> ... this pattern only collects the exists axioms of
             // the ontology
-            OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) left).getProperty();
+            OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) right).getProperty();
             OWLObjectProperty namedProperty = property.getNamedProperty();
 
             if (property.isNamed()) {
-                this.objpe.add(left);
+                this.objpe.add(right);
+                this.supported.removeAxiom(axiom);
+                this.metrics.remove("supportedAxiomsCount", "translation");
             } else {
                 throw new EmptyStackException();
             }
@@ -290,6 +292,8 @@ public class OWLImporter {
 
             if (property.isNamed()) {
                 this.forallax.add(axiom);
+                this.supported.removeAxiom(axiom);
+                this.metrics.remove("supportedAxiomsCount", "translation");
             } else {
                 throw new EmptyStackException();
             }
@@ -441,13 +445,15 @@ public class OWLImporter {
                         System.out.println("It is entailed exists property");
                         Ax3 ax3asKF = new Ax3();
                         ax3asKF.type3ImportedAsKF(this.metamodel, left, right);
-                        this.metrics.add("axiom3Count", "translation");
+                        this.metrics.add("axiomForAllCount", "translation");
+                        this.supported.addAxioms(axf);
+                        this.metrics.add("supportedAxiomsCount", "translation");
                     } else {
-                        throw new EmptyStackException();
+                        this.unsupported.addAxiom(axf);
+                        this.metrics.add("unsupportedAxiomsCount", "translation");
                     }
                 }
-                this.supported.addAxioms(axf);
-                this.metrics.add("supportedAxiomsCount", "translation");
+
             } catch (Exception e) {
                 if (!(e instanceof EmptyStackException))
                     System.out.println("Exception during translation: " + e.toString() + " at "
