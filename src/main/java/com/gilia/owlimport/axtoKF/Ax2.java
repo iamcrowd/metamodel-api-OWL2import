@@ -76,7 +76,7 @@ public class Ax2 extends AxToKFTools {
                 filler_iri = URI_NORMAL_CONCEPT + filler.asOWLClass().toStringID();
             }
 
-            //add subsumptions
+            // add subsumptions
             String fresh_O = URI_TOP;
             ObjectType ot_fresh_O = addObjectType(fresh_O);
 
@@ -91,7 +91,8 @@ public class Ax2 extends AxToKFTools {
             kf.addEntity(ot_left);
             kf.addEntity(ot_filler);
 
-            // String fresh_C_PAB = URI_IMPORT_CONCEPT + "CPAB#" + left_iri + "$" + filler_iri;
+            // String fresh_C_PAB = URI_IMPORT_CONCEPT + "CPAB#" + left_iri + "$" +
+            // filler_iri;
             String fresh_C_PAB = URI_IMPORT_CONCEPT + prop_iri + "%" + left_iri + "$" + filler_iri;
             String fresh_C_P = prop_iri;
 
@@ -103,13 +104,17 @@ public class Ax2 extends AxToKFTools {
             kf.addEntity(ot_fresh_C_PAB);
             kf.addEntity(ot_C_P);
 
-            //add fresh relationships
-            // String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB1";
-            String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri + "-participation%" + left_iri;
+            // add fresh relationships
+            // String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) +
+            // "#PAB1";
+            String rel_fresh_PAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri
+                    + "-participation%" + left_iri;
 
-            // String role_fresh_CPAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB1";
+            // String role_fresh_CPAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) +
+            // "#RCPAB1";
             String role_fresh_CPAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/participate-in%" + prop_iri;
-            // String role_fresh_APAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RAPAB1";
+            // String role_fresh_APAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) +
+            // "#RAPAB1";
             String role_fresh_APAB1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/has-one%" + left_iri;
 
             ObjectTypeCardinality otc_RoleCPAB1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
@@ -198,12 +203,16 @@ public class Ax2 extends AxToKFTools {
 
             r_fresh_PAB1.setRoles(r1);
 
-            // String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#PAB2";
-            String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri + "-participation%" + filler_iri;
+            // String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) +
+            // "#PAB2";
+            String rel_fresh_PAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri
+                    + "-participation%" + filler_iri;
 
-            // String role_fresh_CPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPAB2";
+            // String role_fresh_CPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) +
+            // "#RCPAB2";
             String role_fresh_CPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/participate-in%" + prop_iri;
-            // String role_fresh_BPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RBPAB2";
+            // String role_fresh_BPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) +
+            // "#RBPAB2";
             String role_fresh_BPAB2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/has-one%" + filler_iri;
 
             ObjectTypeCardinality otc_RoleCPAB2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
@@ -242,13 +251,16 @@ public class Ax2 extends AxToKFTools {
             kf.addRelationship(r_fresh_PAB1);
             kf.addRelationship(r_fresh_PAB2);
 
-            //add original relationships
-            // String rel_P1_iri = prop_iri + "_" + getAlphaNumericString(8); 
-            String rel_P1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri + "-participation%" + left_iri;
+            // add original relationships
+            // String rel_P1_iri = prop_iri + "_" + getAlphaNumericString(8);
+            String rel_P1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri + "-participation%"
+                    + left_iri;
 
-            // String role_fresh_CPP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP1";
+            // String role_fresh_CPP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) +
+            // "#RCPP1";
             String role_fresh_CPP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/participate-in%" + prop_iri;
-            // String role_fresh_OCP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP1";
+            // String role_fresh_OCP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) +
+            // "#ROCP1";
             String role_fresh_OCP1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/has-one%" + fresh_O;
 
             ObjectTypeCardinality otc_RoleCPP1 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
@@ -285,11 +297,14 @@ public class Ax2 extends AxToKFTools {
             r_P1.setRoles(r3);
 
             // String rel_P2_iri = prop_iri + "_" + getAlphaNumericString(8);
-            String rel_P2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri + "-participation%" + filler_iri;
+            String rel_P2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/" + prop_iri + "-participation%"
+                    + filler_iri;
 
-            // String role_fresh_CPP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#RCPP2";
+            // String role_fresh_CPP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) +
+            // "#RCPP2";
             String role_fresh_CPP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/participate-in%" + prop_iri;
-            // String role_fresh_OCP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "#ROCP2";
+            // String role_fresh_OCP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) +
+            // "#ROCP2";
             String role_fresh_OCP2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + "/has-one%" + fresh_O;
 
             ObjectTypeCardinality otc_RoleCPP2 = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "1");
@@ -329,7 +344,7 @@ public class Ax2 extends AxToKFTools {
             Subsumption sub_rel_P_PAB2_fresh = addSubsumption(kf, r_P2, r_fresh_PAB2);
         }
     }
-    
+
     /**
      * Subclass(atom, exists property atom)
      *
@@ -356,20 +371,20 @@ public class Ax2 extends AxToKFTools {
             }
 
             // Object types
-        
+
             // String fresh_left_iri = left_iri + "p";
             String fresh_left_iri = URI_IMPORT_CONCEPT + prop_iri + "%" + left_iri;
             ObjectType ot_fresh_left = addObjectType(fresh_left_iri);
-        
-            //A
+
+            // A
             ObjectType ot_left = addObjectType(left_iri);
-            //B
+            // B
             ObjectType ot_filler = addObjectType(filler_iri);
-        
-            //Dom
+
+            // Dom
             String fresh_dom_iri = URI_IMPORT_CONCEPT + "%" + "Dom";
             ObjectType ot_fresh_dom = addObjectType(fresh_dom_iri);
-            //Ran
+            // Ran
             String fresh_ran_iri = URI_IMPORT_CONCEPT + "%" + "Ran";
             ObjectType ot_fresh_ran = addObjectType(fresh_ran_iri);
 
@@ -378,14 +393,14 @@ public class Ax2 extends AxToKFTools {
             kf.addEntity(ot_filler);
             kf.addEntity(ot_fresh_dom);
             kf.addEntity(ot_fresh_ran);
-        
+
             // Object types Subsumption
             Subsumption sub_fresh_dom = addSubsumption(kf, ot_fresh_dom, ot_fresh_left);
             Subsumption sub_left_fresh = addSubsumption(kf, ot_fresh_left, ot_left);
-        
-            //add P relationship
+
+            // add P relationship
             String rel_P_iri = prop_iri;
-        
+
             // IRIs for roles of P
             String role_P_1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + ".1";
             String role_P_2_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + ".2";
@@ -396,80 +411,88 @@ public class Ax2 extends AxToKFTools {
 
             kf.addConstraint(otc_role_P_1_DomRan);
             kf.addConstraint(otc_role_P_2_DomRan);
-        
+
             ArrayList<Entity> PL = new ArrayList();
             PL.add(ot_fresh_dom);
             PL.add(ot_fresh_ran);
 
-            //Relationship r_P = new Relationship(rel_P_iri, PL);
+            // Relationship r_P = new Relationship(rel_P_iri, PL);
             Relationship r_P = addRelationship(kf, rel_P_iri, PL);
-        
-            // Add P roles and set mandatory
-            Role role_P_1 = new Role(role_P_1_iri, ot_fresh_dom, r_P, otc_role_P_1_DomRan);
-            if (role_P_1.hasMandatoryConstraint()) {
-               kf.addConstraint(role_P_1.getMandatoryConstraint());
+
+            if (r_P != null) {
+                // Add P roles and set mandatory
+                Role role_P_1 = new Role(role_P_1_iri, ot_fresh_dom, r_P, otc_role_P_1_DomRan);
+                if (role_P_1.hasMandatoryConstraint()) {
+                    kf.addConstraint(role_P_1.getMandatoryConstraint());
+                }
+
+                Role role_P_2 = new Role(role_P_2_iri, ot_fresh_ran, r_P, otc_role_P_2_DomRan);
+                if (role_P_2.hasMandatoryConstraint()) {
+                    kf.addConstraint(role_P_2.getMandatoryConstraint());
+                }
+
+                kf.addRole(role_P_1);
+                kf.addRole(role_P_2);
+
+                ArrayList<Role> Pres = new ArrayList();
+                Pres.add(role_P_1);
+                Pres.add(role_P_2);
+
+                r_P.setRoles(Pres);
+                // kf.addRelationship(r_P);
+            } else {
+                r_P = kf.getRelationship(rel_P_iri);
             }
-        
-            Role role_P_2 = new Role(role_P_2_iri, ot_fresh_ran, r_P, otc_role_P_2_DomRan);
-            if (role_P_2.hasMandatoryConstraint()) {
-               kf.addConstraint(role_P_2.getMandatoryConstraint());
+
+            // P1
+            String rel_P1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1";
+            // IRIs for roles of P1
+            String rel_fresh_P11_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1.1";
+            String rel_fresh_P12_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1.2";
+
+            // add cardinalities for P1
+            ObjectTypeCardinality otc_role_P_11_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "*");
+            ObjectTypeCardinality otc_role_P_12_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
+
+            kf.addConstraint(otc_role_P_11_DomRan);
+            kf.addConstraint(otc_role_P_12_DomRan);
+
+            ArrayList<Entity> P1L = new ArrayList();
+            P1L.add(ot_fresh_left);
+            P1L.add(ot_filler);
+
+            // Relationship r_P1 = new Relationship(rel_P1_iri, P1L);
+            Relationship r_P1 = addRelationship(kf, rel_P1_iri, P1L);
+
+            if (r_P1 != null) {
+
+                // Add P1 roles and set mandatory
+                Role role_P_11 = new Role(rel_fresh_P11_iri, ot_fresh_left, r_P1, otc_role_P_11_DomRan);
+                if (role_P_11.hasMandatoryConstraint()) {
+                    kf.addConstraint(role_P_11.getMandatoryConstraint());
+                }
+
+                Role role_P_12 = new Role(rel_fresh_P12_iri, ot_filler, r_P1, otc_role_P_12_DomRan);
+                if (role_P_12.hasMandatoryConstraint()) {
+                    kf.addConstraint(role_P_12.getMandatoryConstraint());
+                }
+
+                kf.addRole(role_P_11);
+                kf.addRole(role_P_12);
+
+                ArrayList<Role> Pres1 = new ArrayList();
+                Pres1.add(role_P_11);
+                Pres1.add(role_P_12);
+
+                r_P1.setRoles(Pres1);
+                // kf.addRelationship(r_P1);
+            } else {
+                r_P1 = kf.getRelationship(rel_P1_iri);
             }
-        
-            kf.addRole(role_P_1);
-            kf.addRole(role_P_2);
 
-            ArrayList<Role> Pres = new ArrayList();
-            Pres.add(role_P_1);
-            Pres.add(role_P_2);
-
-            r_P.setRoles(Pres);
-            //kf.addRelationship(r_P);
-        
-			// P1
-			String rel_P1_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1";
-			// IRIs for roles of P1
-			String rel_fresh_P11_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1.1";
-			String rel_fresh_P12_iri = URI_IMPORT_CONCEPT + getAlphaNumericString(8) + prop_iri + "1.2";
-
-			// add cardinalities for P1
-			ObjectTypeCardinality otc_role_P_11_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "1", "*");
-			ObjectTypeCardinality otc_role_P_12_DomRan = new ObjectTypeCardinality(getAlphaNumericString(8), "0", "*");
-
-			kf.addConstraint(otc_role_P_11_DomRan);
-			kf.addConstraint(otc_role_P_12_DomRan);
-
-			ArrayList<Entity> P1L = new ArrayList();
-			P1L.add(ot_fresh_left);
-			P1L.add(ot_filler);
-
-			//Relationship r_P1 = new Relationship(rel_P1_iri, P1L);
-			Relationship r_P1 = addRelationship(kf, rel_P1_iri, P1L);
-
-			// Add P1 roles and set mandatory
-			Role role_P_11 = new Role(rel_fresh_P11_iri, ot_fresh_left, r_P1, otc_role_P_11_DomRan);
-			if (role_P_11.hasMandatoryConstraint()) {
-				kf.addConstraint(role_P_11.getMandatoryConstraint());
-			}
-
-			Role role_P_12 = new Role(rel_fresh_P12_iri, ot_filler, r_P1, otc_role_P_12_DomRan);
-			if (role_P_12.hasMandatoryConstraint()) {
-				kf.addConstraint(role_P_12.getMandatoryConstraint());
-			}
-
-			kf.addRole(role_P_11);
-			kf.addRole(role_P_12);
-
-			ArrayList<Role> Pres1 = new ArrayList();
-			Pres1.add(role_P_11);
-			Pres1.add(role_P_12);
-
-			r_P1.setRoles(Pres1);
-			//kf.addRelationship(r_P1);
-
-			// Object types Subsumption
-			Subsumption sub_P1P = new Subsumption(URI_IMPORT_CONCEPT + getAlphaNumericString(8), r_P, r_P1);
-			kf.addRelationship(sub_P1P);
-
+            // Object types Subsumption
+            Subsumption sub_P1P = new Subsumption(URI_IMPORT_CONCEPT + getAlphaNumericString(8), r_P, r_P1);
+            kf.addRelationship(sub_P1P);
         }
     }
 
