@@ -26,9 +26,8 @@ import org.springframework.web.multipart.*;
 public class OWLToMetaController {
 
     @PostMapping(value = OWL_TO_META_ROUTE)
-    public ResponseEntity owlToMeta(@RequestParam(value = "ontologyUri", required = false) String ontologyUri,
-            @RequestParam(value = "ontologyString", required = false) String ontologyString,
-            @RequestParam(value = "ontologiesFiles", required = false) MultipartFile[] ontologiesFiles,
+    public ResponseEntity owlToMeta(
+            @RequestParam(value = "ontologies", required = false) Object[] ontologies,
             @RequestParam(value = "reasoner", required = false, defaultValue = "") String reasoner,
             @RequestParam(value = "input", required = true, defaultValue = "string") String input,
             @RequestParam(value = "filtering", required = false, defaultValue = "true") Boolean filtering) {
@@ -42,41 +41,34 @@ public class OWLToMetaController {
                 System.out.println("Loading reasoner: " + reasoner);
                 importer.loadReasoner(reasoner);
             }
-            if (input.equals("files") && ontologiesFiles != null && ontologiesFiles.length >= 1) {
-                if (ontologiesFiles.length == 1 && ontologiesFiles[0] != null && !ontologiesFiles[0].isEmpty()) {
-                    importer.load(ontologiesFiles[0]);
-                    importer.translate();
-                    result = importer.toJSON();
-                } else {
-                    result = new JSONObject();
-                    JSONObject success = new JSONObject();
-                    JSONArray failed = new JSONArray();
-                    for (MultipartFile ontologyFile : ontologiesFiles) {
-                        try {
-                            System.out.println("Starting import ontology: " + ontologyFile.getOriginalFilename());
-                            importer.load(ontologyFile);
-                            importer.translate();
-                            success.put(ontologyFile.getOriginalFilename(), importer.toJSON());
-                            System.out.println("Finished import ontology: " + ontologyFile.getOriginalFilename());
-                        } catch (Exception e) {
-                            failed.add(ontologyFile.getOriginalFilename());
-                            System.out.println("Can't import ontology: " + ontologyFile.getOriginalFilename());
-                        }
+            if (ontologies.length == 1) {
+                System.out.println("Starting import ontology: " + getOntologyName(ontologies[0], input, 1));
+                loadOntology(ontologies[0], input, importer);
+                importer.translate();
+                result = importer.toJSON();
+                System.out.println("Finished import ontology: " + getOntologyName(ontologies[0], input, 1));
+            } else if (ontologies.length > 1) {
+                result = new JSONObject();
+                JSONObject success = new JSONObject();
+                JSONArray failed = new JSONArray();
+                int index = 0;
+                for (Object ontology : ontologies) {
+                    try {
+                        System.out.println("Starting import ontology: " + getOntologyName(ontology, input, index));
+                        loadOntology(ontologies[0], input, importer);
+                        importer.translate();
+                        success.put(getOntologyName(ontology, input, index), importer.toJSON());
+                        System.out.println("Finished import ontology: " + getOntologyName(ontology, input, index));
+                    } catch (Exception e) {
+                        failed.add(getOntologyName(ontology, input, index));
+                        System.out.println("Can't import ontology: " + getOntologyName(ontology, input, index));
                     }
-                    result.put("success", success);
-                    result.put("failed", failed);
+                    index++;
                 }
-            } else if (input.equals("string") && ontologyString != null && ontologyString != "") {
-                importer.load(ontologyString);
-                importer.translate();
-                result = importer.toJSON();
-            } else if (input.equals("uri") && ontologyUri != null && ontologyUri != "") {
-                importer.load(IRI.create(ontologyUri));
-                importer.translate();
-                result = importer.toJSON();
+                result.put("success", success);
+                result.put("failed", failed);
             } else {
-                return new ResponseEntity<>("There is needed an ontology URI, String or File/s.",
-                        HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("There is needed at least one ontology.", HttpStatus.BAD_REQUEST);
             }
         } catch (JSONException e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
@@ -114,4 +106,27 @@ public class OWLToMetaController {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    private void loadOntology(Object ontology, String input, OWLImporter importer) {
+        switch (input) {
+            case "string":
+                importer.load((String) ontology);
+                break;
+            case "uri":
+                importer.load(IRI.create((String) ontology));
+                break;
+            case "file":
+                importer.load((MultipartFile) ontology);
+                break;
+        }
+    }
+
+    private String getOntologyName(Object ontology, String input, int index) {
+        return input.equals("uri")
+                ? (String) ontology
+                : input.equals("string")
+                        ? "ontology" + index
+                        : ((MultipartFile) ontology).getOriginalFilename();
+    }
+
 }
