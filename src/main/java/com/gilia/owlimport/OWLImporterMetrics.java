@@ -132,18 +132,16 @@ public class OWLImporterMetrics {
     }
 
     public void countLogicAxioms(OWLOntology ontology, boolean reasoned) {
-        System.out.println("ONTOLOGY: " + ontology.toString());
-
-        Stream<OWLAxiom> tBoxAxioms = ontology.tboxAxioms(Imports.EXCLUDED);
-        tBoxAxioms.forEach((axiom) -> {
-            if (axiom.isLogicalAxiom()) {
-                this.add("logicAxiomsCount", reasoned ? "reasonedOntology" : "ontology");
-            }
-        });
+        this.set("logicAxiomsCount", reasoned ? "reasonedOntology" : "ontology", ontology.getLogicalAxiomCount(Imports.EXCLUDED));
     }
 
     public void countTBoxLogicAxioms(OWLOntology ontology, boolean reasoned) {
-        this.set("tBoxLogicAxiomsCount", reasoned ? "reasonedOntology" : "ontology", ontology.getLogicalAxiomCount(Imports.EXCLUDED));
+        Stream<OWLAxiom> tBoxAxioms = ontology.tboxAxioms(Imports.EXCLUDED);
+        tBoxAxioms.forEach((axiom) -> {
+            if (axiom.isLogicalAxiom()) {
+                this.add("tBoxLogicAxiomsCount", reasoned ? "reasonedOntology" : "ontology");
+            }
+        });
     }
 
     public void countEntities(OWLOntology ontology, boolean reasoned) {
