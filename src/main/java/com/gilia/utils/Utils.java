@@ -28,11 +28,12 @@ public class Utils {
      *
      * @param jsonString JSON String that contains an stringify JSON Object
      * @param schemaPath The path to a file that contains a JSON Schema
-     * definition
+     *                   definition
      * @throws FileNotFoundException
      * @throws ValidationException
      */
-    public static void validateJSON(String jsonString, String schemaPath) throws FileNotFoundException, ValidationException, JSONException {
+    public static void validateJSON(String jsonString, String schemaPath)
+            throws FileNotFoundException, ValidationException, JSONException {
         File schemaFile = new File(schemaPath);
         InputStream targetStream = new FileInputStream(schemaFile);
 
@@ -52,7 +53,7 @@ public class Utils {
      * "C:\\pizza.owl.xml"
      *
      * @param owl2FilePath The path to a file that contains an OWL spec (OWL/XML
-     * | RDF/XML)
+     *                     | RDF/XML)
      * @throws FileNotFoundException
      * @throws ValidationException
      */
@@ -87,9 +88,8 @@ public class Utils {
         StringBuffer stringBuffer = new StringBuffer();
 
         // remove all spacial char
-        String AlphaNumericString
-                = randomString
-                        .replaceAll(RANDOM_STRING_REGEX, "");
+        String AlphaNumericString = randomString
+                .replaceAll(RANDOM_STRING_REGEX, "");
 
         // Append first 20 alphanumeric characters
         // from the generated random String into the result
@@ -97,7 +97,7 @@ public class Utils {
             if (Character.isLetter(AlphaNumericString.charAt(k))
                     && (stringLength > 0)
                     || Character.isDigit(AlphaNumericString.charAt(k))
-                    && (stringLength > 0)) {
+                            && (stringLength > 0)) {
 
                 stringBuffer.append(AlphaNumericString.charAt(k));
                 stringLength--;
@@ -108,4 +108,15 @@ public class Utils {
         return stringBuffer.toString();
     }
 
+    /**
+     * Short print of exception message with reduced stack trace.
+     * 
+     * @param message
+     * @param e
+     */
+    public static void printException(String message, Exception e) {
+        System.out.println(message +
+                " => " + e.toString() + " at " + e.getStackTrace()[0].getFileName() +
+                " (" + e.getStackTrace()[0].getLineNumber() + ")");
+    }
 }

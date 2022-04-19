@@ -1,5 +1,8 @@
 package com.gilia.owlimport;
 
+import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
+import static com.gilia.utils.Utils.*;
+
 import java.util.Calendar;
 import java.util.stream.Stream;
 
@@ -11,8 +14,6 @@ import org.json.simple.*;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.parameters.Imports;
-
-import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
 
 @SuppressWarnings("unchecked")
 public class OWLImporterMetrics {
@@ -132,7 +133,8 @@ public class OWLImporterMetrics {
     }
 
     public void countLogicAxioms(OWLOntology ontology, boolean reasoned) {
-        this.set("logicAxiomsCount", reasoned ? "reasonedOntology" : "ontology", ontology.getLogicalAxiomCount(Imports.EXCLUDED));
+        this.set("logicAxiomsCount", reasoned ? "reasonedOntology" : "ontology",
+                ontology.getLogicalAxiomCount(Imports.EXCLUDED));
     }
 
     public void countTBoxLogicAxioms(OWLOntology ontology, boolean reasoned) {
@@ -179,31 +181,43 @@ public class OWLImporterMetrics {
                 ontology.individualsInSignature(Imports.EXCLUDED).count());
     }
 
-    public void calculateOntologyMetrics(OWLOntology ontology, boolean reasoned) {
-        this.countLogicAxioms(ontology, reasoned);
-        this.countTBoxLogicAxioms(ontology, reasoned);
-        this.countEntities(ontology, reasoned);
-        this.countClasses(ontology, reasoned);
-        this.countObjectProperties(ontology, reasoned);
-        this.countDataProperties(ontology, reasoned);
-        this.countAnnotationProperties(ontology, reasoned);
-        this.countDatatypes(ontology, reasoned);
-        this.countNamedIndividuals(ontology, reasoned);
+    public void calculateOntologyMetrics(OWLOntology ontology, boolean reasoned) throws Exception {
+        try {
+            this.countLogicAxioms(ontology, reasoned);
+            this.countTBoxLogicAxioms(ontology, reasoned);
+            this.countEntities(ontology, reasoned);
+            this.countClasses(ontology, reasoned);
+            this.countObjectProperties(ontology, reasoned);
+            this.countDataProperties(ontology, reasoned);
+            this.countAnnotationProperties(ontology, reasoned);
+            this.countDatatypes(ontology, reasoned);
+            this.countNamedIndividuals(ontology, reasoned);
+        } catch (Exception e) {
+            printException("Exception during " + (reasoned ? "reasoned " : "")
+                    + "ontology metrics calculation (calculateOntologyMetrics)", e);
+            throw new Exception("Exception during " + (reasoned ? "reasoned " : "") + "ontology metrics calculation.",
+                    e);
+        }
     }
 
-    public void calculateKFMetrics(MetaConverter converter, Metamodel metamodel) {
-        this.set("objectTypesCount", "KF", converter.getNofObjectTypes());
-        this.set("relationshipsCount", "KF", converter.getNofRels());
-        this.set("subsumptionsCount", "KF", converter.getNofSubsumptions());
-        this.set("rolesCount", "KF", converter.getNofRoles());
-        this.set("disjointnessCount", "KF", converter.getNofDisjointC());
-        this.set("completenessCount", "KF", converter.getNofCompletenessC());
-        this.set("cardinalitiesCount", "KF", converter.getNofCardinalities());
+    public void calculateKFMetrics(MetaConverter converter, Metamodel metamodel) throws Exception {
+        try {
+            this.set("objectTypesCount", "KF", converter.getNofObjectTypes());
+            this.set("relationshipsCount", "KF", converter.getNofRels());
+            this.set("subsumptionsCount", "KF", converter.getNofSubsumptions());
+            this.set("rolesCount", "KF", converter.getNofRoles());
+            this.set("disjointnessCount", "KF", converter.getNofDisjointC());
+            this.set("completenessCount", "KF", converter.getNofCompletenessC());
+            this.set("cardinalitiesCount", "KF", converter.getNofCardinalities());
 
-        for (Entity entity : metamodel.getEntities()) {
-            if (entity.getName().startsWith(URI_IMPORT_CONCEPT)) {
-                this.add("freshPrimitivesCount", "KF");
+            for (Entity entity : metamodel.getEntities()) {
+                if (entity.getName().startsWith(URI_IMPORT_CONCEPT)) {
+                    this.add("freshPrimitivesCount", "KF");
+                }
             }
+        } catch (Exception e) {
+            printException("Exception during KF metrics calculation (calculateKFMetrics)", e);
+            throw new Exception("Exception during KF metrics calculation.", e);
         }
     }
 }

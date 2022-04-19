@@ -1,7 +1,8 @@
 package com.gilia.owlimport;
 
 import static com.gilia.utils.Constants.TYPE2_SUBCLASS_AXIOM;
-import static com.gilia.utils.ImportUtils.validateOWL;
+import static com.gilia.utils.ImportUtils.*;
+import static com.gilia.utils.Utils.*;
 
 import com.gilia.builder.metabuilder.*;
 import com.gilia.metamodel.*;
@@ -78,13 +79,17 @@ public class OWLImporter {
      *
      * @param iri a String containing an Ontology URI.
      */
-    public void load(IRI iri) {
+    public void load(IRI iri) throws Exception {
         try {
             this.reset();
             validateOWL(iri);
             this.ontology = this.manager.loadOntologyFromOntologyDocument(iri);
+            if (this.ontology.isEmpty()) {
+                throw new IllegalArgumentException("Ontology is empty.");
+            }
         } catch (Exception e) {
-            System.out.println("Error loading ontology with iri: " + iri + ". (" + e.toString() + ")");
+            printException("Exception during ontology loading (load), with IRI: " + iri, e);
+            throw new Exception("Exception during ontology loading.", e);
         }
     }
 
@@ -92,13 +97,17 @@ public class OWLImporter {
      *
      * @param iri a String containing an Ontology RDF/XML file.
      */
-    public void load(String string) {
+    public void load(String string) throws Exception {
         try {
             this.reset();
             this.ontology = this.manager
                     .loadOntologyFromOntologyDocument(new ByteArrayInputStream(string.getBytes("UTF-8")));
+            if (this.ontology.isEmpty()) {
+                throw new IllegalArgumentException("Ontology is empty.");
+            }
         } catch (Exception e) {
-            System.out.println("Error loading ontology with String: " + string + ". (" + e.toString() + ")");
+            printException("Exception during ontology loading (load), with String: " + string, e);
+            throw new Exception("Exception during ontology loading.", e);
         }
     }
 
@@ -106,15 +115,18 @@ public class OWLImporter {
      *
      * @param path a String containing a file path to an Ontology File.
      */
-    public void loadFromPath(String path) {
+    public void loadFromPath(String path) throws Exception {
         try {
             this.reset();
             File file = new File(path);
             validateOWL(file);
             this.ontology = this.manager.loadOntologyFromOntologyDocument(file);
+            if (this.ontology.isEmpty()) {
+                throw new IllegalArgumentException("Ontology is empty.");
+            }
         } catch (Exception e) {
-            System.out.println("Error loading ontology with path: " + path + ". (" +
-                    e.toString() + ")");
+            printException("Exception during ontology loading (load), with Path: " + path, e);
+            throw new Exception("Exception during ontology loading.", e);
         }
     }
 
@@ -123,7 +135,7 @@ public class OWLImporter {
      * @param multipartFile a MultiparFile from a FormData containing an Ontology
      *                      File.
      */
-    public void load(MultipartFile multipartFile) {
+    public void load(MultipartFile multipartFile) throws Exception {
         try {
             this.reset();
             File file = new File("src/main/resources/temporalOWL.tmp");
@@ -132,8 +144,12 @@ public class OWLImporter {
             }
             validateOWL(file);
             this.ontology = this.manager.loadOntologyFromOntologyDocument(file);
+            if (this.ontology.isEmpty()) {
+                throw new IllegalArgumentException("Ontology is empty.");
+            }
         } catch (Exception e) {
-            System.out.println("Error loading ontology with multipart file. (" + e.toString() + ")");
+            printException("Exception during ontology loading (load), with MultipartFile", e);
+            throw new Exception("Exception during ontology loading.", e);
         }
     }
 
@@ -147,7 +163,7 @@ public class OWLImporter {
      * @param reasonerName a String containing the name of the reasoner to be
      *                     loaded.
      */
-    public void loadReasoner(String reasonerName) {
+    public void loadReasoner(String reasonerName) throws Exception {
         try {
             this.reasonerName = reasonerName;
 
@@ -169,17 +185,22 @@ public class OWLImporter {
             this.metrics.setReasoned(true);
             this.metrics.reset();
         } catch (Exception e) {
-            System.out.println("Error loading reasoner. (" + e.toString() + ")");
-            e.printStackTrace();
+            printException("Exception during reasoner loading (loadReasoner)", e);
+            throw new Exception("Exception during reasoner loading (" + reasonerName + ").", e);
         }
     }
 
-    private URL setReasonerServer() {
+    private URL setReasonerServer() throws Exception {
         URL url = null;
         try {
             url = new URL("http://localhost:8080");
         } catch (Exception e) {
-            e.printStackTrace();
+            printException(
+                    "Exception during precompute ontology, at reasoner server setting configuration (setReasonerServer) ("
+                            + reasonerName + ")",
+                    e);
+            throw new Exception("Exception during precompute ontology, at reasoner server setting configuration ("
+                    + reasonerName + ").", e);
         }
         return url;
     }
@@ -187,7 +208,7 @@ public class OWLImporter {
     /**
      * Executes a reasoner over the input ontology to get inferred axioms.
      */
-    private void precompute() {
+    private void precompute() throws Exception {
         try {
             switch (this.reasonerName) {
                 case Constants.JFACT:
@@ -223,7 +244,8 @@ public class OWLImporter {
             OWLDataFactory df = OWLManager.getOWLDataFactory();
             iog.fillOntology(df, this.ontology);
         } catch (Exception e) {
-            System.out.println("Error precomputing ontology. (" + e.toString() + ")");
+            printException("Exception during precompute ontology (precompute) (" + reasonerName + ")", e);
+            throw new Exception("Exception during precompute ontology (" + reasonerName + ").", e);
         }
     }
 
@@ -311,30 +333,35 @@ public class OWLImporter {
      * disjoint(bottom, atom)
      * 
      */
-    private boolean filter(OWLAxiom axiom) {
-        boolean passFilter = true;
+    private boolean filter(OWLAxiom axiom) throws Exception {
+        try {
+            boolean passFilter = true;
 
-        if (filtering) {
-            if (axiom.isOfType(AxiomType.SUBCLASS_OF)) {
-                OWLClassExpression left = ((OWLSubClassOfAxiom) axiom).getSubClass();
-                OWLClassExpression right = ((OWLSubClassOfAxiom) axiom).getSuperClass();
+            if (filtering) {
+                if (axiom.isOfType(AxiomType.SUBCLASS_OF)) {
+                    OWLClassExpression left = ((OWLSubClassOfAxiom) axiom).getSubClass();
+                    OWLClassExpression right = ((OWLSubClassOfAxiom) axiom).getSuperClass();
 
-                if ((right.isTopEntity() && OWLAxForm.isAtom(left))
-                        || (left.isBottomEntity() && OWLAxForm.isAtom(right))) {
-                    passFilter = false;
-                }
-            } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
-                OWLClassExpression left = ((OWLDisjointClassesAxiom) axiom).getOperandsAsList().get(0);
-                OWLClassExpression right = ((OWLDisjointClassesAxiom) axiom).getOperandsAsList().get(1);
+                    if ((right.isTopEntity() && OWLAxForm.isAtom(left))
+                            || (left.isBottomEntity() && OWLAxForm.isAtom(right))) {
+                        passFilter = false;
+                    }
+                } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
+                    OWLClassExpression left = ((OWLDisjointClassesAxiom) axiom).getOperandsAsList().get(0);
+                    OWLClassExpression right = ((OWLDisjointClassesAxiom) axiom).getOperandsAsList().get(1);
 
-                if ((left.isBottomEntity() && OWLAxForm.isAtom(right))
-                        || (right.isBottomEntity() && OWLAxForm.isAtom(left))) {
-                    passFilter = false;
+                    if ((left.isBottomEntity() && OWLAxForm.isAtom(right))
+                            || (right.isBottomEntity() && OWLAxForm.isAtom(left))) {
+                        passFilter = false;
+                    }
                 }
             }
-        }
 
-        return passFilter;
+            return passFilter;
+        } catch (Exception e) {
+            System.out.println("Exception filtering axiom. (" + e.toString() + ")");
+            throw e;
+        }
     }
 
     /**
@@ -349,7 +376,7 @@ public class OWLImporter {
      *           and disjoint(c1,...,cn)
      *           min, max, exact cardinalities
      */
-    public void translate() {
+    public void translate() throws Exception {
         this.metrics.startTimer("translationTime", "translation");
 
         this.metrics.calculateOntologyMetrics(this.ontology, false);
@@ -367,7 +394,7 @@ public class OWLImporter {
         System.out.println("Axioms: ");
 
         // iterate each axiom
-        tboxAxioms.forEach(axiom -> {
+        for (OWLAxiom axiom : tboxAxioms) {
             try {
                 // check if pass the filters
                 if (this.filter(axiom)) {
@@ -427,10 +454,10 @@ public class OWLImporter {
                 this.unsupported.addAxiom(axiom);
                 this.metrics.add("unsupportedAxiomsCount", "translation");
             }
-        });
+        }
 
         // dealing with the delayed forall axioms
-        this.forallax.forEach(axf -> {
+        for (OWLAxiom axf : this.forallax) {
             try {
                 if (axf.isOfType(AxiomType.SUBCLASS_OF)) {
                     OWLClassExpression left = ((OWLSubClassOfAxiom) axf).getSubClass();
@@ -440,9 +467,9 @@ public class OWLImporter {
                     OWLClassExpression exists = new OWLObjectSomeValuesFromImpl(property,
                             new OWLClassImpl(IRI.create("http://www.w3.org/2002/07/owl#Thing")));
 
-                    System.out.println(exists);
+                    System.out.println("    " + exists);
                     if (this.objpe.contains(exists)) {
-                        System.out.println("It is entailed exists property");
+                        System.out.println("    (It is entailed exists property)");
                         Ax3 ax3asKF = new Ax3();
                         ax3asKF.type3ImportedAsKF(this.metamodel, left, right);
                         this.metrics.add("axiomForAllCount", "translation");
@@ -461,7 +488,7 @@ public class OWLImporter {
                 this.unsupported.addAxiom(axf);
                 this.metrics.add("unsupportedAxiomsCount", "translation");
             }
-        });
+        }
 
         this.metrics.stopTimer("translationTime", "translation");
     }
@@ -504,21 +531,26 @@ public class OWLImporter {
      * @return JSONObject with the result of translation: metamodel, metrics and
      *         unsupported axioms.
      */
-    public JSONObject toJSON() {
-        JSONObject values = new JSONObject();
+    public JSONObject toJSON() throws Exception {
+        try {
+            JSONObject values = new JSONObject();
 
-        // coverter must be re-initialized each time because metrics are not reset for
-        // each JSON generation
-        this.converter = new MetaConverter();
-        values.put("kf", this.converter.generateJSON(metamodel));
-        this.metrics.calculateKFMetrics(this.converter, this.metamodel);
+            // coverter must be re-initialized each time because metrics are not reset for
+            // each JSON generation
+            this.converter = new MetaConverter();
+            values.put("kf", this.converter.generateJSON(metamodel));
+            this.metrics.calculateKFMetrics(this.converter, this.metamodel);
 
-        values.put("metrics", this.metrics.get());
+            values.put("metrics", this.metrics.get());
 
-        values.put("supported", this.getSupportedAxioms());
+            values.put("supported", this.getSupportedAxioms());
 
-        values.put("unsupported", this.getUnsupportedAxioms());
+            values.put("unsupported", this.getUnsupportedAxioms());
 
-        return values;
+            return values;
+        } catch (Exception e) {
+            printException("Exception during ontology serialization (toJSON)", e);
+            throw new Exception("Exception during ontology serialization.", e);
+        }
     }
 }

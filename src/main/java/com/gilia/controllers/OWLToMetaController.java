@@ -42,11 +42,15 @@ public class OWLToMetaController {
                 importer.loadReasoner(reasoner);
             }
             if (ontologies.length == 1) {
-                System.out.println("Starting import ontology: " + getOntologyName(ontologies[0], input, 1));
-                loadOntology(ontologies[0], input, importer);
+                System.out.println("Starting ontology importation: " + getOntologyName(ontologies[0], input, 1));
+                loadOntology(ontologies[0], input, importer, 1);
+                System.out.println("Starting ontology translation: " + getOntologyName(ontologies[0], input, 1));
                 importer.translate();
+                System.out.println("Finished ontology translation: " + getOntologyName(ontologies[0], input, 1));
+                System.out.println("Starting ontology serialization: " + getOntologyName(ontologies[0], input, 1));
                 result = importer.toJSON();
-                System.out.println("Finished import ontology: " + getOntologyName(ontologies[0], input, 1));
+                System.out.println("Finished ontology serialization: " + getOntologyName(ontologies[0], input, 1));
+                System.out.println("Finished ontology importation: " + getOntologyName(ontologies[0], input, 1));
             } else if (ontologies.length > 1) {
                 result = new JSONObject();
                 JSONObject success = new JSONObject();
@@ -54,11 +58,17 @@ public class OWLToMetaController {
                 int index = 0;
                 for (Object ontology : ontologies) {
                     try {
-                        System.out.println("Starting import ontology: " + getOntologyName(ontology, input, index));
-                        loadOntology(ontologies[0], input, importer);
+                        System.out.println("Starting ontology importation: " + getOntologyName(ontology, input, index));
+                        loadOntology(ontologies[0], input, importer, index);
+                        System.out.println("Starting ontology translation: " + getOntologyName(ontology, input, index));
                         importer.translate();
+                        System.out.println("Finished ontology translation: " + getOntologyName(ontology, input, index));
+                        System.out.println(
+                                "Starting ontology serialization: " + getOntologyName(ontology, input, index));
                         success.put(getOntologyName(ontology, input, index), importer.toJSON());
-                        System.out.println("Finished import ontology: " + getOntologyName(ontology, input, index));
+                        System.out.println(
+                                "Finished ontology serialization: " + getOntologyName(ontology, input, index));
+                        System.out.println("Finished ontology importation: " + getOntologyName(ontology, input, index));
                     } catch (Exception e) {
                         failed.add(getOntologyName(ontology, input, index));
                         System.out.println("Can't import ontology: " + getOntologyName(ontology, input, index));
@@ -70,44 +80,20 @@ public class OWLToMetaController {
             } else {
                 return new ResponseEntity<>("There is needed at least one ontology.", HttpStatus.BAD_REQUEST);
             }
-        } catch (JSONException e) {
-            ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
-                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.toString());
-            JSONObject jsonError = error.toJSONObject();
-            jsonError.put("stackTrace", ExceptionUtils.getStackTrace(e));
-            return new ResponseEntity<>(jsonError, HttpStatus.BAD_REQUEST);
-        } catch (ValidationException e) {
-            StringBuilder stringBuilder = new StringBuilder();
-            e.getCausingExceptions().stream().map(ValidationException::getMessage).forEach(stringBuilder::append);
-            ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
-                    HttpStatus.BAD_REQUEST.getReasonPhrase(), stringBuilder.toString());
-            JSONObject jsonError = error.toJSONObject();
-            jsonError.put("stackTrace", ExceptionUtils.getStackTrace(e));
-            return new ResponseEntity<>(jsonError, HttpStatus.BAD_REQUEST);
-        } catch (MetamodelException e) {
-            ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
-                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.toString());
-            JSONObject jsonError = error.toJSONObject();
-            jsonError.put("stackTrace", ExceptionUtils.getStackTrace(e));
-            return new ResponseEntity<>(jsonError, HttpStatus.BAD_REQUEST);
-        } catch (EmptyOntologyException e) {
-            ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
-                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.toString());
-            JSONObject jsonError = error.toJSONObject();
-            jsonError.put("stackTrace", ExceptionUtils.getStackTrace(e));
-            return new ResponseEntity<>(jsonError, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             ResponseError error = new ResponseError(HttpStatus.BAD_REQUEST.value(),
-                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.toString());
+                    HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
             JSONObject jsonError = error.toJSONObject();
-            jsonError.put("stackTrace", ExceptionUtils.getStackTrace(e));
+            if (e != null && e.getCause() != null)
+                jsonError.put("stackTrace", ExceptionUtils.getStackTrace(e.getCause()));
             return new ResponseEntity<>(jsonError, HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    private void loadOntology(Object ontology, String input, OWLImporter importer) {
+    private void loadOntology(Object ontology, String input, OWLImporter importer, int index) throws Exception {
+        System.out.println("Starting ontology loading: " + getOntologyName(ontology, input, index));
         switch (input) {
             case "string":
                 importer.load((String) ontology);
@@ -119,9 +105,10 @@ public class OWLToMetaController {
                 importer.load((MultipartFile) ontology);
                 break;
         }
+        System.out.println("Finished ontology loading: " + getOntologyName(ontology, input, index));
     }
 
-    private String getOntologyName(Object ontology, String input, int index) {
+    private String getOntologyName(Object ontology, String input, int index) throws Exception {
         return input.equals("uri")
                 ? (String) ontology
                 : input.equals("string")
