@@ -95,7 +95,7 @@ public class OWLImporter {
 
     /**
      *
-     * @param iri a String containing an Ontology RDF/XML file.
+     * @param string a String containing an Ontology RDF/XML file.
      */
     public void load(String string) throws Exception {
         try {
@@ -269,6 +269,22 @@ public class OWLImporter {
             Ax1B ax1B = new Ax1B();
             ax1B.type1BasKF(kf, left, right);
             this.metrics.add("axiomUnionOfCount", "translation");
+        } else if (OWLAxForm.isDisjunctionOfAtoms(left) && OWLAxForm.isAtom(right)) {
+            // disjunction -> atom
+            Collection<OWLClassExpression> disjunctionAtoms = ((OWLObjectUnionOf) left).getOperandsAsList();
+            for (OWLClassExpression disjunctionAtom : disjunctionAtoms) {
+                Ax1A ax1A = new Ax1A();
+                ax1A.type1AasKF(kf, disjunctionAtom, right);
+                this.metrics.add("axiomSubClassOfCount", "translation");
+            }
+        } else if (OWLAxForm.isAtom(left) && OWLAxForm.isConjunctionOfAtoms(right)) {
+            // atom -> conjunction
+            Collection<OWLClassExpression> conjunctionAtoms = ((OWLObjectIntersectionOf) right).getOperandsAsList();
+            for (OWLClassExpression conjunctionAtom : conjunctionAtoms) {
+                Ax1A ax1A = new Ax1A();
+                ax1A.type1AasKF(kf, left, conjunctionAtom);
+                this.metrics.add("axiomSubClassOfCount", "translation");
+            }
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isComplementOfAtoms(right)) {
             // atom -> complementOf atom
             // removing \bottom -> complement_of top (\top -> complement_of \bottom)
@@ -402,43 +418,24 @@ public class OWLImporter {
 
                     // determine if axiom is of a supported type
                     if (axiom.isOfType(AxiomType.SUBCLASS_OF)) {
-                        // get left and right expressions (SubClass -> SuperClass)
-                        OWLClassExpression left = ((OWLSubClassOfAxiom) axiom).getSubClass();
-                        OWLClassExpression right = ((OWLSubClassOfAxiom) axiom).getSuperClass();
-
-                        this.patternify(this.metamodel, axiom, left, right);
+                        this._translateSubclassOf(axiom);
                         this.supported.addAxioms(axiom);
                         this.metrics.add("supportedAxiomsCount", "translation");
                     } else if (axiom.isOfType(AxiomType.EQUIVALENT_CLASSES)) {
-                        Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
-                        subClassOfAxioms = ((OWLEquivalentClassesAxiom) axiom).asOWLSubClassOfAxioms();
-
-                        subClassOfAxioms.forEach(ax -> {
-                            OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
-                            OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
-
-                            this.patternify(this.metamodel, axiom, left, right);
-                        });
+                        this._translateEquivalentClasses(axiom);
                         this.supported.addAxioms(axiom);
                         this.metrics.add("supportedAxiomsCount", "translation");
-
                     } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
-                        Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
-                        subClassOfAxioms = ((OWLDisjointClassesAxiom) axiom).asOWLSubClassOfAxioms();
-
-                        List<String> leftTracked = new ArrayList<String>();
-                        subClassOfAxioms.forEach(ax -> {
-                            OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
-                            OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
-
-                            leftTracked.add(left.toString());
-                            if (!leftTracked.contains(((OWLObjectComplementOf) right).getOperand().toString())) {
-                                this.patternify(this.metamodel, axiom, left, right);
-                            }
-                        });
+                        this._translateDisjointClasses(axiom);
                         this.supported.addAxioms(axiom);
                         this.metrics.add("supportedAxiomsCount", "translation");
-
+                    } else if (axiom.isOfType(AxiomType.DISJOINT_UNION)) {
+                        this._translateDisjointClasses(
+                                ((OWLDisjointUnionAxiom) axiom).getOWLDisjointClassesAxiom());
+                        this._translateEquivalentClasses(
+                                ((OWLDisjointUnionAxiom) axiom).getOWLEquivalentClassesAxiom());
+                        this.supported.addAxioms(axiom);
+                        this.metrics.add("supportedAxiomsCount", "translation");
                     } else {
                         this.unsupported.addAxiom(axiom);
                         this.metrics.add("unsupportedAxiomsCount", "translation");
@@ -491,6 +488,42 @@ public class OWLImporter {
         }
 
         this.metrics.stopTimer("translationTime", "translation");
+    }
+
+    private void _translateSubclassOf(OWLAxiom axiom) {
+        // get left and right expressions (SubClass -> SuperClass)
+        OWLClassExpression left = ((OWLSubClassOfAxiom) axiom).getSubClass();
+        OWLClassExpression right = ((OWLSubClassOfAxiom) axiom).getSuperClass();
+
+        this.patternify(this.metamodel, axiom, left, right);
+    }
+
+    private void _translateEquivalentClasses(OWLAxiom axiom) {
+        Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
+        subClassOfAxioms = ((OWLEquivalentClassesAxiom) axiom).asOWLSubClassOfAxioms();
+
+        subClassOfAxioms.forEach(ax -> {
+            OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
+            OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
+
+            this.patternify(this.metamodel, axiom, left, right);
+        });
+    }
+
+    private void _translateDisjointClasses(OWLAxiom axiom) {
+        Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
+        subClassOfAxioms = ((OWLDisjointClassesAxiom) axiom).asOWLSubClassOfAxioms();
+
+        List<String> leftTracked = new ArrayList<String>();
+        subClassOfAxioms.forEach(ax -> {
+            OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
+            OWLClassExpression right = ((OWLSubClassOfAxiom) ax).getSuperClass();
+
+            leftTracked.add(left.toString());
+            if (!leftTracked.contains(((OWLObjectComplementOf) right).getOperand().toString())) {
+                this.patternify(this.metamodel, axiom, left, right);
+            }
+        });
     }
 
     /**
