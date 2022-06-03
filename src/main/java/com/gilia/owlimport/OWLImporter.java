@@ -84,6 +84,9 @@ public class OWLImporter {
             this.reset();
             validateOWL(iri);
             this.ontology = this.manager.loadOntologyFromOntologyDocument(iri);
+            this.ontology.importsDeclarations().forEach(importDeclaration -> {
+                this.manager.applyChange(new RemoveImport(this.ontology, importDeclaration));
+            });
             if (this.ontology.isEmpty()) {
                 throw new IllegalArgumentException("Ontology is empty.");
             }
@@ -102,6 +105,9 @@ public class OWLImporter {
             this.reset();
             this.ontology = this.manager
                     .loadOntologyFromOntologyDocument(new ByteArrayInputStream(string.getBytes("UTF-8")));
+            this.ontology.importsDeclarations().forEach(importDeclaration -> {
+                this.manager.applyChange(new RemoveImport(this.ontology, importDeclaration));
+            });
             if (this.ontology.isEmpty()) {
                 throw new IllegalArgumentException("Ontology is empty.");
             }
@@ -121,6 +127,9 @@ public class OWLImporter {
             File file = new File(path);
             validateOWL(file);
             this.ontology = this.manager.loadOntologyFromOntologyDocument(file);
+            this.ontology.importsDeclarations().forEach(importDeclaration -> {
+                this.manager.applyChange(new RemoveImport(this.ontology, importDeclaration));
+            });
             if (this.ontology.isEmpty()) {
                 throw new IllegalArgumentException("Ontology is empty.");
             }
@@ -144,6 +153,9 @@ public class OWLImporter {
             }
             validateOWL(file);
             this.ontology = this.manager.loadOntologyFromOntologyDocument(file);
+            this.ontology.importsDeclarations().forEach(importDeclaration -> {
+                this.manager.applyChange(new RemoveImport(this.ontology, importDeclaration));
+            });
             if (this.ontology.isEmpty()) {
                 throw new IllegalArgumentException("Ontology is empty.");
             }
@@ -438,7 +450,7 @@ public class OWLImporter {
                         this.metrics.add("supportedAxiomsCount", "translation");
                     } else {
                         this.unsupported.addAxiom(axiom);
-                        this.metrics.add("unsupportedAxiomsCount", "translation");
+                        this.metrics.addUnsupportedAxiom(axiom);
                     }
                 } else {
                     System.out.println("    (filtered) " + axiom.toString());
@@ -449,7 +461,7 @@ public class OWLImporter {
                     System.out.println("Exception during translation: " + e.toString() + " at "
                             + e.getStackTrace()[0].getFileName() + " (" + e.getStackTrace()[0].getLineNumber() + ")");
                 this.unsupported.addAxiom(axiom);
-                this.metrics.add("unsupportedAxiomsCount", "translation");
+                this.metrics.addUnsupportedAxiom(axiom);
             }
         }
 
@@ -474,7 +486,7 @@ public class OWLImporter {
                         this.metrics.add("supportedAxiomsCount", "translation");
                     } else {
                         this.unsupported.addAxiom(axf);
-                        this.metrics.add("unsupportedAxiomsCount", "translation");
+                        this.metrics.addUnsupportedAxiom(axf);
                     }
                 }
 
@@ -483,7 +495,7 @@ public class OWLImporter {
                     System.out.println("Exception during translation: " + e.toString() + " at "
                             + e.getStackTrace()[0].getFileName() + " (" + e.getStackTrace()[0].getLineNumber() + ")");
                 this.unsupported.addAxiom(axf);
-                this.metrics.add("unsupportedAxiomsCount", "translation");
+                this.metrics.addUnsupportedAxiom(axf);
             }
         }
 

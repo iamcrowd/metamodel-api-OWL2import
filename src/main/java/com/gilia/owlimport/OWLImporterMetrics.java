@@ -20,6 +20,7 @@ public class OWLImporterMetrics {
 
     private JSONObject metrics;
     private JSONObject translationMetrics;
+    private JSONObject unsupportedMetrics;
     private JSONObject ontologyMetrics;
     private JSONObject reasonedOntologyMetrics;
     private JSONObject KFMetrics;
@@ -36,6 +37,7 @@ public class OWLImporterMetrics {
     public void reset() {
         this.metrics = new JSONObject();
         this.translationMetrics = new JSONObject();
+        this.unsupportedMetrics = new JSONObject();
         this.ontologyMetrics = new JSONObject();
         this.reasonedOntologyMetrics = new JSONObject();
         this.KFMetrics = new JSONObject();
@@ -50,6 +52,8 @@ public class OWLImporterMetrics {
         this.translationMetrics.put("axiomComplementOfCount", 0);
         this.translationMetrics.put("axiomExistsCount", 0);
         this.translationMetrics.put("axiomForAllCount", 0);
+
+        this.metrics.put("unsupported", this.unsupportedMetrics);
 
         this.metrics.put("ontology", this.ontologyMetrics);
         this.ontologyMetrics.put("logicAxiomsCount", 0);
@@ -87,13 +91,24 @@ public class OWLImporterMetrics {
     }
 
     public void add(String metric, String set) {
+        if (((JSONObject) (this.metrics.get(set))).get(metric) == null) {
+            ((JSONObject) (this.metrics.get(set))).put(metric, 0);
+        }
         ((JSONObject) (this.metrics.get(set))).put(metric,
                 (int) ((JSONObject) (this.metrics.get(set))).get(metric) + 1);
     }
 
     public void add(String metric, String set, int value) {
+        if (((JSONObject) (this.metrics.get(set))).get(metric) == null) {
+            ((JSONObject) (this.metrics.get(set))).put(metric, 0);
+        }
         ((JSONObject) (this.metrics.get(set))).put(metric,
                 (int) ((JSONObject) (this.metrics.get(set))).get(metric) + value);
+    }
+
+    public void addUnsupportedAxiom(OWLAxiom axiom) {
+        this.add("unsupportedAxiomsCount", "translation");
+        this.add(axiom.getAxiomType().toString(), "unsupported");
     }
 
     public void remove(String metric, String set) {

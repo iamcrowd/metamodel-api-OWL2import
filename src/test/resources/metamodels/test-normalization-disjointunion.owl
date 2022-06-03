@@ -27,6 +27,7 @@
         <Class IRI="#A"/>
         <Class IRI="#B"/>
         <Class IRI="#C"/>
+        <Class IRI="#D"/>
     </DisjointUnion>
 </Ontology>
 
