@@ -204,6 +204,11 @@ public class Constants {
     public static final String RACER = "Racer";
     public static final String KONCLUDE = "konclude";
     
-    
+    // OWL Syntax
+
+    public static final String SIMPLE_SYNTAX = "simple";
+    public static final String MANCHESTER_SYNTAX = "manchester";
+    public static final String DL_SYNTAX = "dl";
+
 
 }

@@ -24,6 +24,7 @@ import org.semanticweb.owlapi.apibinding.*;
 import static com.gilia.utils.ImportUtils.validateOWL;
 import com.gilia.metamodel.*;
 import com.gilia.utils.Constants;
+import com.gilia.utils.Utils;
 import com.gilia.builder.metabuilder.*;
 
 /**
@@ -41,7 +42,10 @@ public class ImporterTest {
             importer.loadFromPath(owlfilepath[1]);
             importer.loadReasoner(Constants.JFACT);
             importer.translate();
-            System.out.println(importer.toJSON());
+            System.out.println("simpleAxioms: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("simpleAxioms")));
+            System.out.println("supported: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("supported")));
+            System.out.println("metrics: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("metrics")));
+            // System.out.println(Utils.prettyJSON(importer.toJSON()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,9 +58,12 @@ public class ImporterTest {
             String[] owlfilepath = path.split(":", 2);
             OWLImporter importer = new OWLImporter();
             importer.loadFromPath(owlfilepath[1]);
-            importer.loadReasoner(Constants.PELLET);
+            importer.loadReasoner(Constants.JFACT);
             importer.translate();
-            System.out.println(importer.toJSON());
+            System.out.println("simpleAxioms: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("simpleAxioms")));
+            System.out.println("supported: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("supported")));
+            System.out.println("metrics: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("metrics")));
+            // System.out.println(Utils.prettyJSON(importer.toJSON()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,13 +72,36 @@ public class ImporterTest {
     @Test
     public void testAtomComplementOf() {
         try {
-            String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/complement.owl").toString());
+            String path = new String(
+                    ImporterTest.class.getClassLoader().getResource("metamodels/complement.owl").toString());
             String[] owlfilepath = path.split(":", 2);
             OWLImporter importer = new OWLImporter();
             importer.loadFromPath(owlfilepath[1]);
-            importer.loadReasoner(Constants.RACER);
+            importer.loadReasoner(Constants.JFACT);
             importer.translate();
-            System.out.println(importer.toJSON());
+            System.out.println("simpleAxioms: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("simpleAxioms")));
+            System.out.println("supported: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("supported")));
+            System.out.println("metrics: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("metrics")));
+            // System.out.println(Utils.prettyJSON(importer.toJSON()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testAtomEquivalentAtom() {
+        try {
+            String path = new String(
+                    ImporterTest.class.getClassLoader().getResource("metamodels/equivalent.owl").toString());
+            String[] owlfilepath = path.split(":", 2);
+            OWLImporter importer = new OWLImporter();
+            importer.loadFromPath(owlfilepath[1]);
+            importer.loadReasoner(Constants.JFACT);
+            importer.translate();
+            System.out.println("simpleAxioms: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("simpleAxioms")));
+            System.out.println("supported: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("supported")));
+            System.out.println("metrics: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("metrics")));
+            // System.out.println(Utils.prettyJSON(importer.toJSON()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,13 +110,36 @@ public class ImporterTest {
     @Test
     public void testAtomDisjointAtom() {
         try {
-            String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/disjoint.owl").toString());
+            String path = new String(
+                    ImporterTest.class.getClassLoader().getResource("metamodels/disjoint.owl").toString());
             String[] owlfilepath = path.split(":", 2);
             OWLImporter importer = new OWLImporter();
             importer.loadFromPath(owlfilepath[1]);
-            importer.loadReasoner(Constants.KONCLUDE);
+            importer.loadReasoner(Constants.JFACT);
             importer.translate();
-            System.out.println(importer.toJSON());
+            System.out.println("simpleAxioms: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("simpleAxioms")));
+            System.out.println("supported: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("supported")));
+            System.out.println("metrics: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("metrics")));
+            // System.out.println(Utils.prettyJSON(importer.toJSON()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testAtomDisjointUnionAtom() {
+        try {
+            String path = new String(
+                    ImporterTest.class.getClassLoader().getResource("metamodels/disjoint-union.owl").toString());
+            String[] owlfilepath = path.split(":", 2);
+            OWLImporter importer = new OWLImporter();
+            importer.loadFromPath(owlfilepath[1]);
+            importer.loadReasoner(Constants.JFACT);
+            importer.translate();
+            System.out.println("simpleAxioms: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("simpleAxioms")));
+            System.out.println("supported: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("supported")));
+            System.out.println("metrics: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("metrics")));
+            // System.out.println(Utils.prettyJSON(importer.toJSON()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,7 +154,10 @@ public class ImporterTest {
             importer.loadFromPath(owlfilepath[1]);
             importer.loadReasoner(Constants.JFACT);
             importer.translate();
-            System.out.println(importer.toJSON());
+            System.out.println("simpleAxioms: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("simpleAxioms")));
+            System.out.println("supported: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("supported")));
+            System.out.println("metrics: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("metrics")));
+            // System.out.println(Utils.prettyJSON(importer.toJSON()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -110,13 +166,17 @@ public class ImporterTest {
     @Test
     public void testAtomUniversalOfAtom() {
         try {
-            String path = new String(ImporterTest.class.getClassLoader().getResource("metamodels/3withExistsProp.owl").toString());
+            String path = new String(
+                    ImporterTest.class.getClassLoader().getResource("metamodels/3withExistsProp.owl").toString());
             String[] owlfilepath = path.split(":", 2);
             OWLImporter importer = new OWLImporter();
             importer.loadFromPath(owlfilepath[1]);
             importer.loadReasoner(Constants.PELLET);
             importer.translate();
-            System.out.println(importer.toJSON());
+            System.out.println("simpleAxioms: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("simpleAxioms")));
+            System.out.println("supported: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("supported")));
+            System.out.println("metrics: " + Utils.prettyJSON((JSONObject) importer.toJSON().get("metrics")));
+            // System.out.println(Utils.prettyJSON(importer.toJSON()));
         } catch (Exception e) {
             e.printStackTrace();
         }

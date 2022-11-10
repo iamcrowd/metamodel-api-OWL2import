@@ -46,6 +46,7 @@ public class OWLImporterMetrics {
         this.translationMetrics.put("translationTime", null);
         this.translationMetrics.put("supportedAxiomsCount", 0);
         this.translationMetrics.put("unsupportedAxiomsCount", 0);
+        this.translationMetrics.put("simpleAxiomsCount", 0);
         this.translationMetrics.put("filteredAxiomsCount", 0);
         this.translationMetrics.put("axiomSubClassOfCount", 0);
         this.translationMetrics.put("axiomUnionOfCount", 0);

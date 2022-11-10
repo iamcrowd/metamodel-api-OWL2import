@@ -14,8 +14,12 @@ import java.net.URL;
 import java.util.*;
 import java.util.stream.*;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+
 import org.json.simple.*;
 import org.semanticweb.owlapi.apibinding.*;
+import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxObjectRenderer;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.*;
 
@@ -24,11 +28,15 @@ import org.semanticweb.owlapi.owllink.OWLlinkReasonerConfigurationImpl;
 
 import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.util.*;
+import org.semanticweb.owlapi.io.OWLObjectRenderer;
+import org.semanticweb.owlapi.io.ToStringRenderer;
+import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
 import org.springframework.web.multipart.*;
 
 import uk.ac.manchester.cs.jfact.*;
 import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectSomeValuesFromImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLSubClassOfAxiomImpl;
 import openllet.owlapi.OpenlletReasonerFactory;
 
 import www.ontologyutils.toolbox.*;
@@ -45,6 +53,7 @@ public class OWLImporter {
     private OWLOntology ontology;
     private OWLOntology supported;
     private OWLOntology unsupported;
+    private OWLOntology simpleAxioms;
     private OWLOntologyManager manager;
     private OWLReasoner reasoner;
     private String reasonerName;
@@ -62,6 +71,7 @@ public class OWLImporter {
         this.manager = OWLManager.createOWLOntologyManager();
         this.metrics = new OWLImporterMetrics();
         this.reset();
+        this.setOWLSyntax(Constants.DL_SYNTAX);
     }
 
     /**
@@ -72,6 +82,7 @@ public class OWLImporter {
         this.metamodel = new Metamodel();
         this.supported = Utils.newEmptyOntology();
         this.unsupported = Utils.newEmptyOntology();
+        this.simpleAxioms = Utils.newEmptyOntology();
         this.metrics.reset();
     }
 
@@ -167,6 +178,28 @@ public class OWLImporter {
 
     public void setFiltering(boolean filtering) {
         this.filtering = filtering;
+    }
+
+    public void setOWLSyntax(String syntax) {
+        ToStringRenderer.setRenderer(new Provider<OWLObjectRenderer>() {
+            @Override
+            public OWLObjectRenderer get() {
+                OWLObjectRenderer renderer;
+                switch (syntax) {
+                    case Constants.MANCHESTER_SYNTAX:
+                        renderer = new ManchesterOWLSyntaxOWLObjectRendererImpl();
+                        break;
+                    case Constants.DL_SYNTAX:
+                        renderer = new DLSyntaxObjectRenderer();
+                        break;
+                    case Constants.SIMPLE_SYNTAX:
+                    default:
+                        renderer = new SimpleRenderer();
+                        break;
+                }
+                return renderer;
+            }
+        });
     }
 
     /**
@@ -271,24 +304,40 @@ public class OWLImporter {
      * 
      */
     private void patternify(Metamodel kf, OWLAxiom axiom, OWLClassExpression left, OWLClassExpression right) {
+        OWLSubClassOfAxiom subclassAxiom = new OWLSubClassOfAxiomImpl(left, right, new LinkedList<OWLAnnotation>());
+        // if axiom is already added it's not proccesed
+        if (this.simpleAxioms.containsAxiom(subclassAxiom))
+            return;
         if (OWLAxForm.isAtom(left) && OWLAxForm.isAtom(right)) {
             // atom -> atom
             Ax1A ax1A = new Ax1A();
             ax1A.type1AasKF(kf, left, right);
             this.metrics.add("axiomSubClassOfCount", "translation");
+            this.metrics.add("simpleAxiomsCount", "translation");
+            this.simpleAxioms.addAxioms(subclassAxiom);
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isDisjunctionOfAtoms(right)) {
             // atom -> disjunction
             Ax1B ax1B = new Ax1B();
             ax1B.type1BasKF(kf, left, right);
             this.metrics.add("axiomUnionOfCount", "translation");
+            this.metrics.add("simpleAxiomsCount", "translation");
+            this.simpleAxioms.addAxioms(subclassAxiom);
         } else if (OWLAxForm.isDisjunctionOfAtoms(left) && OWLAxForm.isAtom(right)) {
             // disjunction -> atom
+            // this is only translated if reasoning is false, because every disjuntion on
+            // left side will be proccesed as separated axioms, for example: A ⊔ B ⊔ C ⊑ D,
+            // will be: A ⊑ D, B ⊑ D, C ⊑ D
+            if (this.reasoning)
+                return;
             Collection<OWLClassExpression> disjunctionAtoms = ((OWLObjectUnionOf) left).getOperandsAsList();
             for (OWLClassExpression disjunctionAtom : disjunctionAtoms) {
                 Ax1A ax1A = new Ax1A();
                 ax1A.type1AasKF(kf, disjunctionAtom, right);
                 this.metrics.add("axiomSubClassOfCount", "translation");
+                this.metrics.add("simpleAxiomsCount", "translation");
+                this.simpleAxioms.addAxioms(subclassAxiom);
             }
+
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isConjunctionOfAtoms(right)) {
             // atom -> conjunction
             Collection<OWLClassExpression> conjunctionAtoms = ((OWLObjectIntersectionOf) right).getOperandsAsList();
@@ -296,6 +345,8 @@ public class OWLImporter {
                 Ax1A ax1A = new Ax1A();
                 ax1A.type1AasKF(kf, left, conjunctionAtom);
                 this.metrics.add("axiomSubClassOfCount", "translation");
+                this.metrics.add("simpleAxiomsCount", "translation");
+                this.simpleAxioms.addAxioms(subclassAxiom);
             }
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isComplementOfAtoms(right)) {
             // atom -> complementOf atom
@@ -306,6 +357,8 @@ public class OWLImporter {
                 AxComplementOf axComp = new AxComplementOf();
                 axComp.complementOfasKF(kf, left, right);
                 this.metrics.add("axiomComplementOfCount", "translation");
+                this.metrics.add("simpleAxiomsCount", "translation");
+                this.simpleAxioms.addAxioms(subclassAxiom);
             }
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isExistentialOfAtom(right)) {
             // atom -> exists property atom
@@ -319,22 +372,24 @@ public class OWLImporter {
                 Ax2 ax2asKF = new Ax2();
                 ax2asKF.type2ImportedAsKF(kf, left, right, TYPE2_SUBCLASS_AXIOM);
                 this.metrics.add("axiomExistsCount", "translation");
+                this.metrics.add("simpleAxiomsCount", "translation");
+                this.simpleAxioms.addAxioms(subclassAxiom);
             } else {
                 throw new EmptyStackException();
             }
-        } else if (OWLAxForm.isExistentialOfAtom(right) && OWLAxForm.isAtom(left)) {
-            // exists property atom -> ... this pattern only collects the exists axioms of
-            // the ontology
-            OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) right).getProperty();
-            OWLObjectProperty namedProperty = property.getNamedProperty();
+        // } else if (OWLAxForm.isExistentialOfAtom(left) && OWLAxForm.isAtom(right)) {
+        //     // exists property atom -> ... this pattern only collects the exists axioms of
+        //     // the ontology
+        //     OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) right).getProperty();
+        //     OWLObjectProperty namedProperty = property.getNamedProperty();
 
-            if (property.isNamed()) {
-                this.objpe.add(right);
-                this.supported.removeAxiom(axiom);
-                this.metrics.remove("supportedAxiomsCount", "translation");
-            } else {
-                throw new EmptyStackException();
-            }
+        //     if (property.isNamed()) {
+        //         this.objpe.add(right);
+        //         this.supported.removeAxiom(axiom);
+        //         this.metrics.remove("supportedAxiomsCount", "translation");
+        //     } else {
+        //         throw new EmptyStackException();
+        //     }
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isUniversalOfAtom(right)) {
             // atom -> forall property atom
             OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
@@ -359,7 +414,8 @@ public class OWLImporter {
      * subclass(atom, top)
      * subclass(bottom, atom)
      * disjoint(bottom, atom)
-     * 
+     * disjoint(C1,...,Cn) (more than 2 classes)
+     * disjointUnion(C,C1,...,CN) (more than 2 classes, without counting first)
      */
     private boolean filter(OWLAxiom axiom) throws Exception {
         try {
@@ -419,6 +475,8 @@ public class OWLImporter {
         // get all tbox axioms
         Set<OWLAxiom> tboxAxioms = this.ontology.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
 
+        Set<OWLAxiom> filtered = new HashSet<OWLAxiom>();
+
         System.out.println("Axioms: ");
 
         // iterate each axiom
@@ -426,6 +484,7 @@ public class OWLImporter {
             try {
                 // check if pass the filters
                 if (this.filter(axiom)) {
+                    // System.out.println(" " + axiom.toString());
                     System.out.println("    " + axiom.toString());
 
                     // determine if axiom is of a supported type
@@ -434,17 +493,21 @@ public class OWLImporter {
                         this.supported.addAxioms(axiom);
                         this.metrics.add("supportedAxiomsCount", "translation");
                     } else if (axiom.isOfType(AxiomType.EQUIVALENT_CLASSES)) {
-                        this._translateEquivalentClasses(axiom);
-                        this.supported.addAxioms(axiom);
-                        this.metrics.add("supportedAxiomsCount", "translation");
+                        boolean translated = this._translateEquivalentClasses(axiom);
+                        if (translated) {
+                            this.supported.addAxioms(axiom);
+                            this.metrics.add("supportedAxiomsCount", "translation");
+                        }
                     } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
-                        this._translateDisjointClasses(axiom);
-                        this.supported.addAxioms(axiom);
-                        this.metrics.add("supportedAxiomsCount", "translation");
+                        boolean translated = this._translateDisjointClasses(axiom);
+                        if (translated) {
+                            this.supported.addAxioms(axiom);
+                            this.metrics.add("supportedAxiomsCount", "translation");
+                        }
                     } else if (axiom.isOfType(AxiomType.DISJOINT_UNION)) {
-                        this._translateDisjointClasses(
+                        boolean translatedDisjoint = this._translateDisjointClasses(
                                 ((OWLDisjointUnionAxiom) axiom).getOWLDisjointClassesAxiom());
-                        this._translateEquivalentClasses(
+                        boolean translatedEquivalent = this._translateEquivalentClasses(
                                 ((OWLDisjointUnionAxiom) axiom).getOWLEquivalentClassesAxiom());
                         this.supported.addAxioms(axiom);
                         this.metrics.add("supportedAxiomsCount", "translation");
@@ -453,8 +516,7 @@ public class OWLImporter {
                         this.metrics.addUnsupportedAxiom(axiom);
                     }
                 } else {
-                    System.out.println("    (filtered) " + axiom.toString());
-                    this.metrics.add("filteredAxiomsCount", "translation");
+                    filtered.add(axiom);
                 }
             } catch (Exception e) {
                 if (!(e instanceof EmptyStackException))
@@ -463,6 +525,11 @@ public class OWLImporter {
                 this.unsupported.addAxiom(axiom);
                 this.metrics.addUnsupportedAxiom(axiom);
             }
+        }
+
+        for (OWLAxiom axiom : filtered) {
+            System.out.println("    (filtered) " + axiom.toString());
+            this.metrics.add("filteredAxiomsCount", "translation");
         }
 
         // dealing with the delayed forall axioms
@@ -481,9 +548,11 @@ public class OWLImporter {
                         System.out.println("    (It is entailed exists property)");
                         Ax3 ax3asKF = new Ax3();
                         ax3asKF.type3ImportedAsKF(this.metamodel, left, right);
-                        this.metrics.add("axiomForAllCount", "translation");
                         this.supported.addAxioms(axf);
+                        this.simpleAxioms.addAxioms(axf);
+                        this.metrics.add("axiomForAllCount", "translation");
                         this.metrics.add("supportedAxiomsCount", "translation");
+                        this.metrics.add("simpleAxiomsCount", "translation");
                     } else {
                         this.unsupported.addAxiom(axf);
                         this.metrics.addUnsupportedAxiom(axf);
@@ -510,9 +579,12 @@ public class OWLImporter {
         this.patternify(this.metamodel, axiom, left, right);
     }
 
-    private void _translateEquivalentClasses(OWLAxiom axiom) {
+    private boolean _translateEquivalentClasses(OWLAxiom axiom) {
         Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
         subClassOfAxioms = ((OWLEquivalentClassesAxiom) axiom).asOWLSubClassOfAxioms();
+
+        // if (this.reasoning && subClassOfAxioms.size() > 2)
+        // return false;
 
         subClassOfAxioms.forEach(ax -> {
             OWLClassExpression left = ((OWLSubClassOfAxiom) ax).getSubClass();
@@ -520,11 +592,17 @@ public class OWLImporter {
 
             this.patternify(this.metamodel, axiom, left, right);
         });
+
+        return true;
     }
 
-    private void _translateDisjointClasses(OWLAxiom axiom) {
+    private boolean _translateDisjointClasses(OWLAxiom axiom) {
+
         Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
         subClassOfAxioms = ((OWLDisjointClassesAxiom) axiom).asOWLSubClassOfAxioms();
+
+        if (this.reasoning && subClassOfAxioms.size() > 2)
+            return false;
 
         List<String> leftTracked = new ArrayList<String>();
         subClassOfAxioms.forEach(ax -> {
@@ -536,6 +614,8 @@ public class OWLImporter {
                 this.patternify(this.metamodel, axiom, left, right);
             }
         });
+
+        return true;
     }
 
     /**
@@ -571,6 +651,22 @@ public class OWLImporter {
     }
 
     /**
+     * Iterates simple axioms and add them to a JSON.
+     *
+     * @return JSONObject with unsupported axioms.
+     */
+    public JSONObject getSimpleAxioms() {
+        JSONObject axioms = new JSONObject();
+        int[] index = { 1 };
+
+        this.simpleAxioms.tboxAxioms(Imports.EXCLUDED).forEachOrdered(axiom -> {
+            axioms.put("axiom" + index[0], axiom.toString());
+            index[0]++;
+        });
+        return axioms;
+    }
+
+    /**
      * Export KF metamodel result from importation.
      *
      * @return JSONObject with the result of translation: metamodel, metrics and
@@ -591,6 +687,8 @@ public class OWLImporter {
             values.put("supported", this.getSupportedAxioms());
 
             values.put("unsupported", this.getUnsupportedAxioms());
+
+            values.put("simpleAxioms", this.getSimpleAxioms());
 
             return values;
         } catch (Exception e) {

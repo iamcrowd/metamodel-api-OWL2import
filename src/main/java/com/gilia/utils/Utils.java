@@ -6,6 +6,7 @@ import java.util.*;
 import org.everit.json.schema.*;
 import org.everit.json.schema.loader.*;
 import org.json.*;
+import org.json.simple.*;
 import org.semanticweb.owlapi.apibinding.*;
 import org.semanticweb.owlapi.model.*;
 
@@ -37,9 +38,9 @@ public class Utils {
         File schemaFile = new File(schemaPath);
         InputStream targetStream = new FileInputStream(schemaFile);
 
-        JSONObject jsonSchema = new JSONObject(new JSONTokener(targetStream));
+        org.json.JSONObject jsonSchema = new org.json.JSONObject(new org.json.JSONTokener(targetStream));
 
-        JSONObject jsonSubject = new JSONObject(jsonString);
+        org.json.JSONObject jsonSubject = new org.json.JSONObject(jsonString);
         Schema schema = SchemaLoader.load(jsonSchema);
         schema.validate(jsonSubject);
     }
@@ -118,5 +119,9 @@ public class Utils {
         System.out.println(message +
                 " => " + e.toString() + " at " + e.getStackTrace()[0].getFileName() +
                 " (" + e.getStackTrace()[0].getLineNumber() + ")");
+    }
+
+    public static String prettyJSON(org.json.simple.JSONObject json) {
+        return new org.json.JSONObject(json).toString(2).replaceAll("\\\\", "");
     }
 }
