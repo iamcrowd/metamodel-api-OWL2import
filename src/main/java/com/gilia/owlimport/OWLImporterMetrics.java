@@ -219,7 +219,7 @@ public class OWLImporterMetrics {
     public void calculateKFMetrics(MetaConverter converter, Metamodel metamodel) throws Exception {
         try {
             this.set("objectTypesCount", "KF", converter.getNofObjectTypes());
-            this.set("relationshipsCount", "KF", converter.getNofRels());
+            this.set("relationshipsCount", "KF", converter.getNofRels() - converter.getNofSubsumptions());
             this.set("subsumptionsCount", "KF", converter.getNofSubsumptions());
             this.set("rolesCount", "KF", converter.getNofRoles());
             this.set("disjointnessCount", "KF", converter.getNofDisjointC());
