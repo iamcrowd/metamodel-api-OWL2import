@@ -45,6 +45,9 @@ public class Constants {
     public static final String META_TO_ORM_ROUTE = "/metatoorm";
     public static final String META_TO_EER_ROUTE = "/metatoeer";
 
+    // ontology repair endpoint
+    public static final String META_REPAIR = "/metarepair";
+
     // Schemas
     public static final String SCHEMAS_PATH = "src/main/resources/schemas/";
 

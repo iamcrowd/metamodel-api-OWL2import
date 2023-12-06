@@ -1,0 +1,161 @@
+{
+    "Entity type": {
+        "Value property": {
+            "Value type": []
+        },
+        "Data type": [],
+        "Object type": [
+            "http://crowd.fi.uncoma.edu.ar#A3",
+            "http://www.w3.org/2002/07/owl#Nothing",
+            "http://crowd.fi.uncoma.edu.ar#A2",
+            "http://crowd.fi.uncoma.edu.ar#A4",
+            "http://crowd.fi.uncoma.edu.ar#A1",
+            "http://crowd.fi.uncoma.edu.ar#A6",
+            "http://crowd.fi.uncoma.edu.ar#A7",
+            "http://crowd.fi.uncoma.edu.ar#A5",
+            "http://crowd.fi.uncoma.edu.ar#A"
+        ]
+    },
+    "Role": [],
+    "Constraints": {
+        "Cardinality constraints": {
+            "Attibutive property cardinality": [],
+            "Object type cardinality": []
+        },
+        "Disjointness constraints": {
+            "Disjoint object type": [],
+            "Disjoint role": []
+        },
+        "Completeness constraints": [],
+        "Mandatory constraints": {
+            "Mandatory": []
+        }
+    },
+    "Relationship": {
+        "Attributive property": {
+            "Attributive property": [],
+            "Attribute": {
+                "Attribute": [],
+                "Mapped to": []
+            }
+        },
+        "Subsumption": [
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A3",
+                "name": "Subsumption(http://www.w3.org/2002/07/owl#Nothing,http://crowd.fi.uncoma.edu.ar#A3)_tuz9_cXBV",
+                "entity parent": "http://www.w3.org/2002/07/owl#Nothing"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A3",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A6,http://crowd.fi.uncoma.edu.ar#A3)_8DY4_qxYE",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A6"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A3",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A7,http://crowd.fi.uncoma.edu.ar#A3)_S4xT_9duZ",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A7"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A3",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A4,http://crowd.fi.uncoma.edu.ar#A3)_oL97_noY1",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A4"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A3",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A5,http://crowd.fi.uncoma.edu.ar#A3)_cRaw_ELkk",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A5"
+            },
+            {
+                "entity child": "http://www.w3.org/2002/07/owl#Nothing",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A1,http://www.w3.org/2002/07/owl#Nothing)_XVGK_eXbA",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A1"
+            },
+            {
+                "entity child": "http://www.w3.org/2002/07/owl#Nothing",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A3,http://www.w3.org/2002/07/owl#Nothing)_0LZT_BmxO",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A3"
+            },
+            {
+                "entity child": "http://www.w3.org/2002/07/owl#Nothing",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A6,http://www.w3.org/2002/07/owl#Nothing)_K7Pr_wjNJ",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A6"
+            },
+            {
+                "entity child": "http://www.w3.org/2002/07/owl#Nothing",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A7,http://www.w3.org/2002/07/owl#Nothing)_4crN_Db1W",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A7"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A2",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A4,http://crowd.fi.uncoma.edu.ar#A2)_BGLa_qsPB",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A4"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A2",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A,http://crowd.fi.uncoma.edu.ar#A2)_4h72_BOcZ",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A1",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A3,http://crowd.fi.uncoma.edu.ar#A1)_Xex4_iQD2",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A3"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A1",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A6,http://crowd.fi.uncoma.edu.ar#A1)_Wpza_xcS8",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A6"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A1",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A7,http://crowd.fi.uncoma.edu.ar#A1)_dCqg_xjZd",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A7"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A1",
+                "name": "Subsumption(http://www.w3.org/2002/07/owl#Nothing,http://crowd.fi.uncoma.edu.ar#A1)_yHhn_eCSa",
+                "entity parent": "http://www.w3.org/2002/07/owl#Nothing"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A6",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A1,http://crowd.fi.uncoma.edu.ar#A6)_asaH_7SO7",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A1"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A6",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A3,http://crowd.fi.uncoma.edu.ar#A6)_CsRb_3UHE",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A3"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A6",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A7,http://crowd.fi.uncoma.edu.ar#A6)_SM1S_64iu",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A7"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A6",
+                "name": "Subsumption(http://www.w3.org/2002/07/owl#Nothing,http://crowd.fi.uncoma.edu.ar#A6)_9mNv_znbE",
+                "entity parent": "http://www.w3.org/2002/07/owl#Nothing"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A7",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A1,http://crowd.fi.uncoma.edu.ar#A7)_iyiX_LBNY",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A1"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A7",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A3,http://crowd.fi.uncoma.edu.ar#A7)_9aji_AqPH",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A3"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A7",
+                "name": "Subsumption(http://crowd.fi.uncoma.edu.ar#A6,http://crowd.fi.uncoma.edu.ar#A7)_j6q5_sTb2",
+                "entity parent": "http://crowd.fi.uncoma.edu.ar#A6"
+            },
+            {
+                "entity child": "http://crowd.fi.uncoma.edu.ar#A7",
+                "name": "Subsumption(http://www.w3.org/2002/07/owl#Nothing,http://crowd.fi.uncoma.edu.ar#A7)_afch_z6cl",
+                "entity parent": "http://www.w3.org/2002/07/owl#Nothing"
+            }
+        ],
+        "Relationship": []
+    }
+}

@@ -71,7 +71,7 @@ public class OWLImporter {
         this.manager = OWLManager.createOWLOntologyManager();
         this.metrics = new OWLImporterMetrics();
         this.reset();
-        this.setOWLSyntax(Constants.DL_SYNTAX);
+        this.setOWLSyntax(Constants.SIMPLE_SYNTAX);
     }
 
     /**
@@ -377,19 +377,21 @@ public class OWLImporter {
             } else {
                 throw new EmptyStackException();
             }
-        // } else if (OWLAxForm.isExistentialOfAtom(left) && OWLAxForm.isAtom(right)) {
-        //     // exists property atom -> ... this pattern only collects the exists axioms of
-        //     // the ontology
-        //     OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom) right).getProperty();
-        //     OWLObjectProperty namedProperty = property.getNamedProperty();
+            // } else if (OWLAxForm.isExistentialOfAtom(left) && OWLAxForm.isAtom(right)) {
+            // // exists property atom -> ... this pattern only collects the exists axioms
+            // of
+            // // the ontology
+            // OWLObjectPropertyExpression property = ((OWLObjectSomeValuesFrom)
+            // right).getProperty();
+            // OWLObjectProperty namedProperty = property.getNamedProperty();
 
-        //     if (property.isNamed()) {
-        //         this.objpe.add(right);
-        //         this.supported.removeAxiom(axiom);
-        //         this.metrics.remove("supportedAxiomsCount", "translation");
-        //     } else {
-        //         throw new EmptyStackException();
-        //     }
+            // if (property.isNamed()) {
+            // this.objpe.add(right);
+            // this.supported.removeAxiom(axiom);
+            // this.metrics.remove("supportedAxiomsCount", "translation");
+            // } else {
+            // throw new EmptyStackException();
+            // }
         } else if (OWLAxForm.isAtom(left) && OWLAxForm.isUniversalOfAtom(right)) {
             // atom -> forall property atom
             OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
@@ -461,114 +463,121 @@ public class OWLImporter {
      *           min, max, exact cardinalities
      */
     public void translate() throws Exception {
-        this.metrics.startTimer("translationTime", "translation");
+        try {
+            this.metrics.startTimer("translationTime", "translation");
 
-        this.metrics.calculateOntologyMetrics(this.ontology, false);
+            this.metrics.calculateOntologyMetrics(this.ontology, false);
 
-        if (this.reasoning) {
-            // reason over the input ontology
-            this.precompute();
+            if (this.reasoning) {
+                // reason over the input ontology
+                this.precompute();
 
-            this.metrics.calculateOntologyMetrics(this.ontology, true);
-        }
+                this.metrics.calculateOntologyMetrics(this.ontology, true);
+            }
 
-        // get all tbox axioms
-        Set<OWLAxiom> tboxAxioms = this.ontology.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
+            // get all tbox axioms
+            Set<OWLAxiom> tboxAxioms = this.ontology.tboxAxioms(Imports.EXCLUDED).collect(Collectors.toSet());
 
-        Set<OWLAxiom> filtered = new HashSet<OWLAxiom>();
+            Set<OWLAxiom> filtered = new HashSet<OWLAxiom>();
 
-        System.out.println("Axioms: ");
+            System.out.println("Axioms: ");
 
-        // iterate each axiom
-        for (OWLAxiom axiom : tboxAxioms) {
-            try {
-                // check if pass the filters
-                if (this.filter(axiom)) {
-                    // System.out.println(" " + axiom.toString());
-                    System.out.println("    " + axiom.toString());
+            // iterate each axiom
+            for (OWLAxiom axiom : tboxAxioms) {
+                try {
+                    // check if pass the filters
+                    if (this.filter(axiom)) {
+                        // System.out.println(" " + axiom.toString());
+                        System.out.println("    " + axiom.toString());
 
-                    // determine if axiom is of a supported type
-                    if (axiom.isOfType(AxiomType.SUBCLASS_OF)) {
-                        this._translateSubclassOf(axiom);
-                        this.supported.addAxioms(axiom);
-                        this.metrics.add("supportedAxiomsCount", "translation");
-                    } else if (axiom.isOfType(AxiomType.EQUIVALENT_CLASSES)) {
-                        boolean translated = this._translateEquivalentClasses(axiom);
-                        if (translated) {
+                        // determine if axiom is of a supported type
+                        if (axiom.isOfType(AxiomType.SUBCLASS_OF)) {
+                            this._translateSubclassOf(axiom);
                             this.supported.addAxioms(axiom);
                             this.metrics.add("supportedAxiomsCount", "translation");
-                        }
-                    } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
-                        boolean translated = this._translateDisjointClasses(axiom);
-                        if (translated) {
+                        } else if (axiom.isOfType(AxiomType.EQUIVALENT_CLASSES)) {
+                            boolean translated = this._translateEquivalentClasses(axiom);
+                            if (translated) {
+                                this.supported.addAxioms(axiom);
+                                this.metrics.add("supportedAxiomsCount", "translation");
+                            }
+                        } else if (axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
+                            boolean translated = this._translateDisjointClasses(axiom);
+                            if (translated) {
+                                this.supported.addAxioms(axiom);
+                                this.metrics.add("supportedAxiomsCount", "translation");
+                            }
+                        } else if (axiom.isOfType(AxiomType.DISJOINT_UNION)) {
+                            boolean translatedDisjoint = this._translateDisjointClasses(
+                                    ((OWLDisjointUnionAxiom) axiom).getOWLDisjointClassesAxiom());
+                            boolean translatedEquivalent = this._translateEquivalentClasses(
+                                    ((OWLDisjointUnionAxiom) axiom).getOWLEquivalentClassesAxiom());
                             this.supported.addAxioms(axiom);
                             this.metrics.add("supportedAxiomsCount", "translation");
+                        } else {
+                            this.unsupported.addAxiom(axiom);
+                            this.metrics.addUnsupportedAxiom(axiom);
                         }
-                    } else if (axiom.isOfType(AxiomType.DISJOINT_UNION)) {
-                        boolean translatedDisjoint = this._translateDisjointClasses(
-                                ((OWLDisjointUnionAxiom) axiom).getOWLDisjointClassesAxiom());
-                        boolean translatedEquivalent = this._translateEquivalentClasses(
-                                ((OWLDisjointUnionAxiom) axiom).getOWLEquivalentClassesAxiom());
-                        this.supported.addAxioms(axiom);
-                        this.metrics.add("supportedAxiomsCount", "translation");
                     } else {
-                        this.unsupported.addAxiom(axiom);
-                        this.metrics.addUnsupportedAxiom(axiom);
+                        filtered.add(axiom);
                     }
-                } else {
-                    filtered.add(axiom);
+                } catch (Exception e) {
+                    if (!(e instanceof EmptyStackException))
+                        System.out.println("Exception during translation: " + e.toString() + " at "
+                                + e.getStackTrace()[0].getFileName() + " (" + e.getStackTrace()[0].getLineNumber()
+                                + ")");
+                    this.unsupported.addAxiom(axiom);
+                    this.metrics.addUnsupportedAxiom(axiom);
                 }
-            } catch (Exception e) {
-                if (!(e instanceof EmptyStackException))
-                    System.out.println("Exception during translation: " + e.toString() + " at "
-                            + e.getStackTrace()[0].getFileName() + " (" + e.getStackTrace()[0].getLineNumber() + ")");
-                this.unsupported.addAxiom(axiom);
-                this.metrics.addUnsupportedAxiom(axiom);
             }
-        }
 
-        for (OWLAxiom axiom : filtered) {
-            System.out.println("    (filtered) " + axiom.toString());
-            this.metrics.add("filteredAxiomsCount", "translation");
-        }
+            for (OWLAxiom axiom : filtered) {
+                System.out.println("    (filtered) " + axiom.toString());
+                this.metrics.add("filteredAxiomsCount", "translation");
+            }
 
-        // dealing with the delayed forall axioms
-        for (OWLAxiom axf : this.forallax) {
-            try {
-                if (axf.isOfType(AxiomType.SUBCLASS_OF)) {
-                    OWLClassExpression left = ((OWLSubClassOfAxiom) axf).getSubClass();
-                    OWLClassExpression right = ((OWLSubClassOfAxiom) axf).getSuperClass();
+            // dealing with the delayed forall axioms
+            for (OWLAxiom axf : this.forallax) {
+                try {
+                    if (axf.isOfType(AxiomType.SUBCLASS_OF)) {
+                        OWLClassExpression left = ((OWLSubClassOfAxiom) axf).getSubClass();
+                        OWLClassExpression right = ((OWLSubClassOfAxiom) axf).getSuperClass();
 
-                    OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
-                    OWLClassExpression exists = new OWLObjectSomeValuesFromImpl(property,
-                            new OWLClassImpl(IRI.create("http://www.w3.org/2002/07/owl#Thing")));
+                        OWLObjectPropertyExpression property = ((OWLObjectAllValuesFrom) right).getProperty();
+                        OWLClassExpression exists = new OWLObjectSomeValuesFromImpl(property,
+                                new OWLClassImpl(IRI.create("http://www.w3.org/2002/07/owl#Thing")));
 
-                    System.out.println("    " + exists);
-                    if (this.objpe.contains(exists)) {
-                        System.out.println("    (It is entailed exists property)");
-                        Ax3 ax3asKF = new Ax3();
-                        ax3asKF.type3ImportedAsKF(this.metamodel, left, right);
-                        this.supported.addAxioms(axf);
-                        this.simpleAxioms.addAxioms(axf);
-                        this.metrics.add("axiomForAllCount", "translation");
-                        this.metrics.add("supportedAxiomsCount", "translation");
-                        this.metrics.add("simpleAxiomsCount", "translation");
-                    } else {
-                        this.unsupported.addAxiom(axf);
-                        this.metrics.addUnsupportedAxiom(axf);
+                        System.out.println("    " + exists);
+                        if (this.objpe.contains(exists)) {
+                            System.out.println("    (It is entailed exists property)");
+                            Ax3 ax3asKF = new Ax3();
+                            ax3asKF.type3ImportedAsKF(this.metamodel, left, right);
+                            this.supported.addAxioms(axf);
+                            this.simpleAxioms.addAxioms(axf);
+                            this.metrics.add("axiomForAllCount", "translation");
+                            this.metrics.add("supportedAxiomsCount", "translation");
+                            this.metrics.add("simpleAxiomsCount", "translation");
+                        } else {
+                            this.unsupported.addAxiom(axf);
+                            this.metrics.addUnsupportedAxiom(axf);
+                        }
                     }
+
+                } catch (Exception e) {
+                    if (!(e instanceof EmptyStackException))
+                        System.out.println("Exception during translation: " + e.toString() + " at "
+                                + e.getStackTrace()[0].getFileName() + " (" + e.getStackTrace()[0].getLineNumber()
+                                + ")");
+                    this.unsupported.addAxiom(axf);
+                    this.metrics.addUnsupportedAxiom(axf);
                 }
-
-            } catch (Exception e) {
-                if (!(e instanceof EmptyStackException))
-                    System.out.println("Exception during translation: " + e.toString() + " at "
-                            + e.getStackTrace()[0].getFileName() + " (" + e.getStackTrace()[0].getLineNumber() + ")");
-                this.unsupported.addAxiom(axf);
-                this.metrics.addUnsupportedAxiom(axf);
             }
-        }
 
-        this.metrics.stopTimer("translationTime", "translation");
+            this.metrics.stopTimer("translationTime", "translation");
+        } catch (Exception e) {
+            printException("Exception during ontology translation (translate)", e);
+            throw new Exception("Exception during ontology translation.", e);
+        }
     }
 
     private void _translateSubclassOf(OWLAxiom axiom) {
