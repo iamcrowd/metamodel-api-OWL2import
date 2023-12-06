@@ -248,19 +248,12 @@ public class MetaRepairer {
      */
     public boolean repair(String entity) throws Exception {
         try {
-            // get all tbox axioms
-            this.tbox = new ArrayList<OWLAxiom>(
-                    this.ontology.getTBoxAxioms(Imports.EXCLUDED));
-
+            // print metamodel
             System.out.println();
             System.out.println(new org.json.JSONObject(new MetaConverter().generateJSON(this.metamodel)).toString(4));
             System.out.println();
 
-            // print all tbox axioms
-            System.out.println("TBox Axioms: " + this.tbox.size());
-            this.tbox.forEach(axiom -> System.out.println(axiom));
-            System.out.println();
-
+            // get the owl class of the entity to be repaired
             OWLClass entityClass = this.datafactory.getOWLClass(entity);
             OWLReasoner selectedReasoner = this.getReasoner(this.ontology);
             boolean isSatisfiable = selectedReasoner.isSatisfiable(entityClass);
@@ -273,13 +266,26 @@ public class MetaRepairer {
                 // precompute the ontology
                 if (this.precompute) {
                     this.precompute(selectedReasoner);
-                    this.tbox = new ArrayList<OWLAxiom>(
-                            this.ontology.getTBoxAxioms(Imports.EXCLUDED));
                 }
 
+                // get all tbox axioms
+                this.tbox = new ArrayList<OWLAxiom>(
+                        this.ontology.getTBoxAxioms(Imports.EXCLUDED));
+
+                // print all tbox axioms
+                System.out.println("TBox Axioms: " + this.tbox.size());
+                this.tbox.forEach(axiom -> System.out.println(axiom));
+                System.out.println();
+
                 // get filtered tbox axioms
-                if (this.filtering)
+                if (this.filtering) {
                     this.generateFilteredTBox();
+
+                    // print all filteredtbox axioms
+                    System.out.println("Filtered TBox Axioms: " + this.filteredtbox.size());
+                    this.filteredtbox.forEach(axiom -> System.out.println(axiom));
+                    System.out.println();
+                }
 
                 // map tbox axioms with KF entities
                 this.mapNormalizedAxioms();
@@ -318,32 +324,34 @@ public class MetaRepairer {
                 // get our explanations
                 explanations = generator.getExplanations(entityEntailment, this.maxExplanations);
 
-                // Supplier<OWLOntologyManager> supManager = () -> this.manager;
-
-                // create the explanation generator factory which uses reasoners provided by the
-                // specified reasoner factory
-                // System.out.println("Reasoner factory: " + this.getReasonerFactory());
-
-                // ExplanationGeneratorFactory<OWLAxiom> explanationGenFactory =
-                // ExplanationManager
-                // .createExplanationGeneratorFactory(this.getReasonerFactory(), () -> {
-                // return this.manager;
-                // });
-
-                // // now create the actual explanation generator for our ontology
-                // ExplanationGenerator<OWLAxiom> explanationGen = explanationGenFactory
-                // .createExplanationGenerator(this.ontology.getTBoxAxioms(Imports.EXCLUDED));
-
-                // OWLAxiom entityEntailment =
-                // this.datafactory.getOWLSubClassOfAxiom(entityClass,
-                // this.datafactory.getOWLNothing());
-
-                // OWLAxiom entailment = this.tbox.get(0);
-                // System.out.println("Entailment: " + entailment);
-
-                // get our explanations
-                // Set<Explanation<OWLAxiom>> explanation =
-                // explanationGen.getExplanations(entailment);
+                /*
+                 * Supplier<OWLOntologyManager> supManager = () -> this.manager;
+                 * 
+                 * create the explanation generator factory which uses reasoners provided by the
+                 * specified reasoner factory
+                 * System.out.println("Reasoner factory: " + this.getReasonerFactory());
+                 * 
+                 * ExplanationGeneratorFactory<OWLAxiom> explanationGenFactory =
+                 * ExplanationManager
+                 * .createExplanationGeneratorFactory(this.getReasonerFactory(), () -> {
+                 * return this.manager;
+                 * });
+                 * 
+                 * // now create the actual explanation generator for our ontology
+                 * ExplanationGenerator<OWLAxiom> explanationGen = explanationGenFactory
+                 * .createExplanationGenerator(this.ontology.getTBoxAxioms(Imports.EXCLUDED));
+                 * 
+                 * OWLAxiom entityEntailment =
+                 * this.datafactory.getOWLSubClassOfAxiom(entityClass,
+                 * this.datafactory.getOWLNothing());
+                 * 
+                 * OWLAxiom entailment = this.tbox.get(0);
+                 * System.out.println("Entailment: " + entailment);
+                 * 
+                 * get our explanations
+                 * Set<Explanation<OWLAxiom>> explanation =
+                 * explanationGen.getExplanations(entailment);
+                 */
 
                 System.out.println("Finished explanation generation.");
 
@@ -389,7 +397,8 @@ public class MetaRepairer {
      * unsatisfiable)
      * - data min/max cardinality (because cardinality restrictions can't be
      * unsatisfiable)
-     * - subclass of owl:Nothing (because it not allow to generate mups)
+     * - subclass of owl:Nothing (because it not allow to generate explanations)
+     * - equivalent classes (because it not allow to generate explanations)
      */
     private void generateFilteredTBox() throws Exception {
         this.filteredtbox = this.tbox.stream()
@@ -405,7 +414,8 @@ public class MetaRepairer {
                                         || ((OWLSubClassOfAxiom) axiom).getSuperClass()
                                                 .getClassExpressionType() == (ClassExpressionType.DATA_MAX_CARDINALITY)))
                         && !(axiom.isOfType(AxiomType.SUBCLASS_OF) && ((OWLSubClassOfAxiom) axiom).getSuperClass()
-                                .equals(this.datafactory.getOWLNothing())))
+                                .equals(this.datafactory.getOWLNothing()))
+                        && !(axiom.isOfType(AxiomType.EQUIVALENT_CLASSES)))
                 .collect(Collectors.toList());
     }
 
@@ -521,7 +531,7 @@ public class MetaRepairer {
             // && !AttributiveProperty.class.isInstance(relationship))
             // .collect(Collectors.toList());
 
-            for (OWLAxiom axiom : this.filteredtbox) {
+            for (OWLAxiom axiom : (this.filtering ? this.filteredtbox : this.tbox)) {
                 // check for subclass type axioms
                 if (axiom.isOfType(AxiomType.SUBCLASS_OF)) {
                     // get the subclass axiom
@@ -543,23 +553,29 @@ public class MetaRepairer {
 
                     // if the superclass is a named class
                     if (superClass.isNamed()) {
-                        // get the superclass entity
-                        Entity superClassEntity = this.metamodel.getEntity(superClass.asOWLClass().getIRI().toString());
-                        // check if the superclass entity is not null
-                        if (superClassEntity == null)
-                            throw new Exception(notNormalizedError + axiom.toString());
+                        if (superClass.isTopEntity()) {
+                            // add the axiom to the map
+                            this.tboxMap.put(axiom, subClassEntity);
+                        } else {
+                            // get the superclass entity
+                            Entity superClassEntity = this.metamodel
+                                    .getEntity(superClass.asOWLClass().getIRI().toString());
+                            // check if the superclass entity is not null
+                            if (superClassEntity == null)
+                                throw new Exception(notNormalizedError + axiom.toString());
 
-                        // get the subsumption relationship
-                        Subsumption subsumptionRelationship = subsumptionRelationships.stream()
-                                .filter(relationship -> relationship.getParent().equals(superClassEntity)
-                                        && relationship.getChild().equals(subClassEntity))
-                                .findFirst().orElse(null);
-                        // check if the subsumption relationship is not null
-                        if (subsumptionRelationship == null)
-                            throw new Exception(notNormalizedError + axiom.toString());
+                            // get the subsumption relationship
+                            Subsumption subsumptionRelationship = subsumptionRelationships.stream()
+                                    .filter(relationship -> relationship.getParent().equals(superClassEntity)
+                                            && relationship.getChild().equals(subClassEntity))
+                                    .findFirst().orElse(null);
+                            // check if the subsumption relationship is not null
+                            if (subsumptionRelationship == null)
+                                throw new Exception(notNormalizedError + axiom.toString());
 
-                        // add the axiom to the map
-                        this.tboxMap.put(axiom, subsumptionRelationship);
+                            // add the axiom to the map
+                            this.tboxMap.put(axiom, subsumptionRelationship);
+                        }
                     } else if (superClass.isAnonymous()) {
                         // check if the superclass is a ObjecSomeValuesFrom expression
                         if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_SOME_VALUES_FROM) {
