@@ -21,12 +21,12 @@ Once you fulfil the requeriments listed above, clone this repository. Run the fo
 ```
 $ mvn install:install-file -Dfile=lib/ontologyutils-0.0.1-SNAPSHOT.jar -DgroupId=com.ontologyutils -DartifactId=ontologyutils -Dversion=1.0 -Dpackaging=jar
 $ mvn clean compile
-$ mvn package -DSkipTests
+$ mvn package -DskipTests
 $ mvn exec:java
 
  - Run as Service
-$ mvn clean dependency:copy-dependencies package spring-boot:repackage
-$ java -jar target/app.jar 
+$ mvn clean dependency:copy-dependencies package spring-boot:repackage -DskipTests
+$ java -jar target/METAMODEL-API-OWL2IMPORT-0.0.1-SNAPSHOT.jar
 ```
 
 ## Run API with Konclude and Racer reasoners
