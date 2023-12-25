@@ -19,14 +19,14 @@ The project is built with the Java framework *Spring boot*, and its dependencies
 
 Once you fulfil the requeriments listed above, clone this repository. Run the following commands from the root folder of the project to run the API and deploy it locally with port *8080*:
 ```
-$ mvn install:install-file -Dfile=metamodelapi-owlimport\lib\ontologyutils-viz-0.0.1-SNAPSHOT.jar
+$ mvn install:install-file -Dfile=lib/ontologyutils-0.0.1-SNAPSHOT.jar -DgroupId=com.ontologyutils -DartifactId=ontologyutils -Dversion=1.0 -Dpackaging=jar
 $ mvn clean compile
-$ mvn package
+$ mvn package -DskipTests
 $ mvn exec:java
 
  - Run as Service
-$ mvn clean dependency:copy-dependencies package spring-boot:repackage
-$ java -jar target/app.jar 
+$ mvn clean dependency:copy-dependencies package spring-boot:repackage -DskipTests
+$ java -jar target/METAMODEL-API-OWL2IMPORT-0.0.1-SNAPSHOT.jar
 ```
 
 ## Run API with Konclude and Racer reasoners
