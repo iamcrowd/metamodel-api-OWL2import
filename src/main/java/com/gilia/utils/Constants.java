@@ -191,14 +191,19 @@ public class Constants {
     public static final String TYPE2_DATA_EXACT_CARD_AXIOM = "typeTwoDataExactCardAxiom";
 
     // URIs import concepts are created when new concepts are needed for KF importing purpuses
-    public static final String URI_IMPORT_CONCEPT = "http://crowd.fi.uncoma.edu.ar/IMPORT/";
+    public static final String URI_FRESH = "http://crowd.fi.uncoma.edu.ar";
 
-    // URIs fresh concepts identify concepts created during the normalization
-    public static final String URI_NORMAL_CONCEPT = "http://crowd.fi.uncoma.edu.ar/NORMAL/";
+    // URIs for fresh concepts and normalizations (it's for old method)
+    public static final String URI_NORMAL_CONCEPT = "http://crowd.fi.uncoma.edu.ar/normal";
+    public static final String URI_IMPORT_CONCEPT = "http://crowd.fi.uncoma.edu.ar/import";
 
     public static final String URI_TOP = "http://www.w3.org/2002/07/owl#Thing";
     public static final String URI_BOTTOM = "http://www.w3.org/2002/07/owl#Nothing";
-    public static final String URI_FAKE_TOP = "https://crowd-app.fi.uncoma.edu.ar#FakeTop";
+
+    // URIs for general fresh concepts
+    public static final String URI_FAKE_TOP = "http://crowd.fi.uncoma.edu.ar#FakeTop";
+    public static final String URI_DOM = "http://crowd.fi.uncoma.edu.ar#Dom";
+    public static final String URI_RAN = "http://crowd.fi.uncoma.edu.ar#Ran";
 
     // Reasoners
 

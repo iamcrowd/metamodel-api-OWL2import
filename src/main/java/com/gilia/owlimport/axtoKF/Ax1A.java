@@ -38,13 +38,6 @@ public class Ax1A extends AxToKFTools {
         String left_iri = left.asOWLClass().toStringID();
         String right_iri = right.asOWLClass().toStringID();
 
-        if (isFresh(left)) {
-            left_iri = left_iri = URI_NORMAL_CONCEPT + left.asOWLClass().toStringID();
-        }
-        if (isFresh(right)) {
-            right_iri = URI_NORMAL_CONCEPT + right.asOWLClass().toStringID();
-        }
-
         ObjectType ot_child = addObjectType(left_iri);
         ObjectType ot_parent = addObjectType(right_iri);
 

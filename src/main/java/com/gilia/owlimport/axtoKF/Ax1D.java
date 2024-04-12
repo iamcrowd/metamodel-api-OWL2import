@@ -8,7 +8,7 @@ import java.util.*;
 import org.semanticweb.owlapi.model.*;
 import www.ontologyutils.normalization.*;
 
-import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
+import static com.gilia.utils.Constants.URI_FRESH;
 import static com.gilia.utils.Constants.URI_NORMAL_CONCEPT;
 import static com.gilia.utils.Utils.getAlphaNumericString;
 
@@ -38,17 +38,12 @@ public class Ax1D extends AxToKFTools {
     public void type1DasKF(Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 
         Set<OWLClassExpression> disjunctions = right.asDisjunctSet();
-        String d_iris = "";
+        ArrayList<String> union_iris = new ArrayList<>();
         for (OWLClassExpression d : disjunctions) {
-            if (NormalForm.isAtom(d)) {
-                String d_iri = d.asOWLClass().toStringID();
-                if (isFresh(d)) {
-                    d_iri = URI_NORMAL_CONCEPT + d.asOWLClass().toStringID();
-                }
-                d_iris += d_iri + "$";
-            }
+            if (NormalForm.isAtom(d))
+                union_iris.add(d.asOWLClass().getIRI().getFragment());
         }
-        ObjectType ot_fresh_d = addObjectType(URI_IMPORT_CONCEPT + "UNION%" + d_iris);
+        ObjectType ot_fresh_d = addObjectType(URI_FRESH + "/union#" + String.join("_", union_iris));
 
         ArrayList<ObjectType> cc_list = new ArrayList();
         CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));
@@ -56,9 +51,6 @@ public class Ax1D extends AxToKFTools {
         for (OWLClassExpression d : disjunctions) {
             if (NormalForm.isAtom(d)) {
                 String d_iri = d.asOWLClass().toStringID();
-                if (isFresh(d)) {
-                    d_iri = URI_NORMAL_CONCEPT + d.asOWLClass().toStringID();
-                }
                 ObjectType ot = addObjectType(d_iri);
 
                 kf.addEntity(ot);
@@ -73,24 +65,17 @@ public class Ax1D extends AxToKFTools {
         kf.addEntity(ot_fresh_d);
 
         Set<OWLClassExpression> conjunctions = left.asConjunctSet();
-        String c_iris = "";
+        ArrayList<String> intersection_iris = new ArrayList<>();
         for (OWLClassExpression c : conjunctions) {
             if (NormalForm.isAtom(c)) {
-                String c_iri = c.asOWLClass().toStringID();
-                if (isFresh(c)) {
-                    c_iri = URI_NORMAL_CONCEPT + c.asOWLClass().toStringID();
-                }
-                c_iris += c_iri + "$";
+                intersection_iris.add(c.asOWLClass().getIRI().getFragment());
             }
         }
-        ObjectType ot_fresh_c = addObjectType(URI_IMPORT_CONCEPT + "INTERSECTION%" + c_iris);
+        ObjectType ot_fresh_c = addObjectType(URI_FRESH + "/intersection#" + String.join("_", intersection_iris));
 
         for (OWLClassExpression c : conjunctions) {
             if (NormalForm.isAtom(c)) {
                 String c_iri = c.asOWLClass().toStringID();
-                if (isFresh(c)) {
-                    c_iri = URI_NORMAL_CONCEPT + c.asOWLClass().toStringID();
-                }
                 ObjectType ot = addObjectType(c_iri);
 
                 kf.addEntity(ot);

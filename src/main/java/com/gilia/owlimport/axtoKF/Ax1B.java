@@ -8,7 +8,7 @@ import java.util.*;
 import org.semanticweb.owlapi.model.*;
 import www.ontologyutils.normalization.*;
 
-import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
+import static com.gilia.utils.Constants.URI_FRESH;
 import static com.gilia.utils.Constants.URI_NORMAL_CONCEPT;
 import static com.gilia.utils.Utils.getAlphaNumericString;
 
@@ -37,24 +37,16 @@ public class Ax1B extends AxToKFTools {
     public void type1BasKF(Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 
         String left_iri = left.asOWLClass().toStringID();
-        if (isFresh(left)) {
-            left_iri = URI_NORMAL_CONCEPT + left.asOWLClass().toStringID();
-        }
 
         ObjectType ot_left = addObjectType(left_iri);
 
         Set<OWLClassExpression> disjunctions = right.asDisjunctSet();
-        String d_iris = "";
+        ArrayList<String> union_iris = new ArrayList<>();
         for (OWLClassExpression d : disjunctions) {
-            if (NormalForm.isAtom(d)) {
-                String d_iri = d.asOWLClass().toStringID();
-                if (isFresh(d)) {
-                    d_iri = URI_NORMAL_CONCEPT + d.asOWLClass().toStringID();
-                }
-                d_iris += d_iri + "$";
-            }
+            if (NormalForm.isAtom(d))
+                union_iris.add(d.asOWLClass().getIRI().getFragment());
         }
-        ObjectType ot_fresh = addObjectType(URI_IMPORT_CONCEPT + "UNION%" + d_iris);
+        ObjectType ot_fresh = addObjectType(URI_FRESH + "/union#" + String.join("_", union_iris));
 
         ArrayList<ObjectType> cc_list = new ArrayList();
         CompletenessConstraint cc = new CompletenessConstraint(getAlphaNumericString(8));

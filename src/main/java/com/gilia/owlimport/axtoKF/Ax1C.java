@@ -7,7 +7,7 @@ import java.util.*;
 import org.semanticweb.owlapi.model.*;
 import www.ontologyutils.normalization.*;
 
-import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
+import static com.gilia.utils.Constants.URI_FRESH;
 import static com.gilia.utils.Constants.URI_NORMAL_CONCEPT;
 
 /**
@@ -35,31 +35,21 @@ public class Ax1C extends AxToKFTools {
     public void type1CasKF(Metamodel kf, OWLClassExpression left, OWLClassExpression right) {
 
         String right_iri = right.asOWLClass().toStringID();
-        if (isFresh(right)) {
-            right_iri = URI_NORMAL_CONCEPT + right.asOWLClass().toStringID();
-        }
 
         ObjectType ot_right = addObjectType(right_iri);
 
         Set<OWLClassExpression> conjunctions = left.asConjunctSet();
-        String c_iris = "";
+        ArrayList<String> intersection_iris = new ArrayList<>();
         for (OWLClassExpression c : conjunctions) {
             if (NormalForm.isAtom(c)) {
-                String c_iri = c.asOWLClass().toStringID();
-                if (isFresh(c)) {
-                    c_iri = URI_NORMAL_CONCEPT + c.asOWLClass().toStringID();
-                }
-                c_iris += c_iri + "$";
+                intersection_iris.add(c.asOWLClass().getIRI().getFragment());
             }
         }
-        ObjectType ot_fresh = addObjectType(URI_IMPORT_CONCEPT + "INTERSECTION%" + c_iris);
+        ObjectType ot_fresh = addObjectType(URI_FRESH + "/intersection#" + String.join("_", intersection_iris));
 
         for (OWLClassExpression c : conjunctions) {
             if (NormalForm.isAtom(c)) {
                 String c_iri = c.asOWLClass().toStringID();
-                if (isFresh(c)) {
-                    c_iri = URI_NORMAL_CONCEPT + c.asOWLClass().toStringID();
-                }
                 ObjectType ot = addObjectType(c_iri);
 
                 kf.addEntity(ot);

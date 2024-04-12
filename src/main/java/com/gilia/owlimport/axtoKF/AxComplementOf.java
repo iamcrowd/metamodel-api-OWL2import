@@ -7,8 +7,8 @@ import com.gilia.metamodel.entitytype.objecttype.*;
 import java.util.*;
 import org.semanticweb.owlapi.model.*;
 
-import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
 import static com.gilia.utils.Constants.URI_FAKE_TOP;
+import static com.gilia.utils.Constants.URI_FRESH;
 import static com.gilia.utils.Utils.getAlphaNumericString;
 
 /**
@@ -43,7 +43,7 @@ public class AxComplementOf extends AxToKFTools {
         ObjectType ot_complement = addObjectType(complement_iri);
 
         // fresh superclass of the left object type
-        ObjectType ot_acomplementb = addObjectType(URI_IMPORT_CONCEPT + left_frag + "_" + "NOT" + "_" + complement_frag);
+        ObjectType ot_acomplementb = addObjectType(URI_FRESH + "/negation#" + complement_frag);
         // superclass of the pattern
         String top_iri = URI_FAKE_TOP;
         ObjectType top = addObjectType(top_iri);
