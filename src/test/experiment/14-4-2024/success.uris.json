@@ -1,0 +1,2202 @@
+[
+	{
+		"uri": "http://rs.tdwg.org/ac/terms/",
+		"nsp": "http://rs.tdwg.org/ac/terms/",
+		"prefix": "ac",
+		"titles": [
+			{
+				"value": "Core terms defined by Audubon Core",
+				"lang": "en",
+				"_id": "645a1a970c6777e630f108fa"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/auth/acl#",
+		"prefix": "acl",
+		"uri": "http://www.w3.org/ns/auth/acl",
+		"titles": [
+			{
+				"value": "Basic Access Control ontology",
+				"lang": "en",
+				"_id": "63248405f0004aba7af3f823"
+			}
+		]
+	},
+	{
+		"nsp": "http://d-nb.info/standards/elementset/agrelon#",
+		"prefix": "agrelon",
+		"uri": "http://d-nb.info/standards/elementset/agrelon",
+		"titles": [
+			{
+				"value": "Agent Relationship Ontology",
+				"lang": "en",
+				"_id": "632489c6f0004aba7af3f88e"
+			}
+		]
+	},
+	{
+		"nsp": "https://raw.githubusercontent.com/airs-linked-data/lov/latest/src/airs_vocabulary.ttl#",
+		"prefix": "airs",
+		"uri": "https://raw.githubusercontent.com/airs-linked-data/lov/latest/src/airs_vocabulary.ttl#",
+		"titles": [
+			{
+				"value": "Alliance of Information and Referral Services (AIRS) Vocabulary",
+				"lang": "en",
+				"_id": "57f6086b812207ab0361cd14"
+			}
+		]
+	},
+	{
+		"nsp": "http://semweb.mmlab.be/ns/apps4X#",
+		"prefix": "apps4X",
+		"uri": "http://semweb.mmlab.be/ns/apps4X",
+		"titles": [
+			{
+				"value": "The vocabulary for Co-creation Events based on Open Data",
+				"lang": "en",
+				"_id": "65d4f0e1b51032c0718cad64"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.arpenteur.org/ontology/Arpenteur.owl#",
+		"prefix": "arp",
+		"uri": "http://www.arpenteur.org/ontology/Arpenteur.owl",
+		"titles": [
+			{
+				"value": "Arpenteur Ontology",
+				"lang": "en",
+				"_id": "5a5d1f7d209e748d429f9e37"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdfs.co/bevon/",
+		"prefix": "bevon",
+		"uri": "http://rdfs.co/bevon/",
+		"titles": [
+			{
+				"value": "BEVON: Beverage Ontology",
+				"lang": "en",
+				"_id": "63248cf5121504032603bd84"
+			}
+		]
+	},
+	{
+		"nsp": "http://brt.basisregistraties.overheid.nl/def/top10nl#",
+		"prefix": "brt",
+		"uri": "http://brt.basisregistraties.overheid.nl/def/top10nl",
+		"titles": [
+			{
+				"value": "Key Register Topography (BRT) vocabulary",
+				"lang": "en",
+				"_id": "5abcc60ac7ef5ec9315026db"
+			}
+		]
+	},
+	{
+		"nsp": "http://comicmeta.org/cbo/",
+		"prefix": "cbo",
+		"uri": "http://comicmeta.org/cbo/",
+		"titles": [
+			{
+				"value": "Comic Book Ontology",
+				"lang": "en",
+				"_id": "57ad87cfb00b4b1452a888b7"
+			}
+		]
+	},
+	{
+		"nsp": "http://cookingbigdata.com/linkeddata/ccinstances#",
+		"prefix": "cci",
+		"uri": "http://cookingbigdata.com/linkeddata/ccinstances",
+		"titles": [
+			{
+				"value": "Ontology for Cloud Computing instances",
+				"lang": "en",
+				"_id": "5b0594ea453b589b0c9f98db"
+			}
+		]
+	},
+	{
+		"nsp": "http://cookingbigdata.com/linkeddata/ccpricing#",
+		"prefix": "ccp",
+		"uri": "http://cookingbigdata.com/linkeddata/ccpricing",
+		"titles": [
+			{
+				"value": "Vocabulary for prices options in Cloud Computing Services",
+				"lang": "en",
+				"_id": "5b05922d453b589b0c9f9874"
+			}
+		]
+	},
+	{
+		"nsp": "http://cookingbigdata.com/linkeddata/ccregions#",
+		"prefix": "ccr",
+		"uri": "http://cookingbigdata.com/linkeddata/ccregions",
+		"titles": [
+			{
+				"value": "Vocabulary for Regions and Zones on Cloud Computing",
+				"lang": "en",
+				"_id": "5b0595be453b589b0c9f98fa"
+			}
+		]
+	},
+	{
+		"nsp": "http://cookingbigdata.com/linkeddata/ccsla#",
+		"prefix": "ccsla",
+		"uri": "http://cookingbigdata.com/linkeddata/ccsla",
+		"titles": [
+			{
+				"value": "Service Level Agreement for Cloud Computing",
+				"lang": "en",
+				"_id": "5b058fb3453b589b0c9f9816"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/auth/cert#",
+		"prefix": "cert",
+		"uri": "http://www.w3.org/ns/auth/cert#",
+		"titles": [
+			{
+				"value": "The Cert Ontology",
+				"lang": "en",
+				"_id": "586a4c467e341093492b8ce4"
+			}
+		]
+	},
+	{
+		"nsp": "http://linkeddata.finki.ukim.mk/lod/ontology/cfrl#",
+		"prefix": "cfrl",
+		"uri": "http://linkeddata.finki.ukim.mk/lod/ontology/cfrl#",
+		"titles": [
+			{
+				"value": "Corporate Financial Reports and Loans Ontology",
+				"lang": "en",
+				"_id": "57d28910a3a9d3a63d7e6b3b"
+			}
+		]
+	},
+	{
+		"nsp": "http://advene.org/ns/cinelab/ld#",
+		"prefix": "cl",
+		"uri": "http://advene.org/ns/cinelab/ld",
+		"titles": [
+			{
+				"value": "Cinelab ontology",
+				"lang": "en",
+				"_id": "5784e0f20183b1e80fc90523"
+			}
+		]
+	},
+	{
+		"uri": "http://www.w3.org/2007/uwa/context/deliverycontext.owl",
+		"nsp": "http://www.w3.org/2007/uwa/context/common.owl#",
+		"prefix": "common",
+		"titles": [
+			{
+				"value": "The Delivery Context Ontology",
+				"lang": "en",
+				"_id": "5db03395581233d82940d25c"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2000/10/swap/pim/contact#",
+		"prefix": "con",
+		"uri": "http://www.w3.org/2000/10/swap/pim/contact",
+		"titles": [
+			{
+				"value": "Contact",
+				"lang": "en",
+				"_id": "632cac56c4f7e5f619d44ef3"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.tele.pw.edu.pl/~sims-onto/ConnectivityType.owl#",
+		"prefix": "ct",
+		"uri": "http://www.tele.pw.edu.pl/~sims-onto/ConnectivityType.owl",
+		"titles": [
+			{
+				"value": "Connectivity types",
+				"lang": "en",
+				"_id": "55bb59c67459b3975b63c028"
+			}
+		]
+	},
+	{
+		"nsp": "http://ndl.go.jp/dcndl/terms/",
+		"prefix": "dcndl",
+		"uri": "http://ndl.go.jp/dcndl/terms/",
+		"titles": [
+			{
+				"value": "NDL Metadata Terms",
+				"lang": "en",
+				"_id": "5cfa12bda83ab4061e10b66d"
+			}
+		]
+	},
+	{
+		"nsp": "http://d-nb.info/standards/elementset/dnb#",
+		"prefix": "dnbt",
+		"uri": "http://d-nb.info/standards/elementset/dnb",
+		"titles": [
+			{
+				"value": "DNB Metadata Terms",
+				"lang": "en",
+				"_id": "5c486f14d7048abc5cc35ee2"
+			}
+		]
+	},
+	{
+		"nsp": "http://usefulinc.com/ns/doap#",
+		"prefix": "doap",
+		"uri": "http://usefulinc.com/ns/doap#",
+		"titles": [
+			{
+				"value": "Description of a Project vocabulary",
+				"lang": "en",
+				"_id": "57d2ceb7a3a9d3a63d7e8b48"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2000/10/swap/pim/doc#",
+		"prefix": "doc",
+		"uri": "http://www.w3.org/2000/10/swap/pim/doc",
+		"titles": [
+			{
+				"value": "Works, licences, derivatives and dependencies",
+				"lang": "en",
+				"_id": "586baa787e341093492c4882"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/dqv#",
+		"prefix": "dqv",
+		"uri": "http://www.w3.org/ns/dqv",
+		"titles": [
+			{
+				"value": "Data Quality Vocabulary",
+				"lang": "en",
+				"_id": "587e4f137e341093493c3b8e"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.linkedmodel.org/schema/dtype#",
+		"prefix": "dtype",
+		"uri": "http://www.linkedmodel.org/schema/dtype",
+		"titles": [
+			{
+				"value": "Datatype Ontology",
+				"lang": "en",
+				"_id": "55ae826dcff711cc3f2b1898"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/duv#",
+		"prefix": "duv",
+		"uri": "http://www.w3.org/ns/duv",
+		"titles": [
+			{
+				"value": "Dataset Usage Vocabulary",
+				"lang": "en",
+				"_id": "5dad706d98c7a8076a14d5e9"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/earl#",
+		"prefix": "earl",
+		"uri": "http://www.w3.org/ns/earl",
+		"titles": [
+			{
+				"value": "Evaluation and Report Language",
+				"lang": "en",
+				"_id": "568be9814ee7f7176ff12517"
+			}
+		]
+	},
+	{
+		"uri": "http://data.businessgraph.io/ontology#",
+		"nsp": "http://data.businessgraph.io/ontology#",
+		"prefix": "ebg",
+		"titles": [
+			{
+				"value": "euBusinessGraph ontology",
+				"lang": "en",
+				"_id": "60141943a63b96c815bc4dc2"
+			}
+		]
+	},
+	{
+		"nsp": "http://erlangen-crm.org/current/",
+		"prefix": "ecrm",
+		"uri": "http://erlangen-crm.org/current/",
+		"titles": [
+			{
+				"value": "Erlangen CRM / OWL",
+				"lang": "en",
+				"_id": "586bd89e7e341093492c5123"
+			}
+		]
+	},
+	{
+		"nsp": "http://ontology.cybershare.utep.edu/ELSEWeb/elseweb-edac.owl#",
+		"prefix": "edac",
+		"uri": "http://ontology.cybershare.utep.edu/ELSEWeb/elseweb-edac.owl",
+		"titles": [
+			{
+				"value": "ELSEWeb EDAC Ontology",
+				"lang": "en",
+				"_id": "56af776998f0192c57ea9391"
+			}
+		]
+	},
+	{
+		"uri": "http://ns.inria.fr/semed/eduprogression/",
+		"nsp": "http://ns.inria.fr/semed/eduprogression#",
+		"prefix": "edupro",
+		"titles": [
+			{
+				"value": "EduProgression Ontology",
+				"lang": "en",
+				"_id": "5c669c0a6c1cff773137ac17"
+			}
+		]
+	},
+	{
+		"nsp": "http://data.europa.eu/eli/ontology#",
+		"prefix": "eli",
+		"uri": "http://data.europa.eu/eli/ontology",
+		"titles": [
+			{
+				"value": "The European Legislation Identifier",
+				"lang": "en",
+				"_id": "5b0fcb39f79aa03849eabe1c"
+			}
+		]
+	},
+	{
+		"uri": "http://data.europa.eu/949/",
+		"nsp": "http://data.europa.eu/949/",
+		"prefix": "era",
+		"titles": [
+			{
+				"value": "ERA vocabulary",
+				"lang": "en",
+				"_id": "64f456438efdb4a06b5c3064"
+			}
+		]
+	},
+	{
+		"uri": "http://data.europa.eu/s66#",
+		"nsp": "http://data.europa.eu/s66#",
+		"prefix": "eurio",
+		"titles": [
+			{
+				"value": "EURIO: EUropean Research Information Ontology",
+				"lang": "en",
+				"_id": "64f3397f8efdb4a06b5c2e75"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2003/12/exif/ns#",
+		"prefix": "exif",
+		"uri": "http://www.w3.org/2003/12/exif/ns",
+		"titles": [
+			{
+				"value": "Exif data description vocabulary",
+				"lang": "en",
+				"_id": "57d2d0d7a3a9d3a63d7e8c51"
+			}
+		]
+	},
+	{
+		"nsp": "http://biohackathon.org/resource/faldo#",
+		"prefix": "faldo",
+		"uri": "http://biohackathon.org/resource/faldo",
+		"titles": [
+			{
+				"value": "Feature Annotation Location Description Ontology",
+				"lang": "en",
+				"_id": "5a251b4e3d405e60384ebde6"
+			}
+		]
+	},
+	{
+		"nsp": "http://xmlns.com/foaf/0.1/",
+		"prefix": "foaf",
+		"uri": "http://xmlns.com/foaf/0.1/",
+		"titles": [
+			{
+				"value": "Friend of a Friend vocabulary",
+				"lang": "en",
+				"_id": "5da81d9589eb3bf7665c24f3"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/food#",
+		"prefix": "fowl",
+		"uri": "http://www.w3.org/TR/2003/PR-owl-guide-20031215/food",
+		"titles": [
+			{
+				"value": "Food Ontology in OWL",
+				"lang": "en",
+				"_id": "56c595b82ba77c902f47551e"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2004/09/fresnel#",
+		"prefix": "fresnel",
+		"uri": "http://www.w3.org/2004/09/fresnel",
+		"titles": [
+			{
+				"value": "Fresnel Lens and Format Core Vocabulary",
+				"lang": "en",
+				"_id": "561c02da42fc695f7e67253d"
+			}
+		]
+	},
+	{
+		"nsp": "http://data.totl.net/game/",
+		"prefix": "game",
+		"uri": "http://data.totl.net/game/",
+		"titles": [
+			{
+				"value": "TotL Game Ontology",
+				"lang": "en",
+				"_id": "5784e0820183b1e80fc904e0"
+			}
+		]
+	},
+	{
+		"nsp": "http://ontology.eil.utoronto.ca/GCI/Foundation/GCI-Foundation.owl#",
+		"prefix": "gci",
+		"uri": "http://ontology.eil.utoronto.ca/GCI/Foundation/GCI-Foundation.owl",
+		"titles": [
+			{
+				"value": "Global City Indicator Foundation Ontology",
+				"lang": "en",
+				"_id": "552fa52bd945656b497885fc"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+		"prefix": "geo",
+		"uri": "http://www.w3.org/2003/01/geo/wgs84_pos",
+		"titles": [
+			{
+				"value": "WGS84 Geo Positioning",
+				"lang": "en",
+				"_id": "57696ba14a73263716312e53"
+			}
+		]
+	},
+	{
+		"nsp": "http://data.ign.fr/def/geofla#",
+		"prefix": "geofla",
+		"uri": "http://data.ign.fr/def/geofla",
+		"titles": [
+			{
+				"value": "Ontologie des unités administratives de l'IGN",
+				"lang": "fr",
+				"_id": "60b6037695b778e06b9a58d0"
+			},
+			{
+				"value": "Ontology of administrative units at IGN-France",
+				"lang": "en",
+				"_id": "60b6037695b778e06b9a58cf"
+			}
+		]
+	},
+	{
+		"nsp": "http://data.ign.fr/def/geometrie#",
+		"prefix": "geom",
+		"uri": "http://data.ign.fr/def/geometrie",
+		"titles": [
+			{
+				"value": "Ontologie des primitives géométriques",
+				"lang": "fr",
+				"_id": "568a54734ee7f7176ff10eac"
+			},
+			{
+				"value": "Ontology for geometry",
+				"lang": "en",
+				"_id": "568a54734ee7f7176ff10eab"
+			}
+		]
+	},
+	{
+		"uri": "https://www.gleif.org/ontology/L1/",
+		"nsp": "https://www.gleif.org/ontology/L1/",
+		"prefix": "gleif-L1",
+		"titles": [
+			{
+				"value": "Global Legal Entity Identifier Foundation Level 1 Ontology - Who Is Who",
+				"lang": "en",
+				"_id": "5d26300be239944f0e0582e1"
+			}
+		]
+	},
+	{
+		"uri": "https://www.gleif.org/ontology/L2/",
+		"nsp": "https://www.gleif.org/ontology/L2/",
+		"prefix": "gleif-L2",
+		"titles": [
+			{
+				"value": "Global Legal Entity Identifier Foundation Level 2 Ontology - Who Owns Whom",
+				"lang": "en",
+				"_id": "5d2610eaa038485a10d98c53"
+			}
+		]
+	},
+	{
+		"uri": "https://www.gleif.org/ontology/Base/",
+		"nsp": "https://www.gleif.org/ontology/Base/",
+		"prefix": "gleif-base",
+		"titles": [
+			{
+				"value": "Global Legal Entity Identifier Foundation Base Ontology",
+				"lang": "en",
+				"_id": "5d270fae7905867e22b4587d"
+			}
+		]
+	},
+	{
+		"uri": "https://www.gleif.org/ontology/EntityLegalForm/",
+		"nsp": "https://www.gleif.org/ontology/EntityLegalForm/",
+		"prefix": "gleif-elf",
+		"titles": [
+			{
+				"value": "Entity Legal Form Ontology",
+				"lang": "en",
+				"_id": "5d2623eacfa360250be1fed3"
+			}
+		]
+	},
+	{
+		"uri": "https://www.gleif.org/ontology/Geocoding/",
+		"nsp": "https://www.gleif.org/ontology/Geocoding/",
+		"prefix": "gleif-geo",
+		"titles": [
+			{
+				"value": "Global Legal Entity Identifier Foundation Geocoding Ontology",
+				"lang": "en",
+				"_id": "5d2610f4492085c310684b5e"
+			}
+		]
+	},
+	{
+		"uri": "https://www.gleif.org/ontology/RegistrationAuthority/",
+		"nsp": "https://www.gleif.org/ontology/RegistrationAuthority/",
+		"prefix": "gleif-ra",
+		"titles": [
+			{
+				"value": "Global Legal Entity Identifier Foundation Registration Authority Ontology",
+				"lang": "en",
+				"_id": "5d2613419f33896f11e5b42a"
+			}
+		]
+	},
+	{
+		"uri": "https://www.gleif.org/ontology/ReportingException/",
+		"nsp": "https://www.gleif.org/ontology/ReportingException/",
+		"prefix": "gleif-repex",
+		"titles": [
+			{
+				"value": "Global Legal Entity Identifier Foundation Reporting Exception Ontology",
+				"lang": "en",
+				"_id": "5d261b590189b6ed059c49e8"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.opengis.net/ont/gml#",
+		"prefix": "gml",
+		"uri": "http://www.opengis.net/ont/gml",
+		"titles": [
+			{
+				"value": "OGC Geometry",
+				"lang": "en",
+				"_id": "561e50dd42fc695f7e6770f9"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.geonames.org/ontology#",
+		"prefix": "gn",
+		"uri": "http://www.geonames.org/ontology",
+		"titles": [
+			{
+				"value": "The Geonames ontology",
+				"lang": "en",
+				"_id": "5f64bbffe19cb3b3685f7f9e"
+			}
+		]
+	},
+	{
+		"nsp": "http://d-nb.info/standards/elementset/gnd#",
+		"prefix": "gndo",
+		"uri": "http://d-nb.info/standards/elementset/gnd#",
+		"titles": [
+			{
+				"value": "GND Ontology",
+				"lang": "en",
+				"_id": "552f7ca7d945656b497884b1"
+			},
+			{
+				"value": "GND-Ontologie",
+				"lang": "de",
+				"_id": "552f7ca7d945656b497884b0"
+			}
+		]
+	},
+	{
+		"nsp": "http://gov.genealogy.net/ontology.owl#",
+		"prefix": "gov",
+		"uri": "http://gov.genealogy.net/ontology.owl",
+		"titles": [
+			{
+				"value": "Ontology for modelling historic administrative information.",
+				"lang": "en",
+				"_id": "55ba5d037459b3975b63b9cc"
+			},
+			{
+				"value": "Ontologie zur Modellierung historischer Verwaltungsinformationen.",
+				"lang": "de",
+				"_id": "55ba5d037459b3975b63b9cb"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2003/g/data-view#",
+		"prefix": "grddl",
+		"uri": "http://www.w3.org/2003/g/data-view",
+		"titles": [
+			{
+				"value": "Gleaning Resource Descriptions from Dialects of Languages Vocabulary",
+				"lang": "en",
+				"_id": "555d0aaf30f688c94e823643"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2006/gen/ont#",
+		"prefix": "gso",
+		"uri": "http://www.w3.org/2006/gen/ont",
+		"titles": [
+			{
+				"value": "Generic Specific Ontology",
+				"lang": "en",
+				"_id": "557f47351d5237e823d24eba"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.opengis.net/ont/geosparql#",
+		"prefix": "gsp",
+		"uri": "http://www.opengis.net/ont/geosparql",
+		"titles": [
+			{
+				"value": "OGC GeoSPARQL",
+				"lang": "en",
+				"_id": "65d298b3b51032c0718c9d93"
+			}
+		]
+	},
+	{
+		"nsp": "http://vocab.gtfs.org/terms#",
+		"prefix": "gtfs",
+		"uri": "http://vocab.gtfs.org/terms#",
+		"titles": [
+			{
+				"value": "General Transit Feed Specification",
+				"lang": "en",
+				"_id": "569173f2b7cea413588f9751"
+			}
+		]
+	},
+	{
+		"nsp": "http://sensormeasurement.appspot.com/ont/home/homeActivity#",
+		"prefix": "ha",
+		"uri": "http://sensormeasurement.appspot.com/ont/home/homeActivity#",
+		"titles": [
+			{
+				"value": "Home Activity",
+				"lang": "en",
+				"_id": "552b9a4b039260ce46e256fc"
+			}
+		]
+	},
+	{
+		"nsp": "https://www.auto.tuwien.ac.at/downloads/thinkhome/ontology/WeatherOntology.owl",
+		"prefix": "hw",
+		"uri": "https://www.auto.tuwien.ac.at/downloads/thinkhome/ontology/WeatherOntology.owl",
+		"titles": [
+			{
+				"value": "Home Weather",
+				"lang": "en",
+				"_id": "5809c7653e5586c53d897055"
+			}
+		]
+	},
+	{
+		"nsp": "http://ontology.eil.utoronto.ca/icontact.owl#",
+		"prefix": "ic",
+		"uri": "http://ontology.eil.utoronto.ca/icontact.owl",
+		"titles": [
+			{
+				"value": "International Contact Ontology: Addresses, phone numbers and emails.",
+				"lang": "en",
+				"_id": "553602163cc9f6585db5255c"
+			}
+		]
+	},
+	{
+		"nsp": "http://data.ign.fr/def/ignf#",
+		"prefix": "ignf",
+		"uri": "http://data.ign.fr/def/ignf",
+		"titles": [
+			{
+				"value": "Ontologie des systèmes de coordonnées de référence",
+				"lang": "fr",
+				"_id": "5783c1bd0183b1e80fc88032"
+			},
+			{
+				"value": "Ontology of coordinates reference systems",
+				"lang": "en",
+				"_id": "5783c1bd0183b1e80fc88031"
+			}
+		]
+	},
+	{
+		"uri": "http://ontology.ethereal.cz/irao",
+		"nsp": "http://ontology.ethereal.cz/irao/",
+		"prefix": "irao",
+		"titles": [
+			{
+				"value": "Informatics Research Artifacts Ontology",
+				"lang": "en",
+				"_id": "60afcbe8c3818f4546035954"
+			}
+		]
+	},
+	{
+		"nsp": "http://ontology.eil.utoronto.ca/ISO37120.owl#",
+		"prefix": "iso37120",
+		"uri": "http://ontology.eil.utoronto.ca/ISO37120.owl",
+		"titles": [
+			{
+				"value": "ISO 37120 indicator URIs",
+				"lang": "en",
+				"_id": "5817292fc1b1a26b516f855f"
+			}
+		]
+	},
+	{
+		"nsp": "http://dati.isprambiente.it/ontology/core#",
+		"prefix": "ispra",
+		"uri": "http://dati.isprambiente.it/ontology/core#",
+		"titles": [
+			{
+				"value": "Ispra Ontology",
+				"lang": "en",
+				"_id": "572ddb95b5cce30e4a39ab28"
+			}
+		]
+	},
+	{
+		"uri": "http://www.ivoa.net/rdf/messenger",
+		"nsp": "http://www.ivoa.net/rdf/messenger#",
+		"prefix": "ivoam",
+		"titles": [
+			{
+				"value": "Messengers",
+				"lang": "en",
+				"_id": "645a443b0c6777e630f10edf"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdfs.co/juso/",
+		"prefix": "juso",
+		"uri": "http://rdfs.co/juso/",
+		"titles": [
+			{
+				"value": "Juso Ontology",
+				"lang": "en",
+				"_id": "5613a12442fc695f7e64c70e"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdfs.co/juso/kr/",
+		"prefix": "juso.kr",
+		"uri": "http://rdfs.co/juso/kr/",
+		"titles": [
+			{
+				"value": "South Korea Extension to Juso Ontology",
+				"lang": "en",
+				"_id": "5614e3a342fc695f7e657bd0"
+			},
+			{
+				"value": "대한민국 주소 온톨로지",
+				"lang": "ko",
+				"_id": "5614e3a342fc695f7e657bcf"
+			}
+		]
+	},
+	{
+		"nsp": "http://linkeddata.center/kees/v1#",
+		"prefix": "kees",
+		"uri": "http://linkeddata.center/kees/v1",
+		"titles": [
+			{
+				"value": "KEES Ontology",
+				"lang": "en",
+				"_id": "5710e08a31bafaef0e789576"
+			}
+		]
+	},
+	{
+		"uri": "http://kgc.knowledge-graph.jp/ontology/kgc.owl",
+		"nsp": "http://kgc.knowledge-graph.jp/ontology/kgc.owl#",
+		"prefix": "kgc",
+		"titles": [
+			{
+				"value": "KGRC Ontology",
+				"lang": "en",
+				"_id": "6511b263d6b587c269f527a1"
+			}
+		]
+	},
+	{
+		"uri": "http://semweb.mmlab.be/ns/linkedconnections#Ontology",
+		"nsp": "http://semweb.mmlab.be/ns/linkedconnections#",
+		"prefix": "lc",
+		"titles": [
+			{
+				"value": "The Linked Connections ontology",
+				"lang": "en",
+				"_id": "61a4ab96bf34bcf5590f0330"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/ldp#",
+		"prefix": "ldp",
+		"uri": "http://www.w3.org/ns/ldp#",
+		"titles": [
+			{
+				"value": "Linked Data Platform",
+				"lang": "en",
+				"_id": "5733444fb5cce30e4a3b71fd"
+			}
+		]
+	},
+	{
+		"uri": "http://www.w3.org/ns/lemon/decomp",
+		"nsp": "http://www.w3.org/ns/lemon/decomp#",
+		"prefix": "lexdcp",
+		"titles": [
+			{
+				"value": "Lexicon Model for Ontologies - Decomp",
+				"lang": "en",
+				"_id": "60d077156eec354e1dfe3dec"
+			}
+		]
+	},
+	{
+		"uri": "http://www.w3.org/ns/lemon/lime",
+		"nsp": "http://www.w3.org/ns/lemon/lime#",
+		"prefix": "lime",
+		"titles": [
+			{
+				"value": "Lexicon Model for Ontologies - LIngusitic MEtadata (LIME)",
+				"lang": "en",
+				"_id": "60d0a175ea2950ca21ba47cc"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2000/10/swap/log#",
+		"prefix": "log",
+		"uri": "http://www.w3.org/2000/10/swap/log",
+		"titles": [
+			{
+				"value": "SWAP Logic Ontology",
+				"lang": "en",
+				"_id": "61ae2ca65b2c78953fa51b94"
+			}
+		]
+	},
+	{
+		"nsp": "http://lsq.aksw.org/vocab#",
+		"prefix": "lsq",
+		"uri": "http://lsq.aksw.org/vocab",
+		"titles": [
+			{
+				"value": "The Linked SPARQL Queries Vocabulary (LSQ(V))",
+				"lang": "en",
+				"_id": "5735f14fb5cce30e4a3baa61"
+			}
+		]
+	},
+	{
+		"nsp": "http://ontology.cybershare.utep.edu/ELSEWeb/elseweb-data.owl#",
+		"prefix": "lsweb",
+		"uri": "http://ontology.cybershare.utep.edu/ELSEWeb/elseweb-data.owl",
+		"titles": [
+			{
+				"value": "ELSEWeb Data Ontology",
+				"lang": "en",
+				"_id": "561b8f5542fc695f7e6722c8"
+			}
+		]
+	},
+	{
+		"nsp": "http://ontology.cybershare.utep.edu/ELSEWeb/elseweb-modelling.owl#",
+		"prefix": "lswmo",
+		"uri": "http://ontology.cybershare.utep.edu/ELSEWeb/elseweb-modelling.owl",
+		"titles": [
+			{
+				"value": "ELSEWeb Modelling Ontology",
+				"lang": "en",
+				"_id": "561e315342fc695f7e6767fd"
+			}
+		]
+	},
+	{
+		"nsp": "http://ns.inria.fr/ludo",
+		"prefix": "ludo",
+		"uri": "http://ns.inria.fr/ludo",
+		"titles": [
+			{
+				"value": "Ludo Ontology",
+				"lang": "en",
+				"_id": "57349da9b5cce30e4a3b874d"
+			}
+		]
+	},
+	{
+		"nsp": "http://ns.inria.fr/ludo/v1/gamemodel#",
+		"prefix": "ludo-gm",
+		"uri": "http://ns.inria.fr/ludo/v1/gamemodel#",
+		"titles": [
+			{
+				"value": "Ludo Game Model Ontology",
+				"lang": "en",
+				"_id": "57bfe97aa3a9d3a63d791bf7"
+			}
+		]
+	},
+	{
+		"nsp": "http://ns.inria.fr/ludo/v1/gamepresentation#",
+		"prefix": "ludo-gp",
+		"uri": "http://ns.inria.fr/ludo/v1/gamepresentation#",
+		"titles": [
+			{
+				"value": "Ludo - Game Presentation",
+				"lang": "en",
+				"_id": "57bfe970a3a9d3a63d791bec"
+			}
+		]
+	},
+	{
+		"nsp": "http://ns.inria.fr/ludo/v1/virtualcontext#",
+		"prefix": "ludo-vc",
+		"uri": "http://ns.inria.fr/ludo/v1/virtualcontext#",
+		"titles": [
+			{
+				"value": "Ludo - Virtual Context",
+				"lang": "en",
+				"_id": "57bfe6bda3a9d3a63d791ab0"
+			}
+		]
+	},
+	{
+		"nsp": "http://ns.inria.fr/ludo/v1/xapi#",
+		"prefix": "ludo-xapi",
+		"uri": "http://ns.inria.fr/ludo/v1/xapi",
+		"titles": [
+			{
+				"value": "Experience API (xAPI)",
+				"lang": "en",
+				"_id": "5734a02fb5cce30e4a3b8783"
+			}
+		]
+	},
+	{
+		"nsp": "http://lexvo.org/ontology#",
+		"prefix": "lvont",
+		"uri": "http://lexvo.org/ontology",
+		"titles": [
+			{
+				"value": "Lexvo.org Ontology",
+				"lang": "en",
+				"_id": "555df44ffcb9d2f348248664"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/ma-ont#",
+		"prefix": "ma-ont",
+		"uri": "http://www.w3.org/ns/ma-ont",
+		"titles": [
+			{
+				"value": "Ontology for Media Resources",
+				"lang": "en",
+				"_id": "56d067a9ec7d5661016d05fc"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.loc.gov/mads/rdf/v1#",
+		"prefix": "mads",
+		"uri": "http://www.loc.gov/mads/rdf/v1",
+		"titles": [
+			{
+				"value": "Metadata Authority Description Schema",
+				"lang": "en",
+				"_id": "567e70384ee7f7176fea7b81"
+			}
+		]
+	},
+	{
+		"nsp": "http://mex.aksw.org/mex-algo#",
+		"prefix": "mexalgo",
+		"uri": "http://mex.aksw.org/mex-algo",
+		"titles": [
+			{
+				"value": "MEX Algorithm Ontology",
+				"lang": "en",
+				"_id": "63247e50f0004aba7af3f7d3"
+			}
+		]
+	},
+	{
+		"nsp": "http://mex.aksw.org/mex-core#",
+		"prefix": "mexcore",
+		"uri": "http://mex.aksw.org/mex-core",
+		"titles": [
+			{
+				"value": "MEX Core Vocabulary",
+				"lang": "en",
+				"_id": "632480aff0004aba7af3f7dc"
+			},
+			{
+				"value": "Vocabulario MEX (mex-core)",
+				"lang": "pt",
+				"_id": "632480aff0004aba7af3f7db"
+			}
+		]
+	},
+	{
+		"nsp": "http://mex.aksw.org/mex-perf#",
+		"prefix": "mexperf",
+		"uri": "http://mex.aksw.org/mex-perf",
+		"titles": [
+			{
+				"value": "MEX Performance Ontology",
+				"lang": "en",
+				"_id": "63248181f0004aba7af3f7ec"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/mls#",
+		"prefix": "mls",
+		"uri": "http://www.w3.org/ns/mls",
+		"titles": [
+			{
+				"value": "Machine Learning Schema",
+				"lang": "en",
+				"_id": "63248323f0004aba7af3f80d"
+			}
+		]
+	},
+	{
+		"nsp": "http://id.loc.gov/vocabulary/relators/",
+		"prefix": "mrel",
+		"uri": "http://id.loc.gov/vocabulary/relators",
+		"titles": [
+			{
+				"value": "MARC Code List for Relators",
+				"lang": "en",
+				"_id": "56a3c44437d8a8044b254130"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.kanzaki.com/ns/music#",
+		"prefix": "music",
+		"uri": "http://www.kanzaki.com/ns/music",
+		"titles": [
+			{
+				"value": "Music Vocabulary",
+				"lang": "en",
+				"_id": "568beb7f4ee7f7176ff12583"
+			}
+		]
+	},
+	{
+		"nsp": "http://ns.nature.com/terms/",
+		"prefix": "npg",
+		"uri": "http://ns.nature.com/terms/",
+		"titles": [
+			{
+				"value": "Nature.com Core Ontology",
+				"lang": "en",
+				"_id": "5dacdf398b936c5b59e22a85"
+			}
+		]
+	},
+	{
+		"nsp": "http://ns.inria.fr/nrv#",
+		"prefix": "nrv",
+		"uri": "http://ns.inria.fr/nrv",
+		"titles": [
+			{
+				"value": "Normative Requirements Vocabulary",
+				"lang": "en",
+				"_id": "5989902a88adb933350c517b"
+			}
+		]
+	},
+	{
+		"nsp": "http://ns.inria.fr/nicetag/2010/09/09/voc#",
+		"prefix": "ntag",
+		"uri": "http://ns.inria.fr/nicetag/2010/09/09/voc",
+		"titles": [
+			{
+				"value": "Nice Tag Ontology",
+				"lang": "en",
+				"_id": "55bcaef77459b3975b63cad4"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/oa#",
+		"prefix": "oa",
+		"uri": "http://www.w3.org/ns/oa#",
+		"titles": [
+			{
+				"value": "Open Annotation Data Model",
+				"lang": "en",
+				"_id": "5788c3738c6f955d29bf2256"
+			}
+		]
+	},
+	{
+		"nsp": "http://semweb.mmlab.be/ns/odapps#",
+		"prefix": "odapps",
+		"uri": "http://semweb.mmlab.be/ns/odapps",
+		"titles": [
+			{
+				"value": "The vocabulary for (L)OD ideas and applications",
+				"lang": "en",
+				"_id": "5a418dd7b201efd03d3b7839"
+			}
+		]
+	},
+	{
+		"nsp": "http://semweb.mmlab.be/ns/oh#",
+		"prefix": "oh",
+		"uri": "http://semweb.mmlab.be/ns/oh",
+		"titles": [
+			{
+				"value": "The Opening Hours vocabulary",
+				"lang": "en",
+				"_id": "5dace15d8b936c5b59e22aa1"
+			}
+		]
+	},
+	{
+		"uri": "http://www.w3.org/ns/lemon/ontolex",
+		"nsp": "http://www.w3.org/ns/lemon/ontolex#",
+		"prefix": "ontolex",
+		"titles": [
+			{
+				"value": "Lexicon Model for Ontologies - Core",
+				"lang": "en",
+				"_id": "60b7ac9387423a16187e4499"
+			}
+		]
+	},
+	{
+		"nsp": "http://ontology.eil.utoronto.ca/open311#",
+		"prefix": "open311",
+		"uri": "http://ontology.eil.utoronto.ca/open311.owl",
+		"titles": [
+			{
+				"value": "Open 311 Ontology: An Ontology for publishing a city's non-emergency events.",
+				"lang": "en",
+				"_id": "5ad0b0803aba5caf50df14a1"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.openarchives.org/ore/terms/",
+		"prefix": "ore",
+		"uri": "http://www.openarchives.org/ore/terms/",
+		"titles": [
+			{
+				"value": "The OAI ORE terms vocabulary",
+				"lang": "en",
+				"_id": "556dc81fa866afd621a1ca6d"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/org#",
+		"prefix": "org",
+		"uri": "http://www.w3.org/ns/org#",
+		"titles": [
+			{
+				"value": "Core organization ontology",
+				"lang": "en",
+				"_id": "5731b553b5cce30e4a3b528d"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2002/07/owl#",
+		"prefix": "owl",
+		"uri": "http://www.w3.org/2002/07/owl",
+		"titles": [
+			{
+				"value": "The OWL 2 Schema vocabulary",
+				"lang": "en",
+				"_id": "576a57f54a73263716316b54"
+			}
+		]
+	},
+	{
+		"nsp": "http://cedric.cnam.fr/isid/ontologies/PersonLink.owl#",
+		"prefix": "plink",
+		"uri": "http://cedric.cnam.fr/isid/ontologies/PersonLink.owl",
+		"titles": [
+			{
+				"value": "PersonLink Ontology",
+				"lang": "en",
+				"_id": "5c1a7aa6712ec7a91b1ea13a"
+			}
+		]
+	},
+	{
+		"nsp": "http://contsem.unizar.es/def/sector-publico/pproc#",
+		"prefix": "pproc",
+		"uri": "http://contsem.unizar.es/def/sector-publico/pproc",
+		"titles": [
+			{
+				"value": "PPROC ontology",
+				"lang": "en",
+				"_id": "55f847826185ddbd5f7a029a"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.loc.gov/premis/rdf/v1#",
+		"prefix": "premis",
+		"uri": "http://www.loc.gov/premis/rdf/v1",
+		"titles": [
+			{
+				"value": "PREMIS Ontology",
+				"lang": "en",
+				"_id": "5dace1028b936c5b59e22a9b"
+			}
+		]
+	},
+	{
+		"nsp": "http://ns.inria.fr/prissma/v2#",
+		"prefix": "prissma",
+		"uri": "http://ns.inria.fr/prissma/v2#",
+		"titles": [
+			{
+				"value": "Presentation of Resources for Interoperable Semantic and Shareable Mobile Adaptability",
+				"lang": "en",
+				"_id": "5db033dd581233d82940d264"
+			}
+		]
+	},
+	{
+		"uri": "http://www.w3.org/ns/dx/prof",
+		"nsp": "http://www.w3.org/ns/dx/prof/",
+		"prefix": "prof",
+		"titles": [
+			{
+				"value": "Profiles Vocabulary",
+				"lang": "en",
+				"_id": "5f36d8324dda25af52c6e000"
+			}
+		]
+	},
+	{
+		"nsp": "http://ns.inria.fr/provoc#",
+		"prefix": "provoc",
+		"uri": "http://ns.inria.fr/provoc",
+		"titles": [
+			{
+				"value": "Product Vocabulary",
+				"lang": "en",
+				"_id": "56c6e6c1087c0703190899aa"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/radion#",
+		"prefix": "radion",
+		"uri": "http://www.w3.org/ns/radion#",
+		"titles": [
+			{
+				"value": "Repository Asset Distribution",
+				"lang": "en",
+				"_id": "59dcdf302febc4a21c3166e6"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdvocab.info/uri/schema/FRBRentitiesRDA/",
+		"prefix": "rdafrbr",
+		"uri": "http://rdvocab.info/uri/schema/FRBRentitiesRDA",
+		"titles": [
+			{
+				"value": "FRBR Entities for RDA",
+				"lang": "en",
+				"_id": "56a64d6837d8a8044b2642d0"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdvocab.info/Elements/",
+		"prefix": "rdag1",
+		"uri": "http://rdvocab.info/Elements",
+		"titles": [
+			{
+				"value": "RDA Group 1 Elements",
+				"lang": "en",
+				"_id": "56a6536637d8a8044b264550"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdvocab.info/ElementsGr2/",
+		"prefix": "rdag2",
+		"uri": "http://rdvocab.info/ElementsGr2",
+		"titles": [
+			{
+				"value": "RDA Group 2 Elements",
+				"lang": "en",
+				"_id": "56a5231537d8a8044b25e063"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdvocab.info/ElementsGr3/",
+		"prefix": "rdag3",
+		"uri": "http://rdvocab.info/ElementsGr3",
+		"titles": [
+			{
+				"value": "RDA Group 3 Elements",
+				"lang": "en",
+				"_id": "56a64ddc37d8a8044b264306"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdvocab.info/RDARelationshipsWEMI/",
+		"prefix": "rdarel",
+		"uri": "http://rdvocab.info/RDARelationshipsWEMI",
+		"titles": [
+			{
+				"value": "RDA Relationships for Works, Expressions, Manifestations, Items",
+				"lang": "en",
+				"_id": "56a6992137d8a8044b26676d"
+			}
+		]
+	},
+	{
+		"nsp": "http://metadataregistry.org/uri/schema/RDARelationshipsGR2/",
+		"prefix": "rdarel2",
+		"uri": "http://metadataregistry.org/uri/schema/RDARelationshipsGR2",
+		"titles": [
+			{
+				"value": "RDA Relationships GR2",
+				"lang": "en",
+				"_id": "57ad8c2bb00b4b1452a88afb"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdvocab.info/roles/",
+		"prefix": "rdarole",
+		"uri": "http://rdvocab.info/roles",
+		"titles": [
+			{
+				"value": "RDA Roles",
+				"lang": "en",
+				"_id": "56ae4db198f0192c57ea0270"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+		"prefix": "rdf",
+		"uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+		"titles": [
+			{
+				"value": "The RDF Concepts Vocabulary",
+				"lang": "en",
+				"_id": "60449e78f05734d01727282d"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/rdfa#",
+		"prefix": "rdfa",
+		"uri": "http://www.w3.org/ns/rdfa#",
+		"titles": [
+			{
+				"value": "RDFa Vocabulary for Term and Prefix Assignment, and for Processor Graph Reporting",
+				"lang": "en",
+				"_id": "5783c5580183b1e80fc88265"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2004/03/trix/rdfg-1/",
+		"prefix": "rdfg",
+		"uri": "http://www.w3.org/2004/03/trix/rdfg-1/",
+		"titles": [
+			{
+				"value": "Graph",
+				"lang": "en",
+				"_id": "561e530942fc695f7e67719d"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2000/01/rdf-schema#",
+		"prefix": "rdfs",
+		"uri": "http://www.w3.org/2000/01/rdf-schema#",
+		"titles": [
+			{
+				"value": "The RDF Schema vocabulary",
+				"lang": "en",
+				"_id": "58ec88bbabe2639e2c3bd8d4"
+			}
+		]
+	},
+	{
+		"uri": "http://www.w3.org/ns/rdftest",
+		"nsp": "http://www.w3.org/ns/rdftest#",
+		"prefix": "rdft",
+		"titles": [
+			{
+				"value": "The RDF 1.1 Test Vocabulary",
+				"lang": "en",
+				"_id": "60f444cb974824e9140ad42f"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2001/02pd/rec54#",
+		"prefix": "rec54",
+		"uri": "http://www.w3.org/2001/02pd/rec54#",
+		"titles": [
+			{
+				"value": "Model of the W3C Process",
+				"lang": "en",
+				"_id": "55e05b85419d00687563ad9c"
+			}
+		]
+	},
+	{
+		"nsp": "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#",
+		"prefix": "rlog",
+		"uri": "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#",
+		"titles": [
+			{
+				"value": "RDF Logging Ontology",
+				"lang": "en",
+				"_id": "569f7971ff8848f96bd205ce"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/regorg#",
+		"prefix": "rov",
+		"uri": "http://www.w3.org/ns/regorg",
+		"titles": [
+			{
+				"value": "Registered Organization Vocabulary",
+				"lang": "en",
+				"_id": "569ccfb0ff8848f96bd16d03"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/r2rml#",
+		"prefix": "rr",
+		"uri": "http://www.w3.org/ns/r2rml#",
+		"titles": [
+			{
+				"value": "RDB to RDF Mapping Language Schema",
+				"lang": "en",
+				"_id": "556dc6f9a866afd621a1ca60"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdfunit.aksw.org/ns/core#",
+		"prefix": "ruto",
+		"uri": "http://rdfunit.aksw.org/ns/core#",
+		"titles": [
+			{
+				"value": "Test-Driven Data Debugging Ontology",
+				"lang": "en",
+				"_id": "56a5176937d8a8044b25d9d9"
+			}
+		]
+	},
+	{
+		"nsp": "http://ns.inria.fr/s4ac/v2#",
+		"prefix": "s4ac",
+		"uri": "http://ns.inria.fr/s4ac/v2",
+		"titles": [
+			{
+				"value": "Social Semantic SPARQL Security For Access Control Ontology",
+				"lang": "en",
+				"_id": "5cb3149e470a172015caa396"
+			}
+		]
+	},
+	{
+		"uri": "https://saref.etsi.org/saref4agri/",
+		"nsp": "https://saref.etsi.org/saref4agri/",
+		"prefix": "s4agri",
+		"titles": [
+			{
+				"value": "SAREF extension for Agriculture",
+				"lang": "en",
+				"_id": "6037b2b6354efffb2a8d4f21"
+			}
+		]
+	},
+	{
+		"uri": "https://saref.etsi.org/saref4bldg/",
+		"nsp": "https://saref.etsi.org/saref4bldg/",
+		"prefix": "s4bldg",
+		"titles": [
+			{
+				"value": "SAREF extension for building devices",
+				"lang": "en",
+				"_id": "6037bc87354efffb2a8d4fb8"
+			}
+		]
+	},
+	{
+		"uri": "https://saref.etsi.org/saref4city/",
+		"nsp": "https://saref.etsi.org/saref4city/",
+		"prefix": "s4city",
+		"titles": [
+			{
+				"value": "SAREF extension for Smart City",
+				"lang": "en",
+				"_id": "6037c8a9354efffb2a8d5071"
+			}
+		]
+	},
+	{
+		"uri": "https://saref.etsi.org/saref4ehaw/",
+		"nsp": "https://saref.etsi.org/saref4ehaw/",
+		"prefix": "s4ehaw",
+		"titles": [
+			{
+				"value": "SAREF4EHAW: an extension of SAREF for eHealth Ageing Well domain",
+				"lang": "en",
+				"_id": "6037c30f354efffb2a8d5017"
+			}
+		]
+	},
+	{
+		"nsp": "https://saref.etsi.org/saref4ener/",
+		"prefix": "s4ener",
+		"uri": "https://saref.etsi.org/saref4ener/",
+		"titles": [
+			{
+				"value": "SAREF4EE: the EEbus/Energy@home extension of SAREF",
+				"lang": "en",
+				"_id": "6037c3fc354efffb2a8d5022"
+			}
+		]
+	},
+	{
+		"uri": "https://saref.etsi.org/saref4envi/",
+		"nsp": "https://saref.etsi.org/saref4envi/",
+		"prefix": "s4envi",
+		"titles": [
+			{
+				"value": "SAREF extension for environment",
+				"lang": "en",
+				"_id": "6037c8f5354efffb2a8d5077"
+			}
+		]
+	},
+	{
+		"uri": "https://saref.etsi.org/saref4inma/",
+		"nsp": "https://saref.etsi.org/saref4inma/",
+		"prefix": "s4inma",
+		"titles": [
+			{
+				"value": "SAREF4INMA: an extension of SAREF for the industry and manufacturing domain",
+				"lang": "en",
+				"_id": "6037c01f354efffb2a8d4ff3"
+			}
+		]
+	},
+	{
+		"uri": "https://saref.etsi.org/saref4syst/",
+		"nsp": "https://saref.etsi.org/saref4syst/",
+		"prefix": "s4syst",
+		"titles": [
+			{
+				"value": "SAREF4SYST: an extension of SAREF for typology of systems and their inter-connections",
+				"lang": "en",
+				"_id": "6037c540354efffb2a8d5030"
+			}
+		]
+	},
+	{
+		"uri": "https://saref.etsi.org/saref4watr/",
+		"nsp": "https://saref.etsi.org/saref4watr/",
+		"prefix": "s4watr",
+		"titles": [
+			{
+				"value": "SAREF extension for water",
+				"lang": "en",
+				"_id": "6037c87d354efffb2a8d506e"
+			}
+		]
+	},
+	{
+		"uri": "https://saref.etsi.org/saref4wear/",
+		"nsp": "https://saref.etsi.org/saref4wear/",
+		"prefix": "s4wear",
+		"titles": [
+			{
+				"value": "SAREF4WEAR: an extension of SAREF for Wearables",
+				"lang": "en",
+				"_id": "6037c833354efffb2a8d5066"
+			}
+		]
+	},
+	{
+		"nsp": "https://saref.etsi.org/core/",
+		"prefix": "saref",
+		"uri": "https://saref.etsi.org/core/",
+		"titles": [
+			{
+				"value": "SAREF: the Smart Appliances REFerence ontology",
+				"lang": "en",
+				"_id": "6037b211354efffb2a8d4f0d"
+			}
+		]
+	},
+	{
+		"nsp": "http://lod.taxonconcept.org/ontology/sci_people.owl#",
+		"prefix": "scip",
+		"uri": "http://lod.taxonconcept.org/ontology/sci_people.owl",
+		"titles": [
+			{
+				"value": "Scientific People Ontology",
+				"lang": "en",
+				"_id": "56a3c47b37d8a8044b254156"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdfs.org/scot/ns#",
+		"prefix": "scot",
+		"uri": "http://rdfs.org/scot/ns#",
+		"titles": [
+			{
+				"value": "Social Semantic Cloud of Tags",
+				"lang": "en",
+				"_id": "586bd6e07e341093492c5100"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/sparql-service-description#",
+		"prefix": "sd",
+		"uri": "http://www.w3.org/ns/sparql-service-description",
+		"titles": [
+			{
+				"value": "SPARQL 1.1 Service Description",
+				"lang": "en",
+				"_id": "5adda46c67b67f5811d01cc6"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.opengis.net/ont/sf#",
+		"prefix": "sf",
+		"uri": "http://www.opengis.net/ont/sf",
+		"titles": [
+			{
+				"value": "Simplified Features Geometry",
+				"lang": "en",
+				"_id": "5697b7c3ff8848f96bd12b1a"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/shacl#",
+		"prefix": "sh",
+		"uri": "http://www.w3.org/ns/shacl#",
+		"titles": [
+			{
+				"value": "W3C Shapes Constraint Language (SHACL) Vocabulary",
+				"lang": "en",
+				"_id": "5accce153aba5caf50dbea61"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdfs.org/sioc/ns#",
+		"prefix": "sioc",
+		"uri": "http://rdfs.org/sioc/ns#",
+		"titles": [
+			{
+				"value": "Semantically-Interlinked Online Communities",
+				"lang": "en",
+				"_id": "5697b70cff8848f96bd12b03"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2004/02/skos/core#",
+		"prefix": "skos",
+		"uri": "http://www.w3.org/2004/02/skos/core",
+		"titles": [
+			{
+				"value": "Simple Knowledge Organization System",
+				"lang": "en",
+				"_id": "58ec8906abe2639e2c3bd91a"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2008/05/skos-xl#",
+		"prefix": "skosxl",
+		"uri": "http://www.w3.org/2008/05/skos-xl",
+		"titles": [
+			{
+				"value": "SKOS eXtension for Labels",
+				"lang": "en",
+				"_id": "58ec89a7abe2639e2c3bd9b2"
+			}
+		]
+	},
+	{
+		"uri": "http://www.w3.org/ns/solid/terms",
+		"nsp": "http://www.w3.org/ns/solid/terms#",
+		"prefix": "solid",
+		"titles": [
+			{
+				"value": "Solid terms",
+				"lang": "en",
+				"_id": "5cd0359bd18d844f5ff6f650"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/sosa/",
+		"prefix": "sosa",
+		"uri": "http://www.w3.org/ns/sosa/",
+		"titles": [
+			{
+				"value": "Sensor, Observation, Sample, and Actuator (SOSA) Ontology",
+				"lang": "en",
+				"_id": "58f9bf1e6961d74e135ab569"
+			}
+		]
+	},
+	{
+		"nsp": "http://ns.inria.fr/ast/sql#",
+		"prefix": "sql",
+		"uri": "http://ns.inria.fr/ast/sql#",
+		"titles": [
+			{
+				"value": "SQL Abstract Syntax Trees Vocabulary",
+				"lang": "en",
+				"_id": "58f9d5a66961d74e135adce0"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/ssn/",
+		"prefix": "ssn",
+		"uri": "http://www.w3.org/ns/ssn/",
+		"titles": [
+			{
+				"value": "Semantic Sensor Network Ontology",
+				"lang": "en",
+				"_id": "5fd1d248a1a8e88b452ba6da"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/ssn/",
+		"prefix": "ssno",
+		"uri": "http://www.w3.org/ns/ssn/",
+		"titles": [
+			{
+				"value": "Semantic Sensor Network Ontology",
+				"lang": "en",
+				"_id": "64186ce9f3ef54895d8d246c"
+			}
+		]
+	},
+	{
+		"nsp": "http://semweb.mmlab.be/ns/stoptimes#",
+		"prefix": "st",
+		"uri": "http://semweb.mmlab.be/ns/stoptimes#Ontology",
+		"titles": [
+			{
+				"value": "The Stop Times ontology",
+				"lang": "en",
+				"_id": "55f5c184a71142386b7a398d"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2004/03/trix/swp-1/",
+		"prefix": "swp",
+		"uri": "http://www.w3.org/2004/03/trix/swp-1",
+		"titles": [
+			{
+				"value": "Graph Authority",
+				"lang": "en",
+				"_id": "569cc838ff8848f96bd16c58"
+			}
+		]
+	},
+	{
+		"uri": "http://www.w3.org/ns/lemon/synsem",
+		"nsp": "http://www.w3.org/ns/lemon/synsem#",
+		"prefix": "synsem",
+		"titles": [
+			{
+				"value": "Lexicon Model for Ontologies - Synsem",
+				"lang": "en",
+				"_id": "60d071196eec354e1dfe3de2"
+			}
+		]
+	},
+	{
+		"uri": "http://taxref.mnhn.fr/lod/taxref-ld",
+		"nsp": "http://taxref.mnhn.fr/lod/",
+		"prefix": "taxref-ld",
+		"titles": [
+			{
+				"value": "TAXREF-LD Ontology",
+				"lang": "en",
+				"_id": "644778b27899360220546aea"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2006/time-entry#",
+		"prefix": "te",
+		"uri": "http://www.w3.org/2006/time-entry",
+		"titles": [
+			{
+				"value": "Time Entry",
+				"lang": "en",
+				"_id": "5697b642ff8848f96bd12af5"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2006/03/test-description#",
+		"prefix": "test",
+		"uri": "http://www.w3.org/2006/03/test-description",
+		"titles": [
+			{
+				"value": "Test Metadata",
+				"lang": "en",
+				"_id": "586ba1cc7e341093492c4741"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2006/time#",
+		"prefix": "time",
+		"uri": "http://www.w3.org/2006/time",
+		"titles": [
+			{
+				"value": "Time Ontology",
+				"lang": "en",
+				"_id": "598c0ea188adb93335127354"
+			}
+		]
+	},
+	{
+		"nsp": "http://data.ign.fr/def/topo#",
+		"prefix": "topo",
+		"uri": "http://data.ign.fr/def/topo",
+		"titles": [
+			{
+				"value": "Ontologie des éléments du territoire et de ses infrastructures de l'IGN",
+				"lang": "fr",
+				"_id": "58ec8846abe2639e2c3bd870"
+			},
+			{
+				"value": "An ontology for describing territory elements an infrastructure at French Mapping Agency.",
+				"lang": "en",
+				"_id": "58ec8846abe2639e2c3bd86f"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.sensormeasurement.appspot.com/ont/transport/traffic#",
+		"prefix": "traffic",
+		"uri": "http://www.sensormeasurement.appspot.com/ont/transport/traffic",
+		"titles": [
+			{
+				"value": "Road Traffic Management",
+				"lang": "en",
+				"_id": "5783c5a60183b1e80fc88296"
+			}
+		]
+	},
+	{
+		"nsp": "http://linkeddata.finki.ukim.mk/lod/ontology/tao#",
+		"prefix": "trao",
+		"uri": "http://linkeddata.finki.ukim.mk/lod/ontology/tao#",
+		"titles": [
+			{
+				"value": "Transport Administration Ontology",
+				"lang": "en",
+				"_id": "57d27a5da3a9d3a63d7e647f"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdfs.org/sioc/types#",
+		"prefix": "tsioc",
+		"uri": "http://rdfs.org/sioc/types#",
+		"titles": [
+			{
+				"value": "SIOC Types Ontology Module",
+				"lang": "en",
+				"_id": "578d00ed8c6f955d29c02b7e"
+			}
+		]
+	},
+	{
+		"nsp": "http://lod.taxonconcept.org/ontology/txn.owl#",
+		"prefix": "txn",
+		"uri": "http://lod.taxonconcept.org/ontology/txn.owl",
+		"titles": [
+			{
+				"value": "TaxonConcept Ontology",
+				"lang": "en",
+				"_id": "6317121cb813c51c1e07715d"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/ns/ui#",
+		"prefix": "ui",
+		"uri": "http://www.w3.org/ns/ui",
+		"titles": [
+			{
+				"value": "A user interface ontology",
+				"lang": "en",
+				"_id": "5ff6f98961a499a258e9ac45"
+			}
+		]
+	},
+	{
+		"nsp": "http://purl.uniprot.org/core/",
+		"prefix": "uniprot",
+		"uri": "http://purl.uniprot.org/core/",
+		"titles": [
+			{
+				"value": "Uniprot Core Ontology",
+				"lang": "en",
+				"_id": "578367430183b1e80fc874bf"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.linkedmodel.org/schema/vaem#",
+		"prefix": "vaem",
+		"uri": "http://www.linkedmodel.org/schema/vaem",
+		"titles": [
+			{
+				"value": "Vocabulary for Attaching Essential Metadata",
+				"lang": "en",
+				"_id": "591c84cc6eb19eef1936dbb8"
+			}
+		]
+	},
+	{
+		"uri": "http://www.w3.org/ns/lemon/vartrans",
+		"nsp": "http://www.w3.org/ns/lemon/vartrans#",
+		"prefix": "vartrans",
+		"titles": [
+			{
+				"value": "Lexicon Model for Ontologies - Vartrans",
+				"lang": "en",
+				"_id": "60d06e73bbbd68b91c5f024f"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2006/vcard/ns#",
+		"prefix": "vcard",
+		"uri": "http://www.w3.org/2006/vcard/ns",
+		"titles": [
+			{
+				"value": "An Ontology for vCards",
+				"lang": "en",
+				"_id": "577f5d8e0183b1e80fc720b2"
+			}
+		]
+	},
+	{
+		"nsp": "http://linkeddata.finki.ukim.mk/lod/ontology/veo#",
+		"prefix": "veo",
+		"uri": "http://linkeddata.finki.ukim.mk/lod/ontology/veo#",
+		"titles": [
+			{
+				"value": "Vehicle Emissions Ontology",
+				"lang": "en",
+				"_id": "57d28866a3a9d3a63d7e6aed"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#",
+		"prefix": "vin",
+		"uri": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine",
+		"titles": [
+			{
+				"value": "Wine Ontology",
+				"lang": "en",
+				"_id": "568be88c4ee7f7176ff1250f"
+			}
+		]
+	},
+	{
+		"nsp": "http://vivoweb.org/ontology/core#",
+		"prefix": "vivo",
+		"uri": "http://vivoweb.org/ontology/core",
+		"titles": [
+			{
+				"value": "VIVO Core Ontology",
+				"lang": "en",
+				"_id": "58e63a03f6baaa6b1ab42a4b"
+			}
+		]
+	},
+	{
+		"nsp": "http://rdfs.org/ns/void#",
+		"prefix": "void",
+		"uri": "http://vocab.deri.ie/void",
+		"titles": [
+			{
+				"value": "Vocabulary of Interlinked Datasets",
+				"lang": "en",
+				"_id": "58e63961f6baaa6b1ab42998"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2003/06/sw-vocab-status/ns#",
+		"prefix": "vs",
+		"uri": "http://www.w3.org/2003/06/sw-vocab-status/ns",
+		"titles": [
+			{
+				"value": "SemWeb Vocab Status ontology",
+				"lang": "en",
+				"_id": "55d72d4ce4ac2b1c4c5a513c"
+			}
+		]
+	},
+	{
+		"nsp": "https://www.w3.org/ns/ssn/",
+		"prefix": "w3c-ssn",
+		"uri": "https://www.w3.org/ns/ssn",
+		"titles": [
+			{
+				"value": "Semantic Sensor Network Ontology",
+				"lang": "en",
+				"_id": "58481b778a0d14e34d5eb3bd"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.w3.org/2007/05/powder-s#",
+		"prefix": "wdrs",
+		"uri": "http://www.w3.org/2007/05/powder-s",
+		"titles": [
+			{
+				"value": "Protocol for Web Description Resources",
+				"lang": "en",
+				"_id": "59dce0912febc4a21c3168b0"
+			}
+		]
+	},
+	{
+		"nsp": "http://www.kanzaki.com/ns/whois#",
+		"prefix": "whois",
+		"uri": "http://www.kanzaki.com/ns/whois",
+		"titles": [
+			{
+				"value": "Who's who description vocabulary",
+				"lang": "en",
+				"_id": "57ad888bb00b4b1452a888db"
+			}
+		]
+	},
+	{
+		"uri": "https://www.w3.org/ns/pim/space",
+		"nsp": "http://www.w3.org/ns/pim/space#",
+		"prefix": "ws",
+		"titles": [
+			{
+				"value": "An ontology for describing Workspaces.",
+				"lang": "en",
+				"_id": "659fd06a47086eb00e3ae1f0"
+			}
+		]
+	},
+	{
+		"nsp": "http://zbw.eu/namespaces/zbw-extensions/",
+		"prefix": "zbwext",
+		"uri": "http://zbw.eu/namespaces/zbw-extensions",
+		"titles": [
+			{
+				"value": "ZBW Extensions",
+				"lang": "en",
+				"_id": "63248698f0004aba7af3f85b"
+			}
+		]
+	}
+]
