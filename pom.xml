@@ -91,6 +91,12 @@
         </dependency>
 
         <!-- https://github.com/Galigator/openllet-->
+        <!-- https://mvnrepository.com/artifact/com.github.galigator.openllet/openllet-core -->
+        <dependency>
+            <groupId>com.github.galigator.openllet</groupId>
+            <artifactId>openllet-core</artifactId>
+            <version>2.6.5</version>
+        </dependency>
         <dependency>
             <groupId>com.github.galigator.openllet</groupId>
             <artifactId>openllet-owlapi</artifactId>

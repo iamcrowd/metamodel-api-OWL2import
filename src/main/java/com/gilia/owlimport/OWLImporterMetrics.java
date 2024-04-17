@@ -1,6 +1,7 @@
 package com.gilia.owlimport;
 
-import static com.gilia.utils.Constants.URI_IMPORT_CONCEPT;
+import static com.gilia.utils.Constants.FRESH_URI_PATHS;
+import static com.gilia.utils.Constants.URI_FRESH;
 import static com.gilia.utils.Utils.*;
 
 import java.util.Calendar;
@@ -227,7 +228,14 @@ public class OWLImporterMetrics {
             this.set("cardinalitiesCount", "KF", converter.getNofCardinalities());
 
             for (Entity entity : metamodel.getEntities()) {
-                if (entity.getName().startsWith(URI_IMPORT_CONCEPT)) {
+                boolean isFresh = false;
+                for (String freshPath : FRESH_URI_PATHS) {
+                    if (entity.getName().startsWith(freshPath)) {
+                        isFresh = true;
+                        break;
+                    }
+                }
+                if (isFresh) {
                     this.add("freshPrimitivesCount", "KF");
                 }
             }

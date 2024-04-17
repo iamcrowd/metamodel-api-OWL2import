@@ -485,15 +485,14 @@ public class OWLImporter {
 
             Set<OWLAxiom> filtered = new HashSet<OWLAxiom>();
 
-            System.out.println("Axioms: ");
+            // System.out.println("Axioms: ");
 
             // iterate each axiom
             for (OWLAxiom axiom : tboxAxioms) {
                 try {
                     // check if pass the filters
                     if (this.filter(axiom)) {
-                        // System.out.println(" " + axiom.toString());
-                        System.out.println("    " + axiom.toString());
+                        // System.out.println("    " + axiom.toString());
 
                         // determine if axiom is of a supported type
                         if (axiom.isOfType(AxiomType.SUBCLASS_OF)) {
@@ -539,7 +538,7 @@ public class OWLImporter {
             }
 
             for (OWLAxiom axiom : filtered) {
-                System.out.println("    (filtered) " + axiom.toString());
+                // System.out.println("    (filtered) " + axiom.toString());
                 this.metrics.add("filteredAxiomsCount", "translation");
             }
 
@@ -618,9 +617,9 @@ public class OWLImporter {
         Collection<OWLSubClassOfAxiom> subClassOfAxioms = new ArrayList<OWLSubClassOfAxiom>();
         subClassOfAxioms = ((OWLDisjointClassesAxiom) axiom).asOWLSubClassOfAxioms();
 
-        subClassOfAxioms.forEach(ax -> {
-            System.out.println("    [DISJOINT SUBCLASES]" + ax.toString());
-        });
+        // subClassOfAxioms.forEach(ax -> {
+        //     System.out.println("    [DISJOINT SUBCLASES]" + ax.toString());
+        // });
 
         if (this.reasoning && subClassOfAxioms.size() > 2)
             return false;
@@ -716,5 +715,9 @@ public class OWLImporter {
             printException("Exception during ontology serialization (toJSON)", e);
             throw new Exception("Exception during ontology serialization.", e);
         }
+    }
+
+    public boolean isMetamodelEmpty() {
+        return this.metamodel.getEntities().isEmpty();
     }
 }

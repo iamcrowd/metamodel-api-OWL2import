@@ -205,6 +205,22 @@ public class Constants {
     public static final String URI_DOM = "http://crowd.fi.uncoma.edu.ar#Dom";
     public static final String URI_RAN = "http://crowd.fi.uncoma.edu.ar#Ran";
 
+    // Fresh URIs paths
+    public static final String[] FRESH_URI_PATHS = {
+        "http://crowd.fi.uncoma.edu.ar#FakeTop",
+        "http://crowd.fi.uncoma.edu.ar#Dom",
+        "http://crowd.fi.uncoma.edu.ar#Ran",
+        "http://crowd.fi.uncoma.edu.ar/union",
+        "http://crowd.fi.uncoma.edu.ar/intersection",
+        "http://crowd.fi.uncoma.edu.ar/forall",
+        "http://crowd.fi.uncoma.edu.ar/exists",
+        "http://crowd.fi.uncoma.edu.ar/dom/forall",
+        "http://crowd.fi.uncoma.edu.ar/dom/exists",
+        "http://crowd.fi.uncoma.edu.ar/negation",
+        "http://crowd.fi.uncoma.edu.ar/negation/exists",
+        "http://crowd.fi.uncoma.edu.ar/negation/forall"
+    };
+
     // Reasoners
 
     public static final String JFACT = "jfact";

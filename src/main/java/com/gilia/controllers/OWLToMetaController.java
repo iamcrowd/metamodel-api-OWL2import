@@ -7,6 +7,7 @@ import com.gilia.owlimport.*;
 import com.gilia.utils.*;
 
 import org.apache.commons.lang3.exception.*;
+import org.apache.jena.atlas.json.JSON;
 import org.everit.json.schema.*;
 import org.json.*;
 import org.json.simple.JSONArray;
@@ -55,6 +56,7 @@ public class OWLToMetaController {
                 result = new JSONObject();
                 JSONObject success = new JSONObject();
                 JSONArray failed = new JSONArray();
+                JSONArray empty = new JSONArray();
                 int index = 0;
                 for (Object ontology : ontologies) {
                     try {
@@ -65,9 +67,14 @@ public class OWLToMetaController {
                         System.out.println("Finished ontology translation: " + getOntologyName(ontology, input, index));
                         System.out.println(
                                 "Starting ontology serialization: " + getOntologyName(ontology, input, index));
-                        success.put(getOntologyName(ontology, input, index), importer.toJSON());
-                        System.out.println(
-                                "Finished ontology serialization: " + getOntologyName(ontology, input, index));
+                        if (importer.isMetamodelEmpty()) {
+                            empty.add(getOntologyName(ontology, input, index));
+                            System.out.println("Finished serialization: Metamodel is empty: " + getOntologyName(ontology, input, index));
+                        } else {
+                            success.put(getOntologyName(ontology, input, index), importer.toJSON());
+                            System.out.println(
+                                    "Finished ontology serialization: " + getOntologyName(ontology, input, index));
+                        }
                         System.out.println("Finished ontology importation: " + getOntologyName(ontology, input, index));
                     } catch (Exception e) {
                         failed.add(getOntologyName(ontology, input, index));
@@ -77,6 +84,7 @@ public class OWLToMetaController {
                 }
                 result.put("success", success);
                 result.put("failed", failed);
+                result.put("empty", empty);
             } else {
                 return new ResponseEntity<>("There is needed at least one ontology.", HttpStatus.BAD_REQUEST);
             }
