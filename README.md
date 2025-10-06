@@ -38,3 +38,5 @@ At the moment, there are two ways of trying the API out. The first one involves 
 - [Naming Package Conventions](https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html)
 
 ## License
+
+This project is licensed under the GNU General Public License v3.0
